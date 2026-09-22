@@ -41,7 +41,14 @@ export function Knowledge({
   const topic = params.get('thema') || 'Alle Themen';
   const role = (params.get('rolle') || 'Alle Rollen') as Role;
   const kind = params.get('format') || 'Alle Formate';
-  const results = searchArticles(query, topic, role, kind);
+  const requestedStatus = params.get('stand');
+  const contentStatus =
+    requestedStatus === 'fach' || requestedStatus === 'demo' ? requestedStatus : 'alle';
+  const results = searchArticles(query, topic, role, kind).filter(
+    (article) =>
+      contentStatus === 'alle' ||
+      (contentStatus === 'fach' ? article.status !== 'demo' : article.status === 'demo'),
+  );
   function filter(key: string, value: string) {
     const next = new URLSearchParams(params);
     next.set(key, value);
@@ -80,6 +87,14 @@ export function Knowledge({
             {['Alle Formate', 'Anleitung', 'Grundlagen', 'Checkliste', 'FAQ'].map((k) => (
               <option key={k}>{k}</option>
             ))}
+          </select>
+        </label>
+        <label>
+          Inhaltsstand
+          <select value={contentStatus} onChange={(e) => filter('stand', e.target.value)}>
+            <option value="alle">Alle Inhalte</option>
+            <option value="fach">Quellenbasierte Fachbeiträge</option>
+            <option value="demo">Demo-Inhalte</option>
           </select>
         </label>
         <a className="button secondary" href="#/wissen">
