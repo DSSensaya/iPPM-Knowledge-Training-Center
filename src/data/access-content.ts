@@ -162,7 +162,7 @@ export const accessArticles: Article[] = [
     ],
     takeaway:
       'Eigenzugriff zuerst sichern, dann Owner übergeben. Ein beschriebener oder begrenzt verifizierter Weg ist keine Freigabe der gesamten Rechte-Matrix.',
-    related: ['faq-role-vs-access'],
+    related: ['faq-role-vs-access', 'guide-save-publish-checkin'],
     knowledge,
   },
   {

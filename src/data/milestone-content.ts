@@ -228,7 +228,7 @@ export const milestoneArticles: Article[] = [
     ],
     takeaway:
       'Lieferliste und Plan aktiv abgleichen; Stichtag und Anfang getrennt prüfen; Zahlungsmeilensteine nur bei auslösender Lieferung verknüpfen.',
-    related: ['faq-milestone-dates', 'guide-project-permissions'],
+    related: ['faq-milestone-dates', 'guide-project-permissions', 'guide-save-publish-checkin'],
     knowledge,
   },
   {

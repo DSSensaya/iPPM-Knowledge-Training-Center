@@ -1,6 +1,7 @@
 import type { Article, LearningPath, Process, Role, Topic } from './types';
 import { accessArticles } from './access-content';
 import { milestoneArticles } from './milestone-content';
+import { savePublishArticles } from './save-publish-content';
 
 export const roles: Role[] = [
   'Alle Rollen',
@@ -23,6 +24,7 @@ export const topics: Topic[] = [
 export const articles: Article[] = [
   ...accessArticles,
   ...milestoneArticles,
+  ...savePublishArticles,
   {
     id: 'ippm-verstehen',
     status: 'demo',

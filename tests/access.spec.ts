@@ -12,10 +12,10 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
   });
   await page.goto('/');
   await page.getByRole('link', { name: 'Zugriffsrechte', exact: true }).click();
-  await expect(page.locator('.article-card')).toHaveCount(2);
+  await expect(page.locator('.article-card')).toHaveCount(3);
   for (const role of ['pm', 'tm', 'ilsm']) {
     await page.getByRole('combobox', { name: 'Ihre Rolle', exact: true }).selectOption(role);
-    await expect(page.locator('.article-card')).toHaveCount(2);
+    await expect(page.locator('.article-card')).toHaveCount(3);
   }
   await page.getByLabel('Wissensbasis durchsuchen').fill('2.11');
   await page.getByLabel('Wissensbasis durchsuchen').press('Enter');

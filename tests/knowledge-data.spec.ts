@@ -146,7 +146,7 @@ test('v0.5 source paths and recorded file hashes match the local originals', () 
 
 test('v0.5 content states, revisions and review evidence remain distinct', () => {
   expect(articles.filter((a) => a.status === 'demo')).toHaveLength(9);
-  expect(articles.filter((a) => a.status === 'source-draft')).toHaveLength(4);
+  expect(articles.filter((a) => a.status === 'source-draft')).toHaveLength(5);
   for (const article of articles) {
     if (article.status === 'demo') {
       expect(article.knowledge).toBeUndefined();
@@ -378,8 +378,13 @@ test('search aliases and legacy filters remain independent of release or learnin
   for (const query of ['Project Permissions', '2.11', 'TM', 'R1-06', 'System Overview']) {
     expect(searchArticles(query).some((a) => a.id === 'guide-project-permissions')).toBeTruthy();
   }
-  for (const role of ['pm', 'tm', 'ilsm'] as const)
-    expect(searchArticles('Zugriffsrechte', 'Alle Themen', role)).toHaveLength(2);
+  for (const role of ['pm', 'tm', 'ilsm'] as const) {
+    const matches = searchArticles('Zugriffsrechte', 'Alle Themen', role);
+    expect(matches).toHaveLength(3);
+    expect(matches.map((article) => article.id)).toEqual(
+      expect.arrayContaining(['guide-project-permissions', 'faq-role-vs-access']),
+    );
+  }
   expect(
     searchArticles('', 'Alle Themen', 'Projektleitung').every((a) => !a.knowledge),
   ).toBeTruthy();
