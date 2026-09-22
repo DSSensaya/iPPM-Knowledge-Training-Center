@@ -55,9 +55,28 @@ export function KnowledgeOverview({ article }: { article: Article }) {
               `${r.subject.id} – ${scopeItems.find((s) => s.id === r.subject.id)?.title} (${r.stageId})`,
           )
           .join('; ')}
-        . Die Zuordnung belegt Umfang, keine technische Reife. Owner-Wechsel berührt mehrere
-        Scope-Positionen nur teilweise.
+        . Die Zuordnung belegt Umfang, keine technische Reife. Teilbezüge sind bei den Funktionen
+        ausgewiesen.
       </p>
+      {data.links.length > 0 && (
+        <>
+          <h3>Fachliche Abhängigkeiten</h3>
+          <ul>
+            {data.links.map((link) => (
+              <li key={link.id}>
+                <strong>
+                  {link.relation === 'feeds'
+                    ? 'Liefert Eingangsdaten'
+                    : 'Benötigt als Voraussetzung'}
+                </strong>
+                {link.condition && <span className="context-line">Wenn: {link.condition}</span>}
+                <p>{link.statement}</p>
+                <Evidence refs={link.evidence} />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       <p>
         Geprüfte Zielumgebung: nicht angegeben. Die technischen Bewertungen beziehen sich auf die
         jeweils begrenzten Quellenkontexte.
@@ -147,8 +166,8 @@ export function KnowledgeEvidence({ article }: { article: Article }) {
       <section id="nachweise" tabIndex={-1}>
         <h2>Schulungsbezug und Quellenbewertungen</h2>
         <p>
-          Die Aussagen bleiben nach Quelle und Reichweite getrennt. Ein bestandener Einzelweg ändert
-          weder den offenen Build-Team-Konflikt noch die Freigabe dieses Inhalts.
+          Die Aussagen bleiben nach Quelle und Reichweite getrennt. Ein beschriebener oder geübter
+          Einzelweg gibt diesen Center-Inhalt nicht fachlich frei.
         </p>
         <details className="knowledge-details">
           <summary>SB1-Zuordnung und abweichende Schulungswege</summary>
@@ -203,10 +222,7 @@ export function KnowledgeEvidence({ article }: { article: Article }) {
               </li>
             ))}
           </ul>
-          <p>
-            Für diesen Durchstich ist keine gesonderte spätere Release-Zuordnung bestätigt.
-            Historische Planung ersetzt weder aktuellen Scope noch Schulungsnachweis.
-          </p>
+          <p>Historische Planung ersetzt weder aktuellen Scope noch Schulungsnachweis.</p>
         </details>
       </section>
       <section id="trainerhinweise" tabIndex={-1}>

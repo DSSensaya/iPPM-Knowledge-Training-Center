@@ -1,4 +1,4 @@
-// Additive v0.3 knowledge model. Browser progress continues to reference Article IDs only.
+// Additive knowledge model. Browser progress continues to reference Article IDs only.
 export type RoleId = 'pm' | 'pmo' | 'tm' | 'ilsm';
 export interface EvidenceRef {
   sourceId: string;
@@ -87,6 +87,15 @@ export interface Issue {
   limitation: string;
   evidence: EvidenceRef[];
 }
+export interface KnowledgeLink {
+  id: string;
+  from: SubjectRef;
+  to: SubjectRef;
+  relation: 'feeds' | 'requires';
+  statement: string;
+  condition?: string;
+  evidence: EvidenceRef[];
+}
 export interface Procedure {
   id: string;
   title: string;
@@ -105,6 +114,7 @@ export interface KnowledgeContext {
   functionIds: string[];
   stepIds: string[];
   issueIds: string[];
+  linkIds?: string[];
   evidence: EvidenceRef[];
   procedures: Procedure[];
   trainer: {

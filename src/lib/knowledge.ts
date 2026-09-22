@@ -2,6 +2,7 @@ import {
   assessments,
   functions,
   issues,
+  knowledgeLinks,
   processSteps,
   releaseAssignments,
   roleCatalog,
@@ -39,6 +40,7 @@ export function knowledgeFor(article: Article) {
     functions: functions.filter((f) => k?.functionIds.includes(f.id)),
     steps: processSteps.filter((s) => k?.stepIds.includes(s.id)),
     issues: issues.filter((i) => k?.issueIds.includes(i.id)),
+    links: knowledgeLinks.filter((link) => k?.linkIds?.includes(link.id)),
     assessments: forSubjects(assessments, subjects),
     training: forSubjects(trainingAssignments, subjects),
     releases: forSubjects(releaseAssignments, subjects),
@@ -56,6 +58,7 @@ export function articleEvidence(article: Article): EvidenceRef[] {
       ...data.assessments,
       ...data.training,
       ...data.releases,
+      ...data.links,
     ].flatMap((r) => r.evidence),
   ];
   return [...new Map(refs.map((r) => [JSON.stringify(r), r])).values()];
@@ -87,6 +90,7 @@ export function knowledgeSearchText(article: Article) {
       ...p.checkQuestions,
     ]),
     ...data.issues.flatMap((i) => [i.title, i.limitation]),
+    ...data.links.flatMap((link) => [link.statement, link.condition ?? '']),
     'SB1 Schulungsblock 1',
   ].join(' ');
 }

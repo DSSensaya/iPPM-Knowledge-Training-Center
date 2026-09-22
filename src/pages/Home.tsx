@@ -1,5 +1,5 @@
 import { ArrowRight, BookOpen, GraduationCap, Network } from 'lucide-react';
-import { articles, learningPaths, topics } from '../data/content';
+import { articles, learningPaths, recommendedArticleIds, topics } from '../data/content';
 import type { Progress } from '../lib/storage';
 import { ArticleCard, ProgressBar, SearchForm } from '../components/ui';
 
@@ -97,7 +97,7 @@ export default function Home({
             </a>
           </div>
           <div className="cards two">
-            {['statusbericht', 'projekt-anlegen'].map((id) => {
+            {recommendedArticleIds.map((id) => {
               const article = articles.find((a) => a.id === id)!;
               return (
                 <ArticleCard

@@ -2,6 +2,7 @@ import type {
   Assessment,
   FunctionDefinition,
   Issue,
+  KnowledgeLink,
   ProcessStep,
   ReleaseAssignment,
   RoleId,
@@ -46,7 +47,7 @@ export const roleLabel = (id: string) => roleCatalog.find((r) => r.id === id)?.l
 export const processCatalog = [
   {
     id: 'projektabwicklung',
-    title: 'Projektabwicklung – Ausschnitt Definition',
+    title: 'Projektabwicklung – Ausschnitte Definition und Planung',
     evidence: e('B', '§3.5 Fachlicher Soll-Ablauf; §3.6.6 / §3.6.7; §3.8.4 / §3.9.4'),
   },
 ];
@@ -57,6 +58,11 @@ export const stages = [
   { id: 'R1B', releaseId: 'release-1' },
 ];
 export const scopeItems: ScopeItem[] = [
+  {
+    id: 'R1-03',
+    title: 'Projektinformationen, Scope und eingebettete Project-Site-Listen',
+    evidence: e('S', '02_SCOPE_ID_MASTER!A4:L4', 'R1-03'),
+  },
   {
     id: 'R1-06',
     title: 'Einzelberechtigungen (Project Permissions)',
@@ -72,6 +78,16 @@ export const scopeItems: ScopeItem[] = [
     title: 'Rollenprofile und Berechtigungskonzept',
     evidence: e('S', '02_SCOPE_ID_MASTER!A24:L24', 'R1-23'),
   },
+  {
+    id: 'R1-08',
+    title: 'Liefer-, Zahlungs- und weitere Meilensteine sowie Reviews',
+    evidence: e('S', '02_SCOPE_ID_MASTER!A9:L9', 'R1-08'),
+  },
+  {
+    id: 'R1-10',
+    title: 'Ansicht 10 Phasen- und Meilensteinplan im MS Project Client',
+    evidence: e('S', '02_SCOPE_ID_MASTER!A11:L11', 'R1-10'),
+  },
 ];
 const context = {
   projectTypes: ['Contract Execution', 'System Delivery', 'ILS Delivery'],
@@ -80,6 +96,101 @@ const context = {
   environment: null,
 };
 export const functions: FunctionDefinition[] = [
+  {
+    id: 'fn-deliverables',
+    title: 'Liefergegenstände einzeln erfassen',
+    outcome:
+      'Der vereinbarte Projektumfang und die einzelnen Liefergegenstände sind für die Terminplanung nachvollziehbar.',
+    aliases: ['List of Deliverables', 'PDP Scope', 'Liefergegenstand'],
+    roleIds: ['pm'],
+    context: {
+      projectTypes: ['Contract Execution'],
+      levels: ['L1'],
+      tools: ['PWA', 'PDP Scope', 'List of Deliverables'],
+      environment: null,
+    },
+    scopeLinks: [
+      {
+        scopeId: 'R1-03',
+        coverage: 'partial',
+        evidence: e('S', '02_SCOPE_ID_MASTER!A4:L4', 'R1-03'),
+      },
+    ],
+    evidence: e('B', '§3.6.2 Projektumfang festlegen'),
+  },
+  {
+    id: 'fn-delivery-milestones',
+    title: 'Liefermeilensteine planen',
+    outcome:
+      'Für relevante Liefergegenstände sind Plantermin, Stichtag und Meilensteintyp nachvollziehbar gepflegt.',
+    aliases: ['Liefermeilenstein', 'Ext.Del', 'Stichtag', 'Ansicht 10'],
+    roleIds: ['pm'],
+    context: {
+      projectTypes: ['Contract Execution'],
+      levels: ['L1'],
+      tools: ['MS Project Client', 'Ansicht 10 Phasen- und Meilensteinplan'],
+      environment: null,
+    },
+    scopeLinks: [
+      {
+        scopeId: 'R1-08',
+        coverage: 'partial',
+        evidence: e('F', 'R1 Funktionsmatrix!A14:J14', 'FS-09'),
+      },
+      {
+        scopeId: 'R1-10',
+        coverage: 'partial',
+        evidence: e('F', 'R1 Funktionsmatrix!A16:J16', 'FS-11'),
+      },
+    ],
+    evidence: e('B', '§4.5.2 Schritt-für-Schritt: Liefermeilensteine planen'),
+  },
+  {
+    id: 'fn-payment-terms',
+    title: 'Zahlungsbedingungen für die Planung erfassen',
+    outcome: 'Zahlungsfristen und auslösende Bedingungen sind im Vertragskontext nachvollziehbar.',
+    aliases: ['PDP Contract', 'Terms of Payment', 'Zahlungsfrist', 'Vertragsdaten'],
+    roleIds: ['pm'],
+    context: {
+      projectTypes: ['Contract Execution'],
+      levels: ['L1'],
+      tools: ['PWA', 'PDP Contract'],
+      environment: null,
+    },
+    scopeLinks: [
+      {
+        scopeId: 'R1-03',
+        coverage: 'partial',
+        evidence: e('S', '02_SCOPE_ID_MASTER!A4:L4', 'R1-03'),
+      },
+    ],
+    evidence: e('B', '§3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen'),
+  },
+  {
+    id: 'fn-payment-milestones',
+    title: 'Zahlungsmeilensteine begründet planen',
+    outcome:
+      'Zahlungstermine sind mit Liefertermin und Zahlungsfrist oder mit einer begründeten direkten Terminierung hinterlegt.',
+    aliases: ['Zahlungsmeilenstein', 'Ext.Pay', 'Terms of Payment', 'Ansicht 30'],
+    roleIds: ['pm'],
+    context: {
+      projectTypes: ['Contract Execution'],
+      levels: ['L1'],
+      tools: ['PDP Contract', 'MS Project Client', 'Ansicht 10', 'Ansicht 30'],
+      environment: null,
+    },
+    scopeLinks: [
+      {
+        scopeId: 'R1-08',
+        coverage: 'partial',
+        evidence: e('F', 'R1 Funktionsmatrix!A14:J14', 'FS-09'),
+      },
+    ],
+    evidence: e(
+      'B',
+      '§3.6.3 Vertragsdaten einpflegen; §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen',
+    ),
+  },
   {
     id: 'fn-project-permissions',
     title: 'Zugriffsrechte gezielt vergeben',
@@ -138,6 +249,67 @@ export const functions: FunctionDefinition[] = [
   },
 ];
 export const processSteps: ProcessStep[] = [
+  ...(
+    [
+      {
+        number: '2.2',
+        title: 'Projektumfang festlegen',
+        phase: 'Definition',
+        functionId: 'fn-deliverables',
+        row: 6,
+        section: '3.6.2',
+        input:
+          'PMO hat das Kundenprojekt bereitgestellt; Leistungsumfang und Liefergegenstände sind fachlich geklärt.',
+        output: 'Scope und einzelne Liefergegenstände sind in der PDP Scope erfasst.',
+      },
+      {
+        number: '2.5',
+        title: 'Vertragsdaten einpflegen',
+        phase: 'Definition',
+        functionId: 'fn-payment-terms',
+        row: 9,
+        section: '3.6.3',
+        input: 'Vereinbarte Zahlungsbedingungen und Vertragsangaben liegen vor.',
+        output: 'Zahlungsbedingungen und Fristen sind in der PDP Contract nachvollziehbar.',
+      },
+      {
+        number: '3.1',
+        title: 'Liefermeilensteine planen',
+        phase: 'Planung',
+        functionId: 'fn-delivery-milestones',
+        row: 20,
+        section: '4.5.2',
+        input:
+          'Liefergegenstände sind in der List of Deliverables erfasst; Termine sind abgestimmt.',
+        output: 'Liefermeilensteine sind zugeordnet, terminiert und klassifiziert.',
+      },
+      {
+        number: '3.2',
+        title: 'Zahlungsmeilensteine planen',
+        phase: 'Planung',
+        functionId: 'fn-payment-milestones',
+        row: 21,
+        section: '4.5.3',
+        input:
+          'Zahlungsbedingungen und Fristen liegen vor; begründende Liefermeilensteine sind geplant, soweit zutreffend.',
+        output: 'Zahlungsmeilensteine sind verknüpft oder begründet direkt terminiert.',
+      },
+    ] as const
+  ).map((s) => ({
+    id: `step-${s.number.replace('.', '-')}`,
+    processId: 'projektabwicklung',
+    number: s.number,
+    title: s.title,
+    phase: s.phase,
+    roleId: 'pm' as const,
+    functionIds: [s.functionId],
+    input: s.input,
+    output: s.output,
+    evidence: [
+      ...e('T', `Release1-Matrix!A${s.row}:Q${s.row}`, s.number),
+      ...e('B', `§${s.section} ${s.title}`),
+    ],
+  })),
   {
     id: 'step-2-6',
     processId: 'projektabwicklung',
@@ -188,6 +360,24 @@ export const processSteps: ProcessStep[] = [
       ...e('B', `§${s.section} ${s.title}`),
     ],
   })),
+];
+export const processViews = [
+  {
+    id: 'access',
+    title: 'SB1: Team und Zugriff',
+    description:
+      'Quellenbasierter Entwurf · Ausschnitt aus der Phase Definition, keine vollständige oder lineare Prozessfolge. Owner-Übergabe und Zugriffsverwaltung gelten für unterschiedliche Projektkontexte.',
+    stepIds: ['step-2-6', 'step-2-7', 'step-2-11', 'step-2-15'],
+    articleId: 'guide-project-permissions',
+  },
+  {
+    id: 'milestones',
+    title: 'SB1: Liefergegenstände und Meilensteine',
+    description:
+      'Quellenbasierter Entwurf · Die Definition liefert Eingaben für die spätere Planung. Die Zusammenstellung zeigt fachliche Abhängigkeiten, keinen vollständigen linearen Prozess.',
+    stepIds: ['step-2-2', 'step-2-5', 'step-3-1', 'step-3-2'],
+    articleId: 'guide-deliverables-milestones',
+  },
 ];
 export const releaseAssignments: ReleaseAssignment[] = [
   ...scopeItems.map((s) => ({
@@ -250,7 +440,10 @@ export const issues: Issue[] = [
     id: 'issue-f-r1-open-07',
     title: 'Gesamte Rollen- und Rechtematrix bleibt offen',
     status: 'VERIFIKATION ERFORDERLICH',
-    subjects: functions.map((f) => ({ kind: 'function', id: f.id })),
+    subjects: ['fn-project-permissions', 'fn-owner-change', 'fn-build-team'].map((id) => ({
+      kind: 'function',
+      id,
+    })),
     limitation:
       'Der geübte Owner-/Permissions-Weg belegt keine vollständige Rechtefreigabe. Rollenlisten, Build Team und RBS müssen im vorgesehenen Kontext geprüft werden.',
     evidence: e('F', 'Klärungsbedarf!A11:D11', 'R1-OPEN-07'),
@@ -297,8 +490,123 @@ export const issues: Issue[] = [
       'Erfolgreiche TTT-Schritte in Integration sind keine Abnahme der Produktiv- oder Schulungsumgebung. Der genaue geprüfte Systemstand ist hier nicht bekannt.',
     evidence: e('F', 'Klärungsbedarf!A16:D16', 'R1-OPEN-12'),
   },
+  {
+    id: 'issue-f-r1-open-08',
+    title: 'Lieferliste und Meilensteine technisch abgleichen',
+    status: 'VERIFIKATION ERFORDERLICH',
+    subjects: ['fn-deliverables', 'fn-delivery-milestones'].map((id) => ({ kind: 'function', id })),
+    limitation:
+      'Das Handbuch beschreibt einen fachlichen Abgleich zwischen List of Deliverables und Liefermeilensteinen. Eine automatische Synchronisierung oder der Umgang mit großen Lieferlisten ist damit nicht nachgewiesen. Beide Einträge einzeln vergleichen.',
+    evidence: [
+      ...e('F', 'R1 Funktionsmatrix!A7:J8 und A14:J14', 'R1-OPEN-08'),
+      ...e('T', 'Release1-Matrix!A6:Q6'),
+      ...e(
+        'B',
+        '§3.6.2 Projektumfang festlegen; §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen',
+      ),
+    ],
+  },
+  {
+    id: 'issue-payment-terms-context',
+    title: 'Vertragsdaten im vorgesehenen Kontext prüfen',
+    status: 'FACHLICHER ABGLEICH ERFORDERLICH',
+    subjects: [{ kind: 'function', id: 'fn-payment-terms' }],
+    limitation:
+      'Der Handbuchentwurf beschreibt die Eingabe der Zahlungsbedingungen. Die Schulungsmatrix verlangt eine klare Abgrenzung einzelner Termin- und Vertragsfelder; das Center überprüft weder Vertragsinhalte noch wirksame Eingaberechte.',
+    evidence: [
+      ...e('B', '§3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen'),
+      ...e('T', 'Release1-Matrix!A9:Q9'),
+    ],
+  },
+  {
+    id: 'issue-milestone-client',
+    title: 'Ausgangsplan und Client vor der Übung prüfen',
+    status: 'VERIFIKATION ERFORDERLICH',
+    subjects: ['fn-delivery-milestones', 'fn-payment-milestones'].map((id) => ({
+      kind: 'function',
+      id,
+    })),
+    limitation:
+      'Ansicht und Planvorlage waren laut Funktionsmatrix nur teilweise verifiziert. Der aktuelle Schulungs- oder Produktivstand des Clients ist hier nicht nachgewiesen. Einen geeigneten Schulungsplan und die Berechtigungen vor der Übung prüfen.',
+    evidence: e('F', 'R1 Funktionsmatrix!A14:J16', 'FS-09/FS-11'),
+  },
 ];
 export const assessments: Assessment[] = [
+  {
+    id: 'deliverables-technical',
+    subject: { kind: 'function', id: 'fn-deliverables' },
+    dimension: 'technical',
+    originalValue: 'teilweise verifiziert',
+    value: 'partial',
+    scope:
+      'PDP-Grundpflege und Project-Site-Listen nur teilweise verifiziert; große Lieferlisten und Meilensteinzuordnung offen.',
+    environment: 'TTT-Kontext; Zielumgebung nicht angegeben',
+    issueIds: ['issue-f-r1-open-08'],
+    evidence: e('F', 'R1 Funktionsmatrix!A7:J8', 'FS-03a/FS-03b'),
+  },
+  {
+    id: 'milestones-technical',
+    subject: { kind: 'function', id: 'fn-delivery-milestones' },
+    dimension: 'technical',
+    originalValue: 'teilweise verifiziert',
+    value: 'partial',
+    scope:
+      'Meilensteinplanung und Ansicht 10 selbst geübt; Liefergegenstandsbezug, Ausgangsplan und Fachregeln bleiben begrenzt.',
+    environment: 'TTT-Kontext; Zielumgebung nicht angegeben',
+    issueIds: ['issue-f-r1-open-08', 'issue-milestone-client'],
+    evidence: e('F', 'R1 Funktionsmatrix!A14:J16', 'FS-09/FS-11'),
+  },
+  {
+    id: 'payment-terms-technical',
+    subject: { kind: 'function', id: 'fn-payment-terms' },
+    dimension: 'technical',
+    originalValue: 'teilweise verifiziert',
+    value: 'partial',
+    scope:
+      'PDP-Grundpflege im TTT-Kontext; konkrete Vertragsangaben und Feldabgrenzungen sind im Zielkontext zu prüfen.',
+    environment: 'TTT-Kontext; Zielumgebung nicht angegeben',
+    issueIds: ['issue-payment-terms-context'],
+    evidence: e('F', 'R1 Funktionsmatrix!A7:J7', 'FS-03a'),
+  },
+  {
+    id: 'payment-technical',
+    subject: { kind: 'function', id: 'fn-payment-milestones' },
+    dimension: 'technical',
+    originalValue: 'teilweise verifiziert',
+    value: 'partial',
+    scope:
+      'Meilensteinplanung im abgegrenzten TTT-Kontext; die beiden Zahlungsvarianten des Handbuchentwurfs sind kein separat protokollierter Systemtest.',
+    environment: 'TTT-Kontext; Zielumgebung nicht angegeben',
+    issueIds: ['issue-milestone-client'],
+    evidence: e('F', 'R1 Funktionsmatrix!A14:J14', 'FS-09'),
+  },
+  ...(
+    [
+      'fn-deliverables',
+      'fn-payment-terms',
+      'fn-delivery-milestones',
+      'fn-payment-milestones',
+    ] as const
+  ).map((id) => ({
+    id: `${id}-description`,
+    subject: { kind: 'function' as const, id },
+    dimension: 'procedure-description' as const,
+    originalValue: 'Im Handbuchentwurf konkret beschrieben',
+    value: 'described-draft' as const,
+    scope: 'Aktueller vorgesehener SB1-Bedienweg; kein zusätzlicher Ausführungsnachweis.',
+    environment: null,
+    issueIds: [],
+    evidence: e(
+      'B',
+      id === 'fn-deliverables'
+        ? '§3.6.2 Projektumfang festlegen'
+        : id === 'fn-payment-terms'
+          ? '§3.6.3 Vertragsdaten einpflegen'
+          : id === 'fn-delivery-milestones'
+            ? '§4.5.2 Schritt-für-Schritt: Liefermeilensteine planen'
+            : '§4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen',
+    ),
+  })),
   {
     id: 'permissions-technical',
     subject: { kind: 'function', id: 'fn-project-permissions' },
@@ -348,18 +656,20 @@ export const assessments: Assessment[] = [
       ),
     }));
   }),
-  ...functions.map((f) => ({
-    id: `${f.id}-description`,
-    subject: { kind: 'function' as const, id: f.id },
-    dimension: 'procedure-description' as const,
-    originalValue: 'Im Handbuchentwurf konkret beschrieben',
-    value: 'described-draft' as const,
-    scope:
-      'Beschreibungsstand des aktuellen vorgesehenen SB1-Wegs; kein zusätzlicher Ausführungsnachweis.',
-    environment: null,
-    issueIds: f.id === 'fn-build-team' ? ['issue-build-sync'] : [],
-    evidence: f.evidence,
-  })),
+  ...functions
+    .filter((f) => ['fn-project-permissions', 'fn-owner-change', 'fn-build-team'].includes(f.id))
+    .map((f) => ({
+      id: `${f.id}-description`,
+      subject: { kind: 'function' as const, id: f.id },
+      dimension: 'procedure-description' as const,
+      originalValue: 'Im Handbuchentwurf konkret beschrieben',
+      value: 'described-draft' as const,
+      scope:
+        'Beschreibungsstand des aktuellen vorgesehenen SB1-Wegs; kein zusätzlicher Ausführungsnachweis.',
+      environment: null,
+      issueIds: f.id === 'fn-build-team' ? ['issue-build-sync'] : [],
+      evidence: f.evidence,
+    })),
 ];
 
 export const assessmentLabels: Record<Assessment['dimension'], string> = {
@@ -369,3 +679,43 @@ export const assessmentLabels: Record<Assessment['dimension'], string> = {
   training: 'Schulungseignung laut Quelle',
   'procedure-description': 'Beschreibungsstand',
 };
+
+export const knowledgeLinks: KnowledgeLink[] = [
+  {
+    id: 'link-terms-payment',
+    from: { kind: 'function', id: 'fn-payment-terms' },
+    to: { kind: 'function', id: 'fn-payment-milestones' },
+    relation: 'feeds',
+    statement:
+      'Die in der PDP Contract dokumentierten Zahlungsbedingungen und Fristen liefern den fachlichen Eingang für Zahlungsmeilensteine.',
+    evidence: e(
+      'B',
+      '§3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen; §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen',
+    ),
+  },
+  {
+    id: 'link-deliverables-delivery',
+    from: { kind: 'function', id: 'fn-deliverables' },
+    to: { kind: 'function', id: 'fn-delivery-milestones' },
+    relation: 'feeds',
+    statement:
+      'Die einzeln erfassten Liefergegenstände bilden die fachliche Grundlage der Liefermeilensteine. Ein Abgleich ist erforderlich; die Quellen belegen keine automatische Synchronisierung.',
+    evidence: e(
+      'B',
+      '§3.6.2 Projektumfang festlegen; §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen',
+    ),
+  },
+  {
+    id: 'link-contract-payment',
+    from: { kind: 'function', id: 'fn-payment-milestones' },
+    to: { kind: 'function', id: 'fn-delivery-milestones' },
+    relation: 'requires',
+    condition: 'Zahlung wird durch eine Lieferung ausgelöst',
+    statement:
+      'Liefermeilenstein und Zahlungsfrist aus den Vertragsdaten müssen fachlich zusammenpassen. Ohne auslösende Lieferung ist eine begründete direkte Terminierung zulässig.',
+    evidence: e(
+      'B',
+      '§3.6.3 Vertragsdaten einpflegen; §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen',
+    ),
+  },
+];

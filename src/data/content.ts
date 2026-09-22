@@ -1,5 +1,6 @@
 import type { Article, LearningPath, Process, Role, Topic } from './types';
 import { accessArticles } from './access-content';
+import { milestoneArticles } from './milestone-content';
 
 export const roles: Role[] = [
   'Alle Rollen',
@@ -21,6 +22,7 @@ export const topics: Topic[] = [
 ];
 export const articles: Article[] = [
   ...accessArticles,
+  ...milestoneArticles,
   {
     id: 'ippm-verstehen',
     title: 'iPPM verstehen: vom Projekt zum Portfolio',
@@ -329,6 +331,10 @@ export const articles: Article[] = [
     related: ['meilensteine', 'statusbericht'],
   },
 ];
+export const recommendedArticleIds = [
+  'guide-deliverables-milestones',
+  'guide-project-permissions',
+] as const;
 
 export const learningPaths: LearningPath[] = [
   {
@@ -468,7 +474,7 @@ export const faqs = [
   {
     question: 'Sind die Inhalte offizielle TKMS-ATLAS-Vorgaben?',
     answer:
-      'Nein. Die bestehenden Demo-Inhalte bleiben Beispiele. Die v0.3-Beiträge zu Zugriffsrechten und Owner-Wechsel sind quellenbasierte Entwürfe mit sichtbaren Nachweisen und Einschränkungen. Sie sind keine freigegebenen Arbeitsanweisungen; vor produktiver Verwendung ist eine fachliche Prüfung erforderlich.',
+      'Nein. Die bestehenden Demo-Inhalte bleiben Beispiele. Die Beiträge zu Zugriff sowie Liefergegenständen und Meilensteinen sind quellenbasierte Entwürfe mit sichtbaren Nachweisen und Einschränkungen. Sie sind keine freigegebenen Arbeitsanweisungen; vor produktiver Verwendung ist eine fachliche Prüfung erforderlich.',
   },
   {
     question: 'Wie speichere ich meinen Lernfortschritt?',

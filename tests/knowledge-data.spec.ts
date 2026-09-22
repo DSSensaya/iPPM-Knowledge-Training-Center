@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { articles, learningPaths, processes } from '../src/data/content';
+import { articles, learningPaths, processes, recommendedArticleIds } from '../src/data/content';
 import {
   functions,
   processSteps,
@@ -10,6 +10,8 @@ import {
   roleCatalog,
   assessments,
   issues,
+  knowledgeLinks,
+  processViews,
   releaseAssignments,
   trainingAssignments,
   trainingBlocks,
@@ -60,6 +62,8 @@ test('curated knowledge has unique IDs and complete source and relationship refe
     trainingBlocks,
     sources,
     procedures,
+    knowledgeLinks,
+    processViews,
   ])
     unique(items);
   for (const s of sources) expect(s.sha256).toMatch(/^[A-F0-9]{64}$/);
@@ -88,6 +92,15 @@ test('curated knowledge has unique IDs and complete source and relationship refe
     i.subjects.forEach(subject);
     evidence(i.evidence);
   }
+  for (const link of knowledgeLinks) {
+    subject(link.from);
+    subject(link.to);
+    evidence(link.evidence);
+  }
+  for (const view of processViews) {
+    has(articles, view.articleId);
+    view.stepIds.forEach((id) => has(processSteps, id));
+  }
   for (const r of releaseAssignments) {
     subject(r.subject);
     has(stages, r.stageId);
@@ -104,6 +117,7 @@ test('curated knowledge has unique IDs and complete source and relationship refe
     a.knowledge.functionIds.forEach((id) => has(functions, id));
     a.knowledge.stepIds.forEach((id) => has(processSteps, id));
     a.knowledge.issueIds.forEach((id) => has(issues, id));
+    a.knowledge.linkIds?.forEach((id) => has(knowledgeLinks, id));
     a.roles.forEach((id) => has(roleCatalog, id));
     for (const p of a.knowledge.procedures) {
       has(functions, p.functionId);
@@ -114,6 +128,48 @@ test('curated knowledge has unique IDs and complete source and relationship refe
   }
   learningPaths.forEach((p) => p.lessons.forEach((id) => has(articles, id)));
   processes.forEach((p) => p.phases.forEach((s) => has(articles, s.article)));
+  recommendedArticleIds.forEach((id) => has(articles, id));
+});
+
+test('v0.4 keeps delivery and payment variants, scope, training and technical evidence distinct', () => {
+  const guide = articles.find((a) => a.id === 'guide-deliverables-milestones')!;
+  const data = knowledgeFor(guide);
+  expect(guide.knowledge?.stepIds).toEqual(['step-2-2', 'step-2-5', 'step-3-1', 'step-3-2']);
+  expect(data.training.filter((t) => t.included).map((t) => t.subject.id)).toEqual(
+    guide.knowledge?.stepIds,
+  );
+  expect(data.links.map((link) => link.id)).toEqual([
+    'link-terms-payment',
+    'link-deliverables-delivery',
+    'link-contract-payment',
+  ]);
+  expect(data.links.find((link) => link.id === 'link-contract-payment')?.condition).toBe(
+    'Zahlung wird durch eine Lieferung ausgelöst',
+  );
+  const payment = guide.knowledge!.procedures.find((p) => p.id === 'procedure-payment-milestones')!;
+  expect(
+    payment.actions.some((a) => a.text.includes('keine künstliche Vorgänger-Verknüpfung')),
+  ).toBeTruthy();
+  expect(
+    payment.actions.some((a) => a.text.includes('Zahlungsfrist als Zeitabstand')),
+  ).toBeTruthy();
+  expect(
+    data.assessments
+      .filter((a) => a.dimension === 'technical')
+      .every((a) => a.value === 'partial' && a.evidence[0].sourceId === 'F'),
+  ).toBeTruthy();
+  expect(
+    data.assessments
+      .filter((a) => a.dimension === 'procedure-description')
+      .every((a) => a.value === 'described-draft' && a.evidence[0].sourceId === 'B'),
+  ).toBeTruthy();
+  expect(data.releases.filter((r) => r.basis === 'current-scope').map((r) => r.subject.id)).toEqual(
+    ['R1-03', 'R1-08', 'R1-10'],
+  );
+  expect(data.issues.some((i) => i.id === 'issue-f-r1-open-08')).toBeTruthy();
+  expect(learningPaths.flatMap((p) => p.lessons)).not.toContain(guide.id);
+  expect(searchArticles('Ext.Pay').some((a) => a.id === guide.id)).toBeTruthy();
+  expect(searchArticles('3.2', 'Alle Themen', 'pm').some((a) => a.id === guide.id)).toBeTruthy();
 });
 
 test('new evidence preserves conflicting training statements and bounded technical evidence', () => {
