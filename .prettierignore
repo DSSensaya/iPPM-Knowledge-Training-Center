@@ -1,0 +1,7 @@
+DESIGN.md
+package-lock.json
+node_modules
+dist
+.npm-cache
+test-results
+playwright-report

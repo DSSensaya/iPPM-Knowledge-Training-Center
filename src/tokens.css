@@ -1,0 +1,18 @@
+:root {
+  --ink: #1a1a1a;
+  --dark: #303030;
+  --white: #ffffff;
+  --base: #f4f4f4;
+  --hover: #e6e6e6;
+  --active: #d1d1d1;
+  --muted: #5f5f5f;
+  --steel-light: #c2c2c2;
+  --neutral-70: #5f5f5f;
+  --signal: #fdee66;
+  --signal-dark: #fffa94;
+  --success: #52843d;
+  --error: #c42b2b;
+  --warning: #f9a800;
+  --font-body: 'TKMS', Arial, sans-serif;
+  --font-heading: 'TKMS Headline', Arial, sans-serif;
+}
