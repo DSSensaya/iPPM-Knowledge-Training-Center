@@ -258,7 +258,7 @@ export default function App() {
           <div className="local-status">
             <Monitor size={16} aria-hidden="true" />
             <span>Lokal verfügbar</span>
-            <span className="prototype-label">MVP · Demo</span>
+            <span className="prototype-label">v0.3</span>
           </div>
         </header>
         <main id="main" ref={main} tabIndex={-1}>
@@ -271,7 +271,7 @@ export default function App() {
         </main>
         <footer>
           <span>iPPM Knowledge & Training Center</span>
-          <span>Demonstrationsinhalte · Keine freigegebenen Arbeitsanweisungen</span>
+          <span>Demo-Inhalte und Quellenentwürfe · Keine freigegebenen Arbeitsanweisungen</span>
           <a href="#/hilfe">
             Über diese Plattform
             <ArrowRight size={14} />

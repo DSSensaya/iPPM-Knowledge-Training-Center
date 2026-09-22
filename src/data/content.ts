@@ -1,10 +1,15 @@
 import type { Article, LearningPath, Process, Role, Topic } from './types';
+import { accessArticles } from './access-content';
 
 export const roles: Role[] = [
   'Alle Rollen',
   'Projektleitung',
   'Projektteam',
   'Portfoliomanagement',
+  'pm',
+  'pmo',
+  'tm',
+  'ilsm',
 ];
 export const topics: Topic[] = [
   'Grundlagen',
@@ -12,8 +17,10 @@ export const topics: Topic[] = [
   'Status & Reporting',
   'Ressourcen',
   'Portfolio',
+  'Team & Zugriff',
 ];
 export const articles: Article[] = [
+  ...accessArticles,
   {
     id: 'ippm-verstehen',
     title: 'iPPM verstehen: vom Projekt zum Portfolio',
@@ -461,7 +468,7 @@ export const faqs = [
   {
     question: 'Sind die Inhalte offizielle TKMS-ATLAS-Vorgaben?',
     answer:
-      'Nein. Diese erste Version enthält redaktionelle Demonstrationsinhalte. Abläufe, Rollen und Beispiele veranschaulichen den Nutzen der Plattform. Vor einer produktiven Einführung müssen die zuständigen Fachverantwortlichen die Inhalte prüfen und freigeben.',
+      'Nein. Die bestehenden Demo-Inhalte bleiben Beispiele. Die v0.3-Beiträge zu Zugriffsrechten und Owner-Wechsel sind quellenbasierte Entwürfe mit sichtbaren Nachweisen und Einschränkungen. Sie sind keine freigegebenen Arbeitsanweisungen; vor produktiver Verwendung ist eine fachliche Prüfung erforderlich.',
   },
   {
     question: 'Wie speichere ich meinen Lernfortschritt?',

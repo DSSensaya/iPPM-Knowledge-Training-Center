@@ -1,10 +1,17 @@
-export type Role = 'Alle Rollen' | 'Projektleitung' | 'Projektteam' | 'Portfoliomanagement';
+import type { KnowledgeContext, RoleId } from './domain';
+export type Role =
+  | 'Alle Rollen'
+  | 'Projektleitung'
+  | 'Projektteam'
+  | 'Portfoliomanagement'
+  | RoleId;
 export type Topic =
   | 'Grundlagen'
   | 'Projektplanung'
   | 'Status & Reporting'
   | 'Ressourcen'
-  | 'Portfolio';
+  | 'Portfolio'
+  | 'Team & Zugriff';
 export interface Section {
   title: string;
   body: string;
@@ -16,12 +23,13 @@ export interface Article {
   summary: string;
   topic: Topic;
   roles: Role[];
-  kind: 'Anleitung' | 'Grundlagen' | 'Checkliste';
+  kind: 'Anleitung' | 'Grundlagen' | 'Checkliste' | 'FAQ';
   minutes: number;
   updated: string;
   sections: Section[];
   takeaway: string;
   related: string[];
+  knowledge?: KnowledgeContext;
 }
 export interface LearningPath {
   id: string;

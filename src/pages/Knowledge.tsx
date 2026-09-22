@@ -4,6 +4,13 @@ import type { Role } from '../data/types';
 import { searchArticles } from '../lib/search';
 import type { Progress } from '../lib/storage';
 import { ArticleCard, PageTitle, SearchForm } from '../components/ui';
+import { roleLabel } from '../data/catalog';
+import {
+  KnowledgeEvidence,
+  KnowledgeIssues,
+  KnowledgeOverview,
+  KnowledgeProcedures,
+} from '../components/KnowledgeContext';
 
 export function Knowledge({
   params,
@@ -45,14 +52,16 @@ export function Knowledge({
           Ihre Rolle
           <select value={role} onChange={(e) => filter('rolle', e.target.value)}>
             {roles.map((r) => (
-              <option key={r}>{r}</option>
+              <option key={r} value={r}>
+                {roleLabel(r)}
+              </option>
             ))}
           </select>
         </label>
         <label>
           Format
           <select value={kind} onChange={(e) => filter('format', e.target.value)}>
-            {['Alle Formate', 'Anleitung', 'Grundlagen', 'Checkliste'].map((k) => (
+            {['Alle Formate', 'Anleitung', 'Grundlagen', 'Checkliste', 'FAQ'].map((k) => (
               <option key={k}>{k}</option>
             ))}
           </select>
@@ -67,7 +76,7 @@ export function Knowledge({
           {results.length} {results.length === 1 ? 'Beitrag' : 'Beiträge'}
           {query && ` für „${query}“`}
         </strong>
-        <span>Demonstrationsinhalte · Deutsch</span>
+        <span>Demo-Inhalte und quellenbasierte Entwürfe · Deutsch</span>
       </div>
       {results.length ? (
         <div className="cards three">
@@ -142,7 +151,17 @@ export function ArticlePage({
               Stand: {new Date(`${article.updated}T12:00:00`).toLocaleDateString('de-DE')}
             </span>
           </div>
-          <div className="demo-note">Demonstrationsinhalt · Fachlich nicht freigegeben</div>
+          <div className="demo-note">
+            {article.knowledge
+              ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
+              : 'Demonstrationsinhalt · Fachlich nicht freigegeben'}
+          </div>
+          {article.knowledge && (
+            <>
+              <KnowledgeOverview article={article} />
+              <KnowledgeIssues article={article} />
+            </>
+          )}
           {article.sections.map((section, i) => (
             <section id={`abschnitt-${i}`} key={section.title}>
               <h2>{section.title}</h2>
@@ -156,6 +175,12 @@ export function ArticlePage({
               )}
             </section>
           ))}
+          {article.knowledge && (
+            <>
+              <KnowledgeProcedures article={article} />
+              <KnowledgeEvidence article={article} />
+            </>
+          )}
           <div className="takeaway">
             <span className="eyebrow">Das nehmen Sie mit</span>
             <p>{article.takeaway}</p>
@@ -177,7 +202,9 @@ export function ArticlePage({
             )}
           </div>
           <p className="small muted">
-            Die Markierung wird lokal gespeichert und für passende Lernpfade übernommen.
+            {article.knowledge
+              ? 'Diese Lesemarkierung ist kein Übungs- oder Schulungsnachweis und verändert die bestehenden Demo-Lernpfade nicht.'
+              : 'Die Markierung wird lokal gespeichert und für passende Lernpfade übernommen.'}
           </p>
         </article>
         <aside className="article-aside">
@@ -192,6 +219,26 @@ export function ArticlePage({
           <div className="aside-block">
             <span className="eyebrow">In diesem Beitrag</span>
             <nav aria-label="Inhaltsverzeichnis">
+              {article.knowledge &&
+                [
+                  ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                  ['einschraenkungen', 'Einschränkungen'],
+                  ...article.knowledge.procedures.map((p) => [p.id, p.title]),
+                  ['nachweise', 'Schulungsbezug und Bewertungen'],
+                  ['trainerhinweise', 'Für Trainer'],
+                  ['quellen', 'Quellen und Fundstellen'],
+                ].map(([target, label]) => (
+                  <button
+                    key={target}
+                    onClick={() => {
+                      const section = document.getElementById(target);
+                      section?.focus({ preventScroll: true });
+                      section?.scrollIntoView({ block: 'start' });
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
               {article.sections.map((s, i) => (
                 <button
                   key={s.title}
@@ -209,12 +256,16 @@ export function ArticlePage({
           </div>
           <div className="aside-block">
             <span className="eyebrow">Für wen?</span>
-            <p>{article.roles.join(', ')}</p>
+            <p>{article.roles.map(roleLabel).join(', ')}</p>
             <span className="eyebrow">Redaktion</span>
             <p>
-              iPPM Demo-Redaktion
+              {article.knowledge ? 'Quellenbasierter Center-Entwurf' : 'iPPM Demo-Redaktion'}
               <br />
-              <span className="muted">Beispielwissen für dieses MVP</span>
+              <span className="muted">
+                {article.knowledge
+                  ? `Revision ${article.knowledge.revision} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
+                  : 'Beispielwissen für dieses MVP'}
+              </span>
             </p>
           </div>
           <div className="aside-block">

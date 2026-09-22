@@ -51,7 +51,7 @@ export default function Home({
         <SearchForm large />
         <div className="quick-search">
           <span>Häufig gesucht</span>
-          {['Statusbericht', 'Ressourcen', 'Meilensteine'].map((q) => (
+          {['Zugriffsrechte', 'Statusbericht', 'Ressourcen', 'Meilensteine'].map((q) => (
             <a key={q} href={`#/wissen?q=${encodeURIComponent(q)}`}>
               {q}
               <ArrowRight size={14} aria-hidden="true" />

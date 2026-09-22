@@ -1,5 +1,6 @@
 import { articles } from '../data/content';
 import type { Role } from '../data/types';
+import { knowledgeSearchText } from './knowledge';
 export function normalize(value: string) {
   return value
     .toLocaleLowerCase('de')
@@ -28,7 +29,7 @@ export function searchArticles(
       const title = normalize(article.title);
       const summary = normalize(`${article.summary} ${article.topic}`);
       const full = normalize(
-        `${article.title} ${article.summary} ${article.topic} ${article.roles.join(' ')} ${article.sections.map((s) => `${s.title} ${s.body} ${(s.steps || []).join(' ')}`).join(' ')} ${article.takeaway}`,
+        `${article.title} ${article.summary} ${article.topic} ${article.roles.join(' ')} ${article.sections.map((s) => `${s.title} ${s.body} ${(s.steps || []).join(' ')}`).join(' ')} ${article.takeaway} ${knowledgeSearchText(article)}`,
       );
       return {
         article,

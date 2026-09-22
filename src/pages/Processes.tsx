@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { processes } from '../data/content';
 import { PageTitle } from '../components/ui';
+import { processSteps, roleLabel } from '../data/catalog';
 
 export default function Processes() {
   return (
@@ -8,8 +9,33 @@ export default function Processes() {
       <PageTitle
         eyebrow="Das Zusammenspiel verstehen"
         title="Prozesse im Überblick"
-        description="Wer macht was – und welches Ergebnis wird weitergegeben? Zwei beispielhafte Abläufe verbinden Aufgaben, Rollen und das passende Wissen."
+        description="Wer macht was – und welches Ergebnis wird weitergegeben? Ein begrenzter SB1-Ausschnitt ergänzt die beiden bisherigen Beispielabläufe."
       />
+      <section className="process-section" aria-label="SB1: Team und Zugriff">
+        <h2>SB1: Team und Zugriff</h2>
+        <p>
+          Quellenbasierter Entwurf · Ausschnitt aus der Phase Definition, keine vollständige oder
+          lineare Prozessfolge. Owner-Übergabe und Zugriffsverwaltung gelten für unterschiedliche
+          Projektkontexte.
+        </p>
+        <ul className="knowledge-step-list">
+          {processSteps.map((s) => (
+            <li key={s.id}>
+              <h3>
+                {s.number} {s.title}
+              </h3>
+              <p>
+                <strong>{roleLabel(s.roleId)}</strong>
+              </p>
+              <p>Voraussetzung: {s.input}</p>
+              <p>Erwartetes Ergebnis: {s.output}</p>
+              <a href="#/artikel/guide-project-permissions">
+                Bedienweg, Quellen und Einschränkungen zu {s.number} öffnen
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
       <div className="demo-note">
         Beispielprozesse · Keine verbindliche Prozess- oder Freigabeordnung
       </div>

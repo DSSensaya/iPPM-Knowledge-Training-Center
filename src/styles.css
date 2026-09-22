@@ -1704,6 +1704,61 @@ details > p {
     scroll-behavior: auto;
   }
 }
+.context-line {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+.source-ref {
+  overflow-wrap: anywhere;
+  color: var(--muted);
+}
+.knowledge-issues {
+  background: var(--base);
+  padding: 24px;
+}
+.knowledge-issues h3 {
+  margin-top: 24px;
+}
+.knowledge-procedure li,
+.knowledge-details li {
+  margin-bottom: 16px;
+}
+.knowledge-details {
+  margin: 16px 0;
+  background: var(--base);
+  padding: 0 16px;
+}
+.knowledge-details > summary {
+  gap: 16px;
+  min-height: 44px;
+}
+.knowledge-details > summary::after {
+  content: '+';
+  flex: 0 0 auto;
+}
+.knowledge-details[open] > summary::after {
+  content: '−';
+}
+.knowledge-details > ul {
+  padding-left: 24px;
+}
+.knowledge-step-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
+}
+.knowledge-step-list > li {
+  background: var(--base);
+  padding: 24px;
+}
+.article-content section[tabindex]:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 4px;
+}
 @media print {
   .sidebar,
   .topbar,

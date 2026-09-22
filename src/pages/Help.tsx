@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { faqs } from '../data/content';
 import { PageTitle } from '../components/ui';
+import { accessArticles } from '../data/access-content';
 export default function Help() {
   return (
     <>
@@ -12,6 +13,13 @@ export default function Help() {
       <div className="help-layout">
         <section>
           <h2>Häufige Fragen</h2>
+          {accessArticles
+            .filter((a) => a.kind === 'FAQ')
+            .map((a) => (
+              <p key={a.id}>
+                <a href={`#/artikel/${a.id}`}>{a.title}</a> · Quellenbasierter Entwurf
+              </p>
+            ))}
           <div className="faq-list">
             {faqs.map((faq) => (
               <details key={faq.question}>

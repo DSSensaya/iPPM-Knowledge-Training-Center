@@ -68,6 +68,11 @@ export function ArticleCard({
         <a href={`#/artikel/${article.id}`}>{article.title}</a>
       </h3>
       <p>{article.summary}</p>
+      <p className="small muted">
+        {article.knowledge
+          ? 'Quellenbasierter Entwurf · Einschränkungen beachten'
+          : 'Demonstrationsinhalt'}
+      </p>
       <div className="card-bottom">
         <span>{article.kind}</span>
         <span>
