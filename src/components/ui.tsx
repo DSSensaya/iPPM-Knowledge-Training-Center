@@ -2,6 +2,12 @@ import { ArrowRight, Bookmark, Check, Clock3, Search } from 'lucide-react';
 import { useState } from 'react';
 import type { Article } from '../data/types';
 
+const articleStatusLabels: Record<Article['status'], string> = {
+  demo: 'Demonstrationsinhalt',
+  'source-draft': 'Quellenbasierter Entwurf · Einschränkungen beachten',
+  reviewed: 'Fachlich geprüfter Inhalt',
+};
+
 export function SearchForm({
   initial = '',
   large = false,
@@ -68,11 +74,7 @@ export function ArticleCard({
         <a href={`#/artikel/${article.id}`}>{article.title}</a>
       </h3>
       <p>{article.summary}</p>
-      <p className="small muted">
-        {article.knowledge
-          ? 'Quellenbasierter Entwurf · Einschränkungen beachten'
-          : 'Demonstrationsinhalt'}
-      </p>
+      <p className="small muted">{articleStatusLabels[article.status]}</p>
       <div className="card-bottom">
         <span>{article.kind}</span>
         <span>
