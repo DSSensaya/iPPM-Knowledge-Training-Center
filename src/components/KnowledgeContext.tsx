@@ -26,7 +26,7 @@ export function KnowledgeOverview({ article }: { article: Article }) {
   const data = knowledgeFor(article);
   return (
     <section id="fachlicher-kontext" tabIndex={-1}>
-      <h2>Aufgabe und Geltungsbereich</h2>
+      <h3>Aufgabe und Geltungsbereich</h3>
       <p>
         SB1-Bezug ·{' '}
         {article.status === 'reviewed' ? 'Fachlich geprüfter Inhalt' : 'Quellenbasierter Entwurf'} ·
@@ -62,7 +62,7 @@ export function KnowledgeOverview({ article }: { article: Article }) {
       </p>
       {data.links.length > 0 && (
         <>
-          <h3>Fachliche Abhängigkeiten</h3>
+          <h4>Fachliche Abhängigkeiten</h4>
           <ul>
             {data.links.map((link) => (
               <li key={link.id}>
@@ -102,33 +102,69 @@ export function KnowledgeIssues({ article }: { article: Article }) {
     </section>
   );
 }
-export function KnowledgeProcedures({ article }: { article: Article }) {
+function GuideReference({ guide }: { guide?: Article }) {
+  return guide ? (
+    <a href={`#/artikel/${guide.id}`}>{guide.title}</a>
+  ) : (
+    <span>Für diesen Beitrag liegt kein eigener Bedienweg vor.</span>
+  );
+}
+
+export function KnowledgePrerequisites({ article, guide }: { article: Article; guide?: Article }) {
+  const procedures = article.knowledge?.procedures ?? [];
+  return (
+    <section id="voraussetzungen" tabIndex={-1}>
+      <h2>Voraussetzungen</h2>
+      {procedures.length ? (
+        procedures.map((procedure) => (
+          <div key={procedure.id}>
+            <h3>{procedure.title}</h3>
+            <ul>
+              {procedure.prerequisites.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            {procedure.requiredRights && (
+              <>
+                <p>
+                  <strong>Vor der Übergabe benötigte Leserechte</strong>
+                </p>
+                <ul>
+                  {procedure.requiredRights.map((right) => (
+                    <li key={right}>{right}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        ))
+      ) : (
+        <p>
+          Die Voraussetzungen für die praktische Anwendung stehen in der zugehörigen Anleitung:{' '}
+          <GuideReference guide={guide} />
+        </p>
+      )}
+    </section>
+  );
+}
+
+export function KnowledgeProcedures({ article, guide }: { article: Article; guide?: Article }) {
+  const procedures = article.knowledge?.procedures ?? [];
   return (
     <>
-      {article.knowledge?.procedures.map((p) => (
+      {procedures.length === 0 && (
+        <p>
+          Diese Antwort erläutert die Entscheidung. Der beschriebene Schritt-für-Schritt-Weg steht
+          in der zugehörigen Anleitung: <GuideReference guide={guide} />
+        </p>
+      )}
+      {procedures.map((p) => (
         <section key={p.id} id={p.id} tabIndex={-1} className="knowledge-procedure">
-          <h2>{p.title}</h2>
+          <h3>{p.title}</h3>
           <p>
             <strong>Auslöser: </strong>
             {p.trigger}
           </p>
-          <h3>Voraussetzungen</h3>
-          <ul>
-            {p.prerequisites.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ul>
-          {p.requiredRights && (
-            <>
-              <h3>Vor der Übergabe benötigte Leserechte</h3>
-              <ul>
-                {p.requiredRights.map((r) => (
-                  <li key={r}>{r}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          <h3>Beschriebener Bedienweg</h3>
           <ol className="steps">
             {p.actions.map((a) => (
               <li key={a.text}>
@@ -137,26 +173,53 @@ export function KnowledgeProcedures({ article }: { article: Article }) {
               </li>
             ))}
           </ol>
-          <h3>Erwartetes Ergebnis laut Entwurf</h3>
-          <ul>
-            {p.expectedResults.map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-          </ul>
-          <h3>Ergebnis prüfen</h3>
-          <ul>
-            {p.checkQuestions.map((q) => (
-              <li key={q}>{q}</li>
-            ))}
-          </ul>
-          <p className="small">
-            Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren
-            Konten.
-          </p>
           <Evidence refs={p.evidence} />
         </section>
       ))}
     </>
+  );
+}
+
+export function KnowledgeResults({ article, guide }: { article: Article; guide?: Article }) {
+  const procedures = article.knowledge?.procedures ?? [];
+  return (
+    <section id="ergebnispruefung" tabIndex={-1}>
+      <h2>Ergebnisprüfung</h2>
+      {procedures.length ? (
+        <>
+          {procedures.map((procedure) => (
+            <div key={procedure.id}>
+              <h3>{procedure.title}</h3>
+              <p>
+                <strong>Erwartetes Ergebnis laut Entwurf</strong>
+              </p>
+              <ul>
+                {procedure.expectedResults.map((result) => (
+                  <li key={result}>{result}</li>
+                ))}
+              </ul>
+              <p>
+                <strong>Prüffragen</strong>
+              </p>
+              <ul>
+                {procedure.checkQuestions.map((question) => (
+                  <li key={question}>{question}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <p className="small">
+            Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren
+            Konten.
+          </p>
+        </>
+      ) : (
+        <p>
+          Die Ergebnisfragen zum beschriebenen Weg stehen in der zugehörigen Anleitung:{' '}
+          <GuideReference guide={guide} />
+        </p>
+      )}
+    </section>
   );
 }
 export function KnowledgeEvidence({ article }: { article: Article }) {
@@ -166,7 +229,9 @@ export function KnowledgeEvidence({ article }: { article: Article }) {
   return (
     <>
       <section id="nachweise" tabIndex={-1}>
-        <h2>Schulungsbezug und Quellenbewertungen</h2>
+        <h2>Nachweise und Geltungsbereich</h2>
+        <KnowledgeOverview article={article} />
+        <h3>Schulungsbezug und Quellenbewertungen</h3>
         <p>
           Die Aussagen bleiben nach Quelle und Reichweite getrennt. Ein beschriebener oder geübter
           Einzelweg gibt diesen Center-Inhalt nicht fachlich frei.

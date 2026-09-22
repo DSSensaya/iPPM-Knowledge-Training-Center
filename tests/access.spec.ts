@@ -31,7 +31,7 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
   ).toBeVisible();
   const procedure = page.locator('#procedure-owner-change');
   await expect(procedure).toContainText('vor dem Owner-Wechsel');
-  await expect(procedure).toContainText('View the Project Site');
+  await expect(page.locator('#voraussetzungen')).toContainText('View the Project Site');
   await expect(procedure).toContainText('System Overview');
   await expect(procedure).toContainText('ILS Overview');
   await expect(procedure).toContainText('Check-in');
@@ -132,7 +132,7 @@ test('v1 learning state survives new content, reload and export/import without a
     backup,
   );
   await page.goto('/#/lernpfade/einstieg');
-  await expect(page.getByRole('heading', { name: 'Ziel erreicht.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Demo-Ziel erreicht.' })).toBeVisible();
   await page.goto('/#/artikel/faq-role-vs-access');
   await expect(
     page.getByRole('button', { name: 'Als gelesen markieren', exact: true }),

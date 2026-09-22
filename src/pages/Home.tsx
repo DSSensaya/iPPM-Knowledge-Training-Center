@@ -20,29 +20,34 @@ export default function Home({
         <div>
           <span className="eyebrow">Ihr Wissen. Ihr nächster Schritt.</span>
           <h1>
-            iPPM verstehen.
+            Ihre nächsten
             <br />
-            Projekte weiterbringen.
+            iPPM-Aufgaben.
           </h1>
           <p>
-            Wissen, das im Arbeitsalltag hilft. Finden Sie Antworten,
-            <br className="desktop-break" /> verstehen Sie Zusammenhänge und lernen Sie gezielt
-            weiter.
+            Wählen Sie eine der vorhandenen SB1-Aufgaben oder suchen Sie nach einer konkreten
+            Antwort. Die Fachbeiträge sind quellenbasierte Entwürfe.
           </p>
         </div>
         <div className="intro-note">
           <span className="eyebrow">Knowledge & Training Center</span>
           <p>
-            Ein gemeinsamer Ort für
+            Lokale Arbeitshilfe mit
             <br />
-            <strong>Projektwissen bei TKMS ATLAS.</strong>
+            <strong>klar gekennzeichneten Inhaltsständen.</strong>
           </p>
           <div className="intro-facts">
             <span>
-              <strong>{articles.length.toString().padStart(2, '0')}</strong>Wissensbeiträge
+              <strong>
+                {articles
+                  .filter((article) => article.status === 'source-draft')
+                  .length.toString()
+                  .padStart(2, '0')}
+              </strong>
+              Quellenentwürfe
             </span>
             <span>
-              <strong>03</strong>Lernpfade
+              <strong>{learningPaths.length.toString().padStart(2, '0')}</strong>Demo-Lernpfade
             </span>
           </div>
         </div>
@@ -51,12 +56,36 @@ export default function Home({
         <SearchForm large />
         <div className="quick-search">
           <span>Häufig gesucht</span>
-          {['Zugriffsrechte', 'Statusbericht', 'Ressourcen', 'Meilensteine'].map((q) => (
+          {['Zugriffsrechte', 'Owner-Wechsel', 'Liefergegenstände', 'Meilensteine'].map((q) => (
             <a key={q} href={`#/wissen?q=${encodeURIComponent(q)}`}>
               {q}
               <ArrowRight size={14} aria-hidden="true" />
             </a>
           ))}
+        </div>
+      </section>
+      <section className="home-tasks" aria-labelledby="home-tasks-title">
+        <div className="section-title">
+          <div>
+            <span className="eyebrow">SB1 · Quellenbasierte Entwürfe</span>
+            <h2 id="home-tasks-title">Mit einer Aufgabe beginnen</h2>
+          </div>
+          <a className="text-link" href="#/wissen">
+            Alle Beiträge <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+        <div className="cards two">
+          {recommendedArticleIds.map((id) => {
+            const article = articles.find((candidate) => candidate.id === id)!;
+            return (
+              <ArticleCard
+                key={id}
+                article={article}
+                saved={progress.bookmarks.includes(id)}
+                onSave={() => toggleSave(id)}
+              />
+            );
+          })}
         </div>
       </section>
       <section className="entry-grid" aria-label="Direkt einsteigen">
@@ -71,8 +100,8 @@ export default function Home({
         <a href="#/lernpfade">
           <GraduationCap size={25} aria-hidden="true" />
           <div>
-            <h2>Schritt für Schritt lernen</h2>
-            <p>Mit einem Lernpfad sicher starten</p>
+            <h2>Demo-Lernpfade ansehen</h2>
+            <p>Beispiel-Lektionen und Wissenscheck</p>
           </div>
           <ArrowRight size={20} aria-hidden="true" />
         </a>
@@ -84,49 +113,6 @@ export default function Home({
           </div>
           <ArrowRight size={20} aria-hidden="true" />
         </a>
-      </section>
-      <section className="home-lower">
-        <div className="recommended">
-          <div className="section-title">
-            <div>
-              <span className="eyebrow">Für Ihren Arbeitsalltag</span>
-              <h2>Gut zu wissen</h2>
-            </div>
-            <a className="text-link" href="#/wissen">
-              Alle Beiträge <ArrowRight size={16} aria-hidden="true" />
-            </a>
-          </div>
-          <div className="cards two">
-            {recommendedArticleIds.map((id) => {
-              const article = articles.find((a) => a.id === id)!;
-              return (
-                <ArticleCard
-                  key={id}
-                  article={article}
-                  saved={progress.bookmarks.includes(id)}
-                  onSave={() => toggleSave(id)}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <aside className="learning-feature">
-          <span className="eyebrow">
-            {percent > 0 ? 'Ihr nächster Lernschritt' : 'Neu in iPPM?'}
-          </span>
-          <h2>{path.title}</h2>
-          <p>{path.summary}</p>
-          <div className="feature-meta">
-            3 Lektionen <span>·</span>{' '}
-            {path.lessons.reduce((sum, id) => sum + articles.find((a) => a.id === id)!.minutes, 0)}{' '}
-            Min. <span>·</span> {path.level}
-          </div>
-          <ProgressBar value={percent} label={`${done} von 3 Lektionen gelesen`} />
-          <a href={`#/lernpfade/${path.id}`} className="button dark-primary">
-            {percent > 0 ? 'Weiterlernen' : 'Lernpfad starten'}
-            <ArrowRight size={17} aria-hidden="true" />
-          </a>
-        </aside>
       </section>
       <section className="topic-section">
         <div className="section-title">
@@ -147,6 +133,31 @@ export default function Home({
               </span>
             </a>
           ))}
+        </div>
+      </section>
+      <section className="demo-learning" aria-labelledby="demo-learning-title">
+        <div className="section-title">
+          <div>
+            <span className="eyebrow">Beispielwissen ohne fachliche oder schulische Freigabe</span>
+            <h2 id="demo-learning-title">Demo-Lernpfade</h2>
+          </div>
+        </div>
+        <div className="learning-feature">
+          <span className="eyebrow">
+            {percent > 0 ? 'Ihr nächster Demo-Lernschritt' : 'Demo-Lernpfad'}
+          </span>
+          <h2>{path.title}</h2>
+          <p>{path.summary}</p>
+          <div className="feature-meta">
+            3 Lektionen <span>·</span>{' '}
+            {path.lessons.reduce((sum, id) => sum + articles.find((a) => a.id === id)!.minutes, 0)}{' '}
+            Min. <span>·</span> {path.level}
+          </div>
+          <ProgressBar value={percent} label={`${done} von 3 Lektionen gelesen`} />
+          <a href={`#/lernpfade/${path.id}`} className="button dark-primary">
+            {percent > 0 ? 'Weiterlernen' : 'Lernpfad starten'}
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
         </div>
       </section>
     </>

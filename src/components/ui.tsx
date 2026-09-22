@@ -36,7 +36,7 @@ export function SearchForm({
         <input
           id={large ? 'home-search' : 'knowledge-search'}
           type="search"
-          placeholder="Zum Beispiel: Statusbericht erstellen"
+          placeholder="Zum Beispiel: Owner wechseln"
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />

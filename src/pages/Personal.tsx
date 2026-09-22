@@ -33,7 +33,7 @@ export default function Personal({
       <PageTitle
         eyebrow="Persönlich. Lokal. In Ihrem Tempo."
         title="Mein Lernbereich"
-        description="Gesammeltes Wissen und Ihr Lernfortschritt an einem Ort. Ohne Anmeldung, gespeichert in diesem Browser."
+        description="Gesammelte Beiträge und Fortschritt in Demo-Lernpfaden. Ohne Anmeldung, gespeichert in diesem Browser; kein Schulungsnachweis."
       />
       <div className="personal-stats">
         <div>
@@ -53,7 +53,7 @@ export default function Personal({
               .padStart(2, '0')}{' '}
             / 03
           </strong>
-          <span>Lernpfade abgeschlossen</span>
+          <span>Demo-Lernpfade abgeschlossen</span>
         </div>
         <div>
           <strong>{saved.length.toString().padStart(2, '0')}</strong>
@@ -62,16 +62,16 @@ export default function Personal({
       </div>
       <section>
         <div className="section-title">
-          <h2>Meine Lernpfade</h2>
+          <h2>Meine Demo-Lernpfade</h2>
           <a href="#/lernpfade" className="text-link">
-            Alle Lernpfade
+            Alle Demo-Lernpfade
             <ArrowRight size={16} />
           </a>
         </div>
         <div className="cards three">
           {learningPaths.map((path) => (
             <a className="personal-path" href={`#/lernpfade/${path.id}`} key={path.id}>
-              <span className="eyebrow">{path.level}</span>
+              <span className="eyebrow">Demo · {path.level}</span>
               <h3>{path.title}</h3>
               <ProgressBar
                 value={

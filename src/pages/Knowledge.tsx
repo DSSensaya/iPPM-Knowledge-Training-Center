@@ -8,9 +8,25 @@ import { roleLabel } from '../data/catalog';
 import {
   KnowledgeEvidence,
   KnowledgeIssues,
-  KnowledgeOverview,
+  KnowledgePrerequisites,
   KnowledgeProcedures,
+  KnowledgeResults,
 } from '../components/KnowledgeContext';
+
+const coreJumps = [
+  ['kurzantwort', 'Kurzantwort'],
+  ['voraussetzungen', 'Voraussetzungen'],
+  ['einschraenkungen', 'Kritische Einschränkungen'],
+  ['bedienweg', 'Bedienweg'],
+  ['ergebnispruefung', 'Ergebnisprüfung'],
+  ['nachweise', 'Nachweise'],
+] as const;
+
+function jumpToSection(id: string) {
+  const section = document.getElementById(id);
+  section?.focus({ preventScroll: true });
+  section?.scrollIntoView({ block: 'start' });
+}
 
 export function Knowledge({
   params,
@@ -129,6 +145,12 @@ export function ArticlePage({
     );
   const saved = progress.bookmarks.includes(id),
     read = progress.read.includes(id);
+  const relatedGuide = articles.find(
+    (candidate) =>
+      article.related.includes(candidate.id) &&
+      candidate.kind === 'Anleitung' &&
+      candidate.knowledge?.procedures.length,
+  );
   return (
     <>
       <a href={pathId ? `#/lernpfade/${pathId}` : '#/wissen'} className="back-link">
@@ -158,35 +180,65 @@ export function ArticlePage({
                 ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
                 : 'Fachlich geprüfter Inhalt'}
           </div>
-          {article.knowledge && (
+          {article.knowledge ? (
             <>
-              <KnowledgeOverview article={article} />
-              <KnowledgeIssues article={article} />
-            </>
-          )}
-          {article.sections.map((section, i) => (
-            <section id={`abschnitt-${i}`} key={section.title}>
-              <h2>{section.title}</h2>
-              <p>{section.body}</p>
-              {section.steps && (
-                <ol className="steps">
-                  {section.steps.map((step) => (
-                    <li key={step}>{step}</li>
+              <nav className="article-jumps" aria-label="Direkt zu den Abschnitten">
+                <strong>Direkt zu</strong>
+                <div>
+                  {coreJumps.map(([target, label]) => (
+                    <button key={target} type="button" onClick={() => jumpToSection(target)}>
+                      {label}
+                    </button>
                   ))}
-                </ol>
-              )}
-            </section>
-          ))}
-          {article.knowledge && (
-            <>
-              <KnowledgeProcedures article={article} />
+                </div>
+              </nav>
+              <section id="kurzantwort" className="takeaway" tabIndex={-1}>
+                <h2>Kurzantwort</h2>
+                <p>{article.takeaway}</p>
+              </section>
+              <KnowledgePrerequisites article={article} guide={relatedGuide} />
+              <KnowledgeIssues article={article} />
+              <section id="bedienweg" tabIndex={-1}>
+                <h2>Bedienweg</h2>
+                <KnowledgeProcedures article={article} guide={relatedGuide} />
+                {article.sections.map((section, i) => (
+                  <section id={`abschnitt-${i}`} key={section.title}>
+                    <h3>{section.title}</h3>
+                    <p>{section.body}</p>
+                    {section.steps && (
+                      <ol className="steps">
+                        {section.steps.map((step) => (
+                          <li key={step}>{step}</li>
+                        ))}
+                      </ol>
+                    )}
+                  </section>
+                ))}
+              </section>
+              <KnowledgeResults article={article} guide={relatedGuide} />
               <KnowledgeEvidence article={article} />
             </>
+          ) : (
+            <>
+              {article.sections.map((section, i) => (
+                <section id={`abschnitt-${i}`} key={section.title}>
+                  <h2>{section.title}</h2>
+                  <p>{section.body}</p>
+                  {section.steps && (
+                    <ol className="steps">
+                      {section.steps.map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ol>
+                  )}
+                </section>
+              ))}
+              <div className="takeaway">
+                <span className="eyebrow">Das nehmen Sie mit</span>
+                <p>{article.takeaway}</p>
+              </div>
+            </>
           )}
-          <div className="takeaway">
-            <span className="eyebrow">Das nehmen Sie mit</span>
-            <p>{article.takeaway}</p>
-          </div>
           <div className="reading-actions">
             <button
               className={`button ${read ? 'secondary' : 'primary'}`}
@@ -204,9 +256,9 @@ export function ArticlePage({
             )}
           </div>
           <p className="small muted">
-            {article.knowledge
-              ? 'Diese Lesemarkierung ist kein Übungs- oder Schulungsnachweis und verändert die bestehenden Demo-Lernpfade nicht.'
-              : 'Die Markierung wird lokal gespeichert und für passende Lernpfade übernommen.'}
+            {article.status === 'demo'
+              ? 'Die Markierung wird lokal gespeichert und für passende Demo-Lernpfade übernommen. Sie ist kein Schulungsnachweis.'
+              : 'Diese Lesemarkierung ist kein Übungs- oder Schulungsnachweis und verändert die bestehenden Demo-Lernpfade nicht.'}
           </p>
         </article>
         <aside className="article-aside">
@@ -223,37 +275,39 @@ export function ArticlePage({
             <nav aria-label="Inhaltsverzeichnis">
               {article.knowledge &&
                 [
-                  ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                  ['kurzantwort', 'Kurzantwort'],
+                  ['voraussetzungen', 'Voraussetzungen'],
                   ['einschraenkungen', 'Einschränkungen'],
+                  ['bedienweg', 'Bedienweg'],
                   ...article.knowledge.procedures.map((p) => [p.id, p.title]),
-                  ['nachweise', 'Schulungsbezug und Bewertungen'],
+                  ...article.sections.map((section, i) => [
+                    `abschnitt-${i}`,
+                    `${String(i + 1).padStart(2, '0')} ${section.title}`,
+                  ]),
+                  ['ergebnispruefung', 'Ergebnisprüfung'],
+                  ['nachweise', 'Nachweise und Geltungsbereich'],
+                  ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
                   ['trainerhinweise', 'Für Trainer'],
                   ['quellen', 'Quellen und Fundstellen'],
                 ].map(([target, label]) => (
-                  <button
-                    key={target}
-                    onClick={() => {
-                      const section = document.getElementById(target);
-                      section?.focus({ preventScroll: true });
-                      section?.scrollIntoView({ block: 'start' });
-                    }}
-                  >
+                  <button key={target} onClick={() => jumpToSection(target)}>
                     {label}
                   </button>
                 ))}
-              {article.sections.map((s, i) => (
-                <button
-                  key={s.title}
-                  onClick={() =>
-                    document
-                      .getElementById(`abschnitt-${i}`)
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                >
-                  {String(i + 1).padStart(2, '0')}
-                  <span>{s.title}</span>
-                </button>
-              ))}
+              {!article.knowledge &&
+                article.sections.map((s, i) => (
+                  <button
+                    key={s.title}
+                    onClick={() =>
+                      document
+                        .getElementById(`abschnitt-${i}`)
+                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                    <span>{s.title}</span>
+                  </button>
+                ))}
             </nav>
           </div>
           <div className="aside-block">

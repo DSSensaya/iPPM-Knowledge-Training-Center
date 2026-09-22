@@ -341,8 +341,8 @@ export const articles: Article[] = [
   },
 ];
 export const recommendedArticleIds = [
-  'guide-deliverables-milestones',
   'guide-project-permissions',
+  'guide-deliverables-milestones',
 ] as const;
 
 export const learningPaths: LearningPath[] = [

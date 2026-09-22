@@ -504,11 +504,8 @@ input::placeholder {
   margin-bottom: 8px;
   color: var(--muted);
 }
-.home-lower {
-  display: grid;
-  grid-template-columns: 8fr 4fr;
-  gap: 32px;
-  align-items: stretch;
+.home-tasks {
+  margin: 40px 0 48px;
 }
 .cards {
   display: grid;
@@ -580,6 +577,12 @@ input::placeholder {
   padding: 24px;
   display: flex;
   flex-direction: column;
+}
+.demo-learning {
+  margin-top: 48px;
+}
+.demo-learning .learning-feature {
+  max-width: 680px;
 }
 .learning-feature > .eyebrow {
   border-left: 3px solid var(--signal);
@@ -782,9 +785,47 @@ select {
   font-size: 12px;
   border-left: 2px solid var(--signal);
 }
+.article-jumps {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--base);
+}
+.article-jumps > strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.article-jumps > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.article-jumps button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  background: var(--white);
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+}
+.article-jumps button:hover {
+  background: var(--hover);
+}
 .article-content section {
   margin: 40px 0;
   scroll-margin-top: 24px;
+}
+.article-content #bedienweg > section {
+  margin: 24px 0;
+}
+.article-content #voraussetzungen > div,
+.article-content #ergebnispruefung > div {
+  margin-top: 24px;
+}
+.article-content #voraussetzungen ul,
+.article-content #ergebnispruefung ul {
+  margin: 8px 0 16px;
 }
 .article-content h2 {
   margin-bottom: 16px;
@@ -1318,38 +1359,6 @@ details > p {
   .intro-note {
     padding-left: 16px;
   }
-  .home-lower {
-    grid-template-columns: 1fr;
-  }
-  .learning-feature {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 32px;
-  }
-  .learning-feature > .eyebrow {
-    grid-column: 1 / -1;
-  }
-  .learning-feature h2 {
-    grid-row: 2;
-  }
-  .learning-feature > p {
-    grid-row: 3;
-  }
-  .learning-feature .feature-meta {
-    grid-row: 4;
-    margin-bottom: 0;
-  }
-  .learning-feature .progress-wrap {
-    grid-column: 2;
-    grid-row: 2;
-    margin: 0;
-  }
-  .learning-feature .button {
-    grid-column: 2;
-    grid-row: 3 / 5;
-    align-self: center;
-    justify-self: start;
-  }
   .entry-grid {
     gap: 16px;
   }
@@ -1568,6 +1577,9 @@ details > p {
   .cards.three {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+  .article-jumps > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .home-lower {
     gap: 24px;

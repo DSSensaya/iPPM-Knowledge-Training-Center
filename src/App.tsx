@@ -25,7 +25,7 @@ import Help from './pages/Help';
 const navigation = [
   { path: '/', label: 'Übersicht', icon: LayoutDashboard },
   { path: '/wissen', label: 'Wissensbasis', icon: BookOpen },
-  { path: '/lernpfade', label: 'Lernpfade', icon: GraduationCap },
+  { path: '/lernpfade', label: 'Demo-Lernpfade', icon: GraduationCap },
   { path: '/prozesse', label: 'Prozesse', icon: Network },
   { path: '/mein-bereich', label: 'Mein Lernbereich', icon: UserRound },
 ];
@@ -150,7 +150,7 @@ export default function App() {
         pass={(id) =>
           update(
             { ...progress, passed: [...new Set([...progress.passed, id])] },
-            'Lernpfad erfolgreich abgeschlossen.',
+            'Demo-Lernpfad abgeschlossen. Dies ist kein Schulungsnachweis.',
           )
         }
       />
@@ -212,14 +212,14 @@ export default function App() {
         </nav>
         <div className="sidebar-bottom">
           <div className="sidebar-guide">
-            <span className="eyebrow">Wissen wird Können.</span>
+            <span className="eyebrow">Demo-Bereich</span>
             <p>
-              Ein guter nächster Schritt
+              Beispiel-Lernpfade,
               <br />
-              beginnt mit einer Antwort.
+              kein Schulungsnachweis.
             </p>
             <a href="#/lernpfade">
-              Lernen starten
+              Demo-Lernpfade öffnen
               <ArrowRight size={16} />
             </a>
           </div>

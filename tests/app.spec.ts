@@ -11,9 +11,7 @@ test('home, navigation and responsive layout are accessible and local', async ({
     if (!request.url().startsWith('http://127.0.0.1:4173')) external.push(request.url());
   });
   await page.goto('/');
-  await expect(
-    page.getByRole('heading', { name: 'iPPM verstehen. Projekte weiterbringen.' }),
-  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Ihre nächsten iPPM-Aufgaben.' })).toBeVisible();
   await expect(page.getByRole('main')).toBeFocused();
   const routes = [
     '/',
@@ -150,12 +148,12 @@ test('learning path unlocks quiz, handles retry and persists completion', async 
   await expect(page.getByText('Noch nicht ganz. Versuchen Sie es erneut.')).toBeVisible();
   await page.getByRole('radio').nth(1).check();
   await page.getByRole('button', { name: 'Antwort prüfen' }).click();
-  await expect(page.getByText('Richtig. Lernpfad abgeschlossen!')).toBeVisible();
+  await expect(page.getByText('Richtig. Demo-Wissenscheck abgeschlossen.')).toBeVisible();
   await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100');
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(audit.violations).toEqual([]);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Ziel erreicht.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Demo-Ziel erreicht.' })).toBeVisible();
   await page.getByRole('link', { name: 'Lektion 1 öffnen', exact: true }).click();
   await page.getByRole('button', { name: 'Gelesen · Markierung entfernen' }).click();
   await page.getByRole('link', { name: 'Im Lernpfad weiter' }).click();

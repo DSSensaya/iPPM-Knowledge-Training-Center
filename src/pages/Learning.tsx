@@ -8,9 +8,9 @@ export function Learning({ progress }: { progress: Progress }) {
   return (
     <>
       <PageTitle
-        eyebrow="Lernen mit Richtung"
-        title="Ein klarer Weg zu mehr Sicherheit"
-        description="Kompakte Lektionen, ein konkretes Lernziel und ein Wissenscheck. Lernen Sie in Ihrem eigenen Tempo."
+        eyebrow="Demo-Lernpfade"
+        title="Beispielwissen Schritt für Schritt"
+        description="Diese Lernpfade und Wissenschecks demonstrieren die Nutzung des Centers. Ihr Abschluss ist keine fachliche Freigabe und kein Schulungsnachweis."
       />
       <div className="learning-list">
         {learningPaths.map((path, i) => {
@@ -25,7 +25,7 @@ export function Learning({ progress }: { progress: Progress }) {
               <div>
                 <div className="path-labels">
                   <span className="eyebrow">
-                    {path.level} · {path.role}
+                    Demo · {path.level} · {path.role}
                   </span>
                   <Completion complete={passed} />
                 </div>
@@ -96,10 +96,14 @@ export function LearningDetail({
         Alle Lernpfade
       </a>
       <PageTitle
-        eyebrow={`${path.level} · ${path.role}`}
+        eyebrow={`Demo-Lernpfad · ${path.level} · ${path.role}`}
         title={path.title}
         description={path.summary}
       />
+      <p className="demo-note">
+        Demonstrationsinhalt · Dieser Lernpfad und sein Wissenscheck sind kein fachlicher oder
+        schulischer Nachweis.
+      </p>
       <div className="learning-detail">
         <div>
           <h2>Ihr Weg durch den Lernpfad</h2>
@@ -184,7 +188,7 @@ export function LearningDetail({
                   <div className={`quiz-feedback ${feedback}`} role="status">
                     <strong>
                       {feedback === 'correct'
-                        ? 'Richtig. Lernpfad abgeschlossen!'
+                        ? 'Richtig. Demo-Wissenscheck abgeschlossen.'
                         : 'Noch nicht ganz. Versuchen Sie es erneut.'}
                     </strong>
                     <p>
@@ -200,14 +204,14 @@ export function LearningDetail({
         </div>
         <aside className="learning-summary">
           <span className="eyebrow">Ihr Lernfortschritt</span>
-          <h2>{passed ? 'Ziel erreicht.' : 'Schritt für Schritt.'}</h2>
+          <h2>{passed ? 'Demo-Ziel erreicht.' : 'Schritt für Schritt.'}</h2>
           <ProgressBar
             value={((count + Number(passed)) / 4) * 100}
             label={`${count} von 3 Lektionen gelesen`}
           />
           <p>
             {passed
-              ? 'Sie haben den Wissenscheck erfolgreich bearbeitet. Die Inhalte bleiben zum Nachschlagen verfügbar.'
+              ? 'Sie haben den Demo-Wissenscheck bearbeitet. Das ist kein Schulungsnachweis; die Inhalte bleiben zum Nachschlagen verfügbar.'
               : 'Drei Lektionen und ein bestandener Wissenscheck ergeben 100 %.'}
           </p>
           <span className="eyebrow">Ihr Lernziel</span>
