@@ -44,6 +44,9 @@ test('SB1 delivery and payment path is searchable, source-aware and usable on de
   await expect(page.locator('#einschraenkungen')).toContainText(
     'Eine automatische Synchronisierung',
   );
+  await expect(page.locator('#einschraenkungen')).toContainText(
+    'Führende Quelle, Zuordnung und Pflegeverantwortung',
+  );
   await expect(page.locator('#procedure-delivery-milestones')).toContainText('Ext.Del');
   await expect(page.locator('#procedure-delivery-milestones')).toContainText(
     'Anfang nicht früher als',

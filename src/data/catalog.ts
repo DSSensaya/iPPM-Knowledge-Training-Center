@@ -492,13 +492,14 @@ export const issues: Issue[] = [
   },
   {
     id: 'issue-f-r1-open-08',
-    title: 'Lieferliste und Meilensteine technisch abgleichen',
-    status: 'VERIFIKATION ERFORDERLICH',
+    title: 'Führende Quelle und Zuordnung von Lieferliste und Meilensteinen klären',
+    status: 'ENTSCHEIDUNG ERFORDERLICH',
     subjects: ['fn-deliverables', 'fn-delivery-milestones'].map((id) => ({ kind: 'function', id })),
     limitation:
-      'Das Handbuch beschreibt einen fachlichen Abgleich zwischen List of Deliverables und Liefermeilensteinen. Eine automatische Synchronisierung oder der Umgang mit großen Lieferlisten ist damit nicht nachgewiesen. Beide Einträge einzeln vergleichen.',
+      'Führende Quelle, Zuordnung und Pflegeverantwortung sind laut Funktionsmatrix offen. Das Handbuch beschreibt einen fachlichen Abgleich zwischen List of Deliverables und Liefermeilensteinen. Eine automatische Synchronisierung oder der Umgang mit großen Lieferlisten ist damit nicht nachgewiesen. Beide Einträge einzeln vergleichen.',
     evidence: [
-      ...e('F', 'R1 Funktionsmatrix!A7:J8 und A14:J14', 'R1-OPEN-08'),
+      ...e('F', 'Klärungsbedarf!A12:D12', 'R1-OPEN-08'),
+      ...e('F', 'R1 Funktionsmatrix!A7:J8 und A14:J14', 'FS-03a/FS-03b/FS-09'),
       ...e('T', 'Release1-Matrix!A6:Q6'),
       ...e(
         'B',

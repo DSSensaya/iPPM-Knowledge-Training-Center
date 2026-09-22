@@ -53,7 +53,9 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
   await page.getByText('Lernziel, Voraussetzungen und Übungsvorschlag', { exact: true }).click();
   await expect(page.locator('#trainerhinweise')).toContainText('kein Schulungsnachweis');
   await page.locator('summary').filter({ hasText: 'B · SB1-Handbuch' }).click();
-  await expect(page.locator('#quellen')).toContainText('30_Handbuch/');
+  await expect(page.locator('#quellen')).toContainText(
+    'sources/iPPM_HB_SB01-Projektdefinition und Phasen-Meilensteinplanung.docx',
+  );
   await expect(page.locator('#quellen')).toContainText('§3.6.7');
   for (const route of ['guide-project-permissions', 'faq-role-vs-access']) {
     if (route === 'faq-role-vs-access') await page.goto(`/#/artikel/${route}`);

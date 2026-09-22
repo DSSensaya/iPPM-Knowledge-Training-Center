@@ -17,7 +17,22 @@ export interface Section {
   body: string;
   steps?: string[];
 }
-export interface Article {
+export interface ContentRevision {
+  number: number;
+  date: string;
+  note: string;
+  // Snapshot of the source files used by this content revision.
+  sources: { sourceId: string; sha256: string }[];
+}
+export interface ReviewEvidence {
+  revision: number;
+  date: string;
+  reviewer: string;
+  subject: string;
+  environment: string;
+  record: string;
+}
+interface ArticleBase {
   id: string;
   title: string;
   summary: string;
@@ -29,8 +44,17 @@ export interface Article {
   sections: Section[];
   takeaway: string;
   related: string[];
-  knowledge?: KnowledgeContext;
 }
+export type Article = ArticleBase &
+  (
+    | { status: 'demo'; knowledge?: never; revisions?: never; reviews?: never }
+    | {
+        status: 'source-draft' | 'reviewed';
+        knowledge: KnowledgeContext;
+        revisions: ContentRevision[];
+        reviews: ReviewEvidence[];
+      }
+  );
 export interface LearningPath {
   id: string;
   title: string;

@@ -109,8 +109,6 @@ export interface Procedure {
   evidence: EvidenceRef[];
 }
 export interface KnowledgeContext {
-  status: 'source-draft';
-  revision: number;
   functionIds: string[];
   stepIds: string[];
   issueIds: string[];

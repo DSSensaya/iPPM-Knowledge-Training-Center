@@ -25,6 +25,7 @@ export const articles: Article[] = [
   ...milestoneArticles,
   {
     id: 'ippm-verstehen',
+    status: 'demo',
     title: 'iPPM verstehen: vom Projekt zum Portfolio',
     summary:
       'Wie Projekte, Ressourcen und strategische Ziele zusammenhängen – und welchen Beitrag Ihre Rolle leistet.',
@@ -58,6 +59,7 @@ export const articles: Article[] = [
   },
   {
     id: 'projekt-anlegen',
+    status: 'demo',
     title: 'Ein Projekt sauber aufsetzen',
     summary: 'Von Ziel und Verantwortlichkeiten bis zur ersten belastbaren Planungsbasis.',
     topic: 'Projektplanung',
@@ -92,6 +94,7 @@ export const articles: Article[] = [
   },
   {
     id: 'statusbericht',
+    status: 'demo',
     title: 'Einen aussagekräftigen Statusbericht erstellen',
     summary:
       'Termine, Kosten und Risiken auf den Punkt bringen. Mit einem klaren Vorschlag für die nächste Entscheidung.',
@@ -131,6 +134,7 @@ export const articles: Article[] = [
   },
   {
     id: 'meilensteine',
+    status: 'demo',
     title: 'Meilensteine und Abhängigkeiten planen',
     summary: 'Prüfbare Ergebnisse definieren und Terminfolgen frühzeitig erkennen.',
     topic: 'Projektplanung',
@@ -164,6 +168,7 @@ export const articles: Article[] = [
   },
   {
     id: 'ressourcen-planen',
+    status: 'demo',
     title: 'Ressourcenbedarf realistisch abstimmen',
     summary:
       'Aufwand und verfügbare Kapazität unterscheiden, Engpässe erkennen und Alternativen vorbereiten.',
@@ -199,6 +204,7 @@ export const articles: Article[] = [
   },
   {
     id: 'risiken',
+    status: 'demo',
     title: 'Risiken bewerten und Maßnahmen ableiten',
     summary:
       'Unsicherheiten strukturiert beschreiben und aktiv steuern, bevor sie zu Problemen werden.',
@@ -233,6 +239,7 @@ export const articles: Article[] = [
   },
   {
     id: 'portfolio-priorisieren',
+    status: 'demo',
     title: 'Vorhaben im Portfolio priorisieren',
     summary: 'Strategischen Beitrag, Dringlichkeit und Kapazitätsbedarf gemeinsam betrachten.',
     topic: 'Portfolio',
@@ -267,6 +274,7 @@ export const articles: Article[] = [
   },
   {
     id: 'reporting-check',
+    status: 'demo',
     title: 'Vor dem Reporting: der Qualitätscheck',
     summary: 'Sechs Prüfpunkte für einen konsistenten und entscheidungsfähigen Projektbericht.',
     topic: 'Status & Reporting',
@@ -298,6 +306,7 @@ export const articles: Article[] = [
   },
   {
     id: 'arbeitspakete',
+    status: 'demo',
     title: 'Arbeitspakete verlässlich zurückmelden',
     summary:
       'Fortschritt, Restaufwand und Hindernisse so beschreiben, dass das Projektteam weiterplanen kann.',

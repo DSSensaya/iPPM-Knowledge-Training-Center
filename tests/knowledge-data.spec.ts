@@ -1,4 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { resolve, sep } from 'node:path';
 import { articles, learningPaths, processes, recommendedArticleIds } from '../src/data/content';
 import {
   functions,
@@ -131,6 +134,85 @@ test('curated knowledge has unique IDs and complete source and relationship refe
   recommendedArticleIds.forEach((id) => has(articles, id));
 });
 
+test('v0.5 source paths and recorded file hashes match the local originals', () => {
+  for (const source of sources) {
+    const path = resolve(process.cwd(), source.filename);
+    expect(path.startsWith(`${resolve(process.cwd(), 'sources')}${sep}`)).toBeTruthy();
+    expect(createHash('sha256').update(readFileSync(path)).digest('hex').toUpperCase()).toBe(
+      source.sha256,
+    );
+  }
+});
+
+test('v0.5 content states, revisions and review evidence remain distinct', () => {
+  expect(articles.filter((a) => a.status === 'demo')).toHaveLength(9);
+  expect(articles.filter((a) => a.status === 'source-draft')).toHaveLength(4);
+  for (const article of articles) {
+    if (article.status === 'demo') {
+      expect(article.knowledge).toBeUndefined();
+      continue;
+    }
+    expect(article.revisions.map((r) => r.number)).toEqual(
+      article.revisions.map((_, index) => index + 1),
+    );
+    const current = article.revisions.at(-1)!;
+    expect(current.date).toBe(article.updated);
+    expect(current.note.trim()).not.toBe('');
+    expect(current.sources.map((s) => s.sourceId).sort()).toEqual(
+      [...new Set(articleEvidence(article).map((ref) => ref.sourceId))].sort(),
+    );
+    for (const snapshot of current.sources) {
+      const source = sources.find((s) => s.id === snapshot.sourceId)!;
+      expect(snapshot.sha256).toBe(source.sha256);
+    }
+    for (const review of article.reviews) {
+      expect(article.revisions.some((r) => r.number === review.revision)).toBeTruthy();
+      for (const field of [
+        review.date,
+        review.reviewer,
+        review.subject,
+        review.environment,
+        review.record,
+      ])
+        expect(field.trim()).not.toBe('');
+    }
+    expect(article.status === 'reviewed').toBe(
+      article.reviews.some((review) => review.revision === current.number),
+    );
+  }
+});
+
+test('v0.5 real packages keep issue, evidence and dependency references in scope', () => {
+  const deliveryDecision = issues.find((i) => i.id === 'issue-f-r1-open-08')!;
+  expect(deliveryDecision.status).toBe('ENTSCHEIDUNG ERFORDERLICH');
+  expect(deliveryDecision.evidence).toContainEqual({
+    sourceId: 'F',
+    locator: 'Klärungsbedarf!A12:D12',
+    sourceKey: 'R1-OPEN-08',
+    derivation: 'direct',
+  });
+  for (const article of articles.filter((a) => a.status !== 'demo')) {
+    const knowledge = article.knowledge!;
+    const data = knowledgeFor(article);
+    const functionIds = new Set(knowledge.functionIds);
+    const issueIds = new Set(knowledge.issueIds);
+    expect(data.issues.map((i) => i.id).sort()).toEqual([...knowledge.issueIds].sort());
+    for (const issue of data.issues) {
+      expect(
+        issue.subjects.some((s) => s.kind === 'function' && functionIds.has(s.id)),
+      ).toBeTruthy();
+    }
+    for (const assessment of data.assessments) {
+      for (const id of assessment.issueIds) expect(issueIds.has(id)).toBeTruthy();
+    }
+    for (const link of data.links) {
+      expect(functionIds.has(link.from.id)).toBeTruthy();
+      expect(functionIds.has(link.to.id)).toBeTruthy();
+    }
+    expect(articleEvidence(article).length).toBeGreaterThan(0);
+  }
+});
+
 test('v0.4 keeps delivery and payment variants, scope, training and technical evidence distinct', () => {
   const guide = articles.find((a) => a.id === 'guide-deliverables-milestones')!;
   const data = knowledgeFor(guide);
@@ -184,7 +266,7 @@ test('new evidence preserves conflicting training statements and bounded technic
   expect(owner.find((a) => a.dimension === 'technical')?.evidence[0].sourceId).toBe('F');
   expect(owner.find((a) => a.dimension === 'procedure-description')?.value).toBe('described-draft');
   expect(data.issues.some((i) => i.id === 'issue-build-sync')).toBeTruthy();
-  expect(guide.knowledge!.status).toBe('source-draft');
+  expect(guide.status).toBe('source-draft');
   const procedure = guide.knowledge!.procedures.find((p) => p.id === 'procedure-owner-change')!;
   expect(procedure.requiredRights).toEqual([
     'Open the project',

@@ -28,8 +28,10 @@ export function KnowledgeOverview({ article }: { article: Article }) {
     <section id="fachlicher-kontext" tabIndex={-1}>
       <h2>Aufgabe und Geltungsbereich</h2>
       <p>
-        SB1-Bezug · Quellenbasierter Entwurf · Keine Produktivfreigabe. Stand dieses
-        Center-Beitrags: {article.updated}; Quellenstände siehe unten.
+        SB1-Bezug ·{' '}
+        {article.status === 'reviewed' ? 'Fachlich geprüfter Inhalt' : 'Quellenbasierter Entwurf'} ·
+        Keine Produktivfreigabe. Stand dieses Center-Beitrags: {article.updated}; Quellenstände
+        siehe unten.
       </p>
       <ul>
         {data.functions.map((f) => (

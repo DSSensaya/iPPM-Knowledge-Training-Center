@@ -1,10 +1,8 @@
-import type { Article } from './types';
+import type { Article, ContentRevision } from './types';
 import type { KnowledgeContext } from './domain';
 import { evidence as e } from './sources';
 
 const knowledge: KnowledgeContext = {
-  status: 'source-draft',
-  revision: 1,
   functionIds: ['fn-project-permissions', 'fn-owner-change', 'fn-build-team'],
   stepIds: ['step-2-6', 'step-2-7', 'step-2-11', 'step-2-15'],
   issueIds: [
@@ -120,9 +118,30 @@ const knowledge: KnowledgeContext = {
   },
 };
 
+const revision = (note: string): ContentRevision[] => [
+  {
+    number: 1,
+    date: '2026-09-22',
+    note,
+    sources: [
+      { sourceId: 'B', sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727' },
+      { sourceId: 'F', sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4' },
+      { sourceId: 'K', sha256: '58B5383B70C9E565AD85058752819B16E7603A55DC98184A4F4A2036CC8D5688' },
+      { sourceId: 'S', sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939' },
+      { sourceId: 'T', sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB' },
+      { sourceId: 'H', sha256: 'C64438D9F8AB772AFCF333D351887DE597144BF976B875AFF2DB56CB6846B18C' },
+    ],
+  },
+];
+
 export const accessArticles: Article[] = [
   {
     id: 'guide-project-permissions',
+    status: 'source-draft',
+    revisions: revision(
+      'Bestandsfassung des quellenbasierten Zugriffs- und Owner-Wechsel-Entwurfs erfasst.',
+    ),
+    reviews: [],
     title: 'Zugriffsrechte festlegen und Owner wechseln',
     summary:
       'Stakeholder gezielt berechtigen und ein Teilprojekt an TM oder ILSM übergeben, während der PM seinen lesenden Zugriff erhält.',
@@ -148,6 +167,11 @@ export const accessArticles: Article[] = [
   },
   {
     id: 'faq-role-vs-access',
+    status: 'source-draft',
+    revisions: revision(
+      'Bestandsfassung der quellenbasierten FAQ zu Rollen, Team und Rechten erfasst.',
+    ),
+    reviews: [],
     title: 'Rollenliste, Build Team und Project Permissions unterscheiden',
     summary:
       'Warum eine eingetragene Projektrolle noch keinen Zugriff beweist und welcher Zugriffsweg im SB1-Entwurf für wen vorgesehen ist.',

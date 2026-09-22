@@ -152,9 +152,11 @@ export function ArticlePage({
             </span>
           </div>
           <div className="demo-note">
-            {article.knowledge
-              ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
-              : 'Demonstrationsinhalt · Fachlich nicht freigegeben'}
+            {article.status === 'demo'
+              ? 'Demonstrationsinhalt · Fachlich nicht freigegeben'
+              : article.status === 'source-draft'
+                ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
+                : 'Fachlich geprüfter Inhalt'}
           </div>
           {article.knowledge && (
             <>
@@ -259,12 +261,18 @@ export function ArticlePage({
             <p>{article.roles.map(roleLabel).join(', ')}</p>
             <span className="eyebrow">Redaktion</span>
             <p>
-              {article.knowledge ? 'Quellenbasierter Center-Entwurf' : 'iPPM Demo-Redaktion'}
+              {article.status === 'demo'
+                ? 'iPPM Demo-Redaktion'
+                : article.status === 'source-draft'
+                  ? 'Quellenbasierter Center-Entwurf'
+                  : 'Fachlich geprüfter Center-Inhalt'}
               <br />
               <span className="muted">
-                {article.knowledge
-                  ? `Revision ${article.knowledge.revision} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
-                  : 'Beispielwissen für dieses MVP'}
+                {article.status === 'demo'
+                  ? 'Beispielwissen für dieses MVP'
+                  : article.status === 'source-draft'
+                    ? `Revision ${article.revisions.at(-1)?.number} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
+                    : `Revision ${article.revisions.at(-1)?.number} · Fachlicher Prüfbeleg: ${article.reviews.at(-1)?.record}`}
               </span>
             </p>
           </div>
