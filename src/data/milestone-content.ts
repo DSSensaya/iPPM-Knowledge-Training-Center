@@ -126,6 +126,7 @@ const knowledge: KnowledgeContext = {
       id: 'procedure-payment-milestones',
       title: 'Zahlungsmeilensteine mit oder ohne Lieferbezug planen',
       functionId: 'fn-payment-milestones',
+      relatedArticleId: 'guide-save-publish-checkin',
       trigger:
         'Vertragliche Zahlungsbedingungen sollen als Zahlungstermine im Projektplan sichtbar werden.',
       prerequisites: [

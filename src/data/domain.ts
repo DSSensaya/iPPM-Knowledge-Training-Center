@@ -100,6 +100,7 @@ export interface Procedure {
   id: string;
   title: string;
   functionId: string;
+  relatedArticleId?: string;
   trigger: string;
   prerequisites: string[];
   requiredRights?: string[];

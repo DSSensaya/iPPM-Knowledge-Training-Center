@@ -46,11 +46,34 @@ export const savePublishArticles: Article[] = [
           },
         ],
       },
+      {
+        number: 2,
+        date: '2026-09-23',
+        note: 'Lieferliste und PDP Contract als Alternativen getrennt und kontextbezogene Prozedurverweise ergänzt; fachliche Prüfung bleibt offen.',
+        sources: [
+          {
+            sourceId: 'B',
+            sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727',
+          },
+          {
+            sourceId: 'F',
+            sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4',
+          },
+          {
+            sourceId: 'S',
+            sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939',
+          },
+          {
+            sourceId: 'T',
+            sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB',
+          },
+        ],
+      },
     ],
     reviews: [],
     title: 'Speichern, Veröffentlichen und Einchecken im passenden Kontext',
     summary:
-      'Drei unterschiedliche Abschlusswege für Liste/PDP, Projektplan im MS Project Client und Owner-Wechsel – mit Prüffragen statt behaupteter Systemabnahme.',
+      'Nur der jeweils bearbeitete Kontext zählt: Lieferliste oder PDP Contract, Projektplan im MS Project Client oder Owner-Wechsel – mit Prüffragen statt behaupteter Systemabnahme.',
     topic: 'Projektplanung',
     roles: ['pm', 'tm', 'ilsm'],
     kind: 'Anleitung',
@@ -58,7 +81,7 @@ export const savePublishArticles: Article[] = [
     updated: '2026-09-23',
     sections: [],
     takeaway:
-      'Liste/PDP: speichern und fachlich prüfen. MS Project Client: geprüften Plan speichern, veröffentlichen, einchecken und veröffentlichten Stand prüfen. Owner-Wechsel: zuerst PM-Leserechte sichern, dann Änderung speichern und einchecken; anschließend Owner und Zugriff prüfen. Diese Schritte gelten jeweils nur in ihrem Kontext.',
+      'Lieferliste oder PDP Contract: jeweils nur den bearbeiteten Kontext speichern und fachlich prüfen. MS Project Client: geprüften Plan speichern, veröffentlichen, einchecken und veröffentlichten Stand prüfen. Owner-Wechsel: zuerst PM-Leserechte sichern, dann Änderung speichern und einchecken; anschließend Owner und Zugriff prüfen.',
     related: ['guide-project-permissions', 'guide-deliverables-milestones'],
     knowledge: {
       functionIds: [
@@ -86,29 +109,48 @@ export const savePublishArticles: Article[] = [
       ],
       procedures: [
         {
-          id: 'procedure-save-list-pdp',
-          title: 'Liste/PDP: speichern und fachlich abgleichen',
+          id: 'procedure-save-deliverables-list',
+          title: 'Lieferliste speichern und prüfen',
           functionId: 'fn-deliverables',
-          trigger:
-            'Liefergegenstände in der Liste oder Zahlungsbedingungen auf der PDP wurden bearbeitet.',
+          relatedArticleId: 'guide-deliverables-milestones',
+          trigger: 'Liefergegenstände in der List of Deliverables wurden bearbeitet.',
           prerequisites: [
-            'Die fachlich abgestimmten Liefer- oder Vertragsangaben und die nötigen Bearbeitungsrechte liegen vor.',
+            'Die fachlich abgestimmten Liefergegenstände und die nötigen Bearbeitungsrechte liegen vor.',
           ],
-          actions: [deliverables.actions[2], paymentTerms.actions[2]],
+          actions: [deliverables.actions[2]],
           expectedResults: [
-            'Die gespeicherten Angaben sollen mit Lieferliste beziehungsweise Vertragslage fachlich übereinstimmen.',
+            'Die gespeicherten Listeneinträge sollen mit den fachlich abgestimmten Liefergegenständen übereinstimmen.',
           ],
           checkQuestions: [
             ...deliverables.checkQuestions,
-            ...paymentTerms.checkQuestions,
-            'Sind die gespeicherten Angaben im jeweiligen Listen- oder PDP-Kontext wieder auffindbar?',
+            'Sind die gespeicherten Liefergegenstände in der Liste wieder auffindbar?',
           ],
-          evidence: [...deliverables.evidence, ...paymentTerms.evidence],
+          evidence: deliverables.evidence,
+        },
+        {
+          id: 'procedure-save-payment-terms-pdp',
+          title: 'Zahlungsbedingungen auf PDP Contract speichern und prüfen',
+          functionId: 'fn-payment-terms',
+          relatedArticleId: 'guide-deliverables-milestones',
+          trigger: 'Zahlungsbedingungen auf der PDP Contract wurden bearbeitet.',
+          prerequisites: [
+            'Die fachlich abgestimmten Vertragsangaben und die nötigen Bearbeitungsrechte liegen vor.',
+          ],
+          actions: [paymentTerms.actions[2]],
+          expectedResults: [
+            'Die gespeicherten Zahlungsbedingungen sollen mit der fachlich abgestimmten Vertragslage übereinstimmen.',
+          ],
+          checkQuestions: [
+            ...paymentTerms.checkQuestions,
+            'Sind die gespeicherten Zahlungsbedingungen auf der PDP Contract wieder auffindbar?',
+          ],
+          evidence: paymentTerms.evidence,
         },
         {
           id: 'procedure-save-project-plan',
           title: 'MS Project Client: geprüften Plan veröffentlichen und einchecken',
           functionId: 'fn-payment-milestones',
+          relatedArticleId: 'guide-deliverables-milestones',
           trigger: 'Der bearbeitete Projektplan soll als geprüfter Planstand weitergegeben werden.',
           prerequisites: [
             'Der Projektplan ist im MS Project Client zur Bearbeitung ausgecheckt; Termine und fachliche Zuordnung wurden geprüft.',
@@ -136,6 +178,7 @@ export const savePublishArticles: Article[] = [
           id: 'procedure-save-owner-change',
           title: 'Owner-Wechsel: PM-Leserechte sichern, speichern und einchecken',
           functionId: 'fn-owner-change',
+          relatedArticleId: 'guide-project-permissions',
           trigger: owner.trigger,
           prerequisites: owner.prerequisites,
           requiredRights: owner.requiredRights,
@@ -149,15 +192,15 @@ export const savePublishArticles: Article[] = [
       ],
       trainer: {
         objective:
-          'Die drei belegten Abschlusswege anhand ihres Projekt- und Werkzeugkontexts unterscheiden.',
+          'Die alternativen Listen- und PDP-Wege, den Projektplan und den Owner-Wechsel nach Kontext unterscheiden.',
         preparation: [
           'Nur einen vorher geprüften Schulungskontext und fiktive Projektdaten verwenden.',
           'Wirksame Rechte, Client-Stand und veröffentlichten Planstand vor einer praktischen Übung gesondert prüfen.',
         ],
         exercise:
-          'Redaktioneller Gesprächsvorschlag: Für Liste/PDP, Projektplan und Owner-Wechsel jeweils die passenden Prüffragen auswählen. Ein praktischer Durchlauf ist nicht dokumentiert.',
+          'Redaktioneller Gesprächsvorschlag: Für die bearbeitete Lieferliste oder PDP Contract, den Projektplan und den Owner-Wechsel jeweils die passenden Prüffragen auswählen. Ein praktischer Durchlauf ist nicht dokumentiert.',
         expectedResult:
-          'Die drei Kontextwege und ihre offenen Prüfungen werden getrennt erläutert.',
+          'Die alternativen Kontextwege und ihre offenen Prüfungen werden getrennt erläutert.',
         limitation: 'Quellenbasierter Entwurf ohne fachliche Freigabe oder durchgeführte Schulung.',
       },
     },

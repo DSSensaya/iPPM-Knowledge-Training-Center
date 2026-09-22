@@ -57,6 +57,7 @@ const knowledge: KnowledgeContext = {
       id: 'procedure-owner-change',
       title: 'Owner wechseln und lesenden Eigenzugriff sichern',
       functionId: 'fn-owner-change',
+      relatedArticleId: 'guide-save-publish-checkin',
       trigger:
         'Ein vom PMO bereitgestelltes System- oder ILS-Teilprojekt wird an den vorgesehenen Teilprojektleiter übergeben.',
       prerequisites: [

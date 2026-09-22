@@ -6,7 +6,7 @@ const articleId = 'guide-save-publish-checkin';
 const articleTitle = 'Speichern, Veröffentlichen und Einchecken im passenden Kontext';
 const guideIds = ['guide-project-permissions', 'guide-deliverables-milestones'];
 
-test('crosscut article reuses the three bounded source procedures and preserves demo paths', () => {
+test('crosscut article keeps list and PDP alternatives distinct and preserves demo paths', () => {
   const article = articles.find((item) => item.id === articleId)!;
   expect(article.status).toBe('source-draft');
   expect(article.reviews).toEqual([]);
@@ -15,9 +15,10 @@ test('crosscut article reuses the three bounded source procedures and preserves 
     expect(articles.find((item) => item.id === id)?.related).toContain(articleId);
   }
 
-  const [list, project, owner] = article.knowledge!.procedures;
+  const [list, pdp, project, owner] = article.knowledge!.procedures;
   expect(article.knowledge!.procedures.map((p) => p.id)).toEqual([
-    'procedure-save-list-pdp',
+    'procedure-save-deliverables-list',
+    'procedure-save-payment-terms-pdp',
     'procedure-save-project-plan',
     'procedure-save-owner-change',
   ]);
@@ -27,13 +28,21 @@ test('crosscut article reuses the three bounded source procedures and preserves 
   const sourceOwner = accessGuide.knowledge!.procedures.find(
     (p) => p.id === 'procedure-owner-change',
   )!;
+  expect(list.functionId).toBe('fn-deliverables');
+  expect(pdp.functionId).toBe('fn-payment-terms');
   expect(list.actions).toEqual([
     deliveryProcedures.find((p) => p.id === 'procedure-deliverables')!.actions[2],
+  ]);
+  expect(pdp.actions).toEqual([
     deliveryProcedures.find((p) => p.id === 'procedure-payment-terms')!.actions[2],
   ]);
-  expect(list.actions.map((action) => action.text).join(' ')).not.toMatch(
-    /veröffentlichen|publish|check-in/i,
-  );
+  expect(list.trigger).toContain('List of Deliverables');
+  expect(pdp.trigger).toContain('PDP Contract');
+  for (const procedure of [list, pdp]) {
+    expect(procedure.actions.map((action) => action.text).join(' ')).not.toMatch(
+      /veröffentlichen|publish|check-in|einchecken/i,
+    );
+  }
   expect(project.actions.map((action) => action.text).join(' ')).toMatch(
     /speichern.*veröffentlichen.*checken.*ein.*veröffentlichten Stand/i,
   );
@@ -46,7 +55,17 @@ test('crosscut article reuses the three bounded source procedures and preserves 
   expect(owner.actions.map((action) => action.text).join(' ')).not.toMatch(
     /veröffentlichen|publish/i,
   );
-  for (const procedure of [list, project, owner]) {
+  expect([list, pdp, project].map((p) => p.relatedArticleId)).toEqual([
+    guideIds[1],
+    guideIds[1],
+    guideIds[1],
+  ]);
+  expect(owner.relatedArticleId).toBe(guideIds[0]);
+  expect(sourceOwner.relatedArticleId).toBe(articleId);
+  expect(
+    deliveryProcedures.find((p) => p.id === 'procedure-payment-milestones')?.relatedArticleId,
+  ).toBe(articleId);
+  for (const procedure of [list, pdp, project, owner]) {
     expect(procedure.checkQuestions.length).toBeGreaterThan(0);
     expect(procedure.checkQuestions.every((question) => question.endsWith('?'))).toBeTruthy();
     expect(procedure.evidence.length).toBeGreaterThan(0);
@@ -79,13 +98,28 @@ test('crosscut article is searchable and linked from both real guides', async ({
     `#/artikel/${articleId}`,
   );
 
-  for (const id of guideIds) {
+  for (const { id, procedureId } of [
+    { id: guideIds[0], procedureId: 'procedure-owner-change' },
+    { id: guideIds[1], procedureId: 'procedure-payment-milestones' },
+  ]) {
     await page.goto(`/#/artikel/${id}`);
     const related = page.locator('.article-aside').getByRole('link', { name: articleTitle });
     await expect(related).toHaveAttribute('href', `#/artikel/${articleId}`);
-    await related.click();
+    const contextual = page.locator(`#${procedureId}`).getByRole('link', { name: articleTitle });
+    await expect(contextual).toHaveAttribute('href', `#/artikel/${articleId}`);
+    await contextual.click();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(articleTitle);
     await expect(page.locator(`.article-aside a[href="#/artikel/${id}"]`)).toBeVisible();
+  }
+
+  await page.goto(`/#/artikel/${articleId}`);
+  for (const { procedureId, id } of [
+    { procedureId: 'procedure-save-deliverables-list', id: guideIds[1] },
+    { procedureId: 'procedure-save-payment-terms-pdp', id: guideIds[1] },
+    { procedureId: 'procedure-save-project-plan', id: guideIds[1] },
+    { procedureId: 'procedure-save-owner-change', id: guideIds[0] },
+  ]) {
+    await expect(page.locator(`#${procedureId} a[href="#/artikel/${id}"]`)).toBeVisible();
   }
 });
 
@@ -95,10 +129,15 @@ test('crosscut article shows distinct actions, questions, open issues and source
   await page.goto(`/#/artikel/${articleId}`);
   await expect(page.locator('.demo-note')).toContainText('Quellenbasierter Entwurf');
 
-  const list = page.locator('#procedure-save-list-pdp');
+  const list = page.locator('#procedure-save-deliverables-list');
   await expect(list).toContainText('Speichern Sie die Liste');
-  await expect(list).toContainText('Speichern Sie die Eingaben');
-  await expect(list).not.toContainText(/veröffentlichen|publish|check-in/i);
+  await expect(list).not.toContainText('Speichern Sie die Eingaben');
+  await expect(list).not.toContainText(/veröffentlichen|publish|check-in|einchecken/i);
+
+  const pdp = page.locator('#procedure-save-payment-terms-pdp');
+  await expect(pdp).toContainText('Speichern Sie die Eingaben');
+  await expect(pdp).not.toContainText('Speichern Sie die Liste');
+  await expect(pdp).not.toContainText(/veröffentlichen|publish|check-in|einchecken/i);
 
   const project = page.locator('#procedure-save-project-plan');
   await expect(project.locator('ol.steps')).toContainText(

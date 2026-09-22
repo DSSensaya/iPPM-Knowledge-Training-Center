@@ -8,6 +8,7 @@ import {
   trainingBlocks,
 } from '../data/catalog';
 import { sources } from '../data/sources';
+import { articles } from '../data/content';
 import { articleEvidence, knowledgeFor } from '../lib/knowledge';
 
 function Evidence({ refs }: { refs: EvidenceRef[] }) {
@@ -174,6 +175,14 @@ export function KnowledgeProcedures({ article, guide }: { article: Article; guid
             ))}
           </ol>
           <Evidence refs={p.evidence} />
+          {p.relatedArticleId && (
+            <p className="small">
+              Zum passenden Beitrag:{' '}
+              <a href={`#/artikel/${p.relatedArticleId}`}>
+                {articles.find((candidate) => candidate.id === p.relatedArticleId)?.title}
+              </a>
+            </p>
+          )}
         </section>
       ))}
     </>

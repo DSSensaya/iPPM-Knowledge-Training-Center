@@ -124,6 +124,7 @@ test('curated knowledge has unique IDs and complete source and relationship refe
     a.roles.forEach((id) => has(roleCatalog, id));
     for (const p of a.knowledge.procedures) {
       has(functions, p.functionId);
+      if (p.relatedArticleId) has(articles, p.relatedArticleId);
       evidence(p.evidence);
       expect(p.actions.length).toBeGreaterThan(0);
     }
