@@ -3,6 +3,7 @@ import { accessArticles } from './access-content';
 import { milestoneArticles } from './milestone-content';
 import { savePublishArticles } from './save-publish-content';
 import { definitionArticles } from './definition-content';
+import { releaseArticles } from './release-content';
 import { controlArticles } from './control-content';
 
 export const roles: Role[] = [
@@ -24,6 +25,7 @@ export const topics: Topic[] = [
   'Team & Zugriff',
 ];
 export const articles: Article[] = [
+  ...releaseArticles,
   ...controlArticles,
   ...accessArticles,
   ...milestoneArticles,

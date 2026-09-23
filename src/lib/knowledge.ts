@@ -91,6 +91,6 @@ export function knowledgeSearchText(article: Article) {
     ]),
     ...data.issues.flatMap((i) => [i.title, i.limitation]),
     ...data.links.flatMap((link) => [link.statement, link.condition ?? '']),
-    'SB1 Schulungsblock 1',
+    ...(data.steps.length > 0 ? ['SB1 Schulungsblock 1'] : []),
   ].join(' ');
 }

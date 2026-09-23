@@ -83,3 +83,7 @@ Die Prüfungen in `tests/` decken Referenzintegrität, Quellenbewertungen, alle 
 ## Sinnvolle nächste Ausbaustufe
 
 Vor produktiver Nutzung: Inhalte mit Fachverantwortlichen validieren, echte Rollen und Prozessbegriffe übernehmen und einen redaktionellen Freigabeprozess festlegen. Erst bei Bedarf folgen eine lokale Inhaltsverwaltung, Mehrbenutzerbetrieb und Anbindung an freigegebene interne Systeme. Diese erste Version bietet bewusst keine vorgetäuschten Schnittstellen oder funktionslosen Download-/Supportaktionen.
+
+## Aktuelle iPPM-Releaseplanung R1B / R2
+
+Die [Releaseplanung und vollständige Scope-Übernahme](docs/ippm-release-2-scope.md) ergänzen den fachlichen Zielrahmen. Das unveränderte Original liegt unter `sources/iPPM_Releaseplanung_Release-2.docx`, die aktuelle Quelle trägt die ID `R2P`; `H` bleibt historisch. Die Übersicht ist im Center über die Suche „Release 2“ erreichbar. Sie ergänzt die fünfzehn SB1-Entwürfe um einen sechzehnten Quellenentwurf zur Release-Orientierung. R1B umfasst Power-BI-Reporting; R2 umfasst Kalkulation, Ressourcen-/Kostenplanung und SAP-Kopplung sowie die in der Quelle bezeichneten Backlog-Themen. Dies ändert weder die SB1-Prioritäten bis v1.0 noch die Trainingsabdeckung. Umsetzung, Freigabe und Termine werden durch diese Planungsquelle nicht belegt.

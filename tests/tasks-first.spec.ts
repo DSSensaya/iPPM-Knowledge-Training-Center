@@ -85,12 +85,12 @@ test('knowledge status filter separates real articles from demo content', async 
   const status = page.getByRole('combobox', { name: 'Inhaltsstand' });
   const cards = page.locator('.article-card');
   await expect(status).toHaveValue('alle');
-  await expect(cards).toHaveCount(24);
+  await expect(cards).toHaveCount(25);
 
   await status.selectOption('fach');
-  await expect(cards).toHaveCount(15);
+  await expect(cards).toHaveCount(16);
   await expect(cards.locator('p.small.muted')).toHaveText(
-    Array(15).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
+    Array(16).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
   );
   for (const { id } of taskArticles) {
     await expect(cards.locator(`h3 a[href="#/artikel/${id}"]`)).toBeVisible();
