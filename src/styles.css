@@ -1832,6 +1832,60 @@ details > p {
   background: var(--base);
   padding: 24px;
 }
+.sb1-coverage-list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 12px;
+}
+.sb1-coverage-list > li {
+  background: var(--base);
+  min-width: 0;
+}
+.sb1-coverage-list summary {
+  cursor: pointer;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+.sb1-coverage-list summary:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+.sb1-coverage-list summary strong::before {
+  content: '+ ';
+}
+.sb1-coverage-list details[open] summary strong::before {
+  content: '− ';
+}
+.sb1-coverage-list summary span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.sb1-coverage-details {
+  padding: 0 24px 16px;
+  overflow-wrap: anywhere;
+}
+.sb1-coverage-details p {
+  margin: 0 0 12px;
+}
+.sb1-coverage-details > div {
+  margin-bottom: 12px;
+}
+.sb1-material-list {
+  margin: 8px 0 0;
+  padding-left: 24px;
+}
+.sb1-additional-topics {
+  padding-left: 24px;
+}
+.sb1-additional-topics li {
+  margin-top: 12px;
+}
 .article-content section[tabindex]:focus-visible {
   outline: 3px solid var(--signal);
   outline-offset: 4px;
