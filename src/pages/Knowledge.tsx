@@ -163,6 +163,9 @@ export function ArticlePage({
   const relatedGuide = articles.find(
     (candidate) =>
       article.related.includes(candidate.id) &&
+      candidate.knowledge?.functionIds.some((functionId) =>
+        article.knowledge?.functionIds.includes(functionId),
+      ) &&
       candidate.kind === 'Anleitung' &&
       candidate.knowledge?.procedures.length,
   );

@@ -140,10 +140,15 @@ export function KnowledgePrerequisites({ article, guide }: { article: Article; g
             )}
           </div>
         ))
-      ) : (
+      ) : guide ? (
         <p>
           Die Voraussetzungen für die praktische Anwendung stehen in der zugehörigen Anleitung:{' '}
           <GuideReference guide={guide} />
+        </p>
+      ) : (
+        <p>
+          Vor praktischer Nutzung müssen die unten genannten fachlichen und technischen
+          Voraussetzungen nachgewiesen sein. Dieser Beitrag bietet Orientierung.
         </p>
       )}
     </section>
@@ -154,12 +159,18 @@ export function KnowledgeProcedures({ article, guide }: { article: Article; guid
   const procedures = article.knowledge?.procedures ?? [];
   return (
     <>
-      {procedures.length === 0 && (
-        <p>
-          Diese Antwort erläutert die Entscheidung. Der beschriebene Schritt-für-Schritt-Weg steht
-          in der zugehörigen Anleitung: <GuideReference guide={guide} />
-        </p>
-      )}
+      {procedures.length === 0 &&
+        (guide ? (
+          <p>
+            Diese Antwort erläutert die Entscheidung. Der beschriebene Schritt-für-Schritt-Weg steht
+            in der zugehörigen Anleitung: <GuideReference guide={guide} />
+          </p>
+        ) : (
+          <p>
+            Für diesen Schritt liegt hier kein ausführbarer Bedienweg vor. Die Orientierung und
+            Prüffragen im fachlichen Kontext benennen die Vorbereitung und die offenen Nachweise.
+          </p>
+        ))}
       {procedures.map((p) => (
         <section key={p.id} id={p.id} tabIndex={-1} className="knowledge-procedure">
           <h3>{p.title}</h3>
@@ -223,10 +234,15 @@ export function KnowledgeResults({ article, guide }: { article: Article; guide?:
             Konten.
           </p>
         </>
-      ) : (
+      ) : guide ? (
         <p>
           Die Ergebnisfragen zum beschriebenen Weg stehen in der zugehörigen Anleitung:{' '}
           <GuideReference guide={guide} />
+        </p>
+      ) : (
+        <p>
+          {article.knowledge?.trainer.expectedResult} Die Prüffragen dienen der Vorbereitung; ihre
+          Beantwortung ist kein praktischer Systemnachweis.
         </p>
       )}
     </section>

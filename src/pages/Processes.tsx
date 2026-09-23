@@ -13,7 +13,7 @@ export default function Processes() {
       <PageTitle
         eyebrow="Das Zusammenspiel verstehen"
         title="Prozesse im Überblick"
-        description="Wer macht was – und welches Ergebnis wird weitergegeben? Projektdefinition, Team/Zugriff und Planung als begrenzte SB1-Ausschnitte; Antrag und Bereitstellung nur als Orientierung."
+        description="Wer macht was – und welches Ergebnis wird weitergegeben? SB1 mit abgegrenzten Bedienentwürfen und Orientierung; offene Fachregeln und Systemnachweise bleiben sichtbar."
       />
       {processViews.map((view) => (
         <section className="process-section" aria-label={view.title} key={view.id}>
@@ -33,8 +33,12 @@ export default function Processes() {
                   <p>Voraussetzung: {s.input}</p>
                   <p>Erwartetes Ergebnis: {s.output}</p>
                   <a href={`#/artikel/${view.articleId}`}>
-                    {s.number.startsWith('1.') ? 'Orientierung' : 'Bedienweg'}, Quellen und
-                    Einschränkungen zu {s.number} öffnen
+                    {sb1Coverage
+                      .find((item) => item.number === s.number)
+                      ?.materialStatus.startsWith('Orientierung')
+                      ? 'Orientierung'
+                      : 'Bedienweg'}
+                    , Quellen und Einschränkungen zu {s.number} öffnen
                   </a>
                 </li>
               );
@@ -50,7 +54,14 @@ export default function Processes() {
           offene Punkte ersetzen keinen Bedienweg.
         </p>
         <p>
-          17 Schritte mit realem Teilmaterial, 2 Schritte mit Orientierung ohne Gesamtbedienweg, 5
+          {
+            sb1Coverage.filter((item) => item.materialStatus === 'Reales Teilmaterial vorhanden')
+              .length
+          }{' '}
+          Schritte mit realem Teilmaterial,{' '}
+          {sb1Coverage.filter((item) => item.materialStatus.startsWith('Orientierung')).length}{' '}
+          Schritte mit Orientierung ohne Gesamtbedienweg,{' '}
+          {sb1Coverage.filter((item) => item.materialStatus === 'Nur Quellenhinweis').length}{' '}
           Schritte nur mit Quellenhinweisen. Alle Materialien bleiben Quellenentwürfe.
         </p>
         <ol className="sb1-coverage-list">

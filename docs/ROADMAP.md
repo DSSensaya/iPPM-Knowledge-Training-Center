@@ -1,6 +1,6 @@
 # Produkt-Roadmap bis v1.0
 
-Stand: 23.09.2026 · v0.6.0 technisch abgeschlossen; fachliche und praktische Erprobung offen · Aktuelle Produktstrategie
+Stand: 23.09.2026 · v0.7.0 technisch abgeschlossen mit begrenztem Umfang; fachliche und praktische Erprobung offen · Aktuelle Produktstrategie
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
@@ -68,6 +68,8 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Begrenzung:** Ungeklärte LCM-/Review-Regeln nicht verbindlich machen. Statusfelder und Ansichtsfilter vor praktischer Nutzung prüfen. R1-Basisreporting von Power BI trennen; Eskalationserfassung nicht als nachgewiesene vollständige Empfängerbearbeitung darstellen.
 
+**Technischer Abschluss v0.7.0:** Die Schritte 3.3, 3.4, 4.9, 4.12 und 4.13 sind nach Abgleich der lokalen Originalquellen behandelt. Drei begrenzte Bedienentwürfe ergänzen externe Meilensteine, separat vorgegebenes Tailoring und Eskalationserfassung; Statuspflege und R1-Basisreporting erhalten Orientierung mit Prüfaufträgen. Die SB1-Abdeckung umfasst 20 Schritte mit realem Teilmaterial und vier mit Orientierung. LCM-Frequenz/Terminregeln, Empfängerbearbeitung, ungeprüfte Status-/Filterwirkungen und Reporting-PDP/Power BI sind ausdrücklich aus dem vorgesehenen Pilotumfang ausgeschlossen, nicht fachlich geklärt. IDs, Links und v1-Persistenz bleiben erhalten; Build und vollständige Tests bestehen. Fachliche Freigabe und praktische Nutzer-/Trainererprobung fehlen weiterhin. Kriterien, Belege und Umfangsgrenzen stehen im [v0.7-Abschluss](v0.7-abschluss.md).
+
 **Übergang zu v0.9:** Jeder SB1-Schritt hat eine nachvollziehbare Behandlung: nutzbares Material, klarer Teilumfang oder begründete Lücke. Kritische Konflikte für den vorgesehenen Pilotumfang sind geklärt oder durch eine ausdrückliche Umfangsbegrenzung ausgeschlossen.
 
 ### v0.9 – Zusammenhängenden Pilot und Betrieb erproben
@@ -108,5 +110,6 @@ Die breite Integration beginnt nach v0.5, sobald eine gemeinsame Inhaltsvorlage 
 - [Umsetzung und fachliche Grenzen v0.4](v0.4-umsetzung.md)
 - [Technischer Abschluss und offene Prüfungen v0.5](v0.5-abschluss.md)
 - [Projekt-/Teilprojektdefinition und offene Prüfungen v0.6](v0.6-abschluss.md)
+- [SB1-Planung und Steuerung mit Pilotgrenzen v0.7](v0.7-abschluss.md)
 - [Projektübersicht](../README.md), [Projektregeln](../AGENTS.md), [Design-Spezifikation](../DESIGN.md)
 - Fachquellen unter `sources/`; Quellenbewertungen bleiben an die jeweilige Fassung und ihren Geltungsbereich gebunden.

@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { controlArticles } from '../src/data/control-content';
 import { definitionArticles } from '../src/data/definition-content';
 
 const taskArticles = [
+  ...controlArticles.map(({ id, title }) => ({ id, title })),
   ...definitionArticles.map(({ id, title }) => ({ id, title })),
   {
     id: 'guide-project-permissions',
@@ -16,7 +18,7 @@ const taskArticles = [
 test('home puts both real tasks before general and demo entry points', async ({ page }) => {
   await page.goto('/');
   const tasks = page.getByRole('region', { name: 'Mit einer Aufgabe beginnen' });
-  await expect(tasks.locator('.article-card')).toHaveCount(7);
+  await expect(tasks.locator('.article-card')).toHaveCount(12);
   await expect(tasks.locator('.article-card h3')).toHaveText(
     taskArticles.map((task) => task.title),
   );
@@ -56,10 +58,10 @@ test('home puts both real tasks before general and demo entry points', async ({ 
 
 test('home quick searches find the matching real task articles', async ({ page }) => {
   for (const { query, id, title } of [
-    { query: 'Zugriffsrechte', ...taskArticles[5] },
-    { query: 'Owner-Wechsel', ...taskArticles[5] },
-    { query: 'Liefergegenstände', ...taskArticles[6] },
-    { query: 'Meilensteine', ...taskArticles[6] },
+    { query: 'Zugriffsrechte', ...taskArticles[10] },
+    { query: 'Owner-Wechsel', ...taskArticles[10] },
+    { query: 'Liefergegenstände', ...taskArticles[11] },
+    { query: 'Meilensteine', ...taskArticles[11] },
   ]) {
     await page.goto('/');
     const quickSearch = page.locator('.quick-search').getByRole('link', { name: query });
@@ -83,12 +85,12 @@ test('knowledge status filter separates real articles from demo content', async 
   const status = page.getByRole('combobox', { name: 'Inhaltsstand' });
   const cards = page.locator('.article-card');
   await expect(status).toHaveValue('alle');
-  await expect(cards).toHaveCount(19);
+  await expect(cards).toHaveCount(24);
 
   await status.selectOption('fach');
-  await expect(cards).toHaveCount(10);
+  await expect(cards).toHaveCount(15);
   await expect(cards.locator('p.small.muted')).toHaveText(
-    Array(10).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
+    Array(15).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
   );
   for (const { id } of taskArticles) {
     await expect(cards.locator(`h3 a[href="#/artikel/${id}"]`)).toBeVisible();
@@ -155,6 +157,12 @@ test('real articles expose the reading order and early keyboard jump targets', a
   }
   for (const { id } of taskArticles) {
     await page.goto(`/#/artikel/${id}`);
+    if (['guide-status-orientation', 'guide-r1-reporting'].includes(id)) {
+      await expect(page.locator('[id^="procedure-"]')).toHaveCount(0);
+      await expect(page.locator('#bedienweg')).toContainText('kein ausführbarer Bedienweg');
+      await expect(page.locator('#bedienweg a')).toHaveCount(0);
+      continue;
+    }
     await expect(page.locator('[id^="procedure-"]').first()).toBeVisible();
     await expect(page.locator('[id^="procedure-"] .source-ref').first()).not.toBeEmpty();
     await expect(page.locator('#ergebnispruefung')).toContainText('Prüffragen');

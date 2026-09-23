@@ -1,6 +1,7 @@
 import type { EvidenceRef } from './domain';
 import { evidence } from './sources';
 import { definitionRows, definitionIssues } from './definition-catalog';
+import { controlRows } from './control-content';
 
 export type Sb1MaterialStatus =
   | 'Reales Teilmaterial vorhanden'
@@ -315,6 +316,28 @@ const previousCoverage: Sb1CoverageItem[] = [
 ];
 
 export const sb1Coverage: Sb1CoverageItem[] = previousCoverage.map((item) => {
+  const control = controlRows.find((r) => r.number === item.number);
+  if (control)
+    return {
+      ...item,
+      realMaterials: [
+        {
+          articleId: `guide-${control.id}`,
+          processStepId: `step-${control.number.replace('.', '-')}`,
+        },
+      ],
+      treatedScope: control.answer,
+      materialStatus: control.orientation
+        ? 'Orientierung vorhanden · kein Gesamtbedienweg'
+        : 'Reales Teilmaterial vorhanden',
+      gap: `${control.gap} Fachliche Freigabe und praktische Erprobung fehlen.`,
+      issueIds: [
+        `issue-${control.id}-boundary`,
+        'issue-f-r1-open-12',
+        ...(control.number === '3.4' ? ['issue-f-r1-open-06'] : []),
+      ],
+      supplementaryEvidence: [...item.supplementaryEvidence, ...control.evidence],
+    };
   const row = definitionRows.find((candidate) => candidate.number === item.number);
   if (!row) return item;
   const orientation = row.number.startsWith('1.');

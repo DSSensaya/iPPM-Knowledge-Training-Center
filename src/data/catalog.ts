@@ -19,6 +19,14 @@ import {
   definitionTraining,
 } from './definition-catalog';
 import { definitionViews } from './definition-content';
+import {
+  controlScope,
+  controlFunctions,
+  controlSteps,
+  controlIssues,
+  controlAssessments,
+  controlViews,
+} from './control-content';
 
 export const roleCatalog: {
   id: RoleId;
@@ -67,6 +75,7 @@ export const stages = [
   { id: 'R1B', releaseId: 'release-1' },
 ];
 export const scopeItems: ScopeItem[] = [
+  ...controlScope,
   ...definitionScope,
   {
     id: 'R1-03',
@@ -106,6 +115,7 @@ const context = {
   environment: null,
 };
 export const functions: FunctionDefinition[] = [
+  ...controlFunctions,
   ...definitionFunctions,
   {
     id: 'fn-deliverables',
@@ -260,6 +270,7 @@ export const functions: FunctionDefinition[] = [
   },
 ];
 export const processSteps: ProcessStep[] = [
+  ...controlSteps,
   ...definitionSteps,
   ...(
     [
@@ -374,6 +385,7 @@ export const processSteps: ProcessStep[] = [
   })),
 ];
 export const processViews = [
+  ...controlViews,
   ...definitionViews,
   {
     id: 'access',
@@ -450,6 +462,7 @@ export const trainingAssignments: TrainingAssignment[] = [
   },
 ];
 export const issues: Issue[] = [
+  ...controlIssues,
   ...definitionIssues,
   {
     id: 'issue-f-r1-open-07',
@@ -527,6 +540,7 @@ export const issues: Issue[] = [
     title: 'LCM- und Review-Regel fachlich entscheiden',
     status: 'ENTSCHEIDUNG ERFORDERLICH',
     subjects: [
+      { kind: 'function', id: 'fn-phases-tailoring' },
       { kind: 'scope', id: 'R1-08' },
       { kind: 'scope', id: 'R1-10' },
     ],
@@ -564,6 +578,7 @@ export const issues: Issue[] = [
   },
 ];
 export const assessments: Assessment[] = [
+  ...controlAssessments,
   ...definitionAssessments,
   {
     id: 'deliverables-technical',

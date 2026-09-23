@@ -4,6 +4,7 @@ import { articles } from '../src/data/content';
 import { issues, processSteps, processViews } from '../src/data/catalog';
 import { sb1AdditionalHandbookTopics, sb1Coverage } from '../src/data/sb1-coverage';
 import { definitionRows } from '../src/data/definition-catalog';
+import { controlRows } from '../src/data/control-content';
 import { sources } from '../src/data/sources';
 
 // Originaltitel und Zeilen aus Quelle T, Blatt Release1-Matrix, Spalten A/B/K.
@@ -35,6 +36,7 @@ const matrixRows = [
 ] as const;
 
 const linkedSteps = new Map<string, string[]>([
+  ...controlRows.map((row) => [row.number, [`guide-${row.id}`]] as [string, string[]]),
   ...definitionRows.map((row) => [row.number, [row.article]] as [string, string[]]),
   ['2.2', ['guide-deliverables-milestones', 'faq-milestone-dates', 'guide-save-publish-checkin']],
   ['2.5', ['guide-deliverables-milestones', 'faq-milestone-dates', 'guide-save-publish-checkin']],
@@ -66,16 +68,16 @@ test('SB1 list preserves exactly 24 source T numbers, original titles and row lo
   ]);
 });
 
-test('nineteen matrix steps have bounded material; five retain source hints', () => {
+test('all 24 matrix steps have material with 20 partial procedures and four orientations', () => {
   const linked = sb1Coverage.filter((item) => item.realMaterials.length);
   const unlinked = sb1Coverage.filter((item) => !item.realMaterials.length);
   expect(linked.map((item) => item.number).sort()).toEqual([...linkedSteps.keys()].sort());
-  expect(linked).toHaveLength(19);
-  expect(unlinked).toHaveLength(5);
-  expect(processSteps).toHaveLength(19);
+  expect(linked).toHaveLength(24);
+  expect(unlinked).toHaveLength(0);
+  expect(processSteps).toHaveLength(24);
   for (const item of linked) {
     expect(item.materialStatus).toBe(
-      item.number.startsWith('1.')
+      ['1.1', '1.2', '4.12', '4.13'].includes(item.number)
         ? 'Orientierung vorhanden · kein Gesamtbedienweg'
         : 'Reales Teilmaterial vorhanden',
     );
@@ -132,7 +134,9 @@ test('1.1 and 3.4 keep their source conflicts open with precise F and B evidence
   expect(request.realMaterials.map((material) => material.articleId)).toEqual([
     'guide-project-handover',
   ]);
-  expect(reviews.realMaterials).toEqual([]);
+  expect(reviews.realMaterials).toEqual([
+    { articleId: 'guide-phases-tailoring', processStepId: 'step-3-4' },
+  ]);
 });
 
 test('all coverage references exist and no demo article is counted as real material', () => {
@@ -177,6 +181,11 @@ test('SB1 list is keyboard readable and responsive while existing process views 
     page.getByRole('region', { name: 'SB1: Liefergegenstände und Meilensteine' }),
   ).toBeVisible();
   await expect(coverage).toContainText('weder geschult noch praktisch geprüft oder freigegeben');
+  await expect(coverage).toContainText('20 Schritte mit realem Teilmaterial');
+  await expect(coverage).toContainText('4 Schritte mit Orientierung ohne Gesamtbedienweg');
+  await expect(
+    page.getByRole('region', { name: 'SB1: Projektstatus ermitteln' }).getByRole('link'),
+  ).toHaveText('Orientierung, Quellen und Einschränkungen zu 4.12 öffnen');
   const linked = coverage.locator('[data-matrix-number="2.6"]');
   const summary = linked.locator('summary');
   await summary.focus();
@@ -191,8 +200,9 @@ test('SB1 list is keyboard readable and responsive while existing process views 
   const missing = coverage.locator('[data-matrix-number="4.12"]');
   await missing.locator('summary').focus();
   await page.keyboard.press('Enter');
-  await expect(missing).toContainText('Keine realen Center-Materialien angebunden');
-  await expect(missing.getByRole('link')).toHaveCount(0);
+  await expect(missing).toContainText('Orientierung vorhanden · kein Gesamtbedienweg');
+  await expect(missing).toContainText('FIN-/SAP-Feldzuordnungen');
+  await expect(missing.getByRole('link')).toHaveCount(1);
   for (const [number, text] of [
     ['1.1', 'Quellenkonflikt'],
     ['3.4', 'Keine abschließend einheitliche Regel belegt'],

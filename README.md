@@ -22,16 +22,16 @@ npm.cmd run preview -- --port 4173
 
 Anschließend **http://127.0.0.1:4173** öffnen. Die einmalige Installation benötigt Zugang zur npm-Registry. Der laufende Entwicklungs- oder Produktionsserver benötigt kein Internet. Alle Inhalte und Assets kommen aus dem Workspace. Der Server bindet nur an die lokale Loopback-Adresse. Der lokale Server muss laufen; das direkte Öffnen von `dist/index.html` als Datei ist nicht vorgesehen.
 
-## Stand v0.6.0
+## Stand v0.7.0
 
-- **Übersicht und Suche:** Projekt-/Teilprojektdefinition, Antrags-/Bereitstellungsorientierung, Team/Zugriff und Liefer-/Zahlungsmeilensteine stehen vor den Demo-Lernpfaden. Schnellsuche, Filter und direkte Artikel-Links bleiben nutzbar.
-- **Wissensbasis:** Zehn quellenbasierte Entwürfe und neun klar getrennte Demo-Beiträge. Reale Beiträge beginnen mit Kurzantwort, Voraussetzungen, kritischen Einschränkungen, Bedienweg, Ergebnisprüfung und Nachweisen; eine frühe Sprungnavigation führt zu diesen Abschnitten.
+- **Übersicht und Suche:** Projekt-/Teilprojektdefinition, Antrags-/Bereitstellungsorientierung, Team/Zugriff und Liefer-/Zahlungsmeilensteine stehen vor den Demo-Lernpfaden. Externe Meilensteine, vorgegebenes Tailoring, Eskalationserfassung und Orientierung zu Status/Reporting ergänzen die Aufgaben. Schnellsuche, Filter und direkte Artikel-Links bleiben nutzbar.
+- **Wissensbasis:** Fünfzehn quellenbasierte Entwürfe und neun klar getrennte Demo-Beiträge. Reale Beiträge beginnen mit Kurzantwort, Voraussetzungen, kritischen Einschränkungen, Bedienweg, Ergebnisprüfung und Nachweisen; eine frühe Sprungnavigation führt zu diesen Abschnitten.
 - **Querschnitt:** Speichern und Prüfen in Liste oder PDP, Speichern/Veröffentlichen/Einchecken im MS Project Client und Speichern/Einchecken beim Owner-Wechsel sind kontextbezogen beschrieben.
 - **Trainerbereich:** Ein fiktives Owner-Wechsel-Szenario für TM und ILSM kann vorbereitet und je Konto ausgewertet werden. Es ist kein protokollierter praktischer Durchlauf.
-- **Prozesse:** 17 Schritte mit realem Teilmaterial und zwei Schritte mit gesonderter Orientierung ohne Gesamtbedienweg sind angebunden. Eine gesonderte Liste behandelt genau 24 SB1-Matrixschritte mit Quellen, Material, Lücken und Konflikten. Fünf weitere Schritte besitzen nur Quellenhinweise; Antrag und PMO-Anlage bleiben ohne ausführbaren Gesamtbedienweg.
+- **Prozesse:** 20 Schritte mit realem Teilmaterial und vier Schritte mit gesonderter Orientierung ohne Gesamtbedienweg sind angebunden. Eine gesonderte Liste behandelt genau 24 SB1-Matrixschritte mit Quellen, Material, Lücken und Konflikten. Antrag, PMO-Anlage, Statuspflege und R1-Basisreporting bleiben ohne Gesamtbedienweg. LCM-Regeln, Empfängerbearbeitung sowie ungeprüfte Status-/Filterwirkungen sind ausgeschlossen.
 - **Demo und Lernstand:** Drei Lernpfade und ihre Wissenschecks bleiben Demo. Bestehende IDs, Hash-Links und die lokale Speicherversion 1 bleiben erhalten; Merkliste und Lernstand können exportiert und validiert importiert werden.
 
-Die zehn Fachbeiträge sind **quellenbasierte Entwürfe**, keine fachlich freigegebenen Arbeitsanweisungen. Material, Lesemarkierungen und Demo-Abschlüsse belegen weder Schulung noch praktische Zielumgebungsprüfung. Der technische Abschluss und die offenen Prüfungen sind in [docs/v0.6-abschluss.md](docs/v0.6-abschluss.md) festgehalten.
+Die fünfzehn Fachbeiträge sind **quellenbasierte Entwürfe**, keine fachlich freigegebenen Arbeitsanweisungen. Material, Lesemarkierungen und Demo-Abschlüsse belegen weder Schulung noch praktische Zielumgebungsprüfung. Der technische Abschluss und die offenen Prüfungen sind in [docs/v0.7-abschluss.md](docs/v0.7-abschluss.md) festgehalten.
 
 ## Produkt- und Architekturentscheidungen
 
@@ -56,7 +56,7 @@ tests/app.spec.ts     Ende-zu-Ende- und automatisierte Accessibility-Prüfungen
 
 Neue Beiträge benötigen eine eindeutige ID, Thema, Rollen, Format, Lesezeit, Stand, Abschnitte, Kernaussage und gültige verwandte IDs. Lernpfade referenzieren Beiträge und enthalten einen Wissenscheck. Prozesse referenzieren ergänzende Anleitungen pro Phase. Diese Trennung erlaubt eine spätere redaktionelle Importstrecke oder lokale Datenbank.
 
-Die additive fachliche Struktur liegt in `src/data/domain.ts`, die kuratierten Beziehungen in `catalog.ts`, das Quellenregister in `sources.ts`, die zehn Entwürfe in `access-content.ts`, `milestone-content.ts`, `save-publish-content.ts` und `definition-content.ts`; der neue Fachkatalog liegt in `definition-catalog.ts` sowie die Matrixabdeckung in `sb1-coverage.ts`. `src/lib/knowledge.ts` leitet Verweise und Suchtexte ab; `KnowledgeContext.tsx` ergänzt die bestehende Beitragsansicht. Quelldateien werden nicht ausgeführt oder als vermeintlich verfügbare Downloads angeboten.
+Die additive fachliche Struktur liegt in `src/data/domain.ts`, die kuratierten Beziehungen in `catalog.ts`, das Quellenregister in `sources.ts`, die fünfzehn Entwürfe in `access-content.ts`, `milestone-content.ts`, `save-publish-content.ts`, `definition-content.ts` und `control-content.ts`; der neue Fachkatalog liegt in `definition-catalog.ts` sowie die Matrixabdeckung in `sb1-coverage.ts`. `src/lib/knowledge.ts` leitet Verweise und Suchtexte ab; `KnowledgeContext.tsx` ergänzt die bestehende Beitragsansicht. Quelldateien werden nicht ausgeführt oder als vermeintlich verfügbare Downloads angeboten.
 
 **Persistenz:** `localStorage`, Schlüssel `ippm-learning-v1`, mit `{ version: 1, bookmarks: string[], read: string[], passed: string[] }`. Browser und Port bestimmen den Speicherbereich; Entwicklungsserver und Vorschau teilen deshalb nicht automatisch denselben Lernstand. Export/Import überträgt ihn. Beim Import werden unbekannte IDs verworfen, Duplikate zusammengeführt und Abschlüsse ohne vollständig gelesene Lektionen nicht übernommen. Beschädigter oder gesperrter Speicher führt zu einem sichtbaren Hinweis; die Anwendung bleibt bedienbar. Keine Synchronisierung zwischen Geräten oder gleichzeitig geöffneten Tabs. Gespeichert werden nur Inhalts-IDs, keine Projektdaten.
 

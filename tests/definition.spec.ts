@@ -23,13 +23,13 @@ test('v0.6 adds nine definition steps and two orientation steps without claiming
   ]);
   expect(
     sb1Coverage.filter((item) => item.materialStatus === 'Reales Teilmaterial vorhanden'),
-  ).toHaveLength(17);
+  ).toHaveLength(20);
   expect(sb1Coverage.filter((item) => item.materialStatus.startsWith('Orientierung'))).toHaveLength(
-    2,
+    4,
   );
   expect(
     sb1Coverage.filter((item) => !item.realMaterials.length).map((item) => item.number),
-  ).toEqual(['3.3', '3.4', '4.9', '4.12', '4.13']);
+  ).toEqual([]);
   const orientation = definitionArticles.find((a) => a.id === 'guide-project-handover')!;
   expect(orientation.knowledge!.procedures.map((p) => p.id)).toEqual([
     'procedure-project-takeover',
