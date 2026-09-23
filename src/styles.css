@@ -1756,6 +1756,71 @@ details > p {
 .knowledge-details > ul {
   padding-left: 24px;
 }
+.owner-training {
+  padding-bottom: 16px;
+}
+.owner-training h3,
+.owner-training h4 {
+  margin: 24px 0 8px;
+}
+.owner-training dl {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) minmax(0, 2fr);
+  gap: 8px 16px;
+}
+.owner-training dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.owner-training fieldset {
+  margin: 24px 0;
+}
+.owner-training legend {
+  margin-bottom: 8px;
+}
+.owner-training label {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: 700;
+}
+.owner-training .owner-training-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 0;
+  font-weight: 400;
+}
+.owner-training input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  margin: 4px 0 0;
+}
+.owner-training input[type='text'],
+.owner-training textarea {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+.owner-training textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+.owner-training textarea:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .owner-training dl {
+    grid-template-columns: 1fr;
+  }
+}
 .knowledge-step-list {
   list-style: none;
   padding: 0;

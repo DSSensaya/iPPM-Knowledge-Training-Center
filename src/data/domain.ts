@@ -109,6 +109,25 @@ export interface Procedure {
   checkQuestions: string[];
   evidence: EvidenceRef[];
 }
+export interface OwnerChangeTrainerPackage {
+  procedureId: string;
+  customerProject: string;
+  pmAccount: string;
+  currentOwner: string;
+  currentSubprojects: string;
+  variants: {
+    id: 'tm' | 'ilsm';
+    label: string;
+    subproject: string;
+    targetAccount: string;
+    plannedOwner: string;
+    plannedSubprojects: string;
+  }[];
+  prechecks: string[];
+  pmExpected: string;
+  targetExpected: string;
+  resetCheck: string;
+}
 export interface KnowledgeContext {
   functionIds: string[];
   stepIds: string[];
@@ -122,5 +141,6 @@ export interface KnowledgeContext {
     exercise: string;
     expectedResult: string;
     limitation: string;
+    ownerChange?: OwnerChangeTrainerPackage;
   };
 }

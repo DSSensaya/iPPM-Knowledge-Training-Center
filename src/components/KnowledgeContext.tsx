@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import type { Article } from '../data/types';
-import type { EvidenceRef } from '../data/domain';
+import type { EvidenceRef, OwnerChangeTrainerPackage } from '../data/domain';
 import {
   assessmentLabels,
   functions,
@@ -231,6 +232,147 @@ export function KnowledgeResults({ article, guide }: { article: Article; guide?:
     </section>
   );
 }
+
+function OwnerChangeTrainer({
+  article,
+  plan,
+}: {
+  article: Article;
+  plan: OwnerChangeTrainerPackage;
+}) {
+  const [variantId, setVariantId] = useState<'tm' | 'ilsm'>(plan.variants[0].id);
+  const variant = plan.variants.find((item) => item.id === variantId) ?? plan.variants[0];
+  const procedure = article.knowledge?.procedures.find((item) => item.id === plan.procedureId);
+  const openIssues = knowledgeFor(article).issues;
+  const jumpToProcedure = () => {
+    const target = document.getElementById(plan.procedureId);
+    target?.focus({ preventScroll: true });
+    target?.scrollIntoView({ block: 'start' });
+  };
+  return (
+    <details className="knowledge-details owner-training">
+      <summary>Trainerpaket Owner-Wechsel · fiktives Szenario</summary>
+      <p>
+        Alle Projekt- und Kontobezeichnungen sind fiktiv. Prüfen Sie den tatsächlichen
+        Ausgangszustand im geeigneten Schulungssystem. Einträge hier werden nicht gespeichert; ein
+        praktischer Durchlauf ist nicht belegt.
+      </p>
+      <label htmlFor="owner-training-variant">Variante</label>
+      <select
+        id="owner-training-variant"
+        value={variantId}
+        onChange={(event) => setVariantId(event.target.value as 'tm' | 'ilsm')}
+      >
+        {plan.variants.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.label}
+          </option>
+        ))}
+      </select>
+      <p className="small">Beim Variantenwechsel werden die Eingaben dieser Ansicht geleert.</p>
+      <div key={variant.id}>
+        <h3>Ausgangszustand und Ziel</h3>
+        <dl>
+          <dt>Kundenprojekt</dt>
+          <dd>{plan.customerProject}</dd>
+          <dt>Teilprojekt</dt>
+          <dd>{variant.subproject}</dd>
+          <dt>PM-Konto</dt>
+          <dd>{plan.pmAccount}</dd>
+          <dt>Getrenntes Zielkonto</dt>
+          <dd>{variant.targetAccount}</dd>
+          <dt>Owner aktuell → geplant</dt>
+          <dd>
+            {plan.currentOwner} → {variant.plannedOwner}
+          </dd>
+          <dt>Subprojects aktuell → geplant</dt>
+          <dd>
+            {plan.currentSubprojects} → {variant.plannedSubprojects}
+          </dd>
+        </dl>
+        <fieldset>
+          <legend>Vorprüfung vor dem Owner-Wechsel</legend>
+          <p>Vier PM-Leserechte aus der bestehenden Prozedur mit dem PM-Konto prüfen:</p>
+          {procedure?.requiredRights?.map((right) => (
+            <label className="owner-training-check" key={right}>
+              <input type="checkbox" />
+              {right}
+            </label>
+          ))}
+          {plan.prechecks.map((check) => (
+            <label className="owner-training-check" key={check}>
+              <input type="checkbox" />
+              {check}
+            </label>
+          ))}
+        </fieldset>
+        <button type="button" className="button secondary" onClick={jumpToProcedure}>
+          Zur bestehenden Owner-Wechsel-Prozedur
+        </button>
+        <fieldset>
+          <legend>Soll-/Ist-Beobachtung je Konto</legend>
+          <h4>{plan.pmAccount}</h4>
+          <p>
+            <strong>Soll: </strong>
+            {plan.pmExpected}
+          </p>
+          <label htmlFor="owner-training-pm-actual">Ist-Beobachtung PM-Konto</label>
+          <textarea id="owner-training-pm-actual" rows={3} />
+          <label htmlFor="owner-training-pm-status">Bewertung PM-Konto</label>
+          <select id="owner-training-pm-status" defaultValue="">
+            <option value="">Noch nicht bewertet</option>
+            <option value="bestätigt">bestätigt</option>
+            <option value="nicht bestätigt">nicht bestätigt</option>
+            <option value="nicht prüfbar">nicht prüfbar</option>
+          </select>
+          <h4>{variant.targetAccount}</h4>
+          <p>
+            <strong>Soll: </strong>
+            {plan.targetExpected}
+          </p>
+          <label htmlFor="owner-training-target-actual">Ist-Beobachtung Zielkonto</label>
+          <textarea id="owner-training-target-actual" rows={3} />
+          <label htmlFor="owner-training-target-status">Bewertung Zielkonto</label>
+          <select id="owner-training-target-status" defaultValue="">
+            <option value="">Noch nicht bewertet</option>
+            <option value="bestätigt">bestätigt</option>
+            <option value="nicht bestätigt">nicht bestätigt</option>
+            <option value="nicht prüfbar">nicht prüfbar</option>
+          </select>
+        </fieldset>
+        <label htmlFor="owner-training-environment">Umgebung und Systemstand</label>
+        <input id="owner-training-environment" type="text" />
+        <label htmlFor="owner-training-deviation">Abweichung</label>
+        <textarea id="owner-training-deviation" rows={3} />
+        <label htmlFor="owner-training-issue">Betroffenes offenes Issue</label>
+        <select id="owner-training-issue" defaultValue="">
+          <option value="">Noch nicht zugeordnet</option>
+          {openIssues.map((issue) => (
+            <option key={issue.id} value={issue.id}>
+              {issue.id} · {issue.title}
+            </option>
+          ))}
+        </select>
+      </div>
+      <p>
+        Auch eine bestätigte Beobachtung erledigt keine offenen Issues. Build Team, effektive
+        Rechte, Bestands-Sites und Schulungsumgebung bleiben gesondert zu prüfen.
+      </p>
+      <ul>
+        {openIssues.map((issue) => (
+          <li key={issue.id}>
+            {issue.id} · {issue.title} · {issue.status}
+          </li>
+        ))}
+      </ul>
+      <p>
+        <strong>Rücksetzung vorbereiten: </strong>
+        {plan.resetCheck}
+      </p>
+    </details>
+  );
+}
+
 export function KnowledgeEvidence({ article }: { article: Article }) {
   const data = knowledgeFor(article);
   const refs = articleEvidence(article);
@@ -321,6 +463,7 @@ export function KnowledgeEvidence({ article }: { article: Article }) {
           </p>
           <p>{trainer.limitation}</p>
         </details>
+        {trainer.ownerChange && <OwnerChangeTrainer article={article} plan={trainer.ownerChange} />}
       </section>
       <section id="quellen" tabIndex={-1}>
         <h2>Quellen und Fundstellen</h2>
