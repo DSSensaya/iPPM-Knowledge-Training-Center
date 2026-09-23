@@ -185,7 +185,7 @@ test('v0.5 content states, revisions and review evidence remain distinct', () =>
 
 test('v0.5 real packages keep issue, evidence and dependency references in scope', () => {
   const deliveryDecision = issues.find((i) => i.id === 'issue-f-r1-open-08')!;
-  expect(deliveryDecision.status).toBe('ENTSCHEIDUNG ERFORDERLICH');
+  expect(deliveryDecision.status).toBe('TECHNISCH NOCH OFFEN');
   expect(deliveryDecision.evidence).toContainEqual({
     sourceId: 'F',
     locator: 'Klärungsbedarf!A12:D12',
@@ -197,7 +197,11 @@ test('v0.5 real packages keep issue, evidence and dependency references in scope
     const data = knowledgeFor(article);
     const functionIds = new Set(knowledge.functionIds);
     const issueIds = new Set(knowledge.issueIds);
-    expect(data.issues.map((i) => i.id).sort()).toEqual([...knowledge.issueIds].sort());
+    expect(data.issues.map((i) => i.id).sort()).toEqual(
+      knowledge.issueIds
+        .filter((id) => issues.find((i) => i.id === id)?.status !== 'GEKLÄRT')
+        .sort(),
+    );
     for (const issue of data.issues) {
       expect(
         issue.subjects.some((s) => s.kind === 'function' && functionIds.has(s.id)),
@@ -255,12 +259,12 @@ test('v0.4 keeps delivery and payment variants, scope, training and technical ev
   expect(searchArticles('3.2', 'Alle Themen', 'pm').some((a) => a.id === guide.id)).toBeTruthy();
 });
 
-test('new evidence preserves conflicting training statements and bounded technical evidence', () => {
+test('confirmed SB1 assignment supersedes the old training restriction while rights remain bounded', () => {
   const guide = articles.find((a) => a.id === 'guide-project-permissions')!;
   const data = knowledgeFor(guide);
   const build = data.training.filter((a) => a.subject.id === 'fn-build-team');
   expect(build.map((a) => [a.evidence[0].sourceId, a.included])).toEqual([
-    ['T', false],
+    ['T', true],
     ['B', true],
   ]);
   const owner = data.assessments.filter((a) => a.subject.id === 'fn-owner-change');

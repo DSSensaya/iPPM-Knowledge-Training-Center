@@ -438,10 +438,14 @@ export const trainingAssignments: TrainingAssignment[] = [
     id: 'training-build-old',
     subject: { kind: 'function', id: 'fn-build-team' },
     blockId: 'sb1',
-    included: false,
+    included: true,
     statement:
-      'Schulungsmatrix: vorerst nur Project Permissions; Build Team folgt später im Ressourcen-Kontext.',
-    evidence: e('T', 'Regeln & Entscheidungen!A6:D6'),
+      'Bestätigt am 23.09.2026: Build Team wird in SB1 geschult. Die frühere Beschränkung auf Project Permissions ist überholt.',
+    evidence: [
+      ...e('T', 'Regeln & Entscheidungen!A6:D6'),
+      ...e('TTT', 'Zeile 17, F:G', 'TTT-D-16'),
+      ...e('C23', 'Punkt 3'),
+    ],
   },
   {
     id: 'training-build-draft',
@@ -473,8 +477,11 @@ export const issues: Issue[] = [
       id,
     })),
     limitation:
-      'Der geübte Owner-/Permissions-Weg belegt keine vollständige Rechtefreigabe. Rollenlisten, Build Team und RBS müssen im vorgesehenen Kontext geprüft werden.',
-    evidence: e('F', 'Klärungsbedarf!A11:D11', 'R1-OPEN-07'),
+      'Der geübte Owner-/Permissions-Weg belegt keine vollständige Rechtefreigabe. Die Rollenliste kann manuell ergänzt werden; Build-Team-Rechtewirkung und RBS bleiben im vorgesehenen Kontext zu prüfen.',
+    evidence: [
+      ...e('F', 'Klärungsbedarf!A11:D11', 'R1-OPEN-07'),
+      ...e('TTT', 'Zeilen 6, 14–17, A:G'),
+    ],
   },
   {
     id: 'issue-build-sync',
@@ -486,6 +493,7 @@ export const issues: Issue[] = [
     evidence: [
       ...e('B', '§3.6.6 Zugriffsrechte festlegen; §3.8.4 / §3.9.4'),
       ...e('K', 'security – Berechtigungen und Rollen; Q3 06.1_Security_Model, Z. 7–10'),
+      ...e('TTT', 'Zeile 16, A:G', 'TTT-D-15'),
     ],
   },
   {
@@ -495,7 +503,10 @@ export const issues: Issue[] = [
     subjects: [{ kind: 'function', id: 'fn-project-permissions' }],
     limitation:
       'Personenauswahl und Sichtbarkeit mit regulären Konten sind nicht ausreichend nachgewiesen. Vor einer Übung die vorgesehenen Konten prüfen.',
-    evidence: e('F', 'Klärungsbedarf!A5:D5', 'R1-OPEN-01'),
+    evidence: [
+      ...e('F', 'Klärungsbedarf!A5:D5', 'R1-OPEN-01'),
+      ...e('TTT', 'Zeile 4, A:G', 'TTT-D-03'),
+    ],
   },
   {
     id: 'issue-f-r1-open-02',
@@ -507,7 +518,10 @@ export const issues: Issue[] = [
     ],
     limitation:
       'Eine bestätigte Template-Korrektur für neue Projekte ist kein Nachweis für Bestandsprojekte oder die Zielumgebung.',
-    evidence: e('F', 'Klärungsbedarf!A6:D6', 'R1-OPEN-02'),
+    evidence: [
+      ...e('F', 'Klärungsbedarf!A6:D6', 'R1-OPEN-02'),
+      ...e('TTT', 'Zeilen 10–11 und 41, A:G'),
+    ],
   },
   {
     id: 'issue-f-r1-open-12',
@@ -515,17 +529,22 @@ export const issues: Issue[] = [
     status: 'VERIFIKATION ERFORDERLICH',
     subjects: functions.map((f) => ({ kind: 'function', id: f.id })),
     limitation:
-      'Erfolgreiche TTT-Schritte in Integration sind keine Abnahme der Produktiv- oder Schulungsumgebung. Der genaue geprüfte Systemstand ist hier nicht bekannt.',
-    evidence: e('F', 'Klärungsbedarf!A16:D16', 'R1-OPEN-12'),
+      'Client-Anbindung ist behoben (TTT-D-01); dies ist keine Abnahme aller Schulungsvoraussetzungen. Lasttest und Speicher-/Antwortzeiten sind in Bearbeitung (TTT-D-02/-19); Übungskonten, Referenzplan und praktische Pilotierung bleiben vorzubereiten.',
+    evidence: [
+      ...e('F', 'Klärungsbedarf!A16:D16', 'R1-OPEN-12'),
+      ...e('TTT', 'Zeilen 2–3, 20, 25 und 45, A:G'),
+    ],
   },
   {
     id: 'issue-f-r1-open-08',
-    title: 'Führende Quelle und Zuordnung von Lieferliste und Meilensteinen klären',
-    status: 'ENTSCHEIDUNG ERFORDERLICH',
+    title: 'Große Lieferlisten praktikabel darstellen',
+    status: 'TECHNISCH NOCH OFFEN',
     subjects: ['fn-deliverables', 'fn-delivery-milestones'].map((id) => ({ kind: 'function', id })),
     limitation:
-      'Führende Quelle, Zuordnung und Pflegeverantwortung sind laut Funktionsmatrix offen. Das Handbuch beschreibt einen fachlichen Abgleich zwischen List of Deliverables und Liefermeilensteinen. Eine automatische Synchronisierung oder der Umgang mit großen Lieferlisten ist damit nicht nachgewiesen. Beide Einträge einzeln vergleichen.',
+      'Führende Gesamtprojektliste im Contract Execution Project und spezifische Listen der Teilprojekte sind geklärt; die Liefermeilensteinverknüpfung ist umgesetzt (TTT-D-07/-08). Offen bleibt allein die praktikable Darstellung großer Lieferlisten. Keine darüber hinausgehende Synchronisierung aller Felder ableiten.',
     evidence: [
+      ...e('C23', 'Punkt 2'),
+      ...e('TTT', 'Zeilen 8–9, A:G', 'TTT-D-07/-08'),
       ...e('F', 'Klärungsbedarf!A12:D12', 'R1-OPEN-08'),
       ...e('F', 'R1 Funktionsmatrix!A7:J8 und A14:J14', 'FS-03a/FS-03b/FS-09'),
       ...e('T', 'Release1-Matrix!A6:Q6'),
@@ -537,16 +556,18 @@ export const issues: Issue[] = [
   },
   {
     id: 'issue-f-r1-open-06',
-    title: 'LCM- und Review-Regel fachlich entscheiden',
-    status: 'ENTSCHEIDUNG ERFORDERLICH',
+    title: 'LCM-3: einmal pro Kalenderjahr bestätigt',
+    status: 'GEKLÄRT',
     subjects: [
       { kind: 'function', id: 'fn-phases-tailoring' },
       { kind: 'scope', id: 'R1-08' },
       { kind: 'scope', id: 'R1-10' },
     ],
     limitation:
-      'T fordert eine vereinheitlichte jährliche Grundregel. F hält die konkrete 3er-Review-Frequenz und Ausgangslogik offen. Der Handbuchentwurf beschreibt Varianten für bestimmte Zeitabstände. Daraus folgt keine abschließend einheitliche oder freigegebene LCM-Review-Regel.',
+      'LCM-3 ist wegen Auditierung erforderlich und einmal pro Kalenderjahr durchzuführen. R1-OPEN-06 ist damit geklärt. Ein rollierender 12-Monats-Rhythmus ist eine zukünftige Verbesserung ohne Beschluss; daraus keine aktuelle Terminregel ableiten.',
     evidence: [
+      ...e('C23', 'Punkt 8'),
+      ...e('TTT', 'Zeile 27, A:G', 'TTT-D-26'),
       ...e('T', 'Release1-Matrix!A23:Q23', '3.4'),
       ...e('F', 'Klärungsbedarf!A10:D10', 'R1-OPEN-06'),
       ...e('B', '§4.5.5 Projektphasen und LCM-Review-Termine planen'),
@@ -574,7 +595,7 @@ export const issues: Issue[] = [
     })),
     limitation:
       'Ansicht und Planvorlage waren laut Funktionsmatrix nur teilweise verifiziert. Der aktuelle Schulungs- oder Produktivstand des Clients ist hier nicht nachgewiesen. Einen geeigneten Schulungsplan und die Berechtigungen vor der Übung prüfen.',
-    evidence: e('F', 'R1 Funktionsmatrix!A14:J16', 'FS-09/FS-11'),
+    evidence: [...e('F', 'R1 Funktionsmatrix!A14:J16', 'FS-09/FS-11'), ...e('C23', 'Punkt 2')],
   },
 ];
 export const assessments: Assessment[] = [
@@ -587,10 +608,14 @@ export const assessments: Assessment[] = [
     originalValue: 'teilweise verifiziert',
     value: 'partial',
     scope:
-      'PDP-Grundpflege und Project-Site-Listen nur teilweise verifiziert; große Lieferlisten und Meilensteinzuordnung offen.',
+      'Aktualisiert 23.09.2026: Führende Liste und Liefermeilensteinverknüpfung bestätigt; praktische Darstellung großer Lieferlisten bleibt offen.',
     environment: 'TTT-Kontext; Zielumgebung nicht angegeben',
     issueIds: ['issue-f-r1-open-08'],
-    evidence: e('F', 'R1 Funktionsmatrix!A7:J8', 'FS-03a/FS-03b'),
+    evidence: [
+      ...e('F', 'R1 Funktionsmatrix!A7:J8', 'FS-03a/FS-03b'),
+      ...e('C23', 'Punkt 2'),
+      ...e('TTT', 'Zeilen 8–9, A:G'),
+    ],
   },
   {
     id: 'milestones-technical',
@@ -599,10 +624,10 @@ export const assessments: Assessment[] = [
     originalValue: 'teilweise verifiziert',
     value: 'partial',
     scope:
-      'Meilensteinplanung und Ansicht 10 selbst geübt; Liefergegenstandsbezug, Ausgangsplan und Fachregeln bleiben begrenzt.',
+      'Liefergegenstandsbezug ist umgesetzt; Ausgangsplan und konkrete Schulungsübung bleiben separat zu prüfen.',
     environment: 'TTT-Kontext; Zielumgebung nicht angegeben',
     issueIds: ['issue-f-r1-open-08', 'issue-milestone-client'],
-    evidence: e('F', 'R1 Funktionsmatrix!A14:J16', 'FS-09/FS-11'),
+    evidence: [...e('F', 'R1 Funktionsmatrix!A14:J16', 'FS-09/FS-11'), ...e('C23', 'Punkt 2')],
   },
   {
     id: 'payment-terms-technical',
@@ -747,7 +772,7 @@ export const knowledgeLinks: KnowledgeLink[] = [
     to: { kind: 'function', id: 'fn-delivery-milestones' },
     relation: 'feeds',
     statement:
-      'Die einzeln erfassten Liefergegenstände bilden die fachliche Grundlage der Liefermeilensteine. Ein Abgleich ist erforderlich; die Quellen belegen keine automatische Synchronisierung.',
+      'Die führende Liste im Contract Execution Project und die spezifischen Teilprojektlisten liefern die Liefergegenstände. Die Verknüpfung zu Liefermeilensteinen über die Funktion Lieferung ist umgesetzt. Nach Änderungen Einträge und Termine fachlich abgleichen; keine umfassende Feldsynchronisierung ableiten.',
     evidence: e(
       'B',
       '§3.6.2 Projektumfang festlegen; §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen',

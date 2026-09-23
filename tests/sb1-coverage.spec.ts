@@ -95,7 +95,7 @@ test('all 24 matrix steps have material with 20 partial procedures and four orie
   }
 });
 
-test('1.1 and 3.4 keep their source conflicts open with precise F and B evidence', () => {
+test('1.1 remains open while the dated LCM decision closes 3.4 frequency with earlier evidence preserved', () => {
   const request = sb1Coverage.find((item) => item.number === '1.1')!;
   expect(request.gap).toContain('Quellenkonflikt');
   expect(request.gap).toContain('T ordnet 1.1 SB1 zu');
@@ -108,12 +108,10 @@ test('1.1 and 3.4 keep their source conflicts open with precise F and B evidence
   });
 
   const reviews = sb1Coverage.find((item) => item.number === '3.4')!;
-  expect(reviews.gap).toContain('Keine abschließend einheitliche Regel belegt');
+  expect(reviews.gap).toContain('LCM-3 einmal pro Kalenderjahr');
   expect(reviews.gap).toContain('R1-OPEN-06');
-  expect(reviews.issueIds).toContain('issue-f-r1-open-06');
-  expect(issues.find((issue) => issue.id === 'issue-f-r1-open-06')?.status).toBe(
-    'ENTSCHEIDUNG ERFORDERLICH',
-  );
+  expect(reviews.issueIds).not.toContain('issue-f-r1-open-06');
+  expect(issues.find((issue) => issue.id === 'issue-f-r1-open-06')?.status).toBe('GEKLÄRT');
   expect(reviews.supplementaryEvidence).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
@@ -201,11 +199,11 @@ test('SB1 list is keyboard readable and responsive while existing process views 
   await missing.locator('summary').focus();
   await page.keyboard.press('Enter');
   await expect(missing).toContainText('Orientierung vorhanden · kein Gesamtbedienweg');
-  await expect(missing).toContainText('FIN-/SAP-Feldzuordnungen');
+  await expect(missing).toContainText('FIN-/SAP-Feldkorrektur ist erledigt');
   await expect(missing.getByRole('link')).toHaveCount(1);
   for (const [number, text] of [
     ['1.1', 'Quellenkonflikt'],
-    ['3.4', 'Keine abschließend einheitliche Regel belegt'],
+    ['3.4', 'LCM-3 einmal pro Kalenderjahr'],
   ]) {
     const item = coverage.locator(`[data-matrix-number="${number}"]`);
     await item.locator('summary').focus();

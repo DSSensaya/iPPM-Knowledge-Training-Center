@@ -4,6 +4,19 @@ Stand: 23.09.2026 · v0.7.0 technisch abgeschlossen mit begrenztem Umfang; fachl
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
+## Aktueller Abgleich vom 23.09.2026
+
+Die [bereinigten Open Points](open-points-readiness.md) sind für den aktuellen Restumfang maßgeblich. Die nachfolgenden technischen Abschlussabschnitte dokumentieren ihre damaligen Stände und werden durch diese ausdrücklichen Klärungen aktualisiert:
+
+- Start Date auf Overview und Projektplan synchronisieren gegenseitig; EDC bleibt der unabhängige vertragliche Starttermin. Zusätzliche EDC-Feldbereitstellung separat offen.
+- Führende Gesamtprojekt-Lieferliste im Contract Execution Project und Liefermeilensteinverknüpfung sind geklärt; große Listen bleiben ein Darstellungsrestpunkt.
+- Build Team gehört zu SB1. FIN-/SAP-Felder, ML-Filter und Projektstatusübersicht sind bestätigt; diese früheren Blocker entfallen.
+- LCM-3 ist auditbedingt einmal pro Kalenderjahr erforderlich. Rollierende zwölf Monate sind nur eine unbeschlossene Verbesserung. Weitere LCM-/ProjectLink-Terminwirkungen bleiben offen.
+- WWS-/WBS-Generator funktioniert; daraus folgt keine Erweiterung des Center-Schulungsumfangs. Hard Links nicht schulen und nicht nutzen.
+- Project Purpose aus Teilprojekt-PDPs entfernen: fachlich entschieden, technische Umsetzung noch offen. Rechte, Bestands-Sites, Performance, Eskalationshistorie/-zugriff und praktische Materialerprobung bleiben zu bearbeiten.
+
+Die Pilotpriorität bleibt bestehen; keine automatische Gesamtfreigabe und keine Ausweitung auf R1B.
+
 ## Produktziel für v1.0
 
 Das iPPM Knowledge & Training Center wird eine verlässliche, vollständig lokal nutzbare SB1-Arbeitshilfe mit passenden Schulungsmaterialien. Anwender finden zu ihrer Aufgabe und Rolle verständliche Anleitungen, Voraussetzungen, Ergebnisprüfungen und relevante Einschränkungen. Trainer können abgegrenzte Übungen anhand nachvollziehbarer Materialien vorbereiten und durchführen.
@@ -54,7 +67,7 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Umfang:** Stammdaten mit Startdatum-/EDC-Abgrenzung, Ziele und Organisation ergänzen; Unterschiede der System- und ILS-Teilprojekte erklären. Orientierung zu Beantragung, Bereitstellung und Übernahme anbieten. Eine ausführbare PMO-Anleitung setzt einen vollständig geprüften Bereitstellungsdurchlauf voraus.
 
-**Begrenzung:** Keine behauptete automatische Terminübernahme, keine generelle Rechtefreigabe und kein ungetesteter PMO-Gesamtweg.
+**Begrenzung (aktualisiert 23.09.2026):** Bestätigte Start-Date-Synchronisation von EDC abgrenzen; keine generelle Rechtefreigabe und kein ungetesteter PMO-Gesamtweg.
 
 **Technischer Abschluss v0.6.0:** Fünf zusätzliche Quellenentwürfe zu Übernahme/Initialisierungsorientierung, Stammdaten, Zielen, Organisation und System-/ILS-Definition sind umgesetzt. Die SB1-Abdeckung umfasst 17 Schritte mit realem Teilmaterial, zwei mit Orientierung ohne Gesamtbedienweg und fünf mit Quellenhinweisen. Bestehende IDs, Links und v1-Persistenz bleiben erhalten. Der Ausbau erfolgte auf ausdrücklichen Auftrag trotz weiterhin offener praktischer v0.5-Übergangsbedingung. EDC-/Terminwirkung, finale Rollen-/Feldkonfiguration, vollständiger PMO-Durchlauf und Nutzer-/Trainerpilot bleiben offen; keine fachliche Freigabe. Einzelheiten stehen im [v0.6-Abschluss](v0.6-abschluss.md).
 
@@ -66,7 +79,7 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Umfang:** Weitere externe Meilensteine, Phasen und Tailoring ergänzen; anschließend Status, R1-Basisreporting und abgegrenzte Eskalation erschließen. Die Reihenfolge richtet sich nach Quellenlage und verfügbaren Systemnachweisen.
 
-**Begrenzung:** Ungeklärte LCM-/Review-Regeln nicht verbindlich machen. Statusfelder und Ansichtsfilter vor praktischer Nutzung prüfen. R1-Basisreporting von Power BI trennen; Eskalationserfassung nicht als nachgewiesene vollständige Empfängerbearbeitung darstellen.
+**Begrenzung (aktualisiert 23.09.2026):** LCM-3 einmal pro Kalenderjahr anwenden; weitere ungeklärte Review-Regeln nicht verbindlich machen. FIN-/SAP-Felder, ML-Filter und Statusübersicht sind bestätigt. R1-Basisreporting von Power BI trennen; Eskalationserfassung nicht als nachgewiesene vollständige Empfängerbearbeitung darstellen.
 
 **Technischer Abschluss v0.7.0:** Die Schritte 3.3, 3.4, 4.9, 4.12 und 4.13 sind nach Abgleich der lokalen Originalquellen behandelt. Drei begrenzte Bedienentwürfe ergänzen externe Meilensteine, separat vorgegebenes Tailoring und Eskalationserfassung; Statuspflege und R1-Basisreporting erhalten Orientierung mit Prüfaufträgen. Die SB1-Abdeckung umfasst 20 Schritte mit realem Teilmaterial und vier mit Orientierung. LCM-Frequenz/Terminregeln, Empfängerbearbeitung, ungeprüfte Status-/Filterwirkungen und Reporting-PDP/Power BI sind ausdrücklich aus dem vorgesehenen Pilotumfang ausgeschlossen, nicht fachlich geklärt. IDs, Links und v1-Persistenz bleiben erhalten; Build und vollständige Tests bestehen. Fachliche Freigabe und praktische Nutzer-/Trainererprobung fehlen weiterhin. Kriterien, Belege und Umfangsgrenzen stehen im [v0.7-Abschluss](v0.7-abschluss.md).
 

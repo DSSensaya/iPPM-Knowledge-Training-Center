@@ -97,7 +97,7 @@ const previousCoverage: Sb1CoverageItem[] = [
     'Projektstammdaten anlegen',
     5,
     'Kein realer Center-Teilumfang zur PDP Overview.',
-    'Startdatum und EDC müssen abgegrenzt werden; eine automatische Planübernahme ist nicht belegt.',
+    'Start Date auf Overview und Projektplan sind synchronisiert; EDC ist der unabhängige vertragliche Starttermin. Die zusätzliche EDC-Feldbereitstellung bleibt technisch offen.',
   ),
   linked(
     '2.2',
@@ -106,7 +106,7 @@ const previousCoverage: Sb1CoverageItem[] = [
     'guide-deliverables-milestones',
     ['faq-milestone-dates', 'guide-save-publish-checkin'],
     'PDP Scope und einzelne Einträge in der List of Deliverables als Grundlage der Lieferplanung.',
-    'Führende Quelle, Zuordnung und große Lieferlisten sind offen; keine automatische Plansynchronisierung belegt.',
+    'Führende Gesamtprojektliste im Contract Execution Project und Liefermeilensteinverknüpfung sind geklärt; praktikable Darstellung großer Lieferlisten bleibt offen.',
     ['issue-f-r1-open-08', 'issue-f-r1-open-12'],
     '§3.6.2 Projektumfang festlegen',
   ),
@@ -154,8 +154,8 @@ const previousCoverage: Sb1CoverageItem[] = [
     11,
     'guide-project-permissions',
     ['faq-role-vs-access'],
-    'Project Permissions für zusätzliche Stakeholder; Build Team wird als abweichender Handbuchweg kenntlich gemacht.',
-    'T beschränkt SB1 auf Project Permissions, B beschreibt zusätzlich Build Team; Synchronisierung und effektive Rechte sind ungeklärt.',
+    'Project Permissions für zusätzliche Stakeholder; Build Team gehört bestätigt zu SB1.',
+    'Die ältere SB1-Beschränkung auf Project Permissions ist aufgehoben. Synchronisierung und effektive Rechte sind weiterhin technisch offen (TTT-D-15).',
     [
       'issue-build-sync',
       'issue-f-r1-open-07',
@@ -248,7 +248,7 @@ const previousCoverage: Sb1CoverageItem[] = [
     'guide-deliverables-milestones',
     ['faq-milestone-dates', 'guide-save-publish-checkin'],
     'Liefergegenstand, Ext.Del, Stichtag und Plantermin im MS Project Client abgleichen.',
-    'Zuordnung zur Lieferliste, Ausgangsplan und Client-Stand bleiben zu prüfen.',
+    'Liefermeilensteinverknüpfung ist umgesetzt; Ausgangsplan, Client-Stand und Darstellung großer Listen bleiben gesondert zu prüfen.',
     ['issue-f-r1-open-08', 'issue-milestone-client', 'issue-f-r1-open-12'],
     '§4.5.2 Liefermeilensteine planen',
   ),
@@ -275,7 +275,7 @@ const previousCoverage: Sb1CoverageItem[] = [
     'Projektphasen und LCM Review-Termine planen',
     23,
     'Kein realer Center-Teilumfang für Phasen und LCM Reviews.',
-    'Keine abschließend einheitliche Regel belegt: T fordert eine jährliche Grundregel, F lässt die konkrete 3er-Review-Frequenz unter R1-OPEN-06 offen, und der Handbuchentwurf (§4.5.5) beschreibt Varianten für Abstände über zwei beziehungsweise unter einem Jahr. Fachregel, Planungsweg und Terminprüfung bleiben offen.',
+    'LCM-3 einmal pro Kalenderjahr ist bestätigt; rollierende zwölf Monate sind nicht beschlossen. Weitere LCM-Terminregeln und ProjectLink-Wirkung bleiben offen.',
     ['issue-f-r1-open-06'],
     [
       ...evidence('F', 'R1 Funktionsmatrix!A14:J14', 'FS-09'),
@@ -300,7 +300,7 @@ const previousCoverage: Sb1CoverageItem[] = [
     'Projektstatus ermitteln',
     52,
     'Kein realer Center-Bedienweg für PDP Status; T nennt Ampeln, Trends und Kommentare.',
-    'Technische Feldkorrektur und Verifikation mit einem Schulungsprojekt stehen vor Nutzung aus.',
+    'FIN-/SAP-Statusfelder sind korrigiert; praktische Center-Erprobung und Pflegezyklus bleiben gesondert.',
     [],
     evidence('T', 'PDP-Abdeckung!A17:H17', '4.12'),
   ),
@@ -309,7 +309,7 @@ const previousCoverage: Sb1CoverageItem[] = [
     'Projektreporting durchführen',
     53,
     'Kein realer Center-Bedienweg; T beschreibt Basisreporting über Project Center, Status und Escalations.',
-    'ML-Filter der Project-Center-Sicht prüfen; Power BI wurde in T nur als zukünftiger Umfang besprochen.',
+    'ML-Filter neben PSPV.org und WW sowie Statusübersicht sind bestätigt; Power BI bleibt außerhalb des R1-Schulungsumfangs.',
     [],
     evidence('T', 'PDP-Abdeckung!A18:H18', '4.13'),
   ),
@@ -331,18 +331,15 @@ export const sb1Coverage: Sb1CoverageItem[] = previousCoverage.map((item) => {
         ? 'Orientierung vorhanden · kein Gesamtbedienweg'
         : 'Reales Teilmaterial vorhanden',
       gap: `${control.gap} Fachliche Freigabe und praktische Erprobung fehlen.`,
-      issueIds: [
-        `issue-${control.id}-boundary`,
-        'issue-f-r1-open-12',
-        ...(control.number === '3.4' ? ['issue-f-r1-open-06'] : []),
-      ],
+      issueIds: [`issue-${control.id}-boundary`, 'issue-f-r1-open-12'],
       supplementaryEvidence: [...item.supplementaryEvidence, ...control.evidence],
     };
   const row = definitionRows.find((candidate) => candidate.number === item.number);
   if (!row) return item;
   const orientation = row.number.startsWith('1.');
-  const relevant = definitionIssues.filter((issue) =>
-    issue.subjects.some((subject) => subject.id === row.fn),
+  const relevant = definitionIssues.filter(
+    (issue) =>
+      issue.status !== 'GEKLÄRT' && issue.subjects.some((subject) => subject.id === row.fn),
   );
   return {
     ...item,

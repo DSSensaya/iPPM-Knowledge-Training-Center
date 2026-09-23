@@ -76,7 +76,11 @@ test('role-specific searches find the relevant definition and preserve field and
     'PDP ILS Organisation',
   ]);
   expect(knowledgeFor(sub).issues.map((i) => i.id)).toEqual(
-    expect.arrayContaining(['issue-f-r1-open-05', 'issue-definition-roles', 'issue-f-r1-open-12']),
+    expect.arrayContaining([
+      'issue-definition-configuration',
+      'issue-definition-roles',
+      'issue-f-r1-open-12',
+    ]),
   );
 });
 
