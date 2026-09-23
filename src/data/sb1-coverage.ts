@@ -76,8 +76,9 @@ export const sb1Coverage: Sb1CoverageItem[] = [
     'Projekt beantragen',
     3,
     'Kein realer Center-Bedienweg; T nennt Antragsformular und Handbuchbezug.',
-    'Antragsweg und Erstzugang müssen vor einer Anleitung organisatorisch geklärt werden.',
+    'Quellenkonflikt: T ordnet 1.1 SB1 zu und bewertet den Weg mit Hinweis als freigabefähig. F (FS-02) sieht den Antrag nicht im aktuellen Schulungsumfang, den vollständigen Beantragungs-/Ticketweg als nicht nachgewiesen und fordert, ihn noch nicht verbindlich zu dokumentieren. Antragsweg und Erstzugang müssen geklärt werden.',
     ['issue-f-r1-open-01'],
+    evidence('F', 'R1 Funktionsmatrix!A6:J6', 'FS-02'),
   ),
   unlinked(
     '1.2',
@@ -271,7 +272,13 @@ export const sb1Coverage: Sb1CoverageItem[] = [
     'Projektphasen und LCM Review-Termine planen',
     23,
     'Kein realer Center-Teilumfang für Phasen und LCM Reviews.',
-    'Jährliche Grundregel im Handbuch vereinheitlichen und Planungsweg sowie Terminprüfung ergänzen.',
+    'Keine abschließend einheitliche Regel belegt: T fordert eine jährliche Grundregel, F lässt die konkrete 3er-Review-Frequenz unter R1-OPEN-06 offen, und der Handbuchentwurf (§4.5.5) beschreibt Varianten für Abstände über zwei beziehungsweise unter einem Jahr. Fachregel, Planungsweg und Terminprüfung bleiben offen.',
+    ['issue-f-r1-open-06'],
+    [
+      ...evidence('F', 'R1 Funktionsmatrix!A14:J14', 'FS-09'),
+      ...evidence('F', 'Klärungsbedarf!A10:D10', 'R1-OPEN-06'),
+      ...evidence('B', '§4.5.5 Projektphasen und LCM-Review-Termine planen'),
+    ],
   ),
   unlinked(
     '4.9',

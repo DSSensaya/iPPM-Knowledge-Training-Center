@@ -258,7 +258,7 @@ export default function App() {
           <div className="local-status">
             <Monitor size={16} aria-hidden="true" />
             <span>Lokal verfügbar</span>
-            <span className="prototype-label">v0.4</span>
+            <span className="prototype-label">v0.5.0</span>
           </div>
         </header>
         <main id="main" ref={main} tabIndex={-1}>

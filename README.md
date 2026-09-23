@@ -22,21 +22,16 @@ npm.cmd run preview -- --port 4173
 
 Anschließend **http://127.0.0.1:4173** öffnen. Die einmalige Installation benötigt Zugang zur npm-Registry. Der laufende Entwicklungs- oder Produktionsserver benötigt kein Internet. Alle Inhalte und Assets kommen aus dem Workspace. Der Server bindet nur an die lokale Loopback-Adresse. Der lokale Server muss laufen; das direkte Öffnen von `dist/index.html` als Datei ist nicht vorgesehen.
 
-## Das MVP mit v0.4-Durchstichen
+## Stand v0.5.0
 
-- **Übersicht:** prominent platzierte Suche, direkte Aufgabeneinstiege, empfohlene Beiträge und der nächste offene Lernpfad.
-- **Wissensbasis:** neun bestehende Demo-Beiträge und vier quellenbasierte Entwürfe zu Team/Zugriff sowie Liefergegenständen/Meilensteinen, Volltextsuche einschließlich Funktions-, Rollen- und Schrittbezügen sowie kombinierbare Themen-, Rollen- und Formatfilter. Titel werden in der Suche höher gewichtet; Umlaute sind tolerant suchbar.
-- **Beitragsansicht:** Inhaltsverzeichnis, Schritte, Kernaussage, verwandte Inhalte, Lesemarkierung und Lesezeichen.
-- **Lernpfade:** drei Pfade mit jeweils drei Lektionen und einem Wissenscheck. Gelesene Beiträge werden pfadübergreifend berücksichtigt. Ein Pfad ist erst nach allen Lektionen und richtiger Antwort abgeschlossen. Falsche Antworten lassen sich wiederholen. Das Entfernen einer Lesemarkierung öffnet betroffene abgeschlossene Pfade wieder.
-- **Prozesse:** zwei beispielhafte Abläufe mit Zuständigkeiten, Ergebnissen und verlinkten Anleitungen.
-- **Mein Lernbereich:** Merkliste, Fortschritt sowie JSON-Export und validierter, ergänzender Import.
-- **Hilfe:** bedienbare FAQ und Hinweise zur Vorbereitung einer internen Supportanfrage.
+- **Übersicht und Suche:** Die zwei realen Aufgaben Team/Zugriff mit Owner-Wechsel sowie Liefergegenstände und Liefer-/Zahlungsmeilensteine stehen vor den Demo-Lernpfaden. Schnellsuche, Filter und direkte Artikel-Links bleiben nutzbar.
+- **Wissensbasis:** Fünf quellenbasierte Entwürfe und neun klar getrennte Demo-Beiträge. Reale Beiträge beginnen mit Kurzantwort, Voraussetzungen, kritischen Einschränkungen, Bedienweg, Ergebnisprüfung und Nachweisen; eine frühe Sprungnavigation führt zu diesen Abschnitten.
+- **Querschnitt:** Speichern und Prüfen in Liste oder PDP, Speichern/Veröffentlichen/Einchecken im MS Project Client und Speichern/Einchecken beim Owner-Wechsel sind kontextbezogen beschrieben.
+- **Trainerbereich:** Ein fiktives Owner-Wechsel-Szenario für TM und ILSM kann vorbereitet und je Konto ausgewertet werden. Es ist kein protokollierter praktischer Durchlauf.
+- **Prozesse:** Acht reale Teilumfänge sind angebunden. Eine gesonderte Liste behandelt genau 24 SB1-Matrixschritte mit Quellen, Material, Lücken und Konflikten; 16 Schritte besitzen noch keinen realen Center-Bedienweg.
+- **Demo und Lernstand:** Drei Lernpfade und ihre Wissenschecks bleiben Demo. Bestehende IDs, Hash-Links und die lokale Speicherversion 1 bleiben erhalten; Merkliste und Lernstand können exportiert und validiert importiert werden.
 
-Die bisherigen fachlichen Inhalte bleiben **Demonstrationsinhalte**. Die neue Anleitung und FAQ sind **quellenbasierte Entwürfe**, keine offiziell freigegebenen Arbeitsanweisungen. Ein Wissenscheck ist eine Selbstkontrolle und kein Schulungsnachweis oder Zertifikat.
-
-Der v0.3-Durchstich nach `docs/v0.3-inhalts-und-datenmodell.md` verbindet PM, PMO, TM und ILSM, die Scope-Positionen R1-06/07/23 und die Schritte 2.6/2.7/2.11/2.15. Er unterscheidet Rollenliste, Build Team und Project Permissions. Die Owner-Übergabe enthält Voraussetzungen, die vier vorher zu sichernden Rechte, Bedienweg und Ergebnisprüfung. Quellenfundstellen, technische Nachweise, Schulungszuordnung und historische Release-Aussagen bleiben getrennt; der abweichende frühere Schulungsweg und der offene Synchronisationskonflikt bleiben sichtbar.
-
-v0.4 ergänzt den fachlichen Weg **Projektumfang und Zahlungsbedingungen erfassen → Liefer- und Zahlungsmeilensteine planen** mit den Schritten 2.2/2.5/3.1/3.2. Die Anleitung erklärt die zwei Zahlungsvarianten, Stichtag versus Plantermin, Ext.Del/Ext.Pay sowie Speichern, Veröffentlichen und Einchecken. Belegte `feeds`-/`requires`-Beziehungen machen fachliche Eingaben sichtbar. Der offene technische Abgleich zwischen Lieferliste und Plan sowie die begrenzte Client-Verifikation bleiben direkt am Inhalt. Trainer erhalten einen Übungsvorschlag mit Voraussetzungen. SB1 wird dadurch kein neuer abgeschlossener Lernpfad. Demo-IDs, bestehende Lernpfade und Speicherversion 1 bleiben erhalten. Details stehen in `docs/v0.4-umsetzung.md`.
+Die fünf Fachbeiträge sind **quellenbasierte Entwürfe**, keine fachlich freigegebenen Arbeitsanweisungen. Material, Lesemarkierungen und Demo-Abschlüsse belegen weder Schulung noch praktische Zielumgebungsprüfung. Der technische Abschluss und die offenen Prüfungen sind in [docs/v0.5-abschluss.md](docs/v0.5-abschluss.md) festgehalten.
 
 ## Produkt- und Architekturentscheidungen
 
@@ -48,6 +43,7 @@ Die Navigation verwendet stabile Hash-URLs. Beiträge und Lernpfade sind direkt 
 src/
   data/types.ts       Domänenmodell: Beitrag, Abschnitt, Rolle, Lernpfad, Prozess
   data/content.ts     Redaktionelle Demo-Inhalte mit stabilen IDs und Verweisen
+  data/               Reale Fachbeiträge, Quellenregister und SB1-Abdeckung
   lib/search.ts       Normalisierung, kombinierte Filter und Relevanzsortierung
   lib/storage.ts      Versioniertes Speicherschema und Validierung
   components/ui.tsx   Gemeinsame Suche, Beitragskarten, Fortschrittsanzeige
@@ -60,7 +56,7 @@ tests/app.spec.ts     Ende-zu-Ende- und automatisierte Accessibility-Prüfungen
 
 Neue Beiträge benötigen eine eindeutige ID, Thema, Rollen, Format, Lesezeit, Stand, Abschnitte, Kernaussage und gültige verwandte IDs. Lernpfade referenzieren Beiträge und enthalten einen Wissenscheck. Prozesse referenzieren ergänzende Anleitungen pro Phase. Diese Trennung erlaubt eine spätere redaktionelle Importstrecke oder lokale Datenbank.
 
-Die additive fachliche Struktur liegt in `src/data/domain.ts`, die kuratierten Beziehungen in `catalog.ts`, das Quellenregister in `sources.ts` und die vier Entwürfe in `access-content.ts` und `milestone-content.ts`. `src/lib/knowledge.ts` leitet Verweise und Suchtexte ab; `KnowledgeContext.tsx` ergänzt die bestehende Beitragsansicht. Quelldateien werden nicht ausgeführt oder als vermeintlich verfügbare Downloads angeboten.
+Die additive fachliche Struktur liegt in `src/data/domain.ts`, die kuratierten Beziehungen in `catalog.ts`, das Quellenregister in `sources.ts`, die fünf Entwürfe in `access-content.ts`, `milestone-content.ts` und `save-publish-content.ts` sowie die Matrixabdeckung in `sb1-coverage.ts`. `src/lib/knowledge.ts` leitet Verweise und Suchtexte ab; `KnowledgeContext.tsx` ergänzt die bestehende Beitragsansicht. Quelldateien werden nicht ausgeführt oder als vermeintlich verfügbare Downloads angeboten.
 
 **Persistenz:** `localStorage`, Schlüssel `ippm-learning-v1`, mit `{ version: 1, bookmarks: string[], read: string[], passed: string[] }`. Browser und Port bestimmen den Speicherbereich; Entwicklungsserver und Vorschau teilen deshalb nicht automatisch denselben Lernstand. Export/Import überträgt ihn. Beim Import werden unbekannte IDs verworfen, Duplikate zusammengeführt und Abschlüsse ohne vollständig gelesene Lektionen nicht übernommen. Beschädigter oder gesperrter Speicher führt zu einem sichtbaren Hinweis; die Anwendung bleibt bedienbar. Keine Synchronisierung zwischen Geräten oder gleichzeitig geöffneten Tabs. Gespeichert werden nur Inhalts-IDs, keine Projektdaten.
 
@@ -82,7 +78,7 @@ npm.cmd test
 
 Playwright prüft Desktop (1.440 × 1.100) und Mobilansicht (390 × 844): Suche und Filter, leere Ergebnisse, Merkliste über Neuladen, Sicherungsexport, gültigen/ungültigen Import, kompletten Lernpfad mit falscher und richtiger Antwort, Rücknahme von Lesemarkierungen, kaputten/gesperrten Speicher, unbekannte URLs, Tastaturbedienung und mobile Navigation. Auf acht zentralen Ansichten prüft axe automatisiert WCAG-A/AA-Regeln; zusätzlich werden horizontales Überlaufen, Laufzeitfehler und externe Netzwerkaufrufe kontrolliert. Das ersetzt keine vollständige manuelle Barrierefreiheitsprüfung. Screenshots entstehen in `test-results/`.
 
-Die Prüfungen in `tests/knowledge-data.spec.ts`, `tests/access.spec.ts` und `tests/milestones.spec.ts` ergänzen Referenzintegrität, getrennte Quellenbewertungen, beide SB1-Durchstiche, Accessibility und die unveränderte Übernahme bestehender v1-Lernstände.
+Die Prüfungen in `tests/` decken Referenzintegrität, Quellenbewertungen, beide Fachpakete, Kontextwege, Trainerpaket, 24er-Abdeckung, Accessibility und die unveränderte Übernahme bestehender v1-Lernstände ab.
 
 ## Sinnvolle nächste Ausbaustufe
 

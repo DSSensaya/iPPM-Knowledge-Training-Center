@@ -1,6 +1,6 @@
 # Produkt-Roadmap bis v1.0
 
-Stand: 22.09.2026 · Ausgangspunkt: nach v0.4 · Aktuelle Produktstrategie
+Stand: 23.09.2026 · v0.5.0 technisch abgeschlossen; praktische Erprobung offen · Aktuelle Produktstrategie
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
@@ -43,6 +43,8 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 - Einfache Abdeckungsliste aller 24 SB1-Matrixschritte mit Material, Lücken und Konflikten. Zusätzliche Handbuchthemen wie Reviewstatus und Fortschritt gesondert zuordnen.
 
 **Begrenzung:** Kein neuer großer Fachbereich, kein neues Lernsystem, kein Abdeckungsdashboard und keine pauschale Rechtefreigabe.
+
+**Technischer Abschluss v0.5.0:** Die zwei Fachpakete, der kontextbezogene Speicher-/Veröffentlichungsartikel, das vorbereitbare Owner-Wechsel-Trainerpaket und die 24er-Abdeckung sind umgesetzt und automatisiert geprüft. Die praktische Nutzer-/Trainererprobung und Zielumgebungsprüfung sind nicht erfolgt; die entsprechende Übergangsbedingung zu v0.6 bleibt offen. Einzelheiten stehen im [v0.5-Abschluss](v0.5-abschluss.md).
 
 **Übergang zu v0.6:** Anwender finden die beiden Aufgaben ohne zusätzliche Erklärung und verstehen ihre Grenzen. Ein Trainer kann die ausgewählte Übung vorbereiten; ein praktischer Durchlauf ist ausgewertet. Die Inhaltsvorlage funktioniert für beide Themen, Quellenänderungen bleiben beherrschbar, alte Links und Sicherungen funktionieren und Build/Tests bestehen. Ohne geeignete Schulungsumgebung bleibt die praktische Erprobung offen, auch wenn die Softwarefassung fertig ist.
 
@@ -102,5 +104,6 @@ Die breite Integration beginnt nach v0.5, sobald eine gemeinsame Inhaltsvorlage 
 
 - [Inhalts- und Datenmodell v0.3](v0.3-inhalts-und-datenmodell.md)
 - [Umsetzung und fachliche Grenzen v0.4](v0.4-umsetzung.md)
+- [Technischer Abschluss und offene Prüfungen v0.5](v0.5-abschluss.md)
 - [Projektübersicht](../README.md), [Projektregeln](../AGENTS.md), [Design-Spezifikation](../DESIGN.md)
 - Fachquellen unter `sources/`; Quellenbewertungen bleiben an die jeweilige Fassung und ihren Geltungsbereich gebunden.

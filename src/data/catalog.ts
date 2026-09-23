@@ -508,6 +508,22 @@ export const issues: Issue[] = [
     ],
   },
   {
+    id: 'issue-f-r1-open-06',
+    title: 'LCM- und Review-Regel fachlich entscheiden',
+    status: 'ENTSCHEIDUNG ERFORDERLICH',
+    subjects: [
+      { kind: 'scope', id: 'R1-08' },
+      { kind: 'scope', id: 'R1-10' },
+    ],
+    limitation:
+      'T fordert eine vereinheitlichte jährliche Grundregel. F hält die konkrete 3er-Review-Frequenz und Ausgangslogik offen. Der Handbuchentwurf beschreibt Varianten für bestimmte Zeitabstände. Daraus folgt keine abschließend einheitliche oder freigegebene LCM-Review-Regel.',
+    evidence: [
+      ...e('T', 'Release1-Matrix!A23:Q23', '3.4'),
+      ...e('F', 'Klärungsbedarf!A10:D10', 'R1-OPEN-06'),
+      ...e('B', '§4.5.5 Projektphasen und LCM-Review-Termine planen'),
+    ],
+  },
+  {
     id: 'issue-payment-terms-context',
     title: 'Vertragsdaten im vorgesehenen Kontext prüfen',
     status: 'FACHLICHER ABGLEICH ERFORDERLICH',

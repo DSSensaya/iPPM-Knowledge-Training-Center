@@ -87,6 +87,46 @@ test('only eight existing real steps are linked; sixteen source hints do not bec
   }
 });
 
+test('1.1 and 3.4 keep their source conflicts open with precise F and B evidence', () => {
+  const request = sb1Coverage.find((item) => item.number === '1.1')!;
+  expect(request.gap).toContain('Quellenkonflikt');
+  expect(request.gap).toContain('T ordnet 1.1 SB1 zu');
+  expect(request.gap).toContain('F (FS-02) sieht den Antrag nicht im aktuellen Schulungsumfang');
+  expect(request.supplementaryEvidence).toContainEqual({
+    sourceId: 'F',
+    locator: 'R1 Funktionsmatrix!A6:J6',
+    sourceKey: 'FS-02',
+    derivation: 'direct',
+  });
+
+  const reviews = sb1Coverage.find((item) => item.number === '3.4')!;
+  expect(reviews.gap).toContain('Keine abschließend einheitliche Regel belegt');
+  expect(reviews.gap).toContain('R1-OPEN-06');
+  expect(reviews.issueIds).toContain('issue-f-r1-open-06');
+  expect(issues.find((issue) => issue.id === 'issue-f-r1-open-06')?.status).toBe(
+    'ENTSCHEIDUNG ERFORDERLICH',
+  );
+  expect(reviews.supplementaryEvidence).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        sourceId: 'T',
+        locator: 'Release1-Matrix!M23:Q23',
+      }),
+      expect.objectContaining({
+        sourceId: 'F',
+        locator: 'Klärungsbedarf!A10:D10',
+        sourceKey: 'R1-OPEN-06',
+      }),
+      expect.objectContaining({
+        sourceId: 'B',
+        locator: '§4.5.5 Projektphasen und LCM-Review-Termine planen',
+      }),
+    ]),
+  );
+  expect(request.realMaterials).toEqual([]);
+  expect(reviews.realMaterials).toEqual([]);
+});
+
 test('all coverage references exist and no demo article is counted as real material', () => {
   const byId = <T extends { id: string }>(items: T[], id: string) =>
     items.find((item) => item.id === id);
@@ -145,6 +185,15 @@ test('SB1 list is keyboard readable and responsive while existing process views 
   await page.keyboard.press('Enter');
   await expect(missing).toContainText('Keine realen Center-Materialien angebunden');
   await expect(missing.getByRole('link')).toHaveCount(0);
+  for (const [number, text] of [
+    ['1.1', 'Quellenkonflikt'],
+    ['3.4', 'Keine abschließend einheitliche Regel belegt'],
+  ]) {
+    const item = coverage.locator(`[data-matrix-number="${number}"]`);
+    await item.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    await expect(item).toContainText(text);
+  }
   await expect(
     page.getByRole('region', { name: 'Weitere Handbuchthemen außerhalb der 24er-Zählung' }),
   ).toContainText('Reviewstatus pflegen');
