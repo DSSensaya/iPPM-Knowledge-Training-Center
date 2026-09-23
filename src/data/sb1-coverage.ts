@@ -1,8 +1,10 @@
 import type { EvidenceRef } from './domain';
 import { evidence } from './sources';
+import { definitionRows, definitionIssues } from './definition-catalog';
 
 export type Sb1MaterialStatus =
   | 'Reales Teilmaterial vorhanden'
+  | 'Orientierung vorhanden · kein Gesamtbedienweg'
   | 'Nur Quellenhinweis'
   | 'Kein Center-Material';
 
@@ -70,7 +72,7 @@ const unlinked = (
 // Nur in Quelle T mit SB1 = Ja markierte Visio-Schritte. Handbuchthemen ohne
 // Matrixnummer stehen gesondert unten; TTT- und Readiness-Spalten sind keine
 // Center-Schulungs-, Praxis- oder Freigabenachweise.
-export const sb1Coverage: Sb1CoverageItem[] = [
+const previousCoverage: Sb1CoverageItem[] = [
   unlinked(
     '1.1',
     'Projekt beantragen',
@@ -311,6 +313,37 @@ export const sb1Coverage: Sb1CoverageItem[] = [
     evidence('T', 'PDP-Abdeckung!A18:H18', '4.13'),
   ),
 ];
+
+export const sb1Coverage: Sb1CoverageItem[] = previousCoverage.map((item) => {
+  const row = definitionRows.find((candidate) => candidate.number === item.number);
+  if (!row) return item;
+  const orientation = row.number.startsWith('1.');
+  const relevant = definitionIssues.filter((issue) =>
+    issue.subjects.some((subject) => subject.id === row.fn),
+  );
+  return {
+    ...item,
+    realMaterials: [
+      { articleId: row.article, processStepId: `step-${row.number.replace('.', '-')}` },
+    ],
+    materialStatus: orientation
+      ? 'Orientierung vorhanden · kein Gesamtbedienweg'
+      : 'Reales Teilmaterial vorhanden',
+    treatedScope: orientation
+      ? `${row.output} Vorbereitung, Zuständigkeiten und Übernahmeprüfung; kein ausführbarer Antrags- oder PMO-Gesamtweg.`
+      : `${row.tool}: ${row.output} Quellenbasierter Bedienentwurf mit Ergebnisprüfung.`,
+    gap:
+      row.number === '1.1'
+        ? item.gap
+        : `${relevant.map((issue) => issue.limitation).join(' ')} Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen.`,
+    issueIds: [...relevant.map((issue) => issue.id), 'issue-f-r1-open-12'],
+    supplementaryEvidence: [
+      ...item.supplementaryEvidence,
+      ...evidence('B', `§${row.section}`),
+      ...relevant.flatMap((issue) => issue.evidence),
+    ],
+  };
+});
 
 export const sb1AdditionalHandbookTopics = [
   {

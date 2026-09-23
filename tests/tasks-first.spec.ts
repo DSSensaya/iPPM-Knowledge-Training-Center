@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { definitionArticles } from '../src/data/definition-content';
 
 const taskArticles = [
+  ...definitionArticles.map(({ id, title }) => ({ id, title })),
   {
     id: 'guide-project-permissions',
     title: 'Zugriffsrechte festlegen und Owner wechseln',
@@ -14,7 +16,7 @@ const taskArticles = [
 test('home puts both real tasks before general and demo entry points', async ({ page }) => {
   await page.goto('/');
   const tasks = page.getByRole('region', { name: 'Mit einer Aufgabe beginnen' });
-  await expect(tasks.locator('.article-card')).toHaveCount(2);
+  await expect(tasks.locator('.article-card')).toHaveCount(7);
   await expect(tasks.locator('.article-card h3')).toHaveText(
     taskArticles.map((task) => task.title),
   );
@@ -54,10 +56,10 @@ test('home puts both real tasks before general and demo entry points', async ({ 
 
 test('home quick searches find the matching real task articles', async ({ page }) => {
   for (const { query, id, title } of [
-    { query: 'Zugriffsrechte', ...taskArticles[0] },
-    { query: 'Owner-Wechsel', ...taskArticles[0] },
-    { query: 'Liefergegenstände', ...taskArticles[1] },
-    { query: 'Meilensteine', ...taskArticles[1] },
+    { query: 'Zugriffsrechte', ...taskArticles[5] },
+    { query: 'Owner-Wechsel', ...taskArticles[5] },
+    { query: 'Liefergegenstände', ...taskArticles[6] },
+    { query: 'Meilensteine', ...taskArticles[6] },
   ]) {
     await page.goto('/');
     const quickSearch = page.locator('.quick-search').getByRole('link', { name: query });
@@ -81,12 +83,12 @@ test('knowledge status filter separates real articles from demo content', async 
   const status = page.getByRole('combobox', { name: 'Inhaltsstand' });
   const cards = page.locator('.article-card');
   await expect(status).toHaveValue('alle');
-  await expect(cards).toHaveCount(14);
+  await expect(cards).toHaveCount(19);
 
   await status.selectOption('fach');
-  await expect(cards).toHaveCount(5);
+  await expect(cards).toHaveCount(10);
   await expect(cards.locator('p.small.muted')).toHaveText(
-    Array(5).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
+    Array(10).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
   );
   for (const { id } of taskArticles) {
     await expect(cards.locator(`h3 a[href="#/artikel/${id}"]`)).toBeVisible();

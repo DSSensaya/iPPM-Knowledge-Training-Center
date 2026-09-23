@@ -147,7 +147,7 @@ test('v0.5 source paths and recorded file hashes match the local originals', () 
 
 test('v0.5 content states, revisions and review evidence remain distinct', () => {
   expect(articles.filter((a) => a.status === 'demo')).toHaveLength(9);
-  expect(articles.filter((a) => a.status === 'source-draft')).toHaveLength(5);
+  expect(articles.filter((a) => a.status === 'source-draft')).toHaveLength(10);
   for (const article of articles) {
     if (article.status === 'demo') {
       expect(article.knowledge).toBeUndefined();

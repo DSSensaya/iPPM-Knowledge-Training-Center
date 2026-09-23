@@ -2,6 +2,7 @@ import type { Article, LearningPath, Process, Role, Topic } from './types';
 import { accessArticles } from './access-content';
 import { milestoneArticles } from './milestone-content';
 import { savePublishArticles } from './save-publish-content';
+import { definitionArticles } from './definition-content';
 
 export const roles: Role[] = [
   'Alle Rollen',
@@ -25,6 +26,7 @@ export const articles: Article[] = [
   ...accessArticles,
   ...milestoneArticles,
   ...savePublishArticles,
+  ...definitionArticles,
   {
     id: 'ippm-verstehen',
     status: 'demo',
@@ -343,6 +345,11 @@ export const articles: Article[] = [
   },
 ];
 export const recommendedArticleIds = [
+  'guide-project-handover',
+  'guide-project-master-data',
+  'guide-project-objectives',
+  'guide-project-organization',
+  'guide-subproject-definition',
   'guide-project-permissions',
   'guide-deliverables-milestones',
 ] as const;

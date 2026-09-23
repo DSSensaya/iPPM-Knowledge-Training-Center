@@ -13,7 +13,7 @@ export default function Processes() {
       <PageTitle
         eyebrow="Das Zusammenspiel verstehen"
         title="Prozesse im Überblick"
-        description="Wer macht was – und welches Ergebnis wird weitergegeben? Zwei begrenzte SB1-Ausschnitte ergänzen die bisherigen Beispielabläufe."
+        description="Wer macht was – und welches Ergebnis wird weitergegeben? Projektdefinition, Team/Zugriff und Planung als begrenzte SB1-Ausschnitte; Antrag und Bereitstellung nur als Orientierung."
       />
       {processViews.map((view) => (
         <section className="process-section" aria-label={view.title} key={view.id}>
@@ -33,7 +33,8 @@ export default function Processes() {
                   <p>Voraussetzung: {s.input}</p>
                   <p>Erwartetes Ergebnis: {s.output}</p>
                   <a href={`#/artikel/${view.articleId}`}>
-                    Bedienweg, Quellen und Einschränkungen zu {s.number} öffnen
+                    {s.number.startsWith('1.') ? 'Orientierung' : 'Bedienweg'}, Quellen und
+                    Einschränkungen zu {s.number} öffnen
                   </a>
                 </li>
               );
@@ -47,6 +48,10 @@ export default function Processes() {
           Die Liste zeigt den Stand der Center-Materialien je Matrixschritt. „Material vorhanden“
           bedeutet weder geschult noch praktisch geprüft oder freigegeben. Quellenhinweise und
           offene Punkte ersetzen keinen Bedienweg.
+        </p>
+        <p>
+          17 Schritte mit realem Teilmaterial, 2 Schritte mit Orientierung ohne Gesamtbedienweg, 5
+          Schritte nur mit Quellenhinweisen. Alle Materialien bleiben Quellenentwürfe.
         </p>
         <ol className="sb1-coverage-list">
           {sb1Coverage.map((item) => (

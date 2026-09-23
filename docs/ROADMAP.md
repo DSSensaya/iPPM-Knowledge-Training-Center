@@ -1,6 +1,6 @@
 # Produkt-Roadmap bis v1.0
 
-Stand: 23.09.2026 · v0.5.0 technisch abgeschlossen; praktische Erprobung offen · Aktuelle Produktstrategie
+Stand: 23.09.2026 · v0.6.0 technisch abgeschlossen; fachliche und praktische Erprobung offen · Aktuelle Produktstrategie
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
@@ -56,6 +56,8 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Begrenzung:** Keine behauptete automatische Terminübernahme, keine generelle Rechtefreigabe und kein ungetesteter PMO-Gesamtweg.
 
+**Technischer Abschluss v0.6.0:** Fünf zusätzliche Quellenentwürfe zu Übernahme/Initialisierungsorientierung, Stammdaten, Zielen, Organisation und System-/ILS-Definition sind umgesetzt. Die SB1-Abdeckung umfasst 17 Schritte mit realem Teilmaterial, zwei mit Orientierung ohne Gesamtbedienweg und fünf mit Quellenhinweisen. Bestehende IDs, Links und v1-Persistenz bleiben erhalten. Der Ausbau erfolgte auf ausdrücklichen Auftrag trotz weiterhin offener praktischer v0.5-Übergangsbedingung. EDC-/Terminwirkung, finale Rollen-/Feldkonfiguration, vollständiger PMO-Durchlauf und Nutzer-/Trainerpilot bleiben offen; keine fachliche Freigabe. Einzelheiten stehen im [v0.6-Abschluss](v0.6-abschluss.md).
+
 **Übergang zu v0.7:** Neue Aufgaben lassen sich überwiegend durch Daten und Inhalte ergänzen. Rollenunterschiede, Voraussetzungen und erwartete Ergebnisse sind geprüft; wiederkehrende Bedienwege werden konsistent wiederverwendet.
 
 ### v0.7 – SB1-Planung und Steuerung ergänzen
@@ -105,5 +107,6 @@ Die breite Integration beginnt nach v0.5, sobald eine gemeinsame Inhaltsvorlage 
 - [Inhalts- und Datenmodell v0.3](v0.3-inhalts-und-datenmodell.md)
 - [Umsetzung und fachliche Grenzen v0.4](v0.4-umsetzung.md)
 - [Technischer Abschluss und offene Prüfungen v0.5](v0.5-abschluss.md)
+- [Projekt-/Teilprojektdefinition und offene Prüfungen v0.6](v0.6-abschluss.md)
 - [Projektübersicht](../README.md), [Projektregeln](../AGENTS.md), [Design-Spezifikation](../DESIGN.md)
 - Fachquellen unter `sources/`; Quellenbewertungen bleiben an die jeweilige Fassung und ihren Geltungsbereich gebunden.

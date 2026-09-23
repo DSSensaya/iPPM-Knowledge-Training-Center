@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { articles } from '../src/data/content';
 import { issues, processSteps, processViews } from '../src/data/catalog';
 import { sb1AdditionalHandbookTopics, sb1Coverage } from '../src/data/sb1-coverage';
+import { definitionRows } from '../src/data/definition-catalog';
 import { sources } from '../src/data/sources';
 
 // Originaltitel und Zeilen aus Quelle T, Blatt Release1-Matrix, Spalten A/B/K.
@@ -33,7 +34,8 @@ const matrixRows = [
   ['4.13', 'Projektreporting durchführen', 53],
 ] as const;
 
-const linkedSteps = new Map([
+const linkedSteps = new Map<string, string[]>([
+  ...definitionRows.map((row) => [row.number, [row.article]] as [string, string[]]),
   ['2.2', ['guide-deliverables-milestones', 'faq-milestone-dates', 'guide-save-publish-checkin']],
   ['2.5', ['guide-deliverables-milestones', 'faq-milestone-dates', 'guide-save-publish-checkin']],
   ['2.6', ['guide-project-permissions', 'faq-role-vs-access', 'guide-save-publish-checkin']],
@@ -64,15 +66,19 @@ test('SB1 list preserves exactly 24 source T numbers, original titles and row lo
   ]);
 });
 
-test('only eight existing real steps are linked; sixteen source hints do not become coverage', () => {
+test('nineteen matrix steps have bounded material; five retain source hints', () => {
   const linked = sb1Coverage.filter((item) => item.realMaterials.length);
   const unlinked = sb1Coverage.filter((item) => !item.realMaterials.length);
-  expect(linked.map((item) => item.number)).toEqual([...linkedSteps.keys()]);
-  expect(linked).toHaveLength(8);
-  expect(unlinked).toHaveLength(16);
-  expect(processSteps).toHaveLength(8);
+  expect(linked.map((item) => item.number).sort()).toEqual([...linkedSteps.keys()].sort());
+  expect(linked).toHaveLength(19);
+  expect(unlinked).toHaveLength(5);
+  expect(processSteps).toHaveLength(19);
   for (const item of linked) {
-    expect(item.materialStatus).toBe('Reales Teilmaterial vorhanden');
+    expect(item.materialStatus).toBe(
+      item.number.startsWith('1.')
+        ? 'Orientierung vorhanden · kein Gesamtbedienweg'
+        : 'Reales Teilmaterial vorhanden',
+    );
     expect(item.realMaterials).toEqual(
       linkedSteps.get(item.number)?.map((articleId) => ({
         articleId,
@@ -123,7 +129,9 @@ test('1.1 and 3.4 keep their source conflicts open with precise F and B evidence
       }),
     ]),
   );
-  expect(request.realMaterials).toEqual([]);
+  expect(request.realMaterials.map((material) => material.articleId)).toEqual([
+    'guide-project-handover',
+  ]);
   expect(reviews.realMaterials).toEqual([]);
 });
 

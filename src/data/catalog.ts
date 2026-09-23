@@ -10,6 +10,15 @@ import type {
   TrainingAssignment,
 } from './domain';
 import { evidence as e } from './sources';
+import {
+  definitionScope,
+  definitionFunctions,
+  definitionSteps,
+  definitionIssues,
+  definitionAssessments,
+  definitionTraining,
+} from './definition-catalog';
+import { definitionViews } from './definition-content';
 
 export const roleCatalog: {
   id: RoleId;
@@ -58,6 +67,7 @@ export const stages = [
   { id: 'R1B', releaseId: 'release-1' },
 ];
 export const scopeItems: ScopeItem[] = [
+  ...definitionScope,
   {
     id: 'R1-03',
     title: 'Projektinformationen, Scope und eingebettete Project-Site-Listen',
@@ -96,6 +106,7 @@ const context = {
   environment: null,
 };
 export const functions: FunctionDefinition[] = [
+  ...definitionFunctions,
   {
     id: 'fn-deliverables',
     title: 'Liefergegenstände einzeln erfassen',
@@ -249,6 +260,7 @@ export const functions: FunctionDefinition[] = [
   },
 ];
 export const processSteps: ProcessStep[] = [
+  ...definitionSteps,
   ...(
     [
       {
@@ -362,6 +374,7 @@ export const processSteps: ProcessStep[] = [
   })),
 ];
 export const processViews = [
+  ...definitionViews,
   {
     id: 'access',
     title: 'SB1: Team und Zugriff',
@@ -400,6 +413,7 @@ export const releaseAssignments: ReleaseAssignment[] = [
 ];
 export const trainingBlocks = [{ id: 'sb1', title: 'Schulungsblock 1' }];
 export const trainingAssignments: TrainingAssignment[] = [
+  ...definitionTraining,
   ...processSteps.map((s) => ({
     id: `training-${s.id}`,
     subject: { kind: 'step' as const, id: s.id },
@@ -436,6 +450,7 @@ export const trainingAssignments: TrainingAssignment[] = [
   },
 ];
 export const issues: Issue[] = [
+  ...definitionIssues,
   {
     id: 'issue-f-r1-open-07',
     title: 'Gesamte Rollen- und Rechtematrix bleibt offen',
@@ -549,6 +564,7 @@ export const issues: Issue[] = [
   },
 ];
 export const assessments: Assessment[] = [
+  ...definitionAssessments,
   {
     id: 'deliverables-technical',
     subject: { kind: 'function', id: 'fn-deliverables' },

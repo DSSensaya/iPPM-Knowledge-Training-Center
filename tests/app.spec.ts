@@ -12,7 +12,7 @@ test('home, navigation and responsive layout are accessible and local', async ({
   });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ihre nächsten iPPM-Aufgaben.' })).toBeVisible();
-  await expect(page.locator('.prototype-label')).toHaveText('v0.5.0');
+  await expect(page.locator('.prototype-label')).toHaveText('v0.6.0');
   await expect(page.getByRole('main')).toBeFocused();
   const routes = [
     '/',
@@ -83,7 +83,7 @@ test('search finds body text, filters combine, empty state recovers', async ({ p
     'Status & Reporting',
   );
   await page.getByRole('link', { name: 'Alle Beiträge anzeigen' }).click();
-  await expect(page.locator('.article-card')).toHaveCount(14);
+  await expect(page.locator('.article-card')).toHaveCount(19);
 });
 
 test('bookmarks persist and backup export/import validates data', async ({ page }) => {
