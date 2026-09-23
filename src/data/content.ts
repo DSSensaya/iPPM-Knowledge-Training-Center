@@ -3,6 +3,7 @@ import { accessArticles } from './access-content';
 import { milestoneArticles } from './milestone-content';
 import { savePublishArticles } from './save-publish-content';
 import { definitionArticles } from './definition-content';
+import { controlArticles } from './control-content';
 
 export const roles: Role[] = [
   'Alle Rollen',
@@ -23,6 +24,7 @@ export const topics: Topic[] = [
   'Team & Zugriff',
 ];
 export const articles: Article[] = [
+  ...controlArticles,
   ...accessArticles,
   ...milestoneArticles,
   ...savePublishArticles,
@@ -345,6 +347,7 @@ export const articles: Article[] = [
   },
 ];
 export const recommendedArticleIds = [
+  ...controlArticles.map((a) => a.id),
   'guide-project-handover',
   'guide-project-master-data',
   'guide-project-objectives',
