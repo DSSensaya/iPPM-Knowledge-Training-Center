@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight, Bookmark, Check, Clock3, RotateCcw } from 'lucide-react';
-import { articles, roles, topics } from '../data/content';
+import { roles, topics, visibleArticles } from '../data/content';
 import type { Role } from '../data/types';
 import { searchArticles } from '../lib/search';
 import type { Progress } from '../lib/storage';
@@ -41,14 +41,7 @@ export function Knowledge({
   const topic = params.get('thema') || 'Alle Themen';
   const role = (params.get('rolle') || 'Alle Rollen') as Role;
   const kind = params.get('format') || 'Alle Formate';
-  const requestedStatus = params.get('stand');
-  const contentStatus =
-    requestedStatus === 'fach' || requestedStatus === 'demo' ? requestedStatus : 'alle';
-  const results = searchArticles(query, topic, role, kind).filter(
-    (article) =>
-      contentStatus === 'alle' ||
-      (contentStatus === 'fach' ? article.status !== 'demo' : article.status === 'demo'),
-  );
+  const results = searchArticles(query, topic, role, kind);
   function filter(key: string, value: string) {
     const next = new URLSearchParams(params);
     next.set(key, value);
@@ -66,7 +59,10 @@ export function Knowledge({
         <label>
           Thema
           <select value={topic} onChange={(e) => filter('thema', e.target.value)}>
-            {['Alle Themen', ...topics].map((t) => (
+            {[
+              'Alle Themen',
+              ...topics.filter((t) => visibleArticles.some((a) => a.topic === t)),
+            ].map((t) => (
               <option key={t}>{t}</option>
             ))}
           </select>
@@ -74,11 +70,15 @@ export function Knowledge({
         <label>
           Ihre Rolle
           <select value={role} onChange={(e) => filter('rolle', e.target.value)}>
-            {roles.map((r) => (
-              <option key={r} value={r}>
-                {roleLabel(r)}
-              </option>
-            ))}
+            {roles
+              .filter(
+                (r) => r === 'Alle Rollen' || visibleArticles.some((a) => a.roles.includes(r)),
+              )
+              .map((r) => (
+                <option key={r} value={r}>
+                  {roleLabel(r)}
+                </option>
+              ))}
           </select>
         </label>
         <label>
@@ -87,14 +87,6 @@ export function Knowledge({
             {['Alle Formate', 'Anleitung', 'Grundlagen', 'Checkliste', 'FAQ'].map((k) => (
               <option key={k}>{k}</option>
             ))}
-          </select>
-        </label>
-        <label>
-          Inhaltsstand
-          <select value={contentStatus} onChange={(e) => filter('stand', e.target.value)}>
-            <option value="alle">Alle Inhalte</option>
-            <option value="fach">Quellenbasierte Fachbeiträge</option>
-            <option value="demo">Demo-Inhalte</option>
           </select>
         </label>
         <a className="button secondary" href="#/wissen">
@@ -107,7 +99,7 @@ export function Knowledge({
           {results.length} {results.length === 1 ? 'Beitrag' : 'Beiträge'}
           {query && ` für „${query}“`}
         </strong>
-        <span>Demo-Inhalte und quellenbasierte Entwürfe · Deutsch</span>
+        <span>Quellenbasierte Entwürfe · Deutsch</span>
       </div>
       {results.length ? (
         <div className="cards three">
@@ -136,18 +128,16 @@ export function Knowledge({
 
 export function ArticlePage({
   id,
-  pathId,
   progress,
   toggleSave,
   toggleRead,
 }: {
   id: string;
-  pathId: string | null;
   progress: Progress;
   toggleSave: (id: string) => void;
   toggleRead: (id: string) => void;
 }) {
-  const article = articles.find((a) => a.id === id);
+  const article = visibleArticles.find((a) => a.id === id);
   if (!article)
     return (
       <div className="empty">
@@ -160,7 +150,7 @@ export function ArticlePage({
     );
   const saved = progress.bookmarks.includes(id),
     read = progress.read.includes(id);
-  const relatedGuide = articles.find(
+  const relatedGuide = visibleArticles.find(
     (candidate) =>
       article.related.includes(candidate.id) &&
       candidate.knowledge?.functionIds.some((functionId) =>
@@ -171,9 +161,9 @@ export function ArticlePage({
   );
   return (
     <>
-      <a href={pathId ? `#/lernpfade/${pathId}` : '#/wissen'} className="back-link">
+      <a href="#/wissen" className="back-link">
         <ArrowLeft size={16} />
-        {pathId ? 'Zurück zum Lernpfad' : 'Zur Wissensbasis'}
+        Zur Wissensbasis
       </a>
       <div className="article-layout">
         <article className="article-content">
@@ -192,11 +182,9 @@ export function ArticlePage({
             </span>
           </div>
           <div className="demo-note">
-            {article.status === 'demo'
-              ? 'Demonstrationsinhalt · Fachlich nicht freigegeben'
-              : article.status === 'source-draft'
-                ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
-                : 'Fachlich geprüfter Inhalt'}
+            {article.status === 'source-draft'
+              ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
+              : 'Fachlich geprüfter Inhalt'}
           </div>
           {article.knowledge ? (
             <>
@@ -266,17 +254,9 @@ export function ArticlePage({
               <Check size={18} />
               {read ? 'Gelesen · Markierung entfernen' : 'Als gelesen markieren'}
             </button>
-            {pathId && (
-              <a className="text-link" href={`#/lernpfade/${pathId}`}>
-                Im Lernpfad weiter
-                <ArrowRight size={17} />
-              </a>
-            )}
           </div>
           <p className="small muted">
-            {article.status === 'demo'
-              ? 'Die Markierung wird lokal gespeichert und für passende Demo-Lernpfade übernommen. Sie ist kein Schulungsnachweis.'
-              : 'Diese Lesemarkierung ist kein Übungs- oder Schulungsnachweis und verändert die bestehenden Demo-Lernpfade nicht.'}
+            Diese Lesemarkierung ist kein Übungs- oder Schulungsnachweis.
           </p>
         </article>
         <aside className="article-aside">
@@ -333,32 +313,30 @@ export function ArticlePage({
             <p>{article.roles.map(roleLabel).join(', ')}</p>
             <span className="eyebrow">Redaktion</span>
             <p>
-              {article.status === 'demo'
-                ? 'iPPM Demo-Redaktion'
-                : article.status === 'source-draft'
-                  ? 'Quellenbasierter Center-Entwurf'
-                  : 'Fachlich geprüfter Center-Inhalt'}
+              {article.status === 'source-draft'
+                ? 'Quellenbasierter Center-Entwurf'
+                : 'Fachlich geprüfter Center-Inhalt'}
               <br />
               <span className="muted">
-                {article.status === 'demo'
-                  ? 'Beispielwissen für dieses MVP'
-                  : article.status === 'source-draft'
-                    ? `Revision ${article.revisions.at(-1)?.number} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
-                    : `Revision ${article.revisions.at(-1)?.number} · Fachlicher Prüfbeleg: ${article.reviews.at(-1)?.record}`}
+                {article.status === 'source-draft'
+                  ? `Revision ${article.revisions.at(-1)?.number} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
+                  : `Revision ${article.revisions.at(-1)?.number} · Fachlicher Prüfbeleg: ${article.reviews.at(-1)?.record}`}
               </span>
             </p>
           </div>
           <div className="aside-block">
             <span className="eyebrow">Passend dazu</span>
-            {article.related.map((relatedId) => {
-              const related = articles.find((a) => a.id === relatedId)!;
-              return (
-                <a className="related-link" href={`#/artikel/${relatedId}`} key={relatedId}>
-                  {related.title}
-                  <ArrowRight size={16} />
-                </a>
-              );
-            })}
+            {article.related
+              .filter((relatedId) => visibleArticles.some((a) => a.id === relatedId))
+              .map((relatedId) => {
+                const related = visibleArticles.find((a) => a.id === relatedId)!;
+                return (
+                  <a className="related-link" href={`#/artikel/${relatedId}`} key={relatedId}>
+                    {related.title}
+                    <ArrowRight size={16} />
+                  </a>
+                );
+              })}
           </div>
         </aside>
       </div>

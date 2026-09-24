@@ -119,8 +119,8 @@ test('new source reading preserves v1 backups and completed demo paths', async (
     passed: [oldPath.id],
   });
   await page.goto('/#/artikel/statusbericht');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Status');
-  await expect(
-    page.getByRole('button', { name: 'Aus Merkliste entfernen', exact: true }),
-  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('heading', { name: 'Beitrag nicht gefunden' })).toBeVisible();
+  await page.goto('/#/mein-bereich');
+  await expect(page.locator('.saved-section .article-card')).toHaveCount(1);
+  await expect(page.locator('.saved-section')).not.toContainText('Statusbericht');
 });

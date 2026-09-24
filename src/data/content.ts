@@ -348,6 +348,9 @@ export const articles: Article[] = [
     related: ['meilensteine', 'statusbericht'],
   },
 ];
+// Keep legacy demo IDs in the data model for existing v1 backups; expose only source-backed articles.
+export const visibleArticles = articles.filter((article) => article.status !== 'demo');
+
 export const recommendedArticleIds = [
   ...controlArticles.map((a) => a.id),
   'guide-project-handover',
@@ -497,12 +500,12 @@ export const faqs = [
   {
     question: 'Sind die Inhalte offizielle TKMS-ATLAS-Vorgaben?',
     answer:
-      'Nein. Die bestehenden Demo-Inhalte bleiben Beispiele. Die Beiträge zu Zugriff sowie Liefergegenständen und Meilensteinen sind quellenbasierte Entwürfe mit sichtbaren Nachweisen und Einschränkungen. Sie sind keine freigegebenen Arbeitsanweisungen; vor produktiver Verwendung ist eine fachliche Prüfung erforderlich.',
+      'Nein. Die Fachbeiträge sind quellenbasierte Entwürfe mit sichtbaren Nachweisen und Einschränkungen. Sie sind keine freigegebenen Arbeitsanweisungen; vor produktiver Verwendung ist eine fachliche Prüfung erforderlich.',
   },
   {
-    question: 'Wie speichere ich meinen Lernfortschritt?',
+    question: 'Wie speichere ich Lesemarkierungen und Merkliste?',
     answer:
-      'Öffnen Sie eine Lektion und wählen Sie am Ende „Als gelesen markieren“. Nach allen Lektionen schließen Sie den Lernpfad mit einem Wissenscheck ab. Fortschritt und Merkliste werden automatisch in diesem Browser gespeichert. Es gibt kein Benutzerkonto und keine Synchronisation.',
+      'Öffnen Sie einen Beitrag und wählen Sie „Als gelesen markieren“ oder „Beitrag merken“. Diese Angaben werden automatisch in diesem Browser gespeichert und können unter „Mein Lernbereich“ gesichert werden. Es gibt kein Benutzerkonto und keine Synchronisation; eine Lesemarkierung ist kein Schulungsnachweis.',
   },
   {
     question: 'Warum sehe ich ein Projekt oder eine Funktion in iPPM nicht?',

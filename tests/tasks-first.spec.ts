@@ -15,7 +15,7 @@ const taskArticles = [
   },
 ] as const;
 
-test('home puts both real tasks before general and demo entry points', async ({ page }) => {
+test('home shows source-backed tasks and no demo entry points', async ({ page }) => {
   await page.goto('/');
   const tasks = page.getByRole('region', { name: 'Mit einer Aufgabe beginnen' });
   await expect(tasks.locator('.article-card')).toHaveCount(12);
@@ -32,21 +32,15 @@ test('home puts both real tasks before general and demo entry points', async ({ 
       `#/artikel/${id}`,
     );
   }
-  expect(
-    await page.evaluate(() => {
-      const tasks = document.querySelector('.home-tasks')!;
-      const demo = document.querySelector('.demo-learning')!;
-      return Boolean(tasks.compareDocumentPosition(demo) & Node.DOCUMENT_POSITION_FOLLOWING);
-    }),
-  ).toBeTruthy();
+  await expect(page.locator('.demo-learning')).toHaveCount(0);
   await expect(page.getByLabel('Was möchten Sie wissen?')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Wissen nachschlagen' })).toHaveAttribute(
     'href',
     '#/wissen',
   );
-  await expect(page.getByRole('link', { name: 'Demo-Lernpfade ansehen' })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'Zusammenhänge verstehen' })).toHaveAttribute(
     'href',
-    '#/lernpfade',
+    '#/prozesse',
   );
   for (const { id, title } of taskArticles) {
     await tasks.getByRole('link', { name: title, exact: true }).click();
@@ -80,14 +74,11 @@ test('home quick searches find the matching real task articles', async ({ page }
   }
 });
 
-test('knowledge status filter separates real articles from demo content', async ({ page }) => {
+test('knowledge list contains only source-backed articles, including legacy filter URLs', async ({
+  page,
+}) => {
   await page.goto('/#/wissen');
-  const status = page.getByRole('combobox', { name: 'Inhaltsstand' });
   const cards = page.locator('.article-card');
-  await expect(status).toHaveValue('alle');
-  await expect(cards).toHaveCount(25);
-
-  await status.selectOption('fach');
   await expect(cards).toHaveCount(16);
   await expect(cards.locator('p.small.muted')).toHaveText(
     Array(16).fill('Quellenbasierter Entwurf · Einschränkungen beachten'),
@@ -96,19 +87,9 @@ test('knowledge status filter separates real articles from demo content', async 
     await expect(cards.locator(`h3 a[href="#/artikel/${id}"]`)).toBeVisible();
   }
 
-  await status.selectOption('demo');
-  await expect(cards).toHaveCount(9);
-  await expect(cards.locator('p.small.muted')).toHaveText(Array(9).fill('Demonstrationsinhalt'));
-  for (const { id } of taskArticles) {
-    await expect(cards.locator(`h3 a[href="#/artikel/${id}"]`)).toHaveCount(0);
-  }
-
-  await page.goto('/#/wissen?q=Owner-Wechsel');
-  await status.selectOption('demo');
-  await expect(page.getByLabel('Wissensbasis durchsuchen')).toHaveValue('Owner-Wechsel');
-  await expect(cards).toHaveCount(0);
-  await status.selectOption('fach');
-  await expect(cards.locator('h3 a[href="#/artikel/guide-project-permissions"]')).toBeVisible();
+  await page.goto('/#/wissen?stand=demo');
+  await expect(cards).toHaveCount(16);
+  await expect(page.getByRole('combobox', { name: 'Inhaltsstand' })).toHaveCount(0);
 });
 
 test('real articles expose the reading order and early keyboard jump targets', async ({ page }) => {
@@ -179,9 +160,7 @@ test('real articles expose the reading order and early keyboard jump targets', a
   );
 });
 
-test('demo articles and paths remain separate from real content and training claims', async ({
-  page,
-}) => {
+test('demo articles and paths stay inaccessible during manual review', async ({ page }) => {
   await page.goto('/#/wissen');
   const demo = page.locator('.article-card').filter({
     has: page.getByRole('heading', { name: 'iPPM verstehen: vom Projekt zum Portfolio' }),
@@ -189,21 +168,17 @@ test('demo articles and paths remain separate from real content and training cla
   const real = page
     .locator('.article-card')
     .filter({ has: page.getByRole('heading', { name: taskArticles[0].title }) });
-  await expect(demo).toContainText('Demonstrationsinhalt');
+  await expect(demo).toHaveCount(0);
   await expect(real).toContainText('Quellenbasierter Entwurf');
   await page.goto('/#/artikel/ippm-verstehen');
-  await expect(page.locator('.demo-note')).toContainText('Demonstrationsinhalt');
+  await expect(page.getByRole('heading', { name: 'Beitrag nicht gefunden' })).toBeVisible();
   await page.goto('/#/lernpfade');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Beispielwissen Schritt für Schritt',
-  );
-  await expect(page.getByRole('main')).toContainText('kein Schulungsnachweis');
-  await expect(page.locator('.path-card')).toHaveCount(3);
-  await expect(page.locator('.path-card').first()).toContainText('Demo');
+  await expect(page.getByRole('heading', { name: 'Diese Seite gibt es nicht' })).toBeVisible();
   await page.goto('/#/lernpfade/einstieg');
-  await expect(page.locator('.demo-note')).toContainText(
-    'kein fachlicher oder schulischer Nachweis',
-  );
+  await expect(page.getByRole('heading', { name: 'Diese Seite gibt es nicht' })).toBeVisible();
+  await page.goto('/#/prozesse');
+  await expect(page.locator('.process-flow')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Anleitung öffnen' })).toHaveCount(0);
   await page.goto('/#/mein-bereich');
-  await expect(page.getByRole('main')).toContainText('Demo-Lernpfade abgeschlossen');
+  await expect(page.getByRole('main')).not.toContainText('Demo-Lernpfade');
 });
