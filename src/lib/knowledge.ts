@@ -24,7 +24,7 @@ export function subjectsFor(article: Article): SubjectRef[] {
     ),
   ];
 }
-// Preserve all matching source assertions; never choose a winner by file date or status.
+// Preserve source assertions; only explicit dated decisions resolve conflicts.
 export function forSubjects<T extends { subject: SubjectRef }>(
   records: T[],
   subjects: SubjectRef[],
@@ -39,7 +39,7 @@ export function knowledgeFor(article: Article) {
   return {
     functions: functions.filter((f) => k?.functionIds.includes(f.id)),
     steps: processSteps.filter((s) => k?.stepIds.includes(s.id)),
-    issues: issues.filter((i) => k?.issueIds.includes(i.id)),
+    issues: issues.filter((i) => k?.issueIds.includes(i.id) && i.status !== 'GEKLÄRT'),
     links: knowledgeLinks.filter((link) => k?.linkIds?.includes(link.id)),
     assessments: forSubjects(assessments, subjects),
     training: forSubjects(trainingAssignments, subjects),

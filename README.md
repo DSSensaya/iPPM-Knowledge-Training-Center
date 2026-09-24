@@ -2,6 +2,8 @@
 
 Eine vollständig lokale Wissens- und Schulungsplattform für den iPPM-Arbeitsalltag bei TKMS ATLAS. Die erste Version führt von einer konkreten Frage zu einer verständlichen Anleitung und von einzelnen Beiträgen zu nachvollziehbaren Lernpfaden.
 
+**Abstimmung 23.09.2026:** Aktuelle Klärungen und verbleibende technische, redaktionelle und spätere Punkte stehen in [Open Points und Trainingsreife](docs/open-points-readiness.md). Die datierte Excel-Quelle und die ergänzenden Bestätigungen aktualisieren die betreffenden älteren Aussagen; frühere Quellen bleiben erhalten.
+
 ## Lokal starten
 
 Voraussetzungen: Node.js ab 22.12 (entwickelt und geprüft mit Node.js 26) und npm. Unter Windows PowerShell `npm.cmd` verwenden, falls die Ausführungsrichtlinie `npm.ps1` sperrt.
@@ -22,13 +24,15 @@ npm.cmd run preview -- --port 4173
 
 Anschließend **http://127.0.0.1:4173** öffnen. Die einmalige Installation benötigt Zugang zur npm-Registry. Der laufende Entwicklungs- oder Produktionsserver benötigt kein Internet. Alle Inhalte und Assets kommen aus dem Workspace. Der Server bindet nur an die lokale Loopback-Adresse. Der lokale Server muss laufen; das direkte Öffnen von `dist/index.html` als Datei ist nicht vorgesehen.
 
-## Stand v0.7.0
+## Stand v0.7.1
+
+v0.7.1 konsolidiert v0.7 mit den bestätigten TtT-Klärungen; sie ist keine neue Produktstufe. Die Vorbereitung der v0.9-Pilotphase folgt weiterhin der Roadmap.
 
 - **Übersicht und Suche:** Projekt-/Teilprojektdefinition, Antrags-/Bereitstellungsorientierung, Team/Zugriff und Liefer-/Zahlungsmeilensteine stehen vor den Demo-Lernpfaden. Externe Meilensteine, vorgegebenes Tailoring, Eskalationserfassung und Orientierung zu Status/Reporting ergänzen die Aufgaben. Schnellsuche, Filter und direkte Artikel-Links bleiben nutzbar.
 - **Wissensbasis:** Fünfzehn quellenbasierte Entwürfe und neun klar getrennte Demo-Beiträge. Reale Beiträge beginnen mit Kurzantwort, Voraussetzungen, kritischen Einschränkungen, Bedienweg, Ergebnisprüfung und Nachweisen; eine frühe Sprungnavigation führt zu diesen Abschnitten.
 - **Querschnitt:** Speichern und Prüfen in Liste oder PDP, Speichern/Veröffentlichen/Einchecken im MS Project Client und Speichern/Einchecken beim Owner-Wechsel sind kontextbezogen beschrieben.
 - **Trainerbereich:** Ein fiktives Owner-Wechsel-Szenario für TM und ILSM kann vorbereitet und je Konto ausgewertet werden. Es ist kein protokollierter praktischer Durchlauf.
-- **Prozesse:** 20 Schritte mit realem Teilmaterial und vier Schritte mit gesonderter Orientierung ohne Gesamtbedienweg sind angebunden. Eine gesonderte Liste behandelt genau 24 SB1-Matrixschritte mit Quellen, Material, Lücken und Konflikten. Antrag, PMO-Anlage, Statuspflege und R1-Basisreporting bleiben ohne Gesamtbedienweg. LCM-Regeln, Empfängerbearbeitung sowie ungeprüfte Status-/Filterwirkungen sind ausgeschlossen.
+- **Prozesse:** 20 Schritte mit realem Teilmaterial und vier Schritte mit gesonderter Orientierung ohne Gesamtbedienweg sind angebunden. Eine gesonderte Liste behandelt genau 24 SB1-Matrixschritte mit Quellen, Material, Lücken und Konflikten. Antrag, PMO-Anlage, Statuspflege und R1-Basisreporting bleiben ohne Gesamtbedienweg. LCM-3 gilt einmal pro Kalenderjahr; FIN-/SAP-Korrektur, ML-Filter und Statusübersicht sind bestätigt. Weitere LCM-Terminregeln und Empfängerbearbeitung bleiben begrenzt.
 - **Demo und Lernstand:** Drei Lernpfade und ihre Wissenschecks bleiben Demo. Bestehende IDs, Hash-Links und die lokale Speicherversion 1 bleiben erhalten; Merkliste und Lernstand können exportiert und validiert importiert werden.
 
 Die fünfzehn Fachbeiträge sind **quellenbasierte Entwürfe**, keine fachlich freigegebenen Arbeitsanweisungen. Material, Lesemarkierungen und Demo-Abschlüsse belegen weder Schulung noch praktische Zielumgebungsprüfung. Der technische Abschluss und die offenen Prüfungen sind in [docs/v0.7-abschluss.md](docs/v0.7-abschluss.md) festgehalten.

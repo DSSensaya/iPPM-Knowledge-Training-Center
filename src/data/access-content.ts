@@ -13,6 +13,8 @@ const knowledge: KnowledgeContext = {
     'issue-f-r1-open-12',
   ],
   evidence: [
+    ...e('TTT', 'Abgestimmte Restpunkte vom 23.09.2026'),
+    ...e('C23', 'Bestätigte Klärungen vom 23.09.2026'),
     ...e(
       'B',
       '§1.4 Berechtigungen; §3.6.5–3.6.7 Organisation, Zugriffsrechte und Teilprojektleiter',
@@ -107,7 +109,7 @@ const knowledge: KnowledgeContext = {
       'Fachliche Rolle, Teamzuordnung und Einzelrechte unterscheiden; einen Owner-Wechsel mit erhaltenem PM-Lesezugriff nachvollziehen.',
     preparation: [
       'Bereitgestelltes System- oder ILS-Schulungsprojekt, PM-Konto und Ziel-Owner-Konto prüfen.',
-      'Vor der Übung die wirksamen Konten-/Site-Rechte und den Systemstand prüfen; B und T beschreiben unterschiedliche Build-Team-Schulungswege.',
+      'Vor der Übung die wirksamen Konten-/Site-Rechte und den Systemstand prüfen. Build Team gehört bestätigt zu SB1; Rechte-Synchronisation bleibt gesondert offen.',
       'Keine produktiven oder vertraulichen Projektdaten im Center erfassen.',
     ],
     exercise:
@@ -225,7 +227,7 @@ export const accessArticles: Article[] = [
     sections: [
       {
         title: 'Den passenden Zugriffsweg wählen',
-        body: 'Die Rollenliste auf der PDP Organisation dokumentiert fachliche Verantwortung. Der aktuelle SB1-Handbuchentwurf beschreibt Build Team für operative Teammitglieder und Project Permissions für zusätzliche Stakeholder. Die ältere Schulungsmatrix beschränkt den Weg auf Project Permissions. Beide Aussagen bleiben unten sichtbar.',
+        body: 'Die Rollenliste auf der PDP Organisation dokumentiert Verantwortung. Build Team wird in SB1 für operative Teammitglieder geschult; Project Permissions dient zusätzlichen Stakeholdern und dem Eigenzugriff vor Owner-Wechsel. Die frühere Beschränkung auf Project Permissions ist seit der Abstimmung vom 23.09.2026 überholt. Automatische Rechtewirkungen bleiben separat zu prüfen.',
       },
       {
         title: 'Build Team: beschriebener Weg mit offenem Nachweis',
@@ -259,7 +261,7 @@ export const accessArticles: Article[] = [
       },
       {
         title: 'Wann ist Build Team vorgesehen?',
-        body: 'Der aktuelle Handbuchentwurf sieht Build Team für Personen vor, die operativ im Projekt oder Teilprojekt arbeiten. Diese Teamzuordnung ist von Vorgangszuweisungen und Kapazitätsplanung zu unterscheiden. Die Schulungsmatrix beschreibt dagegen einen früheren SB1-Weg ohne Build Team. Der Entwurf ist keine Bestätigung der automatischen Rechte-Synchronisation.',
+        body: 'Build Team wird in SB1 für operative Personen im Projekt oder Teilprojekt geschult. Teamzuordnung ist von Vorgangszuweisung und Kapazitätsplanung zu unterscheiden. Die ältere SB1-Beschränkung ist aufgehoben; die Rechte-/Ressourcenwirkung aus TTT-D-15 bleibt technisch offen.',
       },
       {
         title: 'Wann verwende ich Project Permissions?',
@@ -280,3 +282,32 @@ export const accessArticles: Article[] = [
     knowledge: { ...knowledge, procedures: [] },
   },
 ];
+
+// Explicit source snapshot for the confirmed clarification revision of 23 September.
+for (const article of accessArticles.filter((a) =>
+  ['guide-project-permissions', 'faq-role-vs-access'].includes(a.id),
+)) {
+  if (article.status === 'demo') continue;
+  article.updated = '2026-09-23';
+  article.revisions.push({
+    number: article.revisions.length + 1,
+    date: '2026-09-23',
+    note: 'Abgestimmte Restpunkte und ausdrückliche Klärungen eingearbeitet; ältere Quellen erhalten, verbleibende technische Grenzen getrennt.',
+    sources: [
+      { sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727', sourceId: 'B' },
+      {
+        sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+        sourceId: 'C23',
+      },
+      { sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4', sourceId: 'F' },
+      { sha256: 'C64438D9F8AB772AFCF333D351887DE597144BF976B875AFF2DB56CB6846B18C', sourceId: 'H' },
+      { sha256: '0C3A2170420C73F1F76A723797AE0D59B6230F27E6B7382DD1616CE90D7B3AB2', sourceId: 'K' },
+      { sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939', sourceId: 'S' },
+      { sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB', sourceId: 'T' },
+      {
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+        sourceId: 'TTT',
+      },
+    ],
+  });
+}

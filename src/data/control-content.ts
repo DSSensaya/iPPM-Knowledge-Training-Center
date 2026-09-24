@@ -77,9 +77,11 @@ export const controlRows: ControlRow[] = [
     fRow: 21,
     orientation: false,
     answer:
-      'Phasen und Reviews einordnen; nur das Tailoring-Bedienprinzip nach einer separat vorgegebenen fachlichen Entscheidung üben. Eine verbindliche LCM-Termin- oder Frequenzregel bleibt ausgeschlossen.',
-    gap: 'Keine abschließend einheitliche Regel belegt: T fordert jährlich, F R1-OPEN-06 hält Frequenz und Ausgangslogik offen, B beschreibt >2-/ <1-Jahr-Varianten. B enthält zudem eine leere LCM5-Vorgabe und fragmentarische Terminansätze. Weder diese Ansätze noch automatische Phasenanpassungen sind hier freigegeben. Review-Terminierung bleibt außerhalb des Bedienentwurfs.',
+      'LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen.',
+    gap: 'R1-OPEN-06 ist geklärt: LCM-3 einmal pro Kalenderjahr. Noch offen bleiben weitere LCM-Terminansätze einschließlich LCM5, der konkrete Ausgangsplan, Verknüpfungen und Verschiebewirkungen. ProjectLink-Übernahme und Restriktionen sind in Bearbeitung (TTT-D-38). Der funktionierende WWS-/WBS-Generator erledigt diese Restpunkte nicht. Hard Links nicht nutzen und nicht schulen.',
     evidence: [
+      ...e('C23', 'Punkte 8–9 und 11'),
+      ...e('TTT', 'Zeilen 27, 31–32, 39 und 47, A:G'),
       ...e('B', '§4.5.5 Projektphasen und LCM-Review-Termine planen'),
       ...e('T', 'Regeln & Entscheidungen!A7:D7'),
       ...e('F', 'R1 Funktionsmatrix!A21:J21', 'FS-16'),
@@ -88,12 +90,12 @@ export const controlRows: ControlRow[] = [
     ],
     sections: [
       {
-        title: 'Phasenplanung: Orientierung und offene Regel',
-        body: 'B beschreibt Reviewtermine als Steuerung der verknüpften Projektphasen, die Ansichten 10 und Zeitachse sowie die Felder Anfang und Stichtag. Für Reviews nennt B Pr.PM – Projektmanagement, Meilenstein und PM.LCM 2B beziehungsweise weitere Reviewtypen. Das ist eine Beschreibung des Entwurfs, kein geprüfter Automatismus. Vor einer Terminübung müssen Reviewregel, Ausgangsplan, Verknüpfungen und Verschiebewirkungen geklärt sein.',
+        title: 'Phasenplanung und bestätigte LCM-3-Regel',
+        body: 'LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Ein rollierender 12-Monats-Rhythmus, etwa ab Projektstart, wird nur als Verbesserung diskutiert und ist noch nicht beschlossen. B beschreibt Reviewtermine als Steuerung verknüpfter Phasen über Anfang und Stichtag. Weitere Reviewtypen, LCM5 und tatsächliche Verschiebewirkungen bleiben gesondert zu prüfen.',
       },
       {
         title: 'Tailoring ist keine Frequenzentscheidung',
-        body: 'F FS-16 bewertet das Bedienprinzip als verifiziert, lässt die konkrete 3er-Review-Frequenz aber ausdrücklich offen. T nennt eine jährliche Grundregel; daraus wird hier keine verbindliche Entscheidung abgeleitet. Der folgende Teilweg setzt einen bereits fachlich bestimmten Übungsfall voraus und wählt selbst keinen Review zur Herausnahme aus.',
+        body: 'F FS-16 bewertet das Tailoring-Bedienprinzip als verifiziert. Die inzwischen bestätigte Kalenderjahrregel für LCM-3 darf damit nicht umgangen werden: LCM-3 nicht pauschal entfernen. Der folgende Teilweg setzt eine gesonderte fachliche Entscheidung voraus und bestimmt selbst keinen entfallenden Review.',
       },
     ],
     actions: [
@@ -123,8 +125,9 @@ export const controlRows: ControlRow[] = [
     orientation: false,
     answer:
       'Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen.',
-    gap: 'T nennt 4.9 freigabefähig und begrenzt SB1 auf Erfassung. F FS-25 bewertet den Gesamtweg als noch nicht verbindlich dokumentierbar und nicht schulungsfähig: Empfängerzugriff, Resolution-Historie und PPR fehlen (R1-OPEN-09). Keine automatische Benachrichtigung, Empfängersichtbarkeit oder Anzeige in der Projektliste garantiert. T verweist auf §5.5.4, im vorliegenden B steht Eskalation unter §5.5.3.',
+    gap: 'T nennt 4.9 freigabefähig und begrenzt SB1 auf Erfassung. F FS-25 bewertet den Gesamtweg als noch nicht verbindlich dokumentierbar und nicht schulungsfähig: Empfängerzugriff und Resolution-Historie bleiben technisch offen (R1-OPEN-09 / TTT-D-36/-37). Der vollständige PPR-Prozess ist laut TTT-D-35 ein zukünftiges prozessuales Thema eher nach R1B. Keine automatische Benachrichtigung, Empfängersichtbarkeit oder Anzeige in der Projektliste garantiert. T verweist auf §5.5.4, im vorliegenden B steht Eskalation unter §5.5.3.',
     evidence: [
+      ...e('TTT', 'Zeilen 36–38, A:G', 'TTT-D-35/-36/-37'),
       ...e('B', '§5.5.3 Eskalation an Multi-Projektmanagement durchführen'),
       ...e('T', 'Release1-Matrix!A49:Q49; PDP-Abdeckung!A16:H16'),
       ...e('F', 'R1 Funktionsmatrix!A30:J30', 'FS-25'),
@@ -162,9 +165,11 @@ export const controlRows: ControlRow[] = [
     fRow: 31,
     orientation: true,
     answer:
-      'Orientierung: PM und Projektkernteam begründen gemeinsam den Status aus Fortschritt, Reviewstatus und fachlicher Einschätzung. Die Status-PDP muss vor einer Eingabeübung technisch korrigiert und verifiziert werden.',
-    gap: 'T verlangt vor Schulung die Korrektur/Verifikation der FIN-/SAP-Feldzuordnungen und der Statusdarstellung mit einem Schulungsprojekt. F FS-26 ist nur teilweise verifiziert; R1-OPEN-10/-11 lassen Konfiguration und Pflegezyklus offen. Kein ausführbarer Status-Pflegeweg, keine ungeprüfte Feldwirkung. T verweist auf §5.5.3, der aktuelle B-Abschnitt ist §5.5.4.',
+      'PM und Projektkernteam begründen den Status aus Fortschritt, Reviewstatus und fachlicher Einschätzung. FIN-/SAP-Statusfelder sind korrigiert; die Projektstatusübersicht zeigt die erwarteten Projekte und Daten korrekt. Pflegezyklus und praktische Center-Erprobung bleiben gesonderte Themen.',
+    gap: 'FIN-/SAP-Feldkorrektur ist erledigt (TTT-D-39, beide Umgebungen); die Projektstatusübersicht ist bestätigt. Technisch offen bleiben abweichende Bestands-Sites und fehlende Rechte; Änderungen werden nicht automatisch nachgezogen (TTT-D-40). Pflegezyklus ist ein prozessuales Thema nach R1B (TTT-D-42), kein aktueller Feldfehler. Der Center-Beitrag bleibt Orientierung ohne vollständigen Pflegebedienweg.',
     evidence: [
+      ...e('C23', 'Punkte 5 und 7'),
+      ...e('TTT', 'Zeilen 40–43, A:G'),
       ...e('B', '§5.5.4 Projektstatus ermitteln'),
       ...e('T', 'Release1-Matrix!A52:Q52; PDP-Abdeckung!A17:H17; Offene Punkte!A4:F4 und A10:F10'),
       ...e('F', 'R1 Funktionsmatrix!A31:J31', 'FS-26'),
@@ -174,24 +179,24 @@ export const controlRows: ControlRow[] = [
     sections: [
       {
         title: 'Bewertung vorbereiten',
-        body: 'Aktuellen Planfortschritt, Reviewstatus und fachliche Einschätzungen zusammentragen und mit dem Projektkernteam abgleichen. B nennt Red, Amber, Green sowie besser, gleich, schlechter als Status-/Trendwerte; Kommentare begründen die Bewertung, Recent Achievements beschreibt erreichte Fortschritte. Dies sind Quellenangaben und keine Bestätigung der aktuellen Feldkonfiguration oder automatischen Ampelberechnung.',
+        body: 'Aktuellen Planfortschritt, Reviewstatus und fachliche Einschätzungen zusammentragen und mit dem Projektkernteam abgleichen. B nennt Red, Amber, Green sowie besser, gleich, schlechter als Status-/Trendwerte; Kommentare begründen die Bewertung, Recent Achievements beschreibt erreichte Fortschritte. FIN-/SAP-Felder sind korrigiert; daraus keine automatische Ampelberechnung ableiten.',
       },
       {
         title: 'Dimensionen und Zuständigkeit',
-        body: 'B nennt Customer Satisfaction, Contract under control, Schedule, Performance, Cost under control, Financials, Resources, SAP PS Quality, PMO Status, Process Quality und Product Quality. PMO Status wird laut B durch das PMO gepflegt. Daraus folgt keine PM-Bearbeitungsberechtigung für alle elf Dimensionen. Die Zuordnung von Financials und SAP PS Quality ist ausdrücklich zu prüfen.',
+        body: 'B nennt Customer Satisfaction, Contract under control, Schedule, Performance, Cost under control, Financials, Resources, SAP PS Quality, PMO Status, Process Quality und Product Quality. PMO Status wird laut B durch das PMO gepflegt. Daraus folgt keine PM-Bearbeitungsberechtigung für alle elf Dimensionen. Die Zuordnung von Financials und SAP PS Quality ist korrigiert (TTT-D-39).',
       },
       {
-        title: 'Nachweis vor Eingabeübung',
-        body: 'In einem vorbereiteten Schulungsprojekt Feldname, zugrunde liegendes Feld, verfügbare Werte, wirksames Bearbeitungsrecht, gespeicherten Wert und Darstellung nach erneutem Öffnen beziehungsweise im Project Center abgleichen. FIN und SAP getrennt prüfen und Abweichungen dokumentieren. Ohne Korrektur- und Prüfnachweis bleibt es bei Orientierung. Pflegezyklus organisatorisch klären; keine verbindliche Frequenz erfinden.',
+        title: 'Status bewerten und Ergebnis prüfen',
+        body: 'FIN-/SAP-Korrektur und funktionierende Statusübersicht sind bestätigt. Im vorbereiteten Schulungsprojekt die betroffene Dimension, den Status, Trend und Kommentar fachlich begründen und den gespeicherten Stand erneut vergleichen. Bearbeitungsrechte und Besonderheiten von Bestandsprojekten berücksichtigen. Pflegezyklus organisatorisch abstimmen; keine verbindliche Frequenz erfinden.',
       },
     ],
     actions: [],
     checks: [
       'Lässt sich jede Bewertung auf aktuelle Ausgangsinformationen und eine Begründung zurückführen?',
-      'Sind FIN-/SAP-Zuordnung, Rechte und Darstellung mit einem Schulungsprojekt nachgewiesen, bevor praktisch gepflegt wird?',
+      'Sind Status und Trend begründet und gespeicherte Werte in der bestätigten Übersicht nachvollziehbar?',
     ],
     exercise:
-      'Fiktive Fallbesprechung ohne Systemeingabe: Eine Genehmigung verzögert den Termin, andere Zielgrößen bleiben unverändert. Betroffene Dimension und begründete Einschätzung diskutieren; fehlende Informationen festhalten. Anschließend einen Prüfauftrag für FIN-/SAP-Zuordnung formulieren, keinen erfolgreichen Systemtest behaupten.',
+      'Fiktive Fallbesprechung: Eine Genehmigung verzögert den Termin, andere Zielgrößen bleiben unverändert. Betroffene Dimension und begründete Einschätzung diskutieren. An der funktionierenden Übersicht eines vorbereiteten Schulungsprojekts die Datenherkunft und Darstellung vergleichen; keine erneute FIN-/SAP-Fehlerklärung voraussetzen.',
   },
   {
     number: '4.13',
@@ -205,9 +210,11 @@ export const controlRows: ControlRow[] = [
     fRow: 10,
     orientation: true,
     answer:
-      'R1-Basisreporting anhand von Project Center, Status und Eskalationen vorbereiten und auf die Datenquellen zurückführen. Nur Orientierung und Prüfhilfe, solange Statusfelder und relevante Ansichtsfilter nicht nachgewiesen sind.',
-    gap: 'B behauptet ausschließlich L1 in der Statussicht und verweist auf PDP Reporting. T fordert vor ML-Nutzung eine Filterprüfung und entfernt Reporting-PDP/Power BI aus dem R1-Weg. F FS-04/05 sind teilweise verifiziert; R1B-FS-02 bis -04 nicht nachgewiesen. Keine vollständige Portfolio-/L1-Filterwirkung, automatische Aktualisierung oder Power-BI-Nutzbarkeit behaupten. Pflegezyklus bleibt offen.',
+      'R1-Basisreporting über die funktionierende Projektstatusübersicht im Project Center vorbereiten. ML-Filter ist neben PSPV.org und WW umgesetzt. Angaben auf Projektplan, Status und Eskalationen zurückführen; Reporting-PDP und Power BI bleiben außerhalb dieses R1-Wegs.',
+    gap: 'ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt. Keine offene Filterkorrektur mehr. Reporting-PDP/Power BI bleiben außerhalb des R1-Schulungsumfangs (R1B-FS-02 bis -04); eine universelle L1- oder Aktualisierungsregel wird daraus nicht abgeleitet. Pflegezyklus und vollständiger PPR-Prozess sind zukünftige prozessuale Themen nach R1B. Praktische Center-Erprobung bleibt offen.',
     evidence: [
+      ...e('C23', 'Punkte 6–7'),
+      ...e('TTT', 'Zeilen 41–43, A:G'),
       ...e('B', '§5.5.5 Projektreporting durchführen'),
       ...e('T', 'Release1-Matrix!A53:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10'),
       ...e('F', 'R1 Funktionsmatrix!A9:J10', 'FS-04 / FS-05'),
@@ -220,8 +227,8 @@ export const controlRows: ControlRow[] = [
         body: 'Voraussetzung sind ein veröffentlichter Projektplan und nachvollziehbare Fortschritts-, Review- und Statusangaben. Im R1-Teilumfang dienen Project Center sowie Status- und Eskalationsdaten als Grundlage. Fehlende oder veraltete Werte bleiben als Lücke sichtbar. Ein Bericht erzeugt keine fehlenden Ausgangsdaten und behebt keine Statusfeldfehler.',
       },
       {
-        title: 'ML-Filter und Datenherkunft prüfen',
-        body: 'Für eine spätere Nutzung der Ansicht „Projektfortschritt- und -status“ eine bekannte Projektliste mit Portfolio und Ebene bereithalten. Erwartete Projekte mit der tatsächlichen Anzeige und den eingestellten Filtern vergleichen, insbesondere ML. B beschreibt eine L1-Sicht; das Center bestätigt diese Filterwirkung nicht. Angezeigten Fortschritt, Ampeln und Trends einzeln gegen Projektplan und PDP Status prüfen. Abweichungen zuerst an der Quelle klären und den erneut angezeigten Stand prüfen.',
+        title: 'ML-Filter nutzen und Datenherkunft nachvollziehen',
+        body: 'Nutzen Sie die Ansicht „Projektfortschritt- und -status“ im Project Center. Sie funktioniert mit den erwarteten Projekten und Daten korrekt. ML ist neben PSPV.org und WW als Filter umgesetzt. Passenden Filter auswählen und Fortschritt, Ampeln und Trends anhand von Projektplan und PDP Status nachvollziehen. Bei späteren Abweichungen Datenquelle und Aktualität prüfen; die alte Filterlücke ist geschlossen.',
       },
       {
         title: 'Entscheidungsinformation abgrenzen',
@@ -235,7 +242,7 @@ export const controlRows: ControlRow[] = [
       'Bleiben Reporting-PDP, Power BI und unbelegte Empfängerbearbeitung außerhalb des R1-Pilotumfangs?',
     ],
     exercise:
-      'Fiktive Prüfplanung: Für zwei bekannte Kundenprojekte mit unterschiedlichen Portfolios die erwartete Sichtliste und Datenquellen notieren. Fehlende Filter- oder Statusnachweise als Lücken kennzeichnen. Erst nach separater Verifikation in der Schulungsumgebung Werte vergleichen; keine aktuelle ML-Sicht oder Power-BI-Auswertung voraussetzen.',
+      'Fiktiver Vergleich: Für zwei vorbereitete Kundenprojekte die passende Portfolioauswahl, darunter ML, nutzen und angezeigte Werte mit Plan und Status vergleichen. Die funktionierende Übersicht ist die Grundlage; Power BI ist nicht Teil der Übung.',
   },
 ];
 
@@ -310,12 +317,19 @@ export const controlAssessments: Assessment[] = [
       originalValue: r.number === '3.4' ? 'verifiziert' : 'teilweise verifiziert',
       value: r.number === '3.4' ? 'verified' : 'partial',
       scope:
-        r.number === '3.4'
-          ? 'Nur FS-16: Tailoring-Bedienprinzip; keine Review-Frequenz, Center-Freigabe oder Zielumgebungsprüfung.'
-          : 'Funktionsmatrixbewertung mit begrenztem Nachweis; keine Prüfung dieses Center-Beitrags oder der Zielumgebung.',
+        r.number === '4.12'
+          ? 'Aktualisiert 23.09.2026: FIN-/SAP-Felder korrigiert; Bestands-Sites und Pflegezyklus gesondert behandeln.'
+          : r.number === '4.13'
+            ? 'Aktualisiert 23.09.2026: ML-Filter neben PSPV.org und WW sowie erwartete Projekte und Daten der Statusübersicht bestätigt; keine Power-BI-Abnahme.'
+            : r.number === '3.4'
+              ? 'Nur FS-16: Tailoring-Bedienprinzip; keine Review-Frequenz, Center-Freigabe oder Zielumgebungsprüfung.'
+              : 'Funktionsmatrixbewertung mit begrenztem Nachweis; keine Prüfung dieses Center-Beitrags oder der Zielumgebung.',
       environment: null,
       issueIds: [`issue-${r.id}-boundary`],
-      evidence: e('F', `R1 Funktionsmatrix!A${r.fRow}:J${r.fRow}`),
+      evidence: [
+        ...e('F', `R1 Funktionsmatrix!A${r.fRow}:J${r.fRow}`),
+        ...r.evidence.filter((ref) => ['TTT', 'C23'].includes(ref.sourceId)),
+      ],
     }),
   ),
   {
@@ -447,3 +461,79 @@ export const controlViews = controlArticles.map((a) => ({
   stepIds: a.knowledge!.stepIds,
   articleId: a.id,
 }));
+
+// Explicit source snapshot for the confirmed clarification revision of 23 September.
+for (const article of controlArticles.filter((a) =>
+  ['guide-external-milestones', 'guide-escalation-capture'].includes(a.id),
+)) {
+  if (article.status === 'demo') continue;
+  article.updated = '2026-09-23';
+  article.revisions.push({
+    number: article.revisions.length + 1,
+    date: '2026-09-23',
+    note: 'Abgestimmte Restpunkte und ausdrückliche Klärungen eingearbeitet; ältere Quellen erhalten, verbleibende technische Grenzen getrennt.',
+    sources: [
+      { sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727', sourceId: 'B' },
+      { sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4', sourceId: 'F' },
+      { sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939', sourceId: 'S' },
+      { sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB', sourceId: 'T' },
+      {
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+        sourceId: 'TTT',
+      },
+    ],
+  });
+}
+
+// Explicit source snapshot for the confirmed clarification revision of 23 September.
+for (const article of controlArticles.filter((a) =>
+  ['guide-phases-tailoring', 'guide-status-orientation'].includes(a.id),
+)) {
+  if (article.status === 'demo') continue;
+  article.updated = '2026-09-23';
+  article.revisions.push({
+    number: article.revisions.length + 1,
+    date: '2026-09-23',
+    note: 'Abgestimmte Restpunkte und ausdrückliche Klärungen eingearbeitet; ältere Quellen erhalten, verbleibende technische Grenzen getrennt.',
+    sources: [
+      { sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727', sourceId: 'B' },
+      {
+        sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+        sourceId: 'C23',
+      },
+      { sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4', sourceId: 'F' },
+      { sha256: '0C3A2170420C73F1F76A723797AE0D59B6230F27E6B7382DD1616CE90D7B3AB2', sourceId: 'K' },
+      { sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939', sourceId: 'S' },
+      { sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB', sourceId: 'T' },
+      {
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+        sourceId: 'TTT',
+      },
+    ],
+  });
+}
+
+// Explicit source snapshot for the confirmed clarification revision of 23 September.
+for (const article of controlArticles.filter((a) => ['guide-r1-reporting'].includes(a.id))) {
+  if (article.status === 'demo') continue;
+  article.updated = '2026-09-23';
+  article.revisions.push({
+    number: article.revisions.length + 1,
+    date: '2026-09-23',
+    note: 'Abgestimmte Restpunkte und ausdrückliche Klärungen eingearbeitet; ältere Quellen erhalten, verbleibende technische Grenzen getrennt.',
+    sources: [
+      { sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727', sourceId: 'B' },
+      {
+        sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+        sourceId: 'C23',
+      },
+      { sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4', sourceId: 'F' },
+      { sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939', sourceId: 'S' },
+      { sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB', sourceId: 'T' },
+      {
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+        sourceId: 'TTT',
+      },
+    ],
+  });
+}

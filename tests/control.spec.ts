@@ -16,7 +16,7 @@ test('planning and control preserve evidence boundaries and demo separation', ()
     expect(knowledgeFor(a).issues.map((i) => i.id)).toContain('issue-f-r1-open-12');
   }
   const tailoring = controlArticles[1];
-  expect(knowledgeFor(tailoring).issues.map((i) => i.id)).toContain('issue-f-r1-open-06');
+  expect(knowledgeFor(tailoring).issues.map((i) => i.id)).not.toContain('issue-f-r1-open-06');
   expect(knowledgeFor(tailoring).assessments.find((a) => a.value === 'verified')?.scope).toContain(
     'Nur FS-16',
   );
@@ -38,7 +38,7 @@ test('planning and control preserve evidence boundaries and demo separation', ()
   );
   expect(sb1Coverage.find((r) => r.number === '4.12')?.gap).toContain('FIN-/SAP');
   expect(sb1Coverage.find((r) => r.number === '4.13')?.gap).toContain(
-    'Keine vollständige Portfolio-/L1-Filterwirkung',
+    'ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt',
   );
   for (const [query, id] of [
     ['3.3', 'guide-external-milestones'],

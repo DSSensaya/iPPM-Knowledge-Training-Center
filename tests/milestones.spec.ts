@@ -42,10 +42,10 @@ test('SB1 delivery and payment path is searchable, source-aware and usable on de
     'Wenn: Zahlung wird durch eine Lieferung ausgelöst',
   );
   await expect(page.locator('#einschraenkungen')).toContainText(
-    'Eine automatische Synchronisierung',
+    'die Liefermeilensteinverknüpfung ist umgesetzt',
   );
   await expect(page.locator('#einschraenkungen')).toContainText(
-    'Führende Quelle, Zuordnung und Pflegeverantwortung',
+    'Offen bleibt allein die praktikable Darstellung großer Lieferlisten',
   );
   await expect(page.locator('#procedure-delivery-milestones')).toContainText('Ext.Del');
   await expect(page.locator('#procedure-delivery-milestones')).toContainText(

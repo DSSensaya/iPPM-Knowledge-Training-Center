@@ -48,12 +48,12 @@ const master = procedure(
     'Pflegen Sie Security Classification und ISMS Classification nach der höchsten Einstufung der verarbeiteten Informationen. Pflegen Sie Project Credits (TKMS) anhand des vorgesehenen Project Categorization Template. B beschreibt Category (TKMS) als daraus abgeleitet; kontrollieren Sie die Anzeige im Zielstand.',
     'Prüfen Sie Portfolio und Program. Laut B stammen sie aus PMO-Feldern und sind nicht direkt editierbar. Melden Sie Abweichungen dem PMO. Pflegen Sie Customer Country und Contractor, soweit fachlich erforderlich.',
     'Ergänzen Sie vorhandene Contract-ID (CLM), Offer-No. (SAP AK), SAP-ID (SAP PS), additional References und General Remarks. Project ID ist ein Strukturmerkmal; nicht fachlich umbenennen.',
-    'Prüfen Sie Project Phase und das verpflichtende Start Date gegen den fachlich gültigen Projektbeginn. B beschreibt bei Neuanlage zunächst das Tagesdatum; prüfen und korrigieren Sie den Beginn nach Bereitstellung bei Bedarf. Prüfen Sie Finish Date gegen den Projektplan. EDC, Vertragsbeginn und Projektstart nicht gleichsetzen; keine automatische Verschiebung eines vorhandenen Plans voraussetzen.',
+    'Prüfen Sie Project Phase und Start Date gegen den fachlichen Projektbeginn. Start Date auf PDP Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. Berücksichtigen Sie bei einer Änderung die Auswirkung auf die jeweils andere Seite und prüfen Sie den resultierenden Plan. EDC ist unabhängig davon der vertragliche Starttermin. Finish Date gegen den Plan prüfen.',
   ],
   [
     'Sind Kurzbeschreibung, Klassifikation, Referenzen und fachlicher Beginn vollständig und plausibel?',
     'Stimmen PMO-Strukturfelder mit dem Antrag überein?',
-    'Wurde der vorhandene Plan getrennt geprüft, statt eine Terminübernahme zu unterstellen?',
+    'Sind Start Date auf Overview und im Projektplan nach der Änderung konsistent und vom vertraglichen EDC getrennt?',
   ],
   '§3.6.1 Tabelle 10; §3.1.2',
 );
@@ -135,7 +135,7 @@ const subprojectProcedures: Procedure[] = (['tm', 'ilsm'] as const).flatMap((rol
     [
       `Öffnen Sie als ${system ? 'TM' : 'ILSM'} das übergebene ${variant}-Teilprojekt im Project Center und ${variant} Overview. Prüfen Sie Owner, Project ID, Portfolio, Main Project und gültiges Start Date. ${system ? 'System Delivery gilt für L2; Segment-Teilprojekte L3 liegen unter System Delivery L2.' : 'ILS Delivery ist für das ILS-Teilprojekt auf L2 vorgesehen.'} Strukturabweichungen an das PMO geben.`,
       'Pflegen Sie Short Description und Security Classification sowie ISMS Classification nach der höchsten Einstufung der im Teilprojekt verarbeiteten Informationen.',
-      'Passen Sie Start Date bei fachlichem Bedarf an. B beschreibt Finish Date als aus dem Projektplan ermittelt. Prüfen Sie Anzeige und vorhandenen Plan getrennt; weder EDC-Gleichsetzung noch automatische Planverschiebung ableiten.',
+      'Passen Sie Start Date bei fachlichem Bedarf an und berücksichtigen Sie die wechselseitige Synchronisation zwischen Overview und Projektplan. EDC ist unabhängig davon nur der vertragliche Starttermin. Finish Date und resultierenden Plan prüfen.',
       'Ergänzen Sie vorhandene SAP-ID (SAP PS), sinnvolle additional References und General Remarks zum Teilprojekt.',
     ],
     [
@@ -150,7 +150,7 @@ const subprojectProcedures: Procedure[] = (['tm', 'ilsm'] as const).flatMap((rol
     fn,
     `PDP ${variant} Scope`,
     [
-      `Öffnen Sie ${variant} Scope und dokumentieren Sie den Project Purpose.`,
+      `Öffnen Sie ${variant} Scope. Project Purpose soll aus den Teilprojekt-PDPs entfernt werden und gehört nicht mehr zum Pflegeweg; ein noch sichtbares Feld als ausstehende Konfigurationsänderung melden.`,
       `Beschreiben Sie Scope und sinnvolle Ausschlüsse unter not in scope. ${system ? 'Grenzen Sie die Systemleistung gegenüber Kundenprojekt und angrenzenden Teilprojekten ab; stimmen Sie Schnittstellen ab.' : 'Ordnen Sie ILS-Leistungen eindeutig zu und grenzen Sie sie gegenüber Kundenprojekt, Systementwicklung und gegebenenfalls Unterauftragnehmern ab.'}`,
       'Referenzieren Sie Base Products. Stimmen Sie die fachlichen Merkmale (Characteristics) gemäß der Einordnung in B §3.7 mit dem Kundenprojekt ab; die konkrete Feldverfügbarkeit ist im Zielstand zu prüfen.',
     ],
@@ -233,13 +233,13 @@ const drafts: Draft[] = [
     roles: ['pm'],
     minutes: 6,
     summary:
-      'Overview vervollständigen, PMO-Strukturfelder abgleichen und Projektbeginn, Vertragskontext und ungeklärte EDC-Zuordnung auseinanderhalten.',
+      'Overview vervollständigen und PMO-Strukturfelder abgleichen. Die wechselseitige Start-Date-Synchronisation vom unabhängigen vertraglichen EDC unterscheiden.',
     takeaway:
-      'Pflegen Sie fachliche Stammdaten auf Overview und melden Sie Strukturabweichungen dem PMO. Start Date beschreibt laut B den fachlichen Projektbeginn; die genaue EDC-Feldbedeutung und Übernahmeregel bleiben laut F offen. Eine Änderung ist kein Nachweis einer automatischen Terminübernahme in einen vorhandenen Plan.',
+      'Pflegen Sie Stammdaten auf Overview. Start Date und Projektplan sind wechselseitig synchronisiert. EDC ist unabhängig und nur der vertragliche Starttermin. Strukturabweichungen dem PMO melden; die Bereitstellung des zusätzlichen EDC-Felds auf Contract bleibt technisch zu bestätigen.',
     sections: [
       {
         title: 'Start Date, Vertragstermine und EDC getrennt prüfen',
-        body: 'Overview führt Start Date und Finish Date. B beschreibt den Projektbeginn als Pflichtangabe und Finish Date als planbasiert. Contract nennt vertragliche Start- und Endtermine; K weist ebenfalls Start Date und Finish Date auf beiden PDPs aus, ohne dadurch eine EDC-Zuordnung oder Synchronisationsregel nachzuweisen. T fordert ausdrücklich die didaktische Abgrenzung, F R1-OPEN-05 lässt Feldbedeutung und Übernahme offen. Halten Sie deshalb fest, welcher fachliche Termin gemeint ist und in welchem Feld und Plan er geprüft wurde. Eine verbindliche EDC-Definition oder Gleichsetzung lässt sich aus diesen Quellen nicht ableiten.',
+        body: 'Bestätigt am 23.09.2026: Start Date auf Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. EDC bezeichnet ausschließlich den unabhängigen vertraglichen Starttermin; er steuert diese Synchronisation nicht. Nach Start-Date-Änderungen den resultierenden Plan kontrollieren. Das zusätzliche EDC-Feld auf Contract ist laut TTT-D-06 vorgesehen, aber noch nicht als bereitgestellt bestätigt.',
       },
       {
         title: 'Gespeicherten Stand kontrollieren',
@@ -256,9 +256,9 @@ const drafts: Draft[] = [
       'guide-save-publish-checkin',
     ],
     exercise:
-      'Fiktives Prüfszenario: Der fachliche Projektbeginn lautet 01.10.2026, Overview zeigt ein anderes Datum und der vorhandene Plan beginnt später. Benennen Sie die drei Prüfgegenstände, ohne den Plan automatisch zu verschieben oder EDC gleichzusetzen.',
+      'Fiktives Prüfszenario: Der operative Projektbeginn soll der 01.10.2026 sein, EDC bleibt der 15.09.2026. Start Date in einem vorbereiteten Übungsprojekt ändern und den synchronisierten Projektplan prüfen; anschließend die Gegenrichtung prüfen. EDC bleibt unverändert.',
     expected:
-      'Fachlicher Beginn, PDP-Anzeige und vorhandener Plan werden getrennt verglichen. EDC-Zuordnung und technische Übernahme bleiben Prüfaufträge.',
+      'Start Date ist in Overview und Plan konsistent. Der vertragliche EDC bleibt unabhängig. Die zusätzliche EDC-Feldbereitstellung ist ein eigener technischer Restpunkt.',
   },
   {
     id: 'guide-project-objectives',
@@ -330,7 +330,7 @@ const drafts: Draft[] = [
     sections: [
       {
         title: 'Gemeinsamer Ablauf, unterschiedliche Verantwortung',
-        body: 'Wählen Sie ausschließlich den passenden Variantenweg. TM grenzt Systemleistungen und Schnittstellen zu angrenzenden Teilprojekten ab. ILSM ordnet ILS-Leistungen gegenüber Kundenprojekt, Systementwicklung und gegebenenfalls Unterauftragnehmern zu. Die allgemeine Einordnung in B §3.7 nennt Characteristics und Base Product(s); die konkreten Scope-Schritte §3.8.2/§3.9.2 nennen Project Purpose, Scope, not in scope und Base Products. Daraus wird hier kein zusätzlicher unbelegter Characteristics-Bedienweg erzeugt.',
+        body: 'Wählen Sie den passenden Variantenweg: TM pflegt die Systemleistungen, ILSM die ILS-Leistungen und jeweils die spezifischen Liefergegenstände des Teilprojekts. Die Gesamtprojektliste liegt führend im Contract Execution Project. Scope, not in scope und Base Products bleiben relevant. Project Purpose soll aus den Teilprojekt-PDPs entfernt werden; die technische Umsetzung ist noch offen. SSO ist der zentrale Begriff. Inhalte der System-Specifics und die SSO-Ausgestaltung sind noch festzulegen und gehören nicht zu Release 1 (TTT-D-21/-28).',
       },
       {
         title: 'Speichern und Ergebnis prüfen',
@@ -353,7 +353,7 @@ const drafts: Draft[] = [
     exercise:
       'Fiktives Vergleichsszenario: Ein System-Teilprojekt verantwortet ein Testsystem; ein ILS-Teilprojekt verantwortet die zugehörige Wartungsunterlage. In getrennten, vorab geprüften Übungsprojekten Beschreibung, Scope/Ausschlüsse/Basisprodukt und eine Teamrolle erfassen. Gegenseitige Schnittstelle und Zugehörigkeit zum Kundenprojekt prüfen.',
     expected:
-      'Zwei getrennte Leistungskontexte ohne Doppelzuordnung; die richtigen PDPs und Rollen sind gewählt. Erneutes Öffnen bestätigt die gespeicherten Angaben. Weder automatische Terminübernahme noch Rechtevergabe wird aus Organisationspflege abgeleitet.',
+      'Zwei getrennte Leistungskontexte ohne Doppelzuordnung; die richtigen PDPs und Rollen sind gewählt. Erneutes Öffnen bestätigt die gespeicherten Angaben. Start Date und Projektplan werden synchronisiert; Organisationspflege allein vergibt keine Rechte.',
   },
 ];
 
@@ -379,7 +379,11 @@ export const definitionArticles: Article[] = drafts.map(
             .map((i) => i.id),
           'issue-f-r1-open-12',
         ],
-        evidence: rows.flatMap((r) => e('B', `§${r.section} ${r.title}`)),
+        evidence: [
+          ...rows.flatMap((r) => e('B', `§${r.section} ${r.title}`)),
+          ...e('TTT', 'Zeilen 7–9, 14 und 21, A:G'),
+          ...e('C23', 'Punkte 1–4'),
+        ],
         procedures,
         trainer: {
           objective: draft.takeaway,
@@ -404,3 +408,37 @@ export const definitionViews = definitionArticles.map((a) => ({
   stepIds: a.knowledge!.stepIds,
   articleId: a.id,
 }));
+
+// Explicit source snapshot for the confirmed clarification revision of 23 September.
+for (const article of definitionArticles.filter((a) =>
+  [
+    'guide-project-handover',
+    'guide-project-master-data',
+    'guide-project-objectives',
+    'guide-project-organization',
+    'guide-subproject-definition',
+  ].includes(a.id),
+)) {
+  if (article.status === 'demo') continue;
+  article.updated = '2026-09-23';
+  article.revisions.push({
+    number: article.revisions.length + 1,
+    date: '2026-09-23',
+    note: 'Abgestimmte Restpunkte und ausdrückliche Klärungen eingearbeitet; ältere Quellen erhalten, verbleibende technische Grenzen getrennt.',
+    sources: [
+      { sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727', sourceId: 'B' },
+      {
+        sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+        sourceId: 'C23',
+      },
+      { sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4', sourceId: 'F' },
+      { sha256: '0C3A2170420C73F1F76A723797AE0D59B6230F27E6B7382DD1616CE90D7B3AB2', sourceId: 'K' },
+      { sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939', sourceId: 'S' },
+      { sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB', sourceId: 'T' },
+      {
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+        sourceId: 'TTT',
+      },
+    ],
+  });
+}
