@@ -40,7 +40,7 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
     .filter({ hasText: 'SB1-Zuordnung und abweichende Schulungswege' });
   await training.focus();
   await page.keyboard.press('Enter');
-  await expect(training.locator('..')).toContainText('vorerst nur Project Permissions');
+  await expect(training.locator('..')).toContainText('Build Team wird in SB1 geschult');
   await expect(training.locator('..')).toContainText('Aktueller Handbuchentwurf: Build Team');
   await page.getByText('Technischer Nachweis, TTT und Beschreibungsstand', { exact: true }).click();
   await expect(page.locator('#nachweise')).toContainText('Keine formale Produktivabnahme');

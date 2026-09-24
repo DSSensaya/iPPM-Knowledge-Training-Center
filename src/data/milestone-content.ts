@@ -18,6 +18,8 @@ const knowledge: KnowledgeContext = {
   ],
   linkIds: ['link-deliverables-delivery', 'link-terms-payment', 'link-contract-payment'],
   evidence: [
+    ...e('TTT', 'Abgestimmte Restpunkte vom 23.09.2026'),
+    ...e('C23', 'Bestätigte Klärungen vom 23.09.2026'),
     ...e(
       'B',
       '§3.6.2 Projektumfang festlegen; §3.6.3 Vertragsdaten einpflegen; §4.4 Fachlicher Soll-Ablauf; §4.5.2/4.5.3 Meilensteine planen',
@@ -40,7 +42,7 @@ const knowledge: KnowledgeContext = {
           tool: 'PWA / PDP Scope',
         },
         {
-          text: 'Legen Sie in der List of Deliverables für jeden relevanten Liefergegenstand einen eigenen Eintrag mit eindeutiger Bezeichnung an. Pflegen Sie fachlichen Termin, vertragliche Relevanz und Freigabeinstanz nach den vorhandenen Angaben.',
+          text: 'Nutzen Sie für das Gesamtprojekt die führende List of Deliverables im Contract Execution Project; Teilprojekte pflegen ihre spezifischen Liefergegenstände. Legen Sie für jeden relevanten Liefergegenstand einen eigenen Eintrag mit eindeutiger Bezeichnung an. Pflegen Sie fachlichen Termin, vertragliche Relevanz und Freigabeinstanz nach den vorhandenen Angaben.',
           tool: 'PDP Scope / List of Deliverables',
         },
         {
@@ -216,7 +218,7 @@ export const milestoneArticles: Article[] = [
     sections: [
       {
         title: 'Fachliche Grundlage und technische Wirkung trennen',
-        body: 'Der Handbuchentwurf verlangt einen nachvollziehbaren Abgleich zwischen Lieferliste und Liefermeilenstein. Die Quellen belegen keine automatische Synchronisierung. Prüfen Sie beide Einträge nach Änderungen einzeln.',
+        body: 'Die führende Liefergegenstandsliste des Gesamtprojekts liegt im Contract Execution Project; Teilprojekte pflegen ihre spezifischen Liefergegenstände. Die Verknüpfung mit Liefermeilensteinen ist über die Funktion Lieferung umgesetzt. Einträge und Termine nach Änderungen fachlich abgleichen; keine weitergehende automatische Feldsynchronisierung voraussetzen.',
       },
       {
         title: 'Zahlungsbedingung entscheidet über die Variante',
@@ -258,7 +260,7 @@ export const milestoneArticles: Article[] = [
       },
       {
         title: 'Wird die Lieferliste automatisch mit dem Projektplan abgeglichen?',
-        body: 'Eine automatische Synchronisierung ist anhand der untersuchten Quellen nicht belegt. Der Handbuchentwurf beschreibt einen fachlichen Abgleich. Die Funktionsmatrix lässt große Lieferlisten und Meilensteinzuordnung als Prüffrage offen.',
+        body: 'Die Verknüpfung der SharePoint-Liste mit der Funktion Lieferung und damit zu Liefermeilensteinen ist umgesetzt. Führend für das Gesamtprojekt ist die Liste im Contract Execution Project. Das bestätigt keine automatische Synchronisierung aller Listen- und Planfelder. Die praktische Darstellung großer Listen bleibt offen.',
       },
       {
         title: 'Gilt der beschriebene Weg als getestet?',
@@ -270,3 +272,30 @@ export const milestoneArticles: Article[] = [
     knowledge: { ...knowledge, procedures: [] },
   },
 ];
+
+// Explicit source snapshot for the confirmed clarification revision of 23 September.
+for (const article of milestoneArticles.filter((a) =>
+  ['guide-deliverables-milestones', 'faq-milestone-dates'].includes(a.id),
+)) {
+  if (article.status === 'demo') continue;
+  article.updated = '2026-09-23';
+  article.revisions.push({
+    number: article.revisions.length + 1,
+    date: '2026-09-23',
+    note: 'Abgestimmte Restpunkte und ausdrückliche Klärungen eingearbeitet; ältere Quellen erhalten, verbleibende technische Grenzen getrennt.',
+    sources: [
+      { sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727', sourceId: 'B' },
+      {
+        sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+        sourceId: 'C23',
+      },
+      { sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4', sourceId: 'F' },
+      { sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939', sourceId: 'S' },
+      { sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB', sourceId: 'T' },
+      {
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+        sourceId: 'TTT',
+      },
+    ],
+  });
+}

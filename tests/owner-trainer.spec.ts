@@ -13,7 +13,7 @@ test('owner trainer package uses one existing procedure and keeps both fictional
 
   expect(guide.status).toBe('source-draft');
   expect(guide.reviews).toEqual([]);
-  expect(guide.revisions.map((revision) => revision.number)).toEqual([1, 2]);
+  expect(guide.revisions.map((revision) => revision.number)).toEqual([1, 2, 3]);
   expect(plan.procedureId).toBe(owner.id);
   expect(
     guide.knowledge!.procedures.filter((procedure) => procedure.id === ownerProcedureId),

@@ -45,7 +45,8 @@ export const definitionRows = [
     article: 'guide-project-master-data',
     tool: 'PDP Overview',
     scope: 'R1-03',
-    output: 'Stammdaten sind fachlich plausibel; Start Date, EDC und Planwirkung bleiben getrennt.',
+    output:
+      'Start Date ist mit dem Projektplan synchronisiert; EDC bleibt der unabhängige vertragliche Starttermin.',
   },
   {
     number: '2.3',
@@ -252,8 +253,8 @@ export const definitionIssues: Issue[] = [
   },
   {
     id: 'issue-f-r1-open-05',
-    title: 'Startdatum und EDC: Feldbedeutung und Übernahme offen',
-    status: 'ENTSCHEIDUNG ERFORDERLICH',
+    title: 'Startdatum und EDC: Synchronisation und Abgrenzung geklärt',
+    status: 'GEKLÄRT',
     subjects: [
       'fn-project-provision',
       'fn-project-master-data',
@@ -261,8 +262,10 @@ export const definitionIssues: Issue[] = [
       'fn-ils-definition',
     ].map(subject),
     limitation:
-      'B beschreibt Start Date als fachlich gültigen Projektbeginn und Finish Date als planbasiert; auf Contract nennt B vertragliche Termine. F lässt Feldbedeutung und Übernahmeregel zu Projektstart/EDC ausdrücklich offen. T verlangt die Abgrenzung und verbietet die Behauptung einer automatischen Planübernahme ohne Bestätigung. EDC daher weder mit Start Date gleichsetzen noch als bestätigten Auslöser einer Planverschiebung behandeln. Feldzuordnung, vorhandener Plan und tatsächliche Wirkung bleiben in der Zielumgebung zu prüfen.',
+      'Bestätigt am 23.09.2026: Start Date auf Overview und Projektplan sind wechselseitig synchronisiert. EDC ist davon unabhängig und ausschließlich der vertragliche Starttermin. R1-OPEN-05 ist in diesem Umfang geschlossen; die zusätzliche EDC-Feldbereitstellung ist gesondert technisch offen.',
     evidence: [
+      ...e('C23', 'Punkt 1', 'TTT-D-06'),
+      ...e('TTT', 'Zeile 7, A:G', 'TTT-D-06'),
       ...e('F', 'Klärungsbedarf!A9:D9', 'R1-OPEN-05'),
       ...e('T', 'Release1-Matrix!A5:Q5 und A9:Q9; Offene Punkte!A7:F7'),
       ...e('B', '§3.1.2; §3.6.1; §3.6.3; §3.8.1; §3.9.1'),
@@ -275,8 +278,9 @@ export const definitionIssues: Issue[] = [
     status: 'VERIFIKATION ERFORDERLICH',
     subjects: ['fn-project-organization', 'fn-system-definition', 'fn-ils-definition'].map(subject),
     limitation:
-      'B nennt Subcontracts, T Subcontractors; die Bezeichnungen bleiben als Quellenvarianten sichtbar. People-Picker, finale System-/ILS-Rollen und zugehörige Prozessrollen müssen im Zielstand geprüft werden. Eine dokumentierte Rolle oder sichtbare PDP gewährt keine Rechte. Der bestehende Owner-/Permissions-Weg ist kein Nachweis der gesamten Rechte-Matrix.',
+      'Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen.',
     evidence: [
+      ...e('TTT', 'Zeilen 14 und 41, A:G'),
       ...e('B', '§3.6.5 Tabelle 13; §3.8.3; §3.9.3'),
       ...e('T', 'Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8'),
       ...e('F', 'Klärungsbedarf!A11:D11', 'R1-OPEN-07'),
@@ -290,8 +294,10 @@ export const definitionIssues: Issue[] = [
       .filter((f) => f.id !== 'fn-project-request')
       .map((f) => subject(f.id)),
     limitation:
-      'Konfigurationsmomentaufnahme und TTT-Angaben ersetzen keine Prüfung aktueller PDPs, Listen, regulärer Konten und Bearbeitungsrechte. F hält Feld-/Sichtkonfiguration (R1-OPEN-10) und die Reichweite der Site-Korrektur (R1-OPEN-02) offen. Bei Objectives sind verfügbare Zielklassen und der beschriebene Initialstatus „geplant“ zu prüfen; keine freie Lookup-Liste erfinden.',
+      'Technisch offen: Project Purpose aus Teilprojekt-PDPs entfernen und Zielstand prüfen (TTT-D-20); zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen.',
     evidence: [
+      ...e('TTT', 'Zeilen 7, 11, 21 und 40–41, A:G'),
+      ...e('C23', 'Punkte 1, 4 und 5'),
       ...e('F', 'Klärungsbedarf!A6:D6 und A14:D14', 'R1-OPEN-02 / R1-OPEN-10'),
       ...e('B', '§3.6.4 Tabelle 12'),
       ...e('K', 'Objectives und Organisationslisten: Felder der Objectives-Liste'),

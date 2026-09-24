@@ -11,6 +11,23 @@ export const sources: SourceDocument[] = [
     sha256: 'E3007A6697FA12681D007F5636BB79CFC361D9CE447D423E1EDEDB2C0BB1FED8',
   },
   {
+    id: 'TTT',
+    title: 'Abgestimmte TtT-Restpunkte',
+    filename: 'sources/TtT_Restpunkte_abgestimmt_2026-09-23.xlsx',
+    date: '2026-09-23',
+    status: 'Datierte Abstimmung; benannte ältere Aussagen aktualisiert, keine pauschale Abnahme',
+    sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+  },
+  {
+    id: 'C23',
+    title: 'Bestätigte Klärungen 23.09.2026',
+    filename: 'sources/Klaerungen_2026-09-23.md',
+    date: '2026-09-23',
+    status: 'Datierte Abstimmung; benannte ältere Aussagen aktualisiert, keine pauschale Abnahme',
+    sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+  },
+
+  {
     id: 'B',
     title: 'SB1-Handbuch',
     filename: 'sources/iPPM_HB_SB01-Projektdefinition und Phasen-Meilensteinplanung.docx',
@@ -31,8 +48,9 @@ export const sources: SourceDocument[] = [
     title: 'Konfigurationshandbuch',
     filename: 'sources/ATLAS_iPPM_Zentrales_Konfigurationshandbuch.html',
     date: '2026-09-16',
-    status: 'Konsolidierte Konfigurationsmomentaufnahme',
-    sha256: '58B5383B70C9E565AD85058752819B16E7603A55DC98184A4F4A2036CC8D5688',
+    status:
+      'Konsolidierte Konfigurationsmomentaufnahme; SHA-256 am 23.09.2026 gegen unveränderten Repository-Blob korrigiert',
+    sha256: '0C3A2170420C73F1F76A723797AE0D59B6230F27E6B7382DD1616CE90D7B3AB2',
   },
   {
     id: 'S',
