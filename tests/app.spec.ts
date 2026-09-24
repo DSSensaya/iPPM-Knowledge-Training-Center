@@ -83,7 +83,7 @@ test('search finds body text, filters combine, empty state recovers', async ({ p
     'Status & Reporting',
   );
   await page.getByRole('link', { name: 'Alle Beiträge anzeigen' }).click();
-  await expect(page.locator('.article-card')).toHaveCount(24);
+  await expect(page.locator('.article-card')).toHaveCount(25);
 });
 
 test('bookmarks persist and backup export/import validates data', async ({ page }) => {

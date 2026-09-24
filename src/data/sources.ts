@@ -2,6 +2,15 @@ import type { EvidenceRef, SourceDocument } from './domain';
 
 export const sources: SourceDocument[] = [
   {
+    id: 'R2P',
+    title: 'Aktuelle Releaseplanung R1B / Release 2',
+    filename: 'sources/iPPM_Releaseplanung_Release-2.docx',
+    date: null,
+    status:
+      'Aktuelle Planungsquelle laut Nutzer, übernommen am 23.09.2026; kein Umsetzungs- oder Freigabenachweis',
+    sha256: 'E3007A6697FA12681D007F5636BB79CFC361D9CE447D423E1EDEDB2C0BB1FED8',
+  },
+  {
     id: 'TTT',
     title: 'Abgestimmte TtT-Restpunkte',
     filename: 'sources/TtT_Restpunkte_abgestimmt_2026-09-23.xlsx',

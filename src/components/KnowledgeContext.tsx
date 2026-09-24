@@ -30,7 +30,7 @@ export function KnowledgeOverview({ article }: { article: Article }) {
     <section id="fachlicher-kontext" tabIndex={-1}>
       <h3>Aufgabe und Geltungsbereich</h3>
       <p>
-        SB1-Bezug ·{' '}
+        {data.steps.length > 0 ? 'SB1-Bezug' : 'Planungsorientierung ohne SB1-Schulungszuordnung'} ·{' '}
         {article.status === 'reviewed' ? 'Fachlich geprüfter Inhalt' : 'Quellenbasierter Entwurf'} ·
         Keine Produktivfreigabe. Stand dieses Center-Beitrags: {article.updated}; Quellenstände
         siehe unten.
@@ -47,7 +47,10 @@ export function KnowledgeOverview({ article }: { article: Article }) {
       </ul>
       <p>
         Prozessbezug:{' '}
-        {data.steps.map((s) => `${s.number} ${s.title} (${roleLabel(s.roleId)})`).join('; ')}.
+        {data.steps.length > 0
+          ? data.steps.map((s) => `${s.number} ${s.title} (${roleLabel(s.roleId)})`).join('; ')
+          : 'Keine Zuordnung zu operativen Schulungsschritten'}
+        .
       </p>
       <a href="#/prozesse">Prozessschritte und Zuständigkeiten ansehen</a>
       <p>
@@ -58,7 +61,7 @@ export function KnowledgeOverview({ article }: { article: Article }) {
             (r) =>
               `${r.subject.id} – ${scopeItems.find((s) => s.id === r.subject.id)?.title} (${r.stageId})`,
           )
-          .join('; ')}
+          .join('; ') || 'Planungsumfang laut unten genannter Quelle; keine operative Freigabe'}
         . Die Zuordnung belegt Umfang, keine technische Reife. Teilbezüge sind bei den Funktionen
         ausgewiesen.
       </p>
@@ -404,7 +407,11 @@ export function KnowledgeEvidence({ article }: { article: Article }) {
           Einzelweg gibt diesen Center-Inhalt nicht fachlich frei.
         </p>
         <details className="knowledge-details">
-          <summary>SB1-Zuordnung und abweichende Schulungswege</summary>
+          <summary>
+            {data.training.length > 0
+              ? 'SB1-Zuordnung und abweichende Schulungswege'
+              : 'Keine operative Schulungszuordnung'}
+          </summary>
           <ul>
             {data.training.map((t) => (
               <li key={t.id}>

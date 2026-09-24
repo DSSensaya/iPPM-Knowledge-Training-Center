@@ -130,3 +130,7 @@ Die breite Integration beginnt nach v0.5, sobald eine gemeinsame Inhaltsvorlage 
 - [SB1-Planung und Steuerung mit Pilotgrenzen v0.7](v0.7-abschluss.md)
 - [Projektübersicht](../README.md), [Projektregeln](../AGENTS.md), [Design-Spezifikation](../DESIGN.md)
 - Fachquellen unter `sources/`; Quellenbewertungen bleiben an die jeweilige Fassung und ihren Geltungsbereich gebunden.
+
+## Aktuelle iPPM-Releaseplanung R1B / R2
+
+Die [Releaseplanung und vollständige Scope-Übernahme](ippm-release-2-scope.md) ergänzen den fachlichen Zielrahmen. Das unveränderte Original liegt unter `sources/iPPM_Releaseplanung_Release-2.docx`, die aktuelle Quelle trägt die ID `R2P`; `H` bleibt historisch. Die Übersicht ist im Center über die Suche „Release 2“ erreichbar. Sie ergänzt die fünfzehn SB1-Entwürfe um einen sechzehnten Quellenentwurf zur Release-Orientierung. R1B umfasst Power-BI-Reporting; R2 umfasst Kalkulation, Ressourcen-/Kostenplanung und SAP-Kopplung sowie die in der Quelle bezeichneten Backlog-Themen. Dies ändert weder die SB1-Prioritäten bis v1.0 noch die Trainingsabdeckung. Umsetzung, Freigabe und Termine werden durch diese Planungsquelle nicht belegt.

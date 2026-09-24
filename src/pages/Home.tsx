@@ -57,6 +57,7 @@ export default function Home({
         <div className="quick-search">
           <span>Häufig gesucht</span>
           {[
+            'Release 2',
             'Startdatum',
             'Projektziele',
             'System Overview',
