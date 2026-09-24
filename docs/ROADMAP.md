@@ -1,10 +1,14 @@
 # Produkt-Roadmap bis v1.0
 
-Stand: 23.09.2026 · v0.7.0 technisch abgeschlossen mit begrenztem Umfang; fachliche und praktische Erprobung offen · Aktuelle Produktstrategie
+Stand: 24.09.2026 · v0.7.1 als Konsolidierung von v0.7; fachliche und praktische Erprobung offen · Aktuelle Produktstrategie
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
-## Aktueller Abgleich vom 23.09.2026
+## Konsolidierter Stand v0.7.1
+
+v0.7.1 übernimmt die bestätigten TtT-Klärungen vom 23.09.2026 und erhält stabile IDs, Quellenhistorie, Links und v1-Persistenz. Sie ist keine neue Produktstufe; als Nächstes wird der begrenzte v0.9-Pilot vorbereitet. Fachliche Materialfreigabe und praktische Erprobung bleiben offen.
+
+### Fachlicher Abgleich vom 23.09.2026
 
 Die [bereinigten Open Points](open-points-readiness.md) sind für den aktuellen Restumfang maßgeblich. Die nachfolgenden technischen Abschlussabschnitte dokumentieren ihre damaligen Stände und werden durch diese ausdrücklichen Klärungen aktualisiert:
 

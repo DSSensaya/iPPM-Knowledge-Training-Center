@@ -24,7 +24,9 @@ npm.cmd run preview -- --port 4173
 
 Anschließend **http://127.0.0.1:4173** öffnen. Die einmalige Installation benötigt Zugang zur npm-Registry. Der laufende Entwicklungs- oder Produktionsserver benötigt kein Internet. Alle Inhalte und Assets kommen aus dem Workspace. Der Server bindet nur an die lokale Loopback-Adresse. Der lokale Server muss laufen; das direkte Öffnen von `dist/index.html` als Datei ist nicht vorgesehen.
 
-## Stand v0.7.0
+## Stand v0.7.1
+
+v0.7.1 konsolidiert v0.7 mit den bestätigten TtT-Klärungen; sie ist keine neue Produktstufe. Die Vorbereitung der v0.9-Pilotphase folgt weiterhin der Roadmap.
 
 - **Übersicht und Suche:** Projekt-/Teilprojektdefinition, Antrags-/Bereitstellungsorientierung, Team/Zugriff und Liefer-/Zahlungsmeilensteine stehen vor den Demo-Lernpfaden. Externe Meilensteine, vorgegebenes Tailoring, Eskalationserfassung und Orientierung zu Status/Reporting ergänzen die Aufgaben. Schnellsuche, Filter und direkte Artikel-Links bleiben nutzbar.
 - **Wissensbasis:** Fünfzehn quellenbasierte Entwürfe und neun klar getrennte Demo-Beiträge. Reale Beiträge beginnen mit Kurzantwort, Voraussetzungen, kritischen Einschränkungen, Bedienweg, Ergebnisprüfung und Nachweisen; eine frühe Sprungnavigation führt zu diesen Abschnitten.
