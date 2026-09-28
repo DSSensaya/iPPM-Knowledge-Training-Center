@@ -82,7 +82,8 @@ export default function Personal({
           <h2>Ihren Lernbereich sichern</h2>
           <p>
             Exportieren Sie Fortschritt und Merkliste, bevor Sie Browserdaten löschen oder den
-            Browser wechseln. Ein Import ergänzt vorhandene Einträge.
+            Browser wechseln. Ein Import ergänzt vorhandene Einträge. Auch nicht mehr angezeigte
+            Einträge bleiben in Ihren Sicherungen erhalten.
           </p>
         </div>
         <div className="backup-actions">

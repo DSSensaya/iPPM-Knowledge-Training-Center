@@ -160,7 +160,7 @@ test('real articles expose the reading order and early keyboard jump targets', a
   );
 });
 
-test('demo articles and paths stay inaccessible during manual review', async ({ page }) => {
+test('demo articles and paths stay permanently inaccessible', async ({ page }) => {
   await page.goto('/#/wissen');
   const demo = page.locator('.article-card').filter({
     has: page.getByRole('heading', { name: 'iPPM verstehen: vom Projekt zum Portfolio' }),

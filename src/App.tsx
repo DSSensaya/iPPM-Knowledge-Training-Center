@@ -11,8 +11,8 @@ import {
   UserRound,
   X,
 } from 'lucide-react';
-import { articles, learningPaths, visibleArticles } from './data/content';
-import { emptyProgress, loadProgress, STORAGE_KEY } from './lib/storage';
+import { visibleArticles } from './data/content';
+import { loadProgress, mergeProgress, STORAGE_KEY } from './lib/storage';
 import type { Progress } from './lib/storage';
 import Home from './pages/Home';
 import { ArticlePage, Knowledge } from './pages/Knowledge';
@@ -87,37 +87,16 @@ export default function App() {
       {
         ...progress,
         read: read ? progress.read.filter((x) => x !== id) : [...progress.read, id],
-        passed: read
-          ? progress.passed.filter(
-              (pathId) => !learningPaths.find((p) => p.id === pathId)?.lessons.includes(id),
-            )
-          : progress.passed,
       },
       read
-        ? 'Lesemarkierung entfernt. Betroffene Lernpfade sind wieder offen.'
+        ? 'Lesemarkierung entfernt.'
         : 'Als gelesen markiert. Ihr Lernfortschritt wurde aktualisiert.',
     );
   }
   function importProgress(data: Progress) {
-    const read = [...new Set([...progress.read, ...data.read])].filter((id) =>
-      articles.some((a) => a.id === id),
-    );
-    update(
-      {
-        ...emptyProgress,
-        read,
-        bookmarks: [...new Set([...progress.bookmarks, ...data.bookmarks])].filter((id) =>
-          articles.some((a) => a.id === id),
-        ),
-        passed: [...new Set([...progress.passed, ...data.passed])].filter((id) =>
-          learningPaths.some(
-            (p) => p.id === id && p.lessons.every((lesson) => read.includes(lesson)),
-          ),
-        ),
-      },
-      'Sicherung importiert.',
-    );
+    update(mergeProgress(progress, data), 'Sicherung importiert.');
   }
+
   let page;
   if (path === '/') page = <Home progress={progress} toggleSave={toggleSave} />;
   else if (path === '/wissen')

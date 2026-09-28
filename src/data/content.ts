@@ -348,7 +348,8 @@ export const articles: Article[] = [
     related: ['meilensteine', 'statusbericht'],
   },
 ];
-// Keep legacy demo IDs in the data model for existing v1 backups; expose only source-backed articles.
+// Permanent application boundary: legacy demo data is retained for compatibility only.
+// Routes, search, related links and personal statistics must use visibleArticles.
 export const visibleArticles = articles.filter((article) => article.status !== 'demo');
 
 export const recommendedArticleIds = [

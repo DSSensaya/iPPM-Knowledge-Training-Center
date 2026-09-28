@@ -31,3 +31,13 @@ export function loadProgress(): { progress: Progress; error: string } {
     };
   }
 }
+
+// Visibility is a presentation concern. Never discard archived or unknown v1 IDs.
+export function mergeProgress(current: Progress, incoming: Progress): Progress {
+  return {
+    version: 1,
+    bookmarks: [...new Set([...current.bookmarks, ...incoming.bookmarks])],
+    read: [...new Set([...current.read, ...incoming.read])],
+    passed: [...new Set([...current.passed, ...incoming.passed])],
+  };
+}
