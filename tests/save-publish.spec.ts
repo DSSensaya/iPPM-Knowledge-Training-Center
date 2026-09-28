@@ -194,5 +194,5 @@ test('reading the new article leaves existing demo learning state intact', async
     read: [...original.read, articleId],
   });
   await page.goto('/#/lernpfade/einstieg');
-  await expect(page.getByRole('heading', { name: 'Demo-Ziel erreicht.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Diese Seite gibt es nicht' })).toBeVisible();
 });

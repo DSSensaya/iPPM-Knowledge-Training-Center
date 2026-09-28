@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { ArrowRight, Download, Upload } from 'lucide-react';
-import { articles, learningPaths } from '../data/content';
+import { visibleArticles } from '../data/content';
 import type { Progress } from '../lib/storage';
 import { validateProgress } from '../lib/storage';
-import { ArticleCard, PageTitle, ProgressBar } from '../components/ui';
+import { ArticleCard, PageTitle } from '../components/ui';
 
 export default function Personal({
   progress,
@@ -16,7 +16,7 @@ export default function Personal({
 }) {
   const [message, setMessage] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
-  const saved = articles.filter((a) => progress.bookmarks.includes(a.id));
+  const saved = visibleArticles.filter((a) => progress.bookmarks.includes(a.id));
   function exportData() {
     const url = URL.createObjectURL(
       new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' }),
@@ -33,63 +33,23 @@ export default function Personal({
       <PageTitle
         eyebrow="Persönlich. Lokal. In Ihrem Tempo."
         title="Mein Lernbereich"
-        description="Gesammelte Beiträge und Fortschritt in Demo-Lernpfaden. Ohne Anmeldung, gespeichert in diesem Browser; kein Schulungsnachweis."
+        description="Gesammelte Fachbeiträge und lokale Lesemarkierungen. Ohne Anmeldung, gespeichert in diesem Browser; kein Schulungsnachweis."
       />
       <div className="personal-stats">
         <div>
           <strong>
             {progress.read
-              .filter((id) => articles.some((a) => a.id === id))
+              .filter((id) => visibleArticles.some((a) => a.id === id))
               .length.toString()
               .padStart(2, '0')}
           </strong>
           <span>Beiträge gelesen</span>
         </div>
         <div>
-          <strong>
-            {progress.passed
-              .filter((id) => learningPaths.some((p) => p.id === id))
-              .length.toString()
-              .padStart(2, '0')}{' '}
-            / 03
-          </strong>
-          <span>Demo-Lernpfade abgeschlossen</span>
-        </div>
-        <div>
           <strong>{saved.length.toString().padStart(2, '0')}</strong>
           <span>Beiträge gemerkt</span>
         </div>
       </div>
-      <section>
-        <div className="section-title">
-          <h2>Meine Demo-Lernpfade</h2>
-          <a href="#/lernpfade" className="text-link">
-            Alle Demo-Lernpfade
-            <ArrowRight size={16} />
-          </a>
-        </div>
-        <div className="cards three">
-          {learningPaths.map((path) => (
-            <a className="personal-path" href={`#/lernpfade/${path.id}`} key={path.id}>
-              <span className="eyebrow">Demo · {path.level}</span>
-              <h3>{path.title}</h3>
-              <ProgressBar
-                value={
-                  ((path.lessons.filter((id) => progress.read.includes(id)).length +
-                    Number(progress.passed.includes(path.id))) /
-                    4) *
-                  100
-                }
-                label={progress.passed.includes(path.id) ? 'Abgeschlossen' : 'Ihr Fortschritt'}
-              />
-              <span className="text-link">
-                Lernpfad öffnen
-                <ArrowRight size={16} />
-              </span>
-            </a>
-          ))}
-        </div>
-      </section>
       <section className="saved-section">
         <div className="section-title">
           <h2>Meine Merkliste</h2>

@@ -44,7 +44,8 @@ export default function Help() {
             <li>Schritte, Zeitpunkt und Fehlermeldung</li>
           </ol>
           <p className="small muted">
-            In dieser Demo ist kein Ticketsystem angebunden. Es werden keine Anfragen versendet.
+            Dieses lokale Center ist nicht mit einem Ticketsystem verbunden. Es werden keine
+            Anfragen versendet.
           </p>
           <a className="text-link" href="#/wissen">
             Zuerst Wissen durchsuchen

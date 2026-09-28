@@ -132,7 +132,7 @@ test('v1 learning state survives new content, reload and export/import without a
     backup,
   );
   await page.goto('/#/lernpfade/einstieg');
-  await expect(page.getByRole('heading', { name: 'Demo-Ziel erreicht.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Diese Seite gibt es nicht' })).toBeVisible();
   await page.goto('/#/artikel/faq-role-vs-access');
   await expect(
     page.getByRole('button', { name: 'Als gelesen markieren', exact: true }),

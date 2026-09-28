@@ -3,7 +3,6 @@ import {
   ArrowRight,
   BookOpen,
   ChevronRight,
-  GraduationCap,
   HelpCircle,
   LayoutDashboard,
   Menu,
@@ -12,12 +11,11 @@ import {
   UserRound,
   X,
 } from 'lucide-react';
-import { articles, learningPaths } from './data/content';
+import { articles, learningPaths, visibleArticles } from './data/content';
 import { emptyProgress, loadProgress, STORAGE_KEY } from './lib/storage';
 import type { Progress } from './lib/storage';
 import Home from './pages/Home';
 import { ArticlePage, Knowledge } from './pages/Knowledge';
-import { Learning, LearningDetail } from './pages/Learning';
 import Processes from './pages/Processes';
 import Personal from './pages/Personal';
 import Help from './pages/Help';
@@ -25,7 +23,6 @@ import Help from './pages/Help';
 const navigation = [
   { path: '/', label: 'Übersicht', icon: LayoutDashboard },
   { path: '/wissen', label: 'Wissensbasis', icon: BookOpen },
-  { path: '/lernpfade', label: 'Demo-Lernpfade', icon: GraduationCap },
   { path: '/prozesse', label: 'Prozesse', icon: Network },
   { path: '/mein-bereich', label: 'Mein Lernbereich', icon: UserRound },
 ];
@@ -40,11 +37,7 @@ export default function App() {
   const main = useRef<HTMLElement>(null);
   const [path, search = ''] = route.split('?');
   const params = new URLSearchParams(search);
-  const active = path.startsWith('/artikel')
-    ? '/wissen'
-    : path.startsWith('/lernpfade')
-      ? '/lernpfade'
-      : path;
+  const active = path.startsWith('/artikel') ? '/wissen' : path;
   const current =
     navigation.find((n) => n.path === active)?.label ||
     (path === '/hilfe' ? 'Hilfe & FAQ' : 'Seite');
@@ -134,25 +127,9 @@ export default function App() {
       <ArticlePage
         key={path}
         id={path.split('/')[2]}
-        pathId={params.get('pfad')}
         progress={progress}
         toggleSave={toggleSave}
         toggleRead={toggleRead}
-      />
-    );
-  else if (path === '/lernpfade') page = <Learning progress={progress} />;
-  else if (path.startsWith('/lernpfade/'))
-    page = (
-      <LearningDetail
-        key={path}
-        id={path.split('/')[2]}
-        progress={progress}
-        pass={(id) =>
-          update(
-            { ...progress, passed: [...new Set([...progress.passed, id])] },
-            'Demo-Lernpfad abgeschlossen. Dies ist kein Schulungsnachweis.',
-          )
-        }
       />
     );
   else if (path === '/prozesse') page = <Processes />;
@@ -163,7 +140,7 @@ export default function App() {
     page = (
       <div className="empty">
         <h1>Diese Seite gibt es nicht</h1>
-        <p>Über die Übersicht finden Sie Wissen, Lernpfade und Prozesse.</p>
+        <p>Über die Übersicht finden Sie Wissen und Prozesse.</p>
         <a className="button primary" href="#/">
           Zur Übersicht
           <ArrowRight size={16} />
@@ -204,25 +181,19 @@ export default function App() {
             >
               <Icon size={20} aria-hidden="true" />
               <span>{label}</span>
-              {href === '/mein-bereich' && progress.bookmarks.length > 0 && (
-                <span className="nav-count">{progress.bookmarks.length}</span>
-              )}
+              {href === '/mein-bereich' &&
+                progress.bookmarks.some((id) => visibleArticles.some((a) => a.id === id)) && (
+                  <span className="nav-count">
+                    {
+                      progress.bookmarks.filter((id) => visibleArticles.some((a) => a.id === id))
+                        .length
+                    }
+                  </span>
+                )}
             </a>
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="sidebar-guide">
-            <span className="eyebrow">Demo-Bereich</span>
-            <p>
-              Beispiel-Lernpfade,
-              <br />
-              kein Schulungsnachweis.
-            </p>
-            <a href="#/lernpfade">
-              Demo-Lernpfade öffnen
-              <ArrowRight size={16} />
-            </a>
-          </div>
           <a
             className={`help-link ${path === '/hilfe' ? 'active' : ''}`}
             href="#/hilfe"
@@ -258,7 +229,7 @@ export default function App() {
           <div className="local-status">
             <Monitor size={16} aria-hidden="true" />
             <span>Lokal verfügbar</span>
-            <span className="prototype-label">v0.7.0</span>
+            <span className="prototype-label">v0.7.1</span>
           </div>
         </header>
         <main id="main" ref={main} tabIndex={-1}>
@@ -271,7 +242,7 @@ export default function App() {
         </main>
         <footer>
           <span>iPPM Knowledge & Training Center</span>
-          <span>Demo-Inhalte und Quellenentwürfe · Keine freigegebenen Arbeitsanweisungen</span>
+          <span>Quellenentwürfe · Keine freigegebenen Arbeitsanweisungen</span>
           <a href="#/hilfe">
             Über diese Plattform
             <ArrowRight size={14} />

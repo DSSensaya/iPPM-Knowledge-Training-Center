@@ -1,4 +1,4 @@
-import { articles } from '../data/content';
+import { visibleArticles } from '../data/content';
 import type { Role } from '../data/types';
 import { knowledgeSearchText } from './knowledge';
 export function normalize(value: string) {
@@ -18,7 +18,7 @@ export function searchArticles(
   kind = 'Alle Formate',
 ) {
   const words = normalize(query).trim().split(/\s+/).filter(Boolean);
-  return articles
+  return visibleArticles
     .filter(
       (a) =>
         (topic === 'Alle Themen' || a.topic === topic) &&
