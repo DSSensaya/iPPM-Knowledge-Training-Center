@@ -57,6 +57,8 @@ const master = procedure(
   ],
   '§3.6.1 Tabelle 10; §3.1.2',
 );
+// Only the existing Start Date / EDC statements, not the entire procedure, are confirmed by C23.
+master.evidence.push(...e('C23', 'Punkt 1 (nur Start Date / EDC)', 'TTT-D-06'));
 
 const objectives = procedure(
   'procedure-project-objectives',
@@ -440,5 +442,19 @@ for (const article of definitionArticles.filter((a) =>
         sourceId: 'TTT',
       },
     ],
+  });
+}
+
+// Metadata-only revision: preserve the historical source snapshot and all instructional text.
+const masterArticle = definitionArticles.find(
+  (article) => article.id === 'guide-project-master-data',
+)!;
+if (masterArticle.status !== 'demo') {
+  masterArticle.updated = '2026-09-28';
+  masterArticle.revisions.push({
+    number: 3,
+    date: '2026-09-28',
+    note: 'Pflegefall care-start-date-edc: C23 Punkt 1 unmittelbar am Stammdaten-Bedienweg nachgewiesen. Nur Belegzuordnung, keine Änderung fachlicher Aussagen, keine Artikelfreigabe oder praktische Prüfung.',
+    sources: masterArticle.revisions.at(-1)!.sources.map((source) => ({ ...source })),
   });
 }
