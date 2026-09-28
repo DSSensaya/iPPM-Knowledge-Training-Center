@@ -84,6 +84,26 @@ test('search finds body text, filters combine, empty state recovers', async ({ p
   await expect(page.locator('.article-card')).toHaveCount(16);
 });
 
+test('a filter preserves a just-submitted search before hashchange renders', async ({ page }) => {
+  await page.goto('/#/wissen?q=Start%20Date');
+  await page.getByLabel('Wissensbasis durchsuchen').fill('');
+  await page.evaluate(() => {
+    document.querySelector<HTMLFormElement>('.search-form')!.requestSubmit();
+    const selects = document.querySelectorAll<HTMLSelectElement>('.filters select');
+    for (const [index, value] of ['Team & Zugriff', 'pm', 'FAQ'].entries()) {
+      selects[index].value = value;
+      selects[index].dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+  await expect(page.locator('.article-card')).toHaveCount(1);
+  await expect(
+    page.getByRole('heading', {
+      name: 'Rollenliste, Build Team und Project Permissions unterscheiden',
+    }),
+  ).toBeVisible();
+  await expect(page.getByLabel('Wissensbasis durchsuchen')).toHaveValue('');
+});
+
 test('bookmarks persist and backup export/import validates data', async ({ page }) => {
   await page.goto('/#/artikel/guide-project-permissions');
   await page.getByRole('button', { name: 'Beitrag merken', exact: true }).click();

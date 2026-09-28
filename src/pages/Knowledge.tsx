@@ -43,7 +43,8 @@ export function Knowledge({
   const kind = params.get('format') || 'Alle Formate';
   const results = searchArticles(query, topic, role, kind);
   function filter(key: string, value: string) {
-    const next = new URLSearchParams(params);
+    // A preceding search/filter can update the hash before React receives hashchange.
+    const next = new URLSearchParams(window.location.hash.split('?')[1] || '');
     next.set(key, value);
     window.location.hash = `/wissen?${next.toString()}`;
   }
