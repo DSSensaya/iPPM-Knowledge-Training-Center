@@ -24,7 +24,11 @@ test('dated decisions close only confirmed questions and preserve technical resi
   const sub = articles.find((a) => a.id === 'guide-subproject-definition')!;
   const actions = sub.knowledge!.procedures.flatMap((p) => p.actions.map((a) => a.text)).join(' ');
   expect(actions).not.toContain('dokumentieren Sie den Project Purpose');
-  expect(actions).toContain('ausstehende Konfigurationsänderung');
+  expect(actions).toContain('Laut Auftraggebermeldung');
+  expect(actions).toContain(
+    'Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang liegen nicht vor',
+  );
+  expect(actions).not.toContain('ausstehende Konfigurationsänderung');
   for (const query of ['Hard Links', 'Makros', 'Publish-Schnellzugriff']) {
     expect(searchArticles(query, 'Alle Themen', 'pm').map((a) => a.id)).toContain(
       'guide-save-publish-checkin',

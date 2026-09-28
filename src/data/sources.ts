@@ -2,6 +2,15 @@ import type { EvidenceRef, SourceDocument } from './domain';
 
 export const sources: SourceDocument[] = [
   {
+    id: 'N28',
+    title: 'Gemeldete Erkenntnisse zu Project Purpose und WBS',
+    filename: 'sources/Erkenntnisse_ProjectPurpose_WBS_2026-09-28.md',
+    date: '2026-09-28',
+    status:
+      'Auftraggebermeldung; Datum ist Eingang, kein Durchführungs- oder Freigabedatum. Referenzierte Prüf- und Freigabeunterlagen liegen nicht vor.',
+    sha256: 'F6B881EEF80A4B3A04F32883DBF6B1A8CE86E4511A61D3810659C1BBD128B5F5',
+  },
+  {
     id: 'R2P',
     title: 'Aktuelle Releaseplanung R1B / Release 2',
     filename: 'sources/iPPM_Releaseplanung_Release-2.docx',

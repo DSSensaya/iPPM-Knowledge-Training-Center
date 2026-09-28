@@ -97,7 +97,9 @@ test('EDC reconstruction separates current consent, historical adoption and conf
   }
   expect(master.revisions!.map((revision) => revision.number)).toEqual([1, 2, 3]);
   expect(master.revisions![2].sources).toEqual(master.revisions![1].sources);
-  expect(sub.revisions!.at(-1)!.number).toBe(2);
+  expect(sub.revisions!.find((revision) => revision.number === 2)!.sources).toEqual(
+    master.revisions![1].sources,
+  );
   expect(issues.find((issue) => issue.id === 'issue-f-r1-open-05')!.status).toBe('GEKLÄRT');
   for (const number of ['2.1', '2.8', '2.12']) {
     const coverage = sb1Coverage.find((item) => item.number === number)!;
@@ -114,5 +116,98 @@ test('direct Start Date evidence is readable without claiming a procedure approv
   await expect(procedure).toContainText('C23 · Punkt 1 (nur Start Date / EDC)');
   await expect(procedure).toContainText('EDC ist unabhängig');
   await expect(page.locator('#einschraenkungen')).toContainText('EDC-Feld');
+  await expect(page.locator('.demo-note')).toContainText('Quellenbasierter Entwurf');
+});
+
+test('N28 adoption keeps receipt, consent, confirmation and practical evidence separate', () => {
+  const entry = careCases.find((item) => item.id === 'care-project-purpose-wbs-2026-09-28')!;
+  expect(entry.origin).toBe('new-insight');
+  expect(entry.recordedOn).toBe('2026-09-28');
+  expect(entry.observation).toContain('Keine eigene Systembeobachtung');
+  expect(entry.claims).toHaveLength(3);
+  for (const claim of entry.claims) {
+    expect(claim.text).toContain('Laut Auftraggebermeldung');
+    expect(claim.confirmation).toBe('unconfirmed');
+    expect(claim.confirmedOn).toBeNull();
+    expect(claim.scope.release).toBeNull();
+    expect(claim.scope.environment).toBeNull();
+    expect(claim.unknowns.length).toBeGreaterThan(1);
+    expect(claim.evidence.map((ref) => ref.sourceId)).toEqual(['N28', 'TTT', 'C23']);
+  }
+  expect(entry.practicalEvidence).toEqual([]);
+  expect(entry.change.decision.status).toBe('accepted');
+  expect(entry.change.decision.scope).toContain('Keine fachliche Bestätigung');
+  expect(existsSync(entry.change.decision.record!.split('#')[0])).toBeTruthy();
+  expect(entry.change.implementation!.articleRevisions).toEqual([
+    { articleId: 'guide-subproject-definition', revision: 3 },
+  ]);
+  const source = sources.find((item) => item.id === 'N28')!;
+  expect(source.status).toContain('Datum ist Eingang');
+  expect(source.status).toContain('Freigabeunterlagen liegen nicht vor');
+
+  const sub = articles.find((item) => item.id === 'guide-subproject-definition')!;
+  expect(sub.status).toBe('source-draft');
+  expect(sub.reviews).toEqual([]);
+  expect(sub.revisions!.map((revision) => revision.number)).toEqual([1, 2, 3]);
+  expect(sub.revisions![2].sources).toEqual([
+    ...sub.revisions![1].sources,
+    { sourceId: 'N28', sha256: source.sha256 },
+  ]);
+  expect(sub.revisions!.slice(0, 2).flatMap((r) => r.sources.map((s) => s.sourceId))).not.toContain(
+    'N28',
+  );
+  for (const procedure of sub.knowledge!.procedures) {
+    expect(procedure.evidence.some((ref) => ref.sourceId === 'N28')).toBe(
+      ['procedure-system-scope', 'procedure-ils-scope'].includes(procedure.id),
+    );
+  }
+  const candidates = entry.impacts.filter(
+    (impact) => impact.relation === 'candidate' && impact.target.kind === 'article',
+  );
+  for (const candidate of candidates) {
+    if (candidate.target.kind !== 'article') continue;
+    const article = articles.find((item) => item.id === candidate.target.id)!;
+    expect(article.revisions!.flatMap((r) => r.sources.map((s) => s.sourceId))).not.toContain(
+      'N28',
+    );
+    expect(article.knowledge!.evidence.some((ref) => ref.sourceId === 'N28')).toBe(false);
+  }
+  const configuration = issues.find((item) => item.id === 'issue-definition-configuration')!;
+  expect(configuration.status).toBe('VERIFIKATION ERFORDERLICH');
+  for (const residual of [
+    'EDC-Feld',
+    'Bestandsprojekten',
+    'Objectives-Zielklassen',
+    'Initialstatus',
+  ]) {
+    expect(configuration.limitation).toContain(residual);
+  }
+  for (const number of ['2.9', '2.13']) {
+    expect(sb1Coverage.find((item) => item.number === number)!.issueIds).toContain(
+      configuration.id,
+    );
+  }
+  const boundary = issues.find((item) => item.id === 'issue-phases-tailoring-boundary')!;
+  expect(boundary.limitation).toContain('ProjectLink');
+  expect(boundary.limitation).toContain('Hard Links nicht nutzen und nicht schulen');
+});
+
+test('both subproject scope variants show N28 as a report while residuals remain visible', async ({
+  page,
+}) => {
+  await page.goto('/#/artikel/guide-subproject-definition');
+  for (const variant of ['system', 'ils']) {
+    const procedure = page.locator(`#procedure-${variant}-scope`);
+    await expect(procedure).toContainText('Laut Auftraggebermeldung (Eingang 28.09.2026)');
+    await expect(procedure).toContainText(
+      'Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang liegen nicht vor',
+    );
+    await expect(procedure).toContainText('N28 · Punkt 1 (gemeldete Entfernung und Prüfung)');
+    await expect(procedure).toContainText('Scope');
+    await expect(procedure).toContainText('Base Products');
+    await expect(procedure).not.toContainText('ausstehende Konfigurationsänderung');
+  }
+  await expect(page.locator('#einschraenkungen')).toContainText('EDC-Feld');
+  await expect(page.locator('#einschraenkungen')).toContainText('Belegabgleich offen');
   await expect(page.locator('.demo-note')).toContainText('Quellenbasierter Entwurf');
 });

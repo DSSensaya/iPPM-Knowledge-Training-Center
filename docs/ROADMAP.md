@@ -12,13 +12,15 @@ Center-Versionen v0.x/v1.0 bezeichnen den Entwicklungsstand der Anwendung. iPPM-
 
 **Erreichter Stand:** Der [Pflegefall Start Date / EDC](pflegefall-start-date-edc.md) verbindet Aussagen, feste Quellenbelege, betroffene stabile IDs, Ausgangsrevision, Übernahmeentscheidung und Umsetzung. Der Projektstammdatenartikel trägt Revision 3 als reine Belegergänzung. Das Register bleibt redaktionelle Datenhaltung unter `src/data/`; Oberfläche, Suche und v1-Persistenz verwenden weiterhin ihre bestehenden Modelle. Fachstatus und offene Reichweite bleiben erhalten.
 
-**Nächste Ausbaustufe:** Den bestehenden Pflegeablauf an einer künftig tatsächlich vorliegenden Erkenntnis oder Quellenänderung erproben. Ursprung, Beleg, Release-/Umgebungsbezug und offene Punkte erfassen; direkte Auswirkungen von bloßen Prüftreffern unterscheiden; Vorschlag gegen die aktuelle Inhaltsrevision prüfen; Entscheidung dokumentieren; ausschließlich betroffene Inhalte samt Revision und Regressionen übernehmen. Eine Beobachtung oder technische Prüfung erhöht keinen fachlichen Bestätigungsstatus. Abschlusskriterium ist ein vom Eingang bis zur Übernahme oder begründeten Zurückstellung nachvollziehbarer Fall mit erhaltener Historie und Rückfallmöglichkeit. Dafür jetzt keine neuen Fachinhalte oder generische Pflegeoberfläche ergänzen.
+**Pflegefortschritt 28.09.2026:** Der [Pflegefall Project Purpose / WBS](pflegefall-project-purpose-wbs.md) übernimmt N28 nach ausdrücklicher redaktioneller Entscheidung. Nur der Teilprojektartikel erhält Revision 3. Umsetzung, Regression und WBS-Freigabe bleiben gemeldet; referenzierte Nachweise, Release und Umgebung fehlen. Der 28.09. ist das Eingangsdatum, kein Systemprüf- oder Freigabedatum. Andere Konfigurationspunkte und WBS-Einschränkungen bleiben erhalten.
+
+**Nächste Ausbaustufe:** Die offenen Belege und die Reichweite des neuen Pflegefalls abgleichen; weitere tatsächliche Erkenntnisse mit demselben Ablauf bearbeiten. Ursprung, Beleg, Release-/Umgebungsbezug und offene Punkte erfassen; direkte Auswirkungen von bloßen Prüftreffern unterscheiden; Vorschlag gegen die aktuelle Inhaltsrevision prüfen; Entscheidung dokumentieren; ausschließlich betroffene Inhalte samt Revision und Regressionen übernehmen. Eine Beobachtung oder technische Prüfung erhöht keinen fachlichen Bestätigungsstatus. Abschlusskriterium ist ein vom Eingang bis zur Übernahme oder begründeten Zurückstellung nachvollziehbarer Fall mit erhaltener Historie und Rückfallmöglichkeit. Dafür jetzt keine neuen Fachinhalte oder generische Pflegeoberfläche ergänzen.
 
 **Weiterer Horizont bis Release 4b:** Den gleichen Pflegeablauf bei belegtem Bedarf auf kommende iPPM-Stände anwenden. R1B/R2 orientieren sich an der vorhandenen Quelle R2P; spätere Stufen R3/R4a/R4b sind bisher nur historischer Planungsrahmen aus H und benötigen aktuelle Belege vor fachlicher Übernahme. Keine ungeprüfte Übertragung von Bedienwegen zwischen Releases. Umfang und Reihenfolge folgen persönlichem Nutzwert und belastbaren Quellen, nicht einer Vollimport- oder Vollständigkeitsquote.
 
 ## Konsolidierter Stand v0.7.1
 
-v0.7.1 übernimmt die bestätigten TtT-Klärungen vom 23.09.2026 und erhält stabile IDs, Quellenhistorie, Links und v1-Persistenz. Der konsolidierte Pflegefall ergänzt diesen Entwicklungsstand ohne Versionssprung. Als Nächstes wird der oben beschriebene Pflegeablauf erprobt; fachliche Materialfreigabe und praktische Erprobung bleiben offen.
+v0.7.1 übernimmt die bestätigten TtT-Klärungen vom 23.09.2026 und erhält stabile IDs, Quellenhistorie, Links und v1-Persistenz. Der konsolidierte Pflegefall ergänzt diesen Entwicklungsstand ohne Versionssprung. Der Pflegeablauf wurde mit N28 bis zur begrenzten redaktionellen Übernahme erprobt; Belegabgleich, fachliche Materialfreigabe und praktische Erprobung bleiben offen.
 
 ### Fachlicher Abgleich vom 23.09.2026
 
@@ -30,6 +32,8 @@ Die [bereinigten Open Points](open-points-readiness.md) sind für den aktuellen 
 - LCM-3 ist auditbedingt einmal pro Kalenderjahr erforderlich. Rollierende zwölf Monate sind nur eine unbeschlossene Verbesserung. Weitere LCM-/ProjectLink-Terminwirkungen bleiben offen.
 - WWS-/WBS-Generator funktioniert; daraus folgt keine Erweiterung des Center-Schulungsumfangs. Hard Links nicht schulen und nicht nutzen.
 - Project Purpose aus Teilprojekt-PDPs entfernen: fachlich entschieden, technische Umsetzung noch offen. Rechte, Bestands-Sites, Performance, Eskalationshistorie/-zugriff und praktische Materialerprobung bleiben zu bearbeiten.
+
+Fortschreibung zu Project Purpose: Die oben dokumentierte offene Umsetzung vom 23.09. wird durch die neue Auftraggebermeldung N28 ergänzt: Entfernung und Zielprüfung ohne Daten-/Formularbeeinträchtigung sind gemeldet, Belegabgleich und genaue Reichweite bleiben offen. Zu TTT-D-30/-31 sind Korrektur, Regression und vollständige WBS-Struktur mit Freigabe ebenfalls gemeldet, die Unterlagen liegen hier nicht vor. Die bereits erfolgte WBS-Klärung wird nicht erneut geschlossen.
 
 Die genannten fachlichen Grenzen bleiben bestehen. Die aktuelle Priorität liegt auf kontrollierter Pflege; die Produktvision erweitert den Begleithorizont, ohne hier neue R1B-Inhalte oder eine Gesamtfreigabe zu erzeugen.
 
