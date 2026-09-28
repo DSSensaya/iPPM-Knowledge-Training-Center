@@ -6,6 +6,25 @@ Eine vollständig lokale Wissens- und Schulungsplattform für den iPPM-Arbeitsal
 
 ## Lokal starten
 
+### Ohne Terminal öffnen (Windows)
+
+Die Desktop-Verknüpfung **iPPM Knowledge & Training Center** startet bei Bedarf die gebaute Anwendung im Hintergrund und öffnet `http://127.0.0.1:4173/` im Standardbrowser. Ein erneuter Klick öffnet die vorhandene Instanz. Der Server läuft bis zur Windows-Abmeldung; nach einer Anmeldung genügt wieder ein Klick auf die Verknüpfung. Internet wird für den Betrieb nicht benötigt.
+
+Einmalig nach der Installation im Projektordner ausführen:
+
+```powershell
+npm.cmd ci
+npm.cmd run build
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-shortcut.ps1 -WhatIf
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-shortcut.ps1
+```
+
+Die Zeile mit `-WhatIf` zeigt Ziel und Aufruf ohne Änderungen. Die Installation erstellt nur die Desktop-Verknüpfung, keinen Autostart und keine dauerhafte Änderung der PowerShell-Ausführungsrichtlinie. Eine abweichende Verknüpfung gleichen Namens wird nicht überschrieben. Zum Entfernen genügt das Löschen der Verknüpfung; der Server wird dadurch nicht beendet.
+
+Nach Inhalts- oder Codeänderungen `npm.cmd run build` erneut ausführen und die Browserseite neu laden. Das Projektverzeichnis darf danach nicht verschoben werden; andernfalls die Verknüpfung erneut erstellen. Port 4173 bleibt fest, damit Merkliste und Lernstand im selben Browserspeicher bleiben. Wer bisher Port 5173 genutzt hat, kann Lernstand und Merkliste dort exportieren und unter 4173 importieren.
+
+### Entwicklung und Vorschau
+
 Voraussetzungen: Node.js ab 22.12 (entwickelt und geprüft mit Node.js 26) und npm. Unter Windows PowerShell `npm.cmd` verwenden, falls die Ausführungsrichtlinie `npm.ps1` sperrt.
 
 ```powershell
