@@ -3,12 +3,13 @@ import AxeBuilder from '@axe-core/playwright';
 
 test('home, navigation and responsive layout are accessible and local', async ({
   page,
+  baseURL,
 }, testInfo) => {
   const errors: string[] = [],
     external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
-    if (!request.url().startsWith('http://127.0.0.1:4173')) external.push(request.url());
+    if (new URL(request.url()).origin !== baseURL) external.push(request.url());
   });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ihre nächsten iPPM-Aufgaben.' })).toBeVisible();

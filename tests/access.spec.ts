@@ -3,12 +3,13 @@ import AxeBuilder from '@axe-core/playwright';
 
 test('access slice is discoverable, source-aware, keyboard accessible and local', async ({
   page,
+  baseURL,
 }, testInfo) => {
   const errors: string[] = [],
     external: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('request', (r) => {
-    if (!r.url().startsWith('http://127.0.0.1:4173')) external.push(r.url());
+    if (new URL(r.url()).origin !== baseURL) external.push(r.url());
   });
   await page.goto('/');
   await page.getByRole('link', { name: 'Zugriffsrechte', exact: true }).click();

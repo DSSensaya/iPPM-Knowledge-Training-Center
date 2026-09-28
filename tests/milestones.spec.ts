@@ -3,12 +3,13 @@ import AxeBuilder from '@axe-core/playwright';
 
 test('SB1 delivery and payment path is searchable, source-aware and usable on desktop and mobile', async ({
   page,
+  baseURL,
 }) => {
   const errors: string[] = [];
   const external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
-    if (!request.url().startsWith('http://127.0.0.1:4173')) external.push(request.url());
+    if (new URL(request.url()).origin !== baseURL) external.push(request.url());
   });
   await page.goto('/');
   await expect(

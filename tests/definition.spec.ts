@@ -86,12 +86,13 @@ test('role-specific searches find the relevant definition and preserve field and
 
 test('definition tasks are reachable, keyboard navigable, accessible and local on both viewports', async ({
   page,
+  baseURL,
 }, testInfo) => {
   const errors: string[] = [],
     external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
-    if (!request.url().startsWith('http://127.0.0.1:4173')) external.push(request.url());
+    if (new URL(request.url()).origin !== baseURL) external.push(request.url());
   });
   for (const article of definitionArticles) {
     await page.goto('/');

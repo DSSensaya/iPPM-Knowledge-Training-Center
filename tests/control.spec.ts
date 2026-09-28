@@ -52,12 +52,13 @@ test('planning and control preserve evidence boundaries and demo separation', ()
 
 test('all new tasks are reachable from coverage with visible limitations and accessible reading', async ({
   page,
+  baseURL,
 }, info) => {
   const errors: string[] = [],
     external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
-    if (!request.url().startsWith('http://127.0.0.1:4173')) external.push(request.url());
+    if (new URL(request.url()).origin !== baseURL) external.push(request.url());
   });
   for (const [index, number] of ['3.3', '3.4', '4.9', '4.12', '4.13'].entries()) {
     const a = controlArticles[index];

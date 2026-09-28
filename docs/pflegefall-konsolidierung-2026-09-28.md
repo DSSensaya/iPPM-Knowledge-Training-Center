@@ -14,10 +14,10 @@ Ausgangspunkt ist `66a5c208e8c6afc641a374748dffb06262273231` auf `fix/manual-rev
 
 Die bereits vorhandene README-Änderung sowie `scripts/open-center.ps1` und `scripts/install-shortcut.ps1` bleiben außerhalb beider Commits im Arbeitsverzeichnis erhalten. SHA-256 zum Abgleich vor und nach der Konsolidierung:
 
-| Datei | SHA-256 |
-| --- | --- |
-| `README.md` | `8E1B4DD756A143ACBCB130A51813D8F850D1BDAEBB4210B7A6A284365C60644D` |
-| `scripts/open-center.ps1` | `4739118B7E5241E25F534A9CE92ABF21C030A2D19DDEC1FA52983A5A5E21032B` |
+| Datei                          | SHA-256                                                            |
+| ------------------------------ | ------------------------------------------------------------------ |
+| `README.md`                    | `8E1B4DD756A143ACBCB130A51813D8F850D1BDAEBB4210B7A6A284365C60644D` |
+| `scripts/open-center.ps1`      | `4739118B7E5241E25F534A9CE92ABF21C030A2D19DDEC1FA52983A5A5E21032B` |
 | `scripts/install-shortcut.ps1` | `4BC32483F4329B4B7022B040744ED5DBD97BB23AB6F24DD898E047C4E4B3B528` |
 
 Kein Merge, Push, Release-Tag oder Remote-Abgleich. Der Arbeitsbaum bleibt wegen der drei bewusst ausgenommenen Dateien unbereinigt.
