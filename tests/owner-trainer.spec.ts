@@ -6,6 +6,79 @@ import { knowledgeFor } from '../src/lib/knowledge';
 const guideId = 'guide-project-permissions';
 const ownerProcedureId = 'procedure-owner-change';
 
+test('owner package is searchable, readable and keyboard reachable with bounded evidence', async ({
+  page,
+}, testInfo) => {
+  for (const query of ['Use Case Owner', 'Übung ohne System', 'Arbeitsplatz-Tipp']) {
+    await page.goto('/#/wissen');
+    await page.getByLabel('Wissensbasis durchsuchen').fill(query);
+    await page.getByRole('button', { name: 'Suchen', exact: true }).click();
+    const guide = page.locator('.article-card').filter({
+      has: page.getByRole('link', {
+        name: 'Zugriffsrechte festlegen und Owner wechseln',
+        exact: true,
+      }),
+    });
+    await expect(guide).toHaveCount(1);
+    await guide
+      .getByRole('link', {
+        name: 'Zugriffsrechte festlegen und Owner wechseln',
+        exact: true,
+      })
+      .click();
+    await expect(page).toHaveURL(new RegExp(`${guideId}$`));
+  }
+  await expect(page.locator(`#${ownerProcedureId}`)).toContainText('Quick Guide');
+  await expect(page.locator('.demo-note')).toHaveText(
+    'Quellenbasierter Entwurf · Fachlich nicht freigegeben',
+  );
+  const toc = page.getByRole('navigation', { name: 'Inhaltsverzeichnis', exact: true });
+  for (const [title, expected] of [
+    ['Paket und Gültigkeit', 'R1B bis R4b sind nicht nachgewiesen'],
+    ['Use Case:', 'B §3.6.7'],
+    ['Schulung und Übung:', 'Didaktischer Vorschlag'],
+    ['Übung ohne System:', 'kein nachgewiesener Systemzugriff'],
+    ['Lernkontrolle:', 'ist das erwartete Ergebnis noch nicht bestätigt'],
+    ['Arbeitsplatz-Tipp:', 'Empfehlung für die persönliche Arbeitsweise'],
+  ]) {
+    await toc.getByRole('button', { name: new RegExp(title) }).focus();
+    await page.keyboard.press('Enter');
+    const section = page
+      .locator('section')
+      .filter({
+        has: page.getByRole('heading', { level: 3, name: new RegExp(title) }),
+      })
+      .last();
+    await expect(section).toBeFocused();
+    await expect(section).toContainText(expected);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page
+    .locator('section')
+    .filter({
+      has: page.getByRole('heading', { level: 3, name: /^Arbeitsplatz-Tipp:/ }),
+    })
+    .last()
+    .screenshot({ path: testInfo.outputPath('owner-package.png') });
+  await toc.getByRole('button', { name: 'Für Trainer', exact: true }).click();
+  await page.locator('.owner-training summary').click();
+  await expect(page.locator('.owner-training')).toContainText('fiktiv');
+  await page.getByRole('button', { name: 'Beitrag merken', exact: true }).click();
+  await page.reload();
+  await expect(
+    page.getByRole('button', { name: 'Aus Merkliste entfernen', exact: true }),
+  ).toBeVisible();
+  const source = page
+    .locator('#quellen details')
+    .filter({ has: page.locator('summary', { hasText: 'B · SB1-Handbuch' }) });
+  await source.locator('summary').click();
+  await expect(source).toContainText('§3.6.7');
+  expect(
+    (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze())
+      .violations,
+  ).toEqual([]);
+});
+
 test('owner trainer package uses one existing procedure and keeps both fictional variants bounded', () => {
   const guide = articles.find((article) => article.id === guideId)!;
   const owner = guide.knowledge!.procedures.find((procedure) => procedure.id === ownerProcedureId)!;
@@ -13,7 +86,7 @@ test('owner trainer package uses one existing procedure and keeps both fictional
 
   expect(guide.status).toBe('source-draft');
   expect(guide.reviews).toEqual([]);
-  expect(guide.revisions.map((revision) => revision.number)).toEqual([1, 2, 3]);
+  expect(guide.revisions.map((revision) => revision.number)).toEqual([1, 2, 3, 4]);
   expect(plan.procedureId).toBe(owner.id);
   expect(
     guide.knowledge!.procedures.filter((procedure) => procedure.id === ownerProcedureId),

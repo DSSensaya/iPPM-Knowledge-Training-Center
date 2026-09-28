@@ -209,7 +209,7 @@ export function ArticlePage({
                 <h2>Bedienweg</h2>
                 <KnowledgeProcedures article={article} guide={relatedGuide} />
                 {article.sections.map((section, i) => (
-                  <section id={`abschnitt-${i}`} key={section.title}>
+                  <section id={`abschnitt-${i}`} key={section.title} tabIndex={-1}>
                     <h3>{section.title}</h3>
                     <p>{section.body}</p>
                     {section.steps && (

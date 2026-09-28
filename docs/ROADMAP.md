@@ -20,6 +20,8 @@ Center-Versionen v0.x/v1.0 bezeichnen den Entwicklungsstand der Anwendung. iPPM-
 
 ## Konsolidierter Stand v0.7.1
 
+**Persönliche Nutzung, 29.09.2026:** Auf ausdrücklichen Auftrag wurde der vorhandene Owner-Wechsel zu einem vollständig im Center lesbaren Paket konsolidiert: Quick Guide, Use Case, Schulungs-/Leseübung und Arbeitsplatz-Empfehlung. Bestehender Artikel und Prozedur behalten ihre IDs; kein neuer Fachbereich und keine fachliche Freigabe. Die [Übernahmeentscheidung](inhaltspaket-owner-wechsel.md) dokumentiert Quellen, Revision 4 und offene Reichweite. Die Priorität kontrollierter Pflege bleibt bestehen.
+
 v0.7.1 übernimmt die bestätigten TtT-Klärungen vom 23.09.2026 und erhält stabile IDs, Quellenhistorie, Links und v1-Persistenz. Der konsolidierte Pflegefall ergänzt diesen Entwicklungsstand ohne Versionssprung. Der Pflegeablauf wurde mit N28 bis zur begrenzten redaktionellen Übernahme erprobt; Belegabgleich, fachliche Materialfreigabe und praktische Erprobung bleiben offen.
 
 ### Fachlicher Abgleich vom 23.09.2026

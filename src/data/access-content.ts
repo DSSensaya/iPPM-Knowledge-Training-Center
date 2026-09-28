@@ -57,7 +57,7 @@ const knowledge: KnowledgeContext = {
     },
     {
       id: 'procedure-owner-change',
-      title: 'Owner wechseln und lesenden Eigenzugriff sichern',
+      title: 'Quick Guide: Owner wechseln und lesenden Eigenzugriff sichern',
       functionId: 'fn-owner-change',
       relatedArticleId: 'guide-save-publish-checkin',
       trigger:
@@ -218,13 +218,37 @@ export const accessArticles: Article[] = [
     reviews: [],
     title: 'Zugriffsrechte festlegen und Owner wechseln',
     summary:
-      'Stakeholder gezielt berechtigen und ein Teilprojekt an TM oder ILSM übergeben, während der PM seinen lesenden Zugriff erhält.',
+      'Ein Teilprojekt an TM oder ILSM übergeben und den PM-Lesezugriff erhalten: Quick Guide, Use Case, Übung und Arbeitsplatz-Tipp zum Owner-Wechsel. Zusätzlich: Stakeholder gezielt berechtigen.',
     topic: 'Team & Zugriff',
     roles: ['pm', 'tm', 'ilsm', 'pmo'],
     kind: 'Anleitung',
-    minutes: 8,
+    minutes: 12,
     updated: '2026-09-23',
     sections: [
+      {
+        title: 'Owner-Wechsel: Paket und Gültigkeit',
+        body: 'Zielrollen: PM als übergebende Rolle, TM oder ILSM als neuer Owner; Trainer zur Vorbereitung. Zielrelease: R1 im SB1-Kontext. Der Quick Guide oben verwendet die vorhandene Owner-Wechsel-Prozedur mit Voraussetzungen, vier Leserechten und Ergebnisprüfung. B, SB1-Handbuch §3.6.7, beschreibt diesen Weg; Dokumentdatum und genaue Release-Version des Handbuchs sind unbekannt. F, R1 Funktionsmatrix!A13:J13 (FS-08), Stand 18.09.2026, bewertet den konkret geübten Weg als verifiziert. C23, Punkt 10 vom 23.09.2026, bestätigt die Reihenfolge. Belegt ist damit der begrenzte R1-/TTT-Bezug, keine allgemeine Release-Gültigkeit. Genauer Systemstand und Übertragbarkeit auf R1B bis R4b sind nicht nachgewiesen. Dieses Paket bleibt ein quellenbasierter Entwurf ohne fachliche Freigabe.',
+      },
+      {
+        title: 'Use Case: Ein bereitgestelltes Teilprojekt übergeben',
+        body: 'Auslöser: Das PMO hat das System- oder ILS-Teilprojekt bereitgestellt; der vorgesehene Teilprojektleiter soll nun die fachliche Verantwortung übernehmen. Der PM benötigt danach weiterhin lesenden Zugriff. Voraussetzungen und Hauptablauf stehen im Quick Guide „Owner wechseln“ auf dieser Seite und werden nur dort gepflegt. Die System-Variante führt zum Technical Manager auf System Overview, die ILS-Variante zum ILS Manager auf ILS Overview. Nach Speichern und Check-in informiert der PM die eingesetzten Teilprojektleiter und dokumentiert die Zuordnung auf Organisation unter Subprojects. Erfolgskriterium: Der vorgesehene Owner kann sein Teilprojekt öffnen, der PM behält Lesezugriff und Owner sowie Subprojects stimmen überein. Beleg: B §3.6.7; Reihenfolge zusätzlich C23 Punkt 10. Die Kontoprüfung unter „Ergebnisprüfung“ macht Abweichungen sichtbar. Für fehlenden Zugriff ist hier kein gesicherter Reparaturweg belegt; Rechte-Matrix, reguläre Konten und Bestands-Sites bleiben offene Nachweise (F, FS-06/FS-08).',
+      },
+      {
+        title: 'Schulung und Übung: Übergabe vorbereiten',
+        body: 'Didaktischer Vorschlag, insgesamt 20 Minuten: 5 Minuten Quick Guide und Gültigkeitsgrenzen lesen, 10 Minuten Übergabe erklären oder im vorgeprüften Schulungssystem demonstrieren, 5 Minuten Ergebnis besprechen. Lernziel: Die Reihenfolge begründen, die vier PM-Leserechte benennen und Verantwortung von wirksamem Zugriff unterscheiden. Vorkenntnisse: PM, TM und ILSM sowie Project Center und PDP unterscheiden. Material: dieser Beitrag, der verknüpfte Speicher-/Check-in-Guide und das ausklappbare „Trainerpaket Owner-Wechsel“ unter „Für Trainer“. Dort sind die ausdrücklich fiktiven System- und ILS-Beispiele, Konten-Vorprüfungen, Rücksetzgrenze und getrennte Soll-/Ist-Beobachtungen bereits vorhanden. Die Beispieldaten sind ausschließlich Übungsmaterial; sie belegen keine reale Systemwirkung. Eine praktische Übung setzt geprüfte Konten, Umgebung, Systemstand und Rücksetzweg voraus und wurde für dieses Paket nicht durchgeführt.',
+      },
+      {
+        title: 'Übung ohne System: Reihenfolge und Nachweise erklären',
+        body: 'Didaktischer Vorschlag ohne Systemaktion: Lesen Sie eine der fiktiven Varianten im Trainerpaket. Erklären Sie anhand des Quick Guides, was vor dem Owner-Wechsel gesichert werden muss, welche PDP zur Variante passt und woran Sie eine vollständige Übergabe erkennen würden. Nennen Sie anschließend die getrennten Prüfungen für PM und Zielkonto. Zusatzfrage: Was bedeutet es, wenn der Owner korrekt eingetragen ist, der PM die Project Site aber nicht öffnen kann? Erfolgskriterium dieser Leseübung ist eine begründete Antwort mit Fundstelle, kein nachgewiesener Systemzugriff. Tragen Sie in einer späteren praktischen Übung nur tatsächlich beobachtete Ergebnisse ein; eine Leseübung liefert keine bestätigte Kontoprüfung.',
+      },
+      {
+        title: 'Lernkontrolle: Antworten und offene Nachweise',
+        body: 'Musterantwort zur Leseübung: Zuerst die vier im Quick Guide genannten PM-Leserechte über Project Permissions sichern; dann auf System Overview den TM beziehungsweise auf ILS Overview den ILSM als Owner eintragen, speichern und mit Check-in abschließen. Teilprojektleiter informieren und die Zuordnung in Subprojects dokumentieren. Beide Rollen müssen die vorgesehenen Inhalte öffnen können; Owner und Subprojects müssen übereinstimmen (B §3.6.7; C23 Punkt 10). Fehlt dem PM der Site-Zugriff, ist das erwartete Ergebnis noch nicht bestätigt. Ein korrekter Owner-Eintrag ersetzt die Zugriffsprüfung nicht. F, R1 Funktionsmatrix!A11:J11 und A13:J13, begrenzt den Nachweis; eine konkrete Reparatur oder pauschale Vergabe zusätzlicher Rechte lässt sich daraus nicht ableiten. Benötigt werden die Prüfung der wirksamen Konten-/Site-Rechte in der Zielumgebung und ein Nachweis für deren genauen Systemstand.',
+      },
+      {
+        title: 'Arbeitsplatz-Tipp: Übergabe mit zwei Prüfungen abschließen',
+        body: 'Empfehlung für die persönliche Arbeitsweise, keine verbindliche Unternehmensvorgabe: Merken Sie sich diesen Beitrag und halten Sie bei der Übergabe zwei getrennte Prüfpunkte bereit: „PM kann weiter lesen“ und „neuer Owner kann sein Teilprojekt öffnen“. Vergleichen Sie danach Owner mit Subprojects. Die Empfehlung nutzt die Ergebniskriterien aus B §3.6.7 und die Reihenfolge aus C23 Punkt 10. Reale Konten, Projektdaten und Zugriffsbeobachtungen gehören nicht in Merkliste oder Lernfortschritt des Centers. Eine Lesemarkierung bedeutet nur, dass Sie den Beitrag gelesen haben.',
+      },
       {
         title: 'Den passenden Zugriffsweg wählen',
         body: 'Die Rollenliste auf der PDP Organisation dokumentiert Verantwortung. Build Team wird in SB1 für operative Teammitglieder geschult; Project Permissions dient zusätzlichen Stakeholdern und dem Eigenzugriff vor Owner-Wechsel. Die frühere Beschränkung auf Project Permissions ist seit der Abstimmung vom 23.09.2026 überholt. Automatische Rechtewirkungen bleiben separat zu prüfen.',
@@ -309,5 +333,17 @@ for (const article of accessArticles.filter((a) =>
         sourceId: 'TTT',
       },
     ],
+  });
+}
+
+// Consolidate the existing package without changing its IDs or upgrading its source status.
+const ownerGuide = accessArticles.find((article) => article.id === 'guide-project-permissions')!;
+if (ownerGuide.status !== 'demo') {
+  ownerGuide.updated = '2026-09-29';
+  ownerGuide.revisions.push({
+    number: 4,
+    date: '2026-09-29',
+    note: 'Bestehenden Owner-Wechsel als lesbares Paket aus Quick Guide, Use Case, didaktischer Leseübung und Arbeitsplatz-Empfehlung konsolidiert; keine neue Release- oder fachliche Freigabe.',
+    sources: ownerGuide.revisions.at(-1)!.sources.map((source) => ({ ...source })),
   });
 }
