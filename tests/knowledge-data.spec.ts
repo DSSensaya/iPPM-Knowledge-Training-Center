@@ -20,6 +20,7 @@ import {
   trainingBlocks,
 } from '../src/data/catalog';
 import { sources } from '../src/data/sources';
+import { careCases } from '../src/data/care-cases';
 import { articleEvidence, forSubjects, knowledgeFor } from '../src/lib/knowledge';
 import { searchArticles } from '../src/lib/search';
 import type { Assessment, EvidenceRef, ReleaseAssignment, SubjectRef } from '../src/data/domain';
@@ -159,9 +160,58 @@ test('v0.5 content states, revisions and review evidence remain distinct', () =>
     const current = article.revisions.at(-1)!;
     expect(current.date).toBe(article.updated);
     expect(current.note.trim()).not.toBe('');
-    expect(current.sources.map((s) => s.sourceId).sort()).toEqual(
-      [...new Set(articleEvidence(article).map((ref) => ref.sourceId))].sort(),
-    );
+    const snapshotIds = current.sources.map((s) => s.sourceId);
+    const liveRefs = articleEvidence(article);
+    // Direct article evidence must be revisioned. Later shared-issue evidence may
+    // be recorded by a care case without rewriting an unchanged candidate article.
+    for (const ref of [
+      ...article.knowledge.evidence,
+      ...article.knowledge.procedures.flatMap((p) => p.evidence),
+    ])
+      expect(snapshotIds).toContain(ref.sourceId);
+    for (const sourceId of snapshotIds) {
+      expect(liveRefs.some((ref) => ref.sourceId === sourceId)).toBe(true);
+    }
+    for (const ref of liveRefs.filter((ref) => !snapshotIds.includes(ref.sourceId))) {
+      const linkedIssue = knowledgeFor(article).issues.find((issue) =>
+        issue.evidence.some((evidence) => JSON.stringify(evidence) === JSON.stringify(ref)),
+      );
+      expect(
+        linkedIssue,
+        `${article.id}: supplemental evidence must belong to a linked issue`,
+      ).toBeDefined();
+      const care = careCases.find(
+        (entry) =>
+          entry.change.decision.status === 'accepted' &&
+          entry.change.implementation !== null &&
+          entry.impacts.some(
+            (impact) =>
+              impact.relation === 'candidate' &&
+              impact.target.kind === 'article' &&
+              impact.target.id === article.id,
+          ) &&
+          entry.impacts.some(
+            (impact) =>
+              impact.relation === 'direct' &&
+              impact.target.kind === 'issue' &&
+              impact.target.id === linkedIssue?.id &&
+              entry.claims.some(
+                (claim) =>
+                  impact.claimIds.includes(claim.id) &&
+                  claim.evidence.some((evidence) => evidence.sourceId === ref.sourceId),
+              ),
+          ) &&
+          entry.sourceSnapshots.some(
+            (snapshot) =>
+              snapshot.sourceId === ref.sourceId &&
+              snapshot.sha256 === sources.find((source) => source.id === ref.sourceId)?.sha256,
+          ),
+      );
+      expect(
+        care,
+        `${article.id}: supplemental issue source ${ref.sourceId} needs a recorded care decision`,
+      ).toBeDefined();
+    }
     for (const snapshot of current.sources) {
       const source = sources.find((s) => s.id === snapshot.sourceId)!;
       expect(snapshot.sha256).toBe(source.sha256);

@@ -294,10 +294,11 @@ export const definitionIssues: Issue[] = [
       .filter((f) => f.id !== 'fn-project-request')
       .map((f) => subject(f.id)),
     limitation:
-      'Technisch offen: Project Purpose aus Teilprojekt-PDPs entfernen und Zielstand prüfen (TTT-D-20); zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen.',
+      'Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen.',
     evidence: [
       ...e('TTT', 'Zeilen 7, 11, 21 und 40–41, A:G'),
       ...e('C23', 'Punkte 1, 4 und 5'),
+      ...e('N28', 'Punkt 1 (gemeldete Entfernung und Prüfung)', 'TTT-D-20'),
       ...e('F', 'Klärungsbedarf!A6:D6 und A14:D14', 'R1-OPEN-02 / R1-OPEN-10'),
       ...e('B', '§3.6.4 Tabelle 12'),
       ...e('K', 'Objectives und Organisationslisten: Felder der Objectives-Liste'),

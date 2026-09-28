@@ -1,12 +1,26 @@
-# Produkt-Roadmap bis v1.0
+# Produkt-Roadmap: lokale Wissensbasis bis iPPM Release 4b
 
-Stand: 24.09.2026 · v0.7.1 als Konsolidierung von v0.7; fachliche und praktische Erprobung offen · Aktuelle Produktstrategie
+Stand: 28.09.2026 · Center v0.7.1 mit konsolidiertem Start-Date-/EDC-Pflegefall · Aktuelle Produktstrategie
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
+## Bestätigte Produktvision und aktuelle Priorität
+
+Das Center wird als persönliche, vollständig lokal verfügbare iPPM-Wissensbasis kontinuierlich gepflegt und bis iPPM Release 4b begleitet. Eigene Erkenntnisse, Quellenänderungen und bestätigte Klärungen sollen nachvollziehbar aufgenommen, hinsichtlich ihrer Auswirkungen geprüft und nach einer konkreten Übernahmeentscheidung gezielt eingearbeitet werden. Aufgabenorientiertes Nachschlagen steht im Mittelpunkt; Schulungsunterlagen bleiben eine Nutzung der belegten Wissensbasis.
+
+Center-Versionen v0.x/v1.0 bezeichnen den Entwicklungsstand der Anwendung. iPPM-Releases R1 bis R4b bezeichnen den fachlichen Begleithorizont. Das Ziel bis Release 4b ist keine Zusage vollständiger Inhalte, realisierter Systemfunktionen oder bestätigter Termine. Der vorhandene SB1-Bestand bildet den Ausgangspunkt; die nachfolgenden historischen Abschlüsse bleiben erhalten. Für die nächste Ausbaustufe hat die kontrollierte persönliche Pflege Vorrang vor dem bislang vorgesehenen breiten Trainingspilot.
+
+**Erreichter Stand:** Der [Pflegefall Start Date / EDC](pflegefall-start-date-edc.md) verbindet Aussagen, feste Quellenbelege, betroffene stabile IDs, Ausgangsrevision, Übernahmeentscheidung und Umsetzung. Der Projektstammdatenartikel trägt Revision 3 als reine Belegergänzung. Das Register bleibt redaktionelle Datenhaltung unter `src/data/`; Oberfläche, Suche und v1-Persistenz verwenden weiterhin ihre bestehenden Modelle. Fachstatus und offene Reichweite bleiben erhalten.
+
+**Pflegefortschritt 28.09.2026:** Der [Pflegefall Project Purpose / WBS](pflegefall-project-purpose-wbs.md) übernimmt N28 nach ausdrücklicher redaktioneller Entscheidung. Nur der Teilprojektartikel erhält Revision 3. Umsetzung, Regression und WBS-Freigabe bleiben gemeldet; referenzierte Nachweise, Release und Umgebung fehlen. Der 28.09. ist das Eingangsdatum, kein Systemprüf- oder Freigabedatum. Andere Konfigurationspunkte und WBS-Einschränkungen bleiben erhalten.
+
+**Nächste Ausbaustufe:** Die offenen Belege und die Reichweite des neuen Pflegefalls abgleichen; weitere tatsächliche Erkenntnisse mit demselben Ablauf bearbeiten. Ursprung, Beleg, Release-/Umgebungsbezug und offene Punkte erfassen; direkte Auswirkungen von bloßen Prüftreffern unterscheiden; Vorschlag gegen die aktuelle Inhaltsrevision prüfen; Entscheidung dokumentieren; ausschließlich betroffene Inhalte samt Revision und Regressionen übernehmen. Eine Beobachtung oder technische Prüfung erhöht keinen fachlichen Bestätigungsstatus. Abschlusskriterium ist ein vom Eingang bis zur Übernahme oder begründeten Zurückstellung nachvollziehbarer Fall mit erhaltener Historie und Rückfallmöglichkeit. Dafür jetzt keine neuen Fachinhalte oder generische Pflegeoberfläche ergänzen.
+
+**Weiterer Horizont bis Release 4b:** Den gleichen Pflegeablauf bei belegtem Bedarf auf kommende iPPM-Stände anwenden. R1B/R2 orientieren sich an der vorhandenen Quelle R2P; spätere Stufen R3/R4a/R4b sind bisher nur historischer Planungsrahmen aus H und benötigen aktuelle Belege vor fachlicher Übernahme. Keine ungeprüfte Übertragung von Bedienwegen zwischen Releases. Umfang und Reihenfolge folgen persönlichem Nutzwert und belastbaren Quellen, nicht einer Vollimport- oder Vollständigkeitsquote.
+
 ## Konsolidierter Stand v0.7.1
 
-v0.7.1 übernimmt die bestätigten TtT-Klärungen vom 23.09.2026 und erhält stabile IDs, Quellenhistorie, Links und v1-Persistenz. Sie ist keine neue Produktstufe; als Nächstes wird der begrenzte v0.9-Pilot vorbereitet. Fachliche Materialfreigabe und praktische Erprobung bleiben offen.
+v0.7.1 übernimmt die bestätigten TtT-Klärungen vom 23.09.2026 und erhält stabile IDs, Quellenhistorie, Links und v1-Persistenz. Der konsolidierte Pflegefall ergänzt diesen Entwicklungsstand ohne Versionssprung. Der Pflegeablauf wurde mit N28 bis zur begrenzten redaktionellen Übernahme erprobt; Belegabgleich, fachliche Materialfreigabe und praktische Erprobung bleiben offen.
 
 ### Fachlicher Abgleich vom 23.09.2026
 
@@ -19,11 +33,13 @@ Die [bereinigten Open Points](open-points-readiness.md) sind für den aktuellen 
 - WWS-/WBS-Generator funktioniert; daraus folgt keine Erweiterung des Center-Schulungsumfangs. Hard Links nicht schulen und nicht nutzen.
 - Project Purpose aus Teilprojekt-PDPs entfernen: fachlich entschieden, technische Umsetzung noch offen. Rechte, Bestands-Sites, Performance, Eskalationshistorie/-zugriff und praktische Materialerprobung bleiben zu bearbeiten.
 
-Die Pilotpriorität bleibt bestehen; keine automatische Gesamtfreigabe und keine Ausweitung auf R1B.
+Fortschreibung zu Project Purpose: Die oben dokumentierte offene Umsetzung vom 23.09. wird durch die neue Auftraggebermeldung N28 ergänzt: Entfernung und Zielprüfung ohne Daten-/Formularbeeinträchtigung sind gemeldet, Belegabgleich und genaue Reichweite bleiben offen. Zu TTT-D-30/-31 sind Korrektur, Regression und vollständige WBS-Struktur mit Freigabe ebenfalls gemeldet, die Unterlagen liegen hier nicht vor. Die bereits erfolgte WBS-Klärung wird nicht erneut geschlossen.
+
+Die genannten fachlichen Grenzen bleiben bestehen. Die aktuelle Priorität liegt auf kontrollierter Pflege; die Produktvision erweitert den Begleithorizont, ohne hier neue R1B-Inhalte oder eine Gesamtfreigabe zu erzeugen.
 
 ## Produktziel für v1.0
 
-Das iPPM Knowledge & Training Center wird eine verlässliche, vollständig lokal nutzbare SB1-Arbeitshilfe mit passenden Schulungsmaterialien. Anwender finden zu ihrer Aufgabe und Rolle verständliche Anleitungen, Voraussetzungen, Ergebnisprüfungen und relevante Einschränkungen. Trainer können abgegrenzte Übungen anhand nachvollziehbarer Materialien vorbereiten und durchführen.
+Das iPPM Knowledge & Training Center wird eine verlässliche, persönliche und vollständig lokal nutzbare Wissensbasis mit zunächst einem SB1-Kernumfang und passenden Schulungsmaterialien. Anwender finden zu ihrer Aufgabe und Rolle verständliche Anleitungen, Voraussetzungen, Ergebnisprüfungen und relevante Einschränkungen. Trainer können abgegrenzte Übungen anhand nachvollziehbarer Materialien vorbereiten und durchführen.
 
 v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für einen ausdrücklich definierten Kernumfang. Vollständige operative SB1-Schulungsfähigkeit darf erst beansprucht werden, wenn alle dafür erforderlichen Wege geprüft sind. Vollständige R1-/R1B-Abdeckung und ein Lernmanagementsystem gehören nicht zum Produktversprechen.
 
@@ -89,15 +105,15 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Übergang zu v0.9:** Jeder SB1-Schritt hat eine nachvollziehbare Behandlung: nutzbares Material, klarer Teilumfang oder begründete Lücke. Kritische Konflikte für den vorgesehenen Pilotumfang sind geklärt oder durch eine ausdrückliche Umfangsbegrenzung ausgeschlossen.
 
-### v0.9 – Zusammenhängenden Pilot und Betrieb erproben
+### v0.9 – Kontinuierliche Pflege und lokalen Betrieb erproben
 
-**Ziel und Nutzwert:** Nachweisen, dass Anwender und Trainer das Center zusammenhängend nutzen können und dass Inhalte sowie lokale Auslieferung dauerhaft pflegbar sind.
+**Ziel und Nutzwert:** Zuerst den kontrollierten Pflegeablauf und die persönliche lokale Nutzung nachweisen. Anschließend können Anwender und Trainer den abgegrenzten Bestand zusammenhängend erproben; Inhalte sowie lokale Auslieferung müssen dauerhaft pflegbar bleiben.
 
-**Umfang:** Repräsentative PM-, TM-/ILSM- und Traineraufgaben erproben; PMO-Anlage gesondert prüfen, falls enthalten. Fachliche Prüfung mit Inhaltsrevision, Datum, Gegenstand und Umgebung dokumentieren. Lokalen Start, feste Adresse/Port, Aktualisierung, Rückkehr zur Vorversion und Sicherungsübernahme erproben. Pflegezuständigkeiten tatsächlich benennen und einen einfachen Änderungsablauf festlegen.
+**Umfang:** Den Pflegeablauf vom belegten Eingang über Auswirkungsprüfung und Entscheidung bis zur revisionierten Übernahme erproben. Lokalen Start, feste Adresse/Port, Aktualisierung, Rückkehr zur Vorversion und Sicherungsübernahme prüfen. Tatsächliche Pflegeverantwortung dokumentieren. Repräsentative PM-, TM-/ILSM- und Traineraufgaben anschließend im vorgesehenen Nutzungsumfang erproben; PMO-Anlage gesondert prüfen, falls enthalten. Fachliche Prüfung mit Inhaltsrevision, Datum, Gegenstand und Umgebung dokumentieren.
 
-**Begrenzung:** Funktionsumfang einfrieren; nur für Pilot und Veröffentlichung notwendige Korrekturen vornehmen. Keine Erweiterung zum vollständigen R1-Produkt.
+**Begrenzung:** Technischen Umfang auf Pflege und lokale Nutzbarkeit begrenzen; belegte Inhaltskorrekturen bleiben kontinuierlich möglich. Keine Erweiterung zum vollständigen R1-Produkt oder zu einem CMS.
 
-**Übergang zu v1.0:** Repräsentative Aufgaben werden erfolgreich bearbeitet, kritische Inhaltsfehler sind behoben und Betrieb sowie Pflege funktionieren. Automatisierte Prüfungen bestehen; manuelle Tastatur-, Zoom-, Screenreader- und Druckprüfungen sind für den veröffentlichten Umfang durchgeführt. Notwendige Fortschrittsmigrationen sind getestet.
+**Übergang zu v1.0:** Ein weiterer realer Pflegefall ist vollständig nachvollziehbar bearbeitet; repräsentative Aufgaben werden erfolgreich bearbeitet, kritische Inhaltsfehler sind behoben und lokaler Betrieb sowie Rückfall funktionieren. Automatisierte Prüfungen bestehen; manuelle Tastatur-, Zoom-, Screenreader- und Druckprüfungen sind für den veröffentlichten Umfang durchgeführt. Notwendige Fortschrittsmigrationen sind getestet.
 
 ### v1.0 – Verlässlichen SB1-Kernumfang veröffentlichen
 
@@ -133,4 +149,4 @@ Die breite Integration beginnt nach v0.5, sobald eine gemeinsame Inhaltsvorlage 
 
 ## Aktuelle iPPM-Releaseplanung R1B / R2
 
-Die [Releaseplanung und vollständige Scope-Übernahme](ippm-release-2-scope.md) ergänzen den fachlichen Zielrahmen. Das unveränderte Original liegt unter `sources/iPPM_Releaseplanung_Release-2.docx`, die aktuelle Quelle trägt die ID `R2P`; `H` bleibt historisch. Die Übersicht ist im Center über die Suche „Release 2“ erreichbar. Sie ergänzt die fünfzehn SB1-Entwürfe um einen sechzehnten Quellenentwurf zur Release-Orientierung. R1B umfasst Power-BI-Reporting; R2 umfasst Kalkulation, Ressourcen-/Kostenplanung und SAP-Kopplung sowie die in der Quelle bezeichneten Backlog-Themen. Dies ändert weder die SB1-Prioritäten bis v1.0 noch die Trainingsabdeckung. Umsetzung, Freigabe und Termine werden durch diese Planungsquelle nicht belegt.
+Die [Releaseplanung und vollständige Scope-Übernahme](ippm-release-2-scope.md) ergänzen den fachlichen Zielrahmen. Das unveränderte Original liegt unter `sources/iPPM_Releaseplanung_Release-2.docx`, die aktuelle Quelle trägt die ID `R2P`; `H` bleibt historisch. Die Übersicht ist im Center über die Suche „Release 2“ erreichbar. Sie ergänzt die fünfzehn SB1-Entwürfe um einen sechzehnten Quellenentwurf zur Release-Orientierung. R1B umfasst Power-BI-Reporting; R2 umfasst Kalkulation, Ressourcen-/Kostenplanung und SAP-Kopplung sowie die in der Quelle bezeichneten Backlog-Themen. Die aktuelle Pflegepriorität und der Begleithorizont bis Release 4b stehen oben; die Trainingsabdeckung bleibt unverändert. Umsetzung, Freigabe und Termine werden durch diese Planungsquelle nicht belegt.

@@ -57,6 +57,8 @@ const master = procedure(
   ],
   '§3.6.1 Tabelle 10; §3.1.2',
 );
+// Only the existing Start Date / EDC statements, not the entire procedure, are confirmed by C23.
+master.evidence.push(...e('C23', 'Punkt 1 (nur Start Date / EDC)', 'TTT-D-06'));
 
 const objectives = procedure(
   'procedure-project-objectives',
@@ -150,7 +152,7 @@ const subprojectProcedures: Procedure[] = (['tm', 'ilsm'] as const).flatMap((rol
     fn,
     `PDP ${variant} Scope`,
     [
-      `Öffnen Sie ${variant} Scope. Project Purpose soll aus den Teilprojekt-PDPs entfernt werden und gehört nicht mehr zum Pflegeweg; ein noch sichtbares Feld als ausstehende Konfigurationsänderung melden.`,
+      `Öffnen Sie ${variant} Scope. Project Purpose gehört nicht mehr zum Pflegeweg. Laut Auftraggebermeldung (Eingang 28.09.2026) ist das Feld aus allen betroffenen Teilprojekt-PDPs entfernt; die Prüfung ergab laut Meldung keine Beeinträchtigung bestehender Daten oder Formulare. Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang liegen nicht vor. Ein noch sichtbares Feld als Abweichung zur gemeldeten Konfiguration erfassen.`,
       `Beschreiben Sie Scope und sinnvolle Ausschlüsse unter not in scope. ${system ? 'Grenzen Sie die Systemleistung gegenüber Kundenprojekt und angrenzenden Teilprojekten ab; stimmen Sie Schnittstellen ab.' : 'Ordnen Sie ILS-Leistungen eindeutig zu und grenzen Sie sie gegenüber Kundenprojekt, Systementwicklung und gegebenenfalls Unterauftragnehmern ab.'}`,
       'Referenzieren Sie Base Products. Stimmen Sie die fachlichen Merkmale (Characteristics) gemäß der Einordnung in B §3.7 mit dem Kundenprojekt ab; die konkrete Feldverfügbarkeit ist im Zielstand zu prüfen.',
     ],
@@ -160,6 +162,7 @@ const subprojectProcedures: Procedure[] = (['tm', 'ilsm'] as const).flatMap((rol
     ],
     `§${section}.2; §3.7`,
   );
+  scope.evidence.push(...e('N28', 'Punkt 1 (gemeldete Entfernung und Prüfung)', 'TTT-D-20'));
   const org = procedure(
     `procedure-${key}-organization`,
     `${variant}-Team dokumentieren`,
@@ -330,7 +333,7 @@ const drafts: Draft[] = [
     sections: [
       {
         title: 'Gemeinsamer Ablauf, unterschiedliche Verantwortung',
-        body: 'Wählen Sie den passenden Variantenweg: TM pflegt die Systemleistungen, ILSM die ILS-Leistungen und jeweils die spezifischen Liefergegenstände des Teilprojekts. Die Gesamtprojektliste liegt führend im Contract Execution Project. Scope, not in scope und Base Products bleiben relevant. Project Purpose soll aus den Teilprojekt-PDPs entfernt werden; die technische Umsetzung ist noch offen. SSO ist der zentrale Begriff. Inhalte der System-Specifics und die SSO-Ausgestaltung sind noch festzulegen und gehören nicht zu Release 1 (TTT-D-21/-28).',
+        body: 'Wählen Sie den passenden Variantenweg: TM pflegt die Systemleistungen, ILSM die ILS-Leistungen und jeweils die spezifischen Liefergegenstände des Teilprojekts. Die Gesamtprojektliste liegt führend im Contract Execution Project. Scope, not in scope und Base Products bleiben relevant. Laut Auftraggebermeldung N28 (Eingang 28.09.2026) wurde Project Purpose aus allen betroffenen Teilprojekt-PDPs entfernt und ohne Beeinträchtigung bestehender Daten oder Formulare geprüft. Umsetzung und Prüfung sind gemeldet; Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen. SSO ist der zentrale Begriff. Inhalte der System-Specifics und die SSO-Ausgestaltung sind noch festzulegen und gehören nicht zu Release 1 (TTT-D-21/-28).',
       },
       {
         title: 'Speichern und Ergebnis prüfen',
@@ -438,6 +441,43 @@ for (const article of definitionArticles.filter((a) =>
       {
         sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
         sourceId: 'TTT',
+      },
+    ],
+  });
+}
+
+// Metadata-only revision: preserve the historical source snapshot and all instructional text.
+const masterArticle = definitionArticles.find(
+  (article) => article.id === 'guide-project-master-data',
+)!;
+if (masterArticle.status !== 'demo') {
+  masterArticle.updated = '2026-09-28';
+  masterArticle.revisions.push({
+    number: 3,
+    date: '2026-09-28',
+    note: 'Pflegefall care-start-date-edc: C23 Punkt 1 unmittelbar am Stammdaten-Bedienweg nachgewiesen. Nur Belegzuordnung, keine Änderung fachlicher Aussagen, keine Artikelfreigabe oder praktische Prüfung.',
+    sources: masterArticle.revisions.at(-1)!.sources.map((source) => ({ ...source })),
+  });
+}
+
+// Only the subproject article adopts N28; previous revisions remain immutable.
+const subprojectArticle = definitionArticles.find(
+  (article) => article.id === 'guide-subproject-definition',
+)!;
+if (subprojectArticle.status !== 'demo') {
+  subprojectArticle.updated = '2026-09-28';
+  subprojectArticle.knowledge.evidence.push(
+    ...e('N28', 'Punkt 1 (gemeldete Entfernung und Prüfung)', 'TTT-D-20'),
+  );
+  subprojectArticle.revisions.push({
+    number: 3,
+    date: '2026-09-28',
+    note: 'Pflegefall care-project-purpose-wbs-2026-09-28: Project Purpose gezielt nach N28 aktualisiert. Redaktionelle Übernahme einer Meldung; keine fachliche Bestätigung oder praktische Prüfung. Der 28.09. ist das Eingangsdatum der Meldung.',
+    sources: [
+      ...subprojectArticle.revisions.at(-1)!.sources.map((source) => ({ ...source })),
+      {
+        sourceId: 'N28',
+        sha256: 'F6B881EEF80A4B3A04F32883DBF6B1A8CE86E4511A61D3810659C1BBD128B5F5',
       },
     ],
   });
