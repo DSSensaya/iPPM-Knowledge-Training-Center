@@ -107,6 +107,12 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Übergang zu v0.9:** Jeder SB1-Schritt hat eine nachvollziehbare Behandlung: nutzbares Material, klarer Teilumfang oder begründete Lücke. Kritische Konflikte für den vorgesehenen Pilotumfang sind geklärt oder durch eine ausdrückliche Umfangsbegrenzung ausgeschlossen.
 
+### v0.8 – Vorhandenen Bestand zur Entscheidung erschließen
+
+**Gezielte Erweiterung vom 29.09.2026 auf ausdrücklichen Auftrag:** Die [lokale v0.8-Vorbereitung](v0.8-vorbereitung.md) erschließt sämtliche vorhandenen Prozessnummern, Scope-IDs und Funktionsnachweise sowie bestehende Prozeduren/Use Cases über die vorhandene Prozessansicht und Suche. Nutzbare Inhalte, belegte Teilinhalte und Platzhalter bleiben unterscheidbar; Quellen-, Revisions- und Freigabestatus ändern sich dadurch nicht.
+
+**Abweichung und Begrenzung:** Diese zusätzliche Stufe erweitert die Orientierung über den bisherigen SB1-Ausschnitt hinaus. Die oben beschriebene Pflegepriorität, der begrenzte operative Schulungsumfang und die v0.9-/v1.0-Kriterien bleiben erhalten. Kein Handbuch-Vollimport, keine automatische Anlage einzelner Artikelseiten, kein Abdeckungsdashboard und keine Behauptung vollständiger Schulungsreife. Die Entscheidung über Center v0.8 bleibt bei der Auftraggeberin; dies ist kein Releaseabschluss.
+
 ### v0.9 – Kontinuierliche Pflege und lokalen Betrieb erproben
 
 **Ziel und Nutzwert:** Zuerst den kontrollierten Pflegeablauf und die persönliche lokale Nutzung nachweisen. Anschließend können Anwender und Trainer den abgegrenzten Bestand zusammenhängend erproben; Inhalte sowie lokale Auslieferung müssen dauerhaft pflegbar bleiben.

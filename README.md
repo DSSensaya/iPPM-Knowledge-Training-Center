@@ -89,6 +89,8 @@ Die additive fachliche Struktur liegt in `src/data/domain.ts`, die kuratierten B
 
 ## Prüfen
 
+Die [lokale v0.8-Entscheidungsvorbereitung](docs/v0.8-vorbereitung.md) ergänzt die bestehende Prozessansicht um einen durchsuchbaren Katalog aller 52 Prozessschritte, 31 Scope-IDs, 36 Funktionsnachweise und vorhandenen Arbeitsaufgaben/Use Cases. Beitragskarten und Artikel unterscheiden zusätzlich die redaktionellen Inhaltsstände „Nutzbar“, „Teilweise belegt“ und „Platzhalter“. Die Paketversion bleibt bis zur Release-Entscheidung bei 0.7.1; Quellenstatus und fachliche Freigaben werden nicht angehoben.
+
 ```powershell
 npm.cmd run build
 npm.cmd test

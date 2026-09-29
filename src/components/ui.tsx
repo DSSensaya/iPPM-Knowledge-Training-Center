@@ -1,6 +1,7 @@
 import { ArrowRight, Bookmark, Check, Clock3, Search } from 'lucide-react';
 import { useState } from 'react';
 import type { Article } from '../data/types';
+import ContentReadiness from './ContentReadiness';
 
 const articleStatusLabels: Record<Article['status'], string> = {
   demo: 'Demonstrationsinhalt',
@@ -74,6 +75,7 @@ export function ArticleCard({
         <a href={`#/artikel/${article.id}`}>{article.title}</a>
       </h3>
       <p>{article.summary}</p>
+      <ContentReadiness article={article} compact />
       <p className="small muted">{articleStatusLabels[article.status]}</p>
       <div className="card-bottom">
         <span>{article.kind}</span>

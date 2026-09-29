@@ -1,5 +1,7 @@
 import { ArrowLeft, ArrowRight, Bookmark, Check, Clock3, RotateCcw } from 'lucide-react';
 import { Fragment } from 'react';
+import ContentReadiness from '../components/ContentReadiness';
+import { InventorySearchLink } from '../components/Inventory';
 import { roles, topics, visibleArticles } from '../data/content';
 import type { Role } from '../data/types';
 import { searchArticles } from '../lib/search';
@@ -126,6 +128,7 @@ export function Knowledge({
         description="Die passende Antwort für Ihre nächste Aufgabe. Durchsuchen Sie Anleitungen, Grundlagen und Checklisten."
       />
       <SearchForm key={query} initial={query} params={params} />
+      <InventorySearchLink query={query} />
       <div className="filters">
         <label>
           Thema
@@ -251,6 +254,7 @@ export function ArticlePage({
             {article.topic} / {article.kind}
           </span>
           <h1>{article.title}</h1>
+          <ContentReadiness article={article} />
           <p className="article-lead">
             {ownerFirst
               ? article.knowledge!.procedures.find((p) => p.id === 'procedure-owner-change')!

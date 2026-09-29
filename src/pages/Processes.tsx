@@ -3,6 +3,7 @@ import { PageTitle } from '../components/ui';
 import { issues, processSteps, processViews, roleLabel } from '../data/catalog';
 import { sb1AdditionalHandbookTopics, sb1Coverage } from '../data/sb1-coverage';
 import { sources } from '../data/sources';
+import Inventory from '../components/Inventory';
 
 const sourceLabel = (id: string) => sources.find((source) => source.id === id)?.title ?? id;
 
@@ -14,6 +15,7 @@ export default function Processes() {
         title="Prozesse im Überblick"
         description="Wer macht was – und welches Ergebnis wird weitergegeben? SB1 mit abgegrenzten Bedienentwürfen und Orientierung; offene Fachregeln und Systemnachweise bleiben sichtbar."
       />
+      <Inventory key={window.location.hash} />
       {processViews.map((view) => (
         <section className="process-section" aria-label={view.title} key={view.id}>
           <h2>{view.title}</h2>

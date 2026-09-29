@@ -2,6 +2,14 @@ import type { EvidenceRef, SourceDocument } from './domain';
 
 export const sources: SourceDocument[] = [
   {
+    id: 'P',
+    title: 'Prozessdiagramm Projektabwicklung',
+    filename: 'sources/iPPM_Prozess-Projektabwicklung.vsdx',
+    date: null,
+    status: 'Prozessübersicht; keine Bedien- oder Releasefreigabe',
+    sha256: '0CCFA54F50770F5553944CA9B6CAFB4BCBA6CB1352E57B80AD34F1785F6833E8',
+  },
+  {
     id: 'N28',
     title: 'Gemeldete Erkenntnisse zu Project Purpose und WBS',
     filename: 'sources/Erkenntnisse_ProjectPurpose_WBS_2026-09-28.md',

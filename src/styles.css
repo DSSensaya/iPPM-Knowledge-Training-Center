@@ -1995,3 +1995,34 @@ details > p {
     break-inside: avoid;
   }
 }
+/* Related catalog IDs remain separate, usable link targets on narrow screens. */
+.inventory-relation {
+  display: inline-block;
+  padding: 12px;
+}
+.inventory .filters input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--ink);
+  background: var(--white);
+  color: var(--ink);
+  font-weight: 400;
+}
+.sb1-coverage-list details > summary span {
+  transform: none;
+}
+.inventory .sb1-coverage-list > li > details {
+  padding: 0;
+}
+.inventory .sb1-coverage-list summary {
+  padding: 16px;
+}
+.inventory .sb1-coverage-details {
+  padding: 0 16px 16px;
+}
+.inventory .knowledge-details .knowledge-details {
+  padding: 0;
+}
