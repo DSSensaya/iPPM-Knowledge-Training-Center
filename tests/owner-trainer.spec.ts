@@ -14,11 +14,24 @@ test('PM reaches a complete owner guide before stakeholder, training and evidenc
   const start = jumps.getByRole('button').first();
   await expect(start).toHaveText('Owner-Wechsel: Quick Guide');
   await expect(start).toBeInViewport();
+  await expect(page.locator('.owner-validity')).toHaveText('R1 / SB1 · begrenzter Quellenbezug');
+  for (const id of ['procedure-permissions', 'owner-learning', 'nachweise', 'quellen']) {
+    await expect(page.locator(`#${id}`)).not.toBeVisible();
+  }
+  await expect(page.locator('.source-ref:visible')).toHaveCount(0);
+  await page.screenshot({ path: testInfo.outputPath('owner-first-view.png') });
   await start.focus();
   await page.keyboard.press('Enter');
   const quickGuide = page.locator(`#${ownerProcedureId}`);
   await expect(quickGuide).toBeFocused();
   await expect(quickGuide.getByRole('heading').first()).toBeInViewport();
+  await page.keyboard.press('Tab');
+  const evidenceToggle = quickGuide.locator('.owner-procedure-evidence > summary');
+  await expect(evidenceToggle).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(quickGuide.locator('.source-ref')).toBeVisible();
+  await page.keyboard.press('Space');
+  await expect(quickGuide.locator('.source-ref')).not.toBeVisible();
   const guide = articles.find((article) => article.id === guideId)!;
   const procedure = guide.knowledge!.procedures.find((p) => p.id === ownerProcedureId)!;
   for (const text of [
@@ -31,7 +44,10 @@ test('PM reaches a complete owner guide before stakeholder, training and evidenc
     await expect(quickGuide).toContainText(text);
   }
   await expect(quickGuide.locator('ol.steps > li')).toHaveCount(4);
-  await expect(quickGuide.locator('details, input, textarea, select')).toHaveCount(0);
+  await expect(quickGuide.locator('input, textarea, select, details[open]')).toHaveCount(0);
+  for (const step of await quickGuide.locator('ol.steps > li').all()) {
+    await expect(step).toBeVisible();
+  }
   await expect(quickGuide).toContainText('Bestands-Sites sind nicht pauschal bestätigt');
   await expect(page.locator('.knowledge-procedure').first()).toHaveAttribute(
     'id',
@@ -50,6 +66,8 @@ test('PM reaches a complete owner guide before stakeholder, training and evidenc
   ).toBe(true);
   await expect(page.locator('#owner-learning details[open]')).toHaveCount(0);
   await quickGuide.screenshot({ path: testInfo.outputPath('quick-guide.png') });
+  await jumps.locator('summary').focus();
+  await page.keyboard.press('Enter');
   await jumps.getByRole('button', { name: 'Kritische Einschränkungen', exact: true }).click();
   await expect(page.locator('#einschraenkungen')).toBeFocused();
   await expect(page.locator('#einschraenkungen h3')).toHaveCount(knowledgeFor(guide).issues.length);
@@ -94,6 +112,7 @@ test('owner package is searchable, readable and keyboard reachable with bounded 
     'Quellenbasierter Entwurf · Fachlich nicht freigegeben',
   );
   const toc = page.getByRole('navigation', { name: 'Inhaltsverzeichnis', exact: true });
+  await page.getByText('Inhalt und Artikelangaben', { exact: true }).click();
   for (const [title, expected] of [
     ['Paket und Gültigkeit', 'R1B bis R4b sind nicht nachgewiesen'],
     ['Use Case:', 'B §3.6.7'],
@@ -132,6 +151,7 @@ test('owner package is searchable, readable and keyboard reachable with bounded 
   const source = page
     .locator('#quellen details')
     .filter({ has: page.locator('summary', { hasText: 'B · SB1-Handbuch' }) });
+  await page.getByText('Nachweise und Quellen', { exact: true }).click();
   await source.locator('summary').click();
   await expect(source).toContainText('§3.6.7');
   expect(
@@ -193,6 +213,10 @@ test('trainer can prepare rights and evaluate TM and ILSM separately without cha
   await page.goto(`/#/artikel/${guideId}`);
   const before = await page.evaluate(() => localStorage.getItem('ippm-learning-v1'));
   const trainer = page.locator('.owner-training');
+  await page
+    .locator('.owner-supplement > summary')
+    .filter({ hasText: /^Use Case und Schulung$/ })
+    .click();
   await trainer.locator('summary').click();
   await expect(trainer).toContainText('KP-Übung-01 (fiktiv)');
   await expect(trainer).toContainText('Owner aktuell → geplant');

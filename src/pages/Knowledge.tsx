@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight, Bookmark, Check, Clock3, RotateCcw } from 'lucide-react';
+import { Fragment } from 'react';
 import { roles, topics, visibleArticles } from '../data/content';
 import type { Role } from '../data/types';
 import { searchArticles } from '../lib/search';
@@ -161,6 +162,7 @@ export function ArticlePage({
   const saved = progress.bookmarks.includes(id),
     read = progress.read.includes(id);
   const ownerFirst = id === 'guide-project-permissions';
+  const AsideContainer = ownerFirst ? 'details' : Fragment;
   const relatedGuide = visibleArticles.find(
     (candidate) =>
       article.related.includes(candidate.id) &&
@@ -182,16 +184,25 @@ export function ArticlePage({
             {article.topic} / {article.kind}
           </span>
           <h1>{article.title}</h1>
-          <p className="article-lead">{article.summary}</p>
-          <div className="article-meta">
-            <span>
-              <Clock3 size={16} />
-              {article.minutes} Min. Lesezeit
-            </span>
-            <span>
-              Stand: {new Date(`${article.updated}T12:00:00`).toLocaleDateString('de-DE')}
-            </span>
-          </div>
+          <p className="article-lead">
+            {ownerFirst
+              ? article.knowledge!.procedures.find((p) => p.id === 'procedure-owner-change')!
+                  .trigger
+              : article.summary}
+          </p>
+          {ownerFirst ? (
+            <p className="owner-validity">R1 / SB1 · begrenzter Quellenbezug</p>
+          ) : (
+            <div className="article-meta">
+              <span>
+                <Clock3 size={16} />
+                {article.minutes} Min. Lesezeit
+              </span>
+              <span>
+                Stand: {new Date(`${article.updated}T12:00:00`).toLocaleDateString('de-DE')}
+              </span>
+            </div>
+          )}
           <div className="demo-note">
             {article.status === 'source-draft'
               ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
@@ -200,14 +211,26 @@ export function ArticlePage({
           {article.knowledge ? (
             <>
               <nav className="article-jumps" aria-label="Direkt zu den Abschnitten">
-                <strong>Direkt zu</strong>
+                {!ownerFirst && <strong>Direkt zu</strong>}
                 <div>
-                  {(ownerFirst ? ownerJumps : coreJumps).map(([target, label]) => (
+                  {(ownerFirst ? ownerJumps.slice(0, 1) : coreJumps).map(([target, label]) => (
                     <button key={target} type="button" onClick={() => jumpToSection(target)}>
                       {label}
                     </button>
                   ))}
                 </div>
+                {ownerFirst && (
+                  <details className="knowledge-details owner-more-jumps">
+                    <summary>Weitere Abschnitte</summary>
+                    <div>
+                      {ownerJumps.slice(1).map(([target, label]) => (
+                        <button key={target} type="button" onClick={() => jumpToSection(target)}>
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </details>
+                )}
               </nav>
               {ownerFirst ? (
                 <OwnerChangeArticle article={article} />
@@ -285,88 +308,100 @@ export function ArticlePage({
             <Bookmark size={18} fill={saved ? 'currentColor' : 'none'} />
             {saved ? 'Aus Merkliste entfernen' : 'Beitrag merken'}
           </button>
-          <div className="aside-block">
-            <span className="eyebrow">In diesem Beitrag</span>
-            <nav aria-label="Inhaltsverzeichnis">
-              {article.knowledge &&
-                (ownerFirst
-                  ? [
-                      ...ownerJumps,
-                      ['voraussetzungen', 'Voraussetzungen und vier Leserechte'],
-                      ['bedienweg', 'Owner-Wechsel: Ablauf'],
-                      ['ergebnispruefung', 'Owner-Wechsel: Ergebnisprüfung'],
-                      ...article.sections.map((section, i) => [`abschnitt-${i}`, section.title]),
-                      ['trainerhinweise', 'Für Trainer'],
-                      ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
-                      ['quellen', 'Quellen und Fundstellen'],
-                    ].filter(([target], i, all) => all.findIndex(([id]) => id === target) === i)
-                  : [
-                      ['kurzantwort', 'Kurzantwort'],
-                      ['voraussetzungen', 'Voraussetzungen'],
-                      ['einschraenkungen', 'Einschränkungen'],
-                      ['bedienweg', 'Bedienweg'],
-                      ...article.knowledge.procedures.map((p) => [p.id, p.title]),
-                      ...article.sections.map((section, i) => [
-                        `abschnitt-${i}`,
-                        `${String(i + 1).padStart(2, '0')} ${section.title}`,
-                      ]),
-                      ['ergebnispruefung', 'Ergebnisprüfung'],
-                      ['nachweise', 'Nachweise und Geltungsbereich'],
-                      ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
-                      ['trainerhinweise', 'Für Trainer'],
-                      ['quellen', 'Quellen und Fundstellen'],
-                    ]
-                ).map(([target, label]) => (
-                  <button key={target} onClick={() => jumpToSection(target)}>
-                    {label}
-                  </button>
-                ))}
-              {!article.knowledge &&
-                article.sections.map((s, i) => (
-                  <button
-                    key={s.title}
-                    onClick={() =>
-                      document
-                        .getElementById(`abschnitt-${i}`)
-                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    }
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                    <span>{s.title}</span>
-                  </button>
-                ))}
-            </nav>
-          </div>
-          <div className="aside-block">
-            <span className="eyebrow">Für wen?</span>
-            <p>{article.roles.map(roleLabel).join(', ')}</p>
-            <span className="eyebrow">Redaktion</span>
-            <p>
-              {article.status === 'source-draft'
-                ? 'Quellenbasierter Center-Entwurf'
-                : 'Fachlich geprüfter Center-Inhalt'}
-              <br />
-              <span className="muted">
+          <AsideContainer {...(ownerFirst ? { className: 'knowledge-details owner-index' } : {})}>
+            {ownerFirst && (
+              <>
+                <summary>Inhalt und Artikelangaben</summary>
+                <p>{article.summary}</p>
+                <p className="small">
+                  {article.minutes} Min. Lesezeit · Stand:{' '}
+                  {new Date(`${article.updated}T12:00:00`).toLocaleDateString('de-DE')}
+                </p>
+              </>
+            )}
+            <div className="aside-block">
+              <span className="eyebrow">In diesem Beitrag</span>
+              <nav aria-label="Inhaltsverzeichnis">
+                {article.knowledge &&
+                  (ownerFirst
+                    ? [
+                        ...ownerJumps,
+                        ['voraussetzungen', 'Voraussetzungen und vier Leserechte'],
+                        ['bedienweg', 'Owner-Wechsel: Ablauf'],
+                        ['ergebnispruefung', 'Owner-Wechsel: Ergebnisprüfung'],
+                        ...article.sections.map((section, i) => [`abschnitt-${i}`, section.title]),
+                        ['trainerhinweise', 'Für Trainer'],
+                        ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                        ['quellen', 'Quellen und Fundstellen'],
+                      ].filter(([target], i, all) => all.findIndex(([id]) => id === target) === i)
+                    : [
+                        ['kurzantwort', 'Kurzantwort'],
+                        ['voraussetzungen', 'Voraussetzungen'],
+                        ['einschraenkungen', 'Einschränkungen'],
+                        ['bedienweg', 'Bedienweg'],
+                        ...article.knowledge.procedures.map((p) => [p.id, p.title]),
+                        ...article.sections.map((section, i) => [
+                          `abschnitt-${i}`,
+                          `${String(i + 1).padStart(2, '0')} ${section.title}`,
+                        ]),
+                        ['ergebnispruefung', 'Ergebnisprüfung'],
+                        ['nachweise', 'Nachweise und Geltungsbereich'],
+                        ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                        ['trainerhinweise', 'Für Trainer'],
+                        ['quellen', 'Quellen und Fundstellen'],
+                      ]
+                  ).map(([target, label]) => (
+                    <button key={target} onClick={() => jumpToSection(target)}>
+                      {label}
+                    </button>
+                  ))}
+                {!article.knowledge &&
+                  article.sections.map((s, i) => (
+                    <button
+                      key={s.title}
+                      onClick={() =>
+                        document
+                          .getElementById(`abschnitt-${i}`)
+                          ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                      <span>{s.title}</span>
+                    </button>
+                  ))}
+              </nav>
+            </div>
+            <div className="aside-block">
+              <span className="eyebrow">Für wen?</span>
+              <p>{article.roles.map(roleLabel).join(', ')}</p>
+              <span className="eyebrow">Redaktion</span>
+              <p>
                 {article.status === 'source-draft'
-                  ? `Revision ${article.revisions.at(-1)?.number} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
-                  : `Revision ${article.revisions.at(-1)?.number} · Fachlicher Prüfbeleg: ${article.reviews.at(-1)?.record}`}
-              </span>
-            </p>
-          </div>
-          <div className="aside-block">
-            <span className="eyebrow">Passend dazu</span>
-            {article.related
-              .filter((relatedId) => visibleArticles.some((a) => a.id === relatedId))
-              .map((relatedId) => {
-                const related = visibleArticles.find((a) => a.id === relatedId)!;
-                return (
-                  <a className="related-link" href={`#/artikel/${relatedId}`} key={relatedId}>
-                    {related.title}
-                    <ArrowRight size={16} />
-                  </a>
-                );
-              })}
-          </div>
+                  ? 'Quellenbasierter Center-Entwurf'
+                  : 'Fachlich geprüfter Center-Inhalt'}
+                <br />
+                <span className="muted">
+                  {article.status === 'source-draft'
+                    ? `Revision ${article.revisions.at(-1)?.number} · Prüfbeleg für eine fachliche Freigabe liegt nicht vor`
+                    : `Revision ${article.revisions.at(-1)?.number} · Fachlicher Prüfbeleg: ${article.reviews.at(-1)?.record}`}
+                </span>
+              </p>
+            </div>
+            <div className="aside-block">
+              <span className="eyebrow">Passend dazu</span>
+              {article.related
+                .filter((relatedId) => visibleArticles.some((a) => a.id === relatedId))
+                .map((relatedId) => {
+                  const related = visibleArticles.find((a) => a.id === relatedId)!;
+                  return (
+                    <a className="related-link" href={`#/artikel/${relatedId}`} key={relatedId}>
+                      {related.title}
+                      <ArrowRight size={16} />
+                    </a>
+                  );
+                })}
+            </div>
+          </AsideContainer>
         </aside>
       </div>
     </>

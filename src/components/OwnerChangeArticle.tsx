@@ -17,10 +17,12 @@ function CompleteTask({ procedure, primary = false }: { procedure: Procedure; pr
   return (
     <section id={procedure.id} tabIndex={-1} className="knowledge-procedure owner-task">
       <h2>{procedure.title}</h2>
-      <p>
-        <strong>Auslöser: </strong>
-        {procedure.trigger}
-      </p>
+      {!primary && (
+        <p>
+          <strong>Auslöser: </strong>
+          {procedure.trigger}
+        </p>
+      )}
       {primary && <p className="owner-action-note">{ownerReading.beforeStart}</p>}
       <section id={primary ? 'voraussetzungen' : undefined} tabIndex={-1}>
         <h3>Voraussetzungen</h3>
@@ -50,15 +52,18 @@ function CompleteTask({ procedure, primary = false }: { procedure: Procedure; pr
             </li>
           ))}
         </ol>
-        <Evidence refs={procedure.evidence} />
-        {procedure.relatedArticleId && (
-          <p className="small">
-            Bei Bedarf:{' '}
-            <a href={`#/artikel/${procedure.relatedArticleId}`}>
-              Speichern, Veröffentlichen und Einchecken im passenden Kontext
-            </a>
-          </p>
-        )}
+        <details className="knowledge-details owner-procedure-evidence">
+          <summary>Beleg und ergänzende Anleitung</summary>
+          <Evidence refs={procedure.evidence} />
+          {procedure.relatedArticleId && (
+            <p className="small">
+              Bei Bedarf:{' '}
+              <a href={`#/artikel/${procedure.relatedArticleId}`}>
+                Speichern, Veröffentlichen und Einchecken im passenden Kontext
+              </a>
+            </p>
+          )}
+        </details>
       </section>
       <section id={primary ? 'ergebnispruefung' : undefined} tabIndex={-1}>
         <h3>Ergebnisprüfung</h3>
@@ -70,14 +75,14 @@ function CompleteTask({ procedure, primary = false }: { procedure: Procedure; pr
             <li key={text}>{text}</li>
           ))}
         </ul>
-        <p>
-          <strong>Prüffragen</strong>
-        </p>
-        <ul>
-          {procedure.checkQuestions.map((text) => (
-            <li key={text}>{text}</li>
-          ))}
-        </ul>
+        <details className="knowledge-details">
+          <summary>Prüffragen im Detail</summary>
+          <ul>
+            {procedure.checkQuestions.map((text) => (
+              <li key={text}>{text}</li>
+            ))}
+          </ul>
+        </details>
         <p className="small">
           Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren
           Konten.
@@ -107,33 +112,45 @@ export default function OwnerChangeArticle({ article }: { article: Article }) {
   }
   return (
     <>
-      <section id="kurzantwort" className="takeaway" tabIndex={-1}>
-        <h2>Kurzantwort für PM</h2>
-        <p>{article.takeaway}</p>
-      </section>
       <CompleteTask
         procedure={procedures.find((p) => p.id === 'procedure-owner-change')!}
         primary
       />
-      {section(5)}
-      <CompleteTask procedure={procedures.find((p) => p.id === 'procedure-permissions')!} />
-      {section(6)}
-      {section(7)}
+      <details className="knowledge-details owner-supplement">
+        <summary>Stakeholder berechtigen</summary>
+        <CompleteTask procedure={procedures.find((p) => p.id === 'procedure-permissions')!} />
+        {section(6)}
+        {section(7)}
+      </details>
       <details className="knowledge-details">
         <summary>Kritische Einschränkungen im Detail</summary>
         <KnowledgeIssues article={article} />
       </details>
-      <section id="owner-learning" className="owner-learning" tabIndex={-1}>
-        <h2>Vertiefen und schulen</h2>
-        <p>{ownerReading.learningIntro}</p>
-        {section(1, 'Use Case lesen')}
-        {section(2, 'Schulung vorbereiten')}
-        {section(3, 'Leseübung öffnen')}
-        {section(4, 'Musterantwort öffnen')}
-        <KnowledgeTrainer article={article} />
-      </section>
-      {section(0)}
-      <KnowledgeEvidence article={article} includeTrainer={false} />
+      <details className="knowledge-details owner-supplement">
+        <summary>Use Case und Schulung</summary>
+        <section id="owner-learning" className="owner-learning" tabIndex={-1}>
+          <h2>Vertiefen und schulen</h2>
+          <p>{ownerReading.learningIntro}</p>
+          {section(1, 'Use Case lesen')}
+          {section(2, 'Schulung vorbereiten')}
+          {section(3, 'Leseübung öffnen')}
+          {section(4, 'Musterantwort öffnen')}
+          <KnowledgeTrainer article={article} />
+        </section>
+      </details>
+      <details className="knowledge-details owner-supplement">
+        <summary>Arbeitsplatz-Tipp für Dokumentation und Schulung</summary>
+        {section(5)}
+      </details>
+      <details className="knowledge-details owner-supplement">
+        <summary>Nachweise und Quellen</summary>
+        <section id="kurzantwort" tabIndex={-1}>
+          <h2>Kurzantwort für PM</h2>
+          <p>{article.takeaway}</p>
+        </section>
+        {section(0)}
+        <KnowledgeEvidence article={article} includeTrainer={false} />
+      </details>
     </>
   );
 }

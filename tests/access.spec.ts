@@ -25,6 +25,7 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
     .getByRole('link')
     .click();
   await expect(page.locator('.demo-note')).toContainText('Quellenbasierter Entwurf');
+  await page.getByText('Weitere Abschnitte', { exact: true }).click();
   await page
     .getByRole('navigation', { name: 'Direkt zu den Abschnitten' })
     .getByRole('button', { name: 'Kritische Einschränkungen', exact: true })
@@ -43,6 +44,7 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
   const training = page
     .locator('summary')
     .filter({ hasText: 'SB1-Zuordnung und abweichende Schulungswege' });
+  await page.getByText('Nachweise und Quellen', { exact: true }).click();
   await training.focus();
   await page.keyboard.press('Enter');
   await expect(training.locator('..')).toContainText('Build Team wird in SB1 geschult');
@@ -55,6 +57,10 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
     .click();
   await expect(page.locator('#nachweise')).toContainText('Historischer Zielrahmen');
   await expect(page.locator('#nachweise')).toContainText('R1-23');
+  await page
+    .locator('.owner-supplement > summary')
+    .filter({ hasText: /^Use Case und Schulung$/ })
+    .click();
   await page.getByText('Lernziel, Voraussetzungen und Übungsvorschlag', { exact: true }).click();
   await expect(page.locator('#trainerhinweise')).toContainText('kein Schulungsnachweis');
   await page.locator('summary').filter({ hasText: 'B · SB1-Handbuch' }).click();

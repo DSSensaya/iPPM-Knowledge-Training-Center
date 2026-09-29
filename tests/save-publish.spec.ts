@@ -103,6 +103,10 @@ test('crosscut article is searchable and linked from both real guides', async ({
     { id: guideIds[1], procedureId: 'procedure-payment-milestones' },
   ]) {
     await page.goto(`/#/artikel/${id}`);
+    if (id === 'guide-project-permissions') {
+      await page.getByText('Inhalt und Artikelangaben', { exact: true }).click();
+      await page.getByText('Beleg und ergänzende Anleitung', { exact: true }).first().click();
+    }
     const related = page.locator('.article-aside').getByRole('link', { name: articleTitle });
     await expect(related).toHaveAttribute('href', `#/artikel/${articleId}`);
     const contextual = page.locator(`#${procedureId}`).getByRole('link', { name: articleTitle });

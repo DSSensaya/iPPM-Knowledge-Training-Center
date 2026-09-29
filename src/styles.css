@@ -812,7 +812,7 @@ select {
 .article-jumps button:hover {
   background: var(--hover);
 }
-.owner-first .article-jumps button:first-child {
+.owner-first .article-jumps > div > button:first-child {
   background: var(--ink);
   color: var(--white);
 }
@@ -825,6 +825,58 @@ select {
 }
 .owner-first .article-aside {
   position: static;
+}
+.owner-first .article-content h1 {
+  font-size: 32px;
+  margin: 12px 0 16px;
+}
+.owner-first .article-lead {
+  font-size: 16px;
+}
+.owner-validity {
+  margin: 12px 0;
+  font-weight: 700;
+}
+.owner-first .article-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 8px 16px;
+  padding: 0;
+  background: var(--white);
+}
+.owner-first .article-jumps > div {
+  display: block;
+}
+.owner-more-jumps > summary {
+  min-height: 44px;
+  padding: 8px 0;
+}
+.owner-first .owner-more-jumps {
+  margin: 0;
+}
+.owner-more-jumps > div {
+  display: grid;
+  gap: 4px;
+}
+.owner-first .owner-task li {
+  margin-bottom: 8px;
+}
+.owner-first .owner-task .steps li {
+  margin-bottom: 24px;
+}
+.owner-first .owner-task .steps li::marker {
+  font-size: 20px;
+  font-weight: 700;
+}
+.owner-first .owner-task #ergebnispruefung > ul li {
+  margin-bottom: 4px;
+}
+.owner-first .owner-index .aside-block {
+  margin-top: 24px;
+}
+.owner-first .owner-supplement > section {
+  margin: 24px 0;
 }
 .article-content section {
   margin: 40px 0;

@@ -106,14 +106,7 @@ test('real articles expose the reading order and early keyboard jump targets', a
       .evaluateAll((nodes) => nodes.map((node) => node.id));
     expect(sectionIds.slice(0, 6)).toEqual(
       id === 'guide-project-permissions'
-        ? [
-            'kurzantwort',
-            'procedure-owner-change',
-            'abschnitt-5',
-            'procedure-permissions',
-            'abschnitt-6',
-            'abschnitt-7',
-          ]
+        ? ['procedure-owner-change']
         : [
             'kurzantwort',
             'voraussetzungen',
@@ -134,6 +127,7 @@ test('real articles expose the reading order and early keyboard jump targets', a
       await expect(page.locator(`#${preservedId}`)).toHaveCount(1);
     }
     const jumps = page.getByRole('navigation', { name: 'Direkt zu den Abschnitten' });
+    if (id === 'guide-project-permissions') await jumps.locator('summary').click();
     await expect(jumps.getByRole('button')).toHaveCount(6);
     expect(
       await page.evaluate(() => {
