@@ -6,6 +6,67 @@ import { knowledgeFor } from '../src/lib/knowledge';
 const guideId = 'guide-project-permissions';
 const ownerProcedureId = 'procedure-owner-change';
 
+test('PM reaches a complete owner guide before stakeholder, training and evidence details', async ({
+  page,
+}, testInfo) => {
+  await page.goto(`/#/artikel/${guideId}`);
+  const jumps = page.getByRole('navigation', { name: 'Direkt zu den Abschnitten' });
+  const start = jumps.getByRole('button').first();
+  await expect(start).toHaveText('Owner-Wechsel: Quick Guide');
+  await expect(start).toBeInViewport();
+  await start.focus();
+  await page.keyboard.press('Enter');
+  const quickGuide = page.locator(`#${ownerProcedureId}`);
+  await expect(quickGuide).toBeFocused();
+  await expect(quickGuide.getByRole('heading').first()).toBeInViewport();
+  const guide = articles.find((article) => article.id === guideId)!;
+  const procedure = guide.knowledge!.procedures.find((p) => p.id === ownerProcedureId)!;
+  for (const text of [
+    ...procedure.prerequisites,
+    ...procedure.requiredRights!,
+    ...procedure.actions.map((a) => a.text),
+    ...procedure.expectedResults,
+    ...procedure.checkQuestions,
+  ]) {
+    await expect(quickGuide).toContainText(text);
+  }
+  await expect(quickGuide.locator('ol.steps > li')).toHaveCount(4);
+  await expect(quickGuide.locator('details, input, textarea, select')).toHaveCount(0);
+  await expect(quickGuide).toContainText('Bestands-Sites sind nicht pauschal bestätigt');
+  await expect(page.locator('.knowledge-procedure').first()).toHaveAttribute(
+    'id',
+    ownerProcedureId,
+  );
+  expect(
+    await page.evaluate(() => {
+      const end = document.querySelector('#ergebnispruefung')!;
+      return ['procedure-permissions', 'owner-learning', 'nachweise'].every((id) =>
+        Boolean(
+          end.compareDocumentPosition(document.getElementById(id)!) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+        ),
+      );
+    }),
+  ).toBe(true);
+  await expect(page.locator('#owner-learning details[open]')).toHaveCount(0);
+  await quickGuide.screenshot({ path: testInfo.outputPath('quick-guide.png') });
+  await jumps.getByRole('button', { name: 'Kritische Einschränkungen', exact: true }).click();
+  await expect(page.locator('#einschraenkungen')).toBeFocused();
+  await expect(page.locator('#einschraenkungen h3')).toHaveCount(knowledgeFor(guide).issues.length);
+  await expect(page.locator('#einschraenkungen h3').first()).toBeVisible();
+  await jumps.getByRole('button', { name: 'Nachweise', exact: true }).click();
+  await page.getByText('Technischer Nachweis, TTT und Beschreibungsstand', { exact: true }).click();
+  const assessments = page
+    .locator('#nachweise details')
+    .filter({ hasText: 'Technischer Nachweis, TTT und Beschreibungsstand' });
+  await expect(assessments.locator('li')).toHaveCount(knowledgeFor(guide).assessments.length);
+  for (const item of await assessments.locator('li > strong').allTextContents()) {
+    expect(item.trim()).toMatch(/^\S.+ · .+: \S/);
+  }
+  await expect(page.locator('#fachlicher-kontext')).toContainText('R1-23');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
 test('owner package is searchable, readable and keyboard reachable with bounded evidence', async ({
   page,
 }, testInfo) => {
@@ -39,7 +100,7 @@ test('owner package is searchable, readable and keyboard reachable with bounded 
     ['Schulung und Übung:', 'Didaktischer Vorschlag'],
     ['Übung ohne System:', 'kein nachgewiesener Systemzugriff'],
     ['Lernkontrolle:', 'ist das erwartete Ergebnis noch nicht bestätigt'],
-    ['Arbeitsplatz-Tipp:', 'Empfehlung für die persönliche Arbeitsweise'],
+    ['Arbeitsplatz-Tipp', 'Empfehlung für die persönliche Arbeitsweise'],
   ]) {
     await toc.getByRole('button', { name: new RegExp(title) }).focus();
     await page.keyboard.press('Enter');
@@ -86,7 +147,7 @@ test('owner trainer package uses one existing procedure and keeps both fictional
 
   expect(guide.status).toBe('source-draft');
   expect(guide.reviews).toEqual([]);
-  expect(guide.revisions.map((revision) => revision.number)).toEqual([1, 2, 3, 4]);
+  expect(guide.revisions.map((revision) => revision.number)).toEqual([1, 2, 3, 4, 5]);
   expect(plan.procedureId).toBe(owner.id);
   expect(
     guide.knowledge!.procedures.filter((procedure) => procedure.id === ownerProcedureId),

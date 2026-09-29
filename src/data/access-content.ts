@@ -218,7 +218,7 @@ export const accessArticles: Article[] = [
     reviews: [],
     title: 'Zugriffsrechte festlegen und Owner wechseln',
     summary:
-      'Ein Teilprojekt an TM oder ILSM übergeben und den PM-Lesezugriff erhalten: Quick Guide, Use Case, Übung und Arbeitsplatz-Tipp zum Owner-Wechsel. Zusätzlich: Stakeholder gezielt berechtigen.',
+      'Für PM: Ein Teilprojekt an TM oder ILSM übergeben und den eigenen Lesezugriff erhalten. Der vollständige Quick Guide steht zuerst; Stakeholder-Berechtigung und Schulungsmaterial folgen separat.',
     topic: 'Team & Zugriff',
     roles: ['pm', 'tm', 'ilsm', 'pmo'],
     kind: 'Anleitung',
@@ -246,8 +246,8 @@ export const accessArticles: Article[] = [
         body: 'Musterantwort zur Leseübung: Zuerst die vier im Quick Guide genannten PM-Leserechte über Project Permissions sichern; dann auf System Overview den TM beziehungsweise auf ILS Overview den ILSM als Owner eintragen, speichern und mit Check-in abschließen. Teilprojektleiter informieren und die Zuordnung in Subprojects dokumentieren. Beide Rollen müssen die vorgesehenen Inhalte öffnen können; Owner und Subprojects müssen übereinstimmen (B §3.6.7; C23 Punkt 10). Fehlt dem PM der Site-Zugriff, ist das erwartete Ergebnis noch nicht bestätigt. Ein korrekter Owner-Eintrag ersetzt die Zugriffsprüfung nicht. F, R1 Funktionsmatrix!A11:J11 und A13:J13, begrenzt den Nachweis; eine konkrete Reparatur oder pauschale Vergabe zusätzlicher Rechte lässt sich daraus nicht ableiten. Benötigt werden die Prüfung der wirksamen Konten-/Site-Rechte in der Zielumgebung und ein Nachweis für deren genauen Systemstand.',
       },
       {
-        title: 'Arbeitsplatz-Tipp: Übergabe mit zwei Prüfungen abschließen',
-        body: 'Empfehlung für die persönliche Arbeitsweise, keine verbindliche Unternehmensvorgabe: Merken Sie sich diesen Beitrag und halten Sie bei der Übergabe zwei getrennte Prüfpunkte bereit: „PM kann weiter lesen“ und „neuer Owner kann sein Teilprojekt öffnen“. Vergleichen Sie danach Owner mit Subprojects. Die Empfehlung nutzt die Ergebniskriterien aus B §3.6.7 und die Reihenfolge aus C23 Punkt 10. Reale Konten, Projektdaten und Zugriffsbeobachtungen gehören nicht in Merkliste oder Lernfortschritt des Centers. Eine Lesemarkierung bedeutet nur, dass Sie den Beitrag gelesen haben.',
+        title: 'Arbeitsplatz-Tipp: Dokumentation und Schulung aus demselben Stand vorbereiten',
+        body: 'Empfehlung für die persönliche Arbeitsweise, keine verbindliche Unternehmensvorgabe: Nutzen Sie für spätere Dokumentation und Schulung denselben Quick Guide dieses Beitrags als Ausgangspunkt. Notieren Sie in Ihrem Arbeitsdokument Artikel-ID, Inhaltsrevision, Quellfundstelle und vorgesehenen Release-/Umgebungsbezug. Halten Sie „belegter Ablauf“, „didaktisches Beispiel“ und „offener Nachweis“ getrennt. Für die Übung übernehmen Sie die getrennten Prüfpunkte „PM kann weiter lesen“, „neuer Owner kann sein Teilprojekt öffnen“ und den Abgleich von Owner mit Subprojects (B §3.6.7; Reihenfolge C23 Punkt 10). Prüfen Sie vor Wiederverwendung, ob Stand und Grenzen noch passen. Reale Konten, Projektdaten und Zugriffsbeobachtungen gehören nicht in Merkliste oder Lernfortschritt des Centers. Eine Lesemarkierung ist kein Schulungsnachweis.',
       },
       {
         title: 'Den passenden Zugriffsweg wählen',
@@ -336,6 +336,13 @@ for (const article of accessArticles.filter((a) =>
   });
 }
 
+export const ownerReading = {
+  beforeStart:
+    'Vor dem Start: Eigenzugriff vor dem Owner-Wechsel sichern. Wirksame Konten- und Project-Site-Rechte in Ihrer Zielumgebung prüfen; die vollständige Rechtematrix und Bestands-Sites sind nicht pauschal bestätigt. Belegt ist der begrenzte R1-/SB1-Weg; eine Übertragung auf spätere Releases ist offen.',
+  learningIntro:
+    'Optional zur Vorbereitung von Dokumentation und Schulung. Der Quick Guide ist oberhalb vollständig lesbar. Use Case, Leseübung, Musterantwort und Trainerpaket öffnen Sie hier getrennt nach Bedarf.',
+};
+
 // Consolidate the existing package without changing its IDs or upgrading its source status.
 const ownerGuide = accessArticles.find((article) => article.id === 'guide-project-permissions')!;
 if (ownerGuide.status !== 'demo') {
@@ -344,6 +351,12 @@ if (ownerGuide.status !== 'demo') {
     number: 4,
     date: '2026-09-29',
     note: 'Bestehenden Owner-Wechsel als lesbares Paket aus Quick Guide, Use Case, didaktischer Leseübung und Arbeitsplatz-Empfehlung konsolidiert; keine neue Release- oder fachliche Freigabe.',
+    sources: ownerGuide.revisions.at(-1)!.sources.map((source) => ({ ...source })),
+  });
+  ownerGuide.revisions.push({
+    number: 5,
+    date: '2026-09-29',
+    note: 'Nutzerführung: Owner-Wechsel als erste vollständige Aufgabe, Schulung und Nachweise getrennt; Arbeitsplatz-Empfehlung für spätere Dokumentations- und Schulungsarbeit geschärft. Bedienhandlungen, Quellen und fachliche Grenzen unverändert.',
     sources: ownerGuide.revisions.at(-1)!.sources.map((source) => ({ ...source })),
   });
 }

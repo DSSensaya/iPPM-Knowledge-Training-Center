@@ -812,6 +812,20 @@ select {
 .article-jumps button:hover {
   background: var(--hover);
 }
+.owner-first .article-jumps button:first-child {
+  background: var(--ink);
+  color: var(--white);
+}
+.owner-first .owner-task > section {
+  margin: 24px 0;
+}
+.owner-action-note {
+  padding: 16px;
+  background: var(--base);
+}
+.owner-first .article-aside {
+  position: static;
+}
 .article-content section {
   margin: 40px 0;
   scroll-margin-top: 24px;

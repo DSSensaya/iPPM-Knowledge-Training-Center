@@ -12,7 +12,7 @@ import { sources } from '../data/sources';
 import { visibleArticles } from '../data/content';
 import { articleEvidence, knowledgeFor } from '../lib/knowledge';
 
-function Evidence({ refs }: { refs: EvidenceRef[] }) {
+export function Evidence({ refs }: { refs: EvidenceRef[] }) {
   return (
     <p className="small source-ref">
       {refs
@@ -392,10 +392,43 @@ function OwnerChangeTrainer({
   );
 }
 
-export function KnowledgeEvidence({ article }: { article: Article }) {
+export function KnowledgeTrainer({ article }: { article: Article }) {
+  const trainer = article.knowledge!.trainer;
+  return (
+    <section id="trainerhinweise" tabIndex={-1}>
+      <h2>Für die Schulung vorbereiten</h2>
+      <details className="knowledge-details">
+        <summary>Lernziel, Voraussetzungen und Übungsvorschlag</summary>
+        <p>
+          <strong>Lernziel: </strong>
+          {trainer.objective}
+        </p>
+        <ul>
+          {trainer.preparation.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
+        </ul>
+        <p>{trainer.exercise}</p>
+        <p>
+          <strong>Erwartetes Übungsergebnis: </strong>
+          {trainer.expectedResult}
+        </p>
+        <p>{trainer.limitation}</p>
+      </details>
+      {trainer.ownerChange && <OwnerChangeTrainer article={article} plan={trainer.ownerChange} />}
+    </section>
+  );
+}
+
+export function KnowledgeEvidence({
+  article,
+  includeTrainer = true,
+}: {
+  article: Article;
+  includeTrainer?: boolean;
+}) {
   const data = knowledgeFor(article);
   const refs = articleEvidence(article);
-  const trainer = article.knowledge!.trainer;
   return (
     <>
       <section id="nachweise" tabIndex={-1}>
@@ -466,28 +499,7 @@ export function KnowledgeEvidence({ article }: { article: Article }) {
           <p>Historische Planung ersetzt weder aktuellen Scope noch Schulungsnachweis.</p>
         </details>
       </section>
-      <section id="trainerhinweise" tabIndex={-1}>
-        <h2>Für die Schulung vorbereiten</h2>
-        <details className="knowledge-details">
-          <summary>Lernziel, Voraussetzungen und Übungsvorschlag</summary>
-          <p>
-            <strong>Lernziel: </strong>
-            {trainer.objective}
-          </p>
-          <ul>
-            {trainer.preparation.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
-          </ul>
-          <p>{trainer.exercise}</p>
-          <p>
-            <strong>Erwartetes Übungsergebnis: </strong>
-            {trainer.expectedResult}
-          </p>
-          <p>{trainer.limitation}</p>
-        </details>
-        {trainer.ownerChange && <OwnerChangeTrainer article={article} plan={trainer.ownerChange} />}
-      </section>
+      {includeTrainer && <KnowledgeTrainer article={article} />}
       <section id="quellen" tabIndex={-1}>
         <h2>Quellen und Fundstellen</h2>
         <p>

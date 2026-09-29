@@ -5,6 +5,7 @@ import { searchArticles } from '../lib/search';
 import type { Progress } from '../lib/storage';
 import { ArticleCard, PageTitle, SearchForm } from '../components/ui';
 import { roleLabel } from '../data/catalog';
+import OwnerChangeArticle, { ownerJumps } from '../components/OwnerChangeArticle';
 import {
   KnowledgeEvidence,
   KnowledgeIssues,
@@ -24,6 +25,14 @@ const coreJumps = [
 
 function jumpToSection(id: string) {
   const section = document.getElementById(id);
+  // Preserve deep section jumps when supplemental reading is collapsed.
+  for (let parent = section?.parentElement; parent; parent = parent.parentElement) {
+    if (parent instanceof HTMLDetailsElement) parent.open = true;
+  }
+  const content = section?.querySelector<HTMLDetailsElement>(
+    ':scope > details[data-section-content]',
+  );
+  if (content) content.open = true;
   section?.focus({ preventScroll: true });
   section?.scrollIntoView({ block: 'start' });
 }
@@ -151,6 +160,7 @@ export function ArticlePage({
     );
   const saved = progress.bookmarks.includes(id),
     read = progress.read.includes(id);
+  const ownerFirst = id === 'guide-project-permissions';
   const relatedGuide = visibleArticles.find(
     (candidate) =>
       article.related.includes(candidate.id) &&
@@ -166,7 +176,7 @@ export function ArticlePage({
         <ArrowLeft size={16} />
         Zur Wissensbasis
       </a>
-      <div className="article-layout">
+      <div className={`article-layout${ownerFirst ? ' owner-first' : ''}`}>
         <article className="article-content">
           <span className="eyebrow">
             {article.topic} / {article.kind}
@@ -192,38 +202,44 @@ export function ArticlePage({
               <nav className="article-jumps" aria-label="Direkt zu den Abschnitten">
                 <strong>Direkt zu</strong>
                 <div>
-                  {coreJumps.map(([target, label]) => (
+                  {(ownerFirst ? ownerJumps : coreJumps).map(([target, label]) => (
                     <button key={target} type="button" onClick={() => jumpToSection(target)}>
                       {label}
                     </button>
                   ))}
                 </div>
               </nav>
-              <section id="kurzantwort" className="takeaway" tabIndex={-1}>
-                <h2>Kurzantwort</h2>
-                <p>{article.takeaway}</p>
-              </section>
-              <KnowledgePrerequisites article={article} guide={relatedGuide} />
-              <KnowledgeIssues article={article} />
-              <section id="bedienweg" tabIndex={-1}>
-                <h2>Bedienweg</h2>
-                <KnowledgeProcedures article={article} guide={relatedGuide} />
-                {article.sections.map((section, i) => (
-                  <section id={`abschnitt-${i}`} key={section.title} tabIndex={-1}>
-                    <h3>{section.title}</h3>
-                    <p>{section.body}</p>
-                    {section.steps && (
-                      <ol className="steps">
-                        {section.steps.map((step) => (
-                          <li key={step}>{step}</li>
-                        ))}
-                      </ol>
-                    )}
+              {ownerFirst ? (
+                <OwnerChangeArticle article={article} />
+              ) : (
+                <>
+                  <section id="kurzantwort" className="takeaway" tabIndex={-1}>
+                    <h2>Kurzantwort</h2>
+                    <p>{article.takeaway}</p>
                   </section>
-                ))}
-              </section>
-              <KnowledgeResults article={article} guide={relatedGuide} />
-              <KnowledgeEvidence article={article} />
+                  <KnowledgePrerequisites article={article} guide={relatedGuide} />
+                  <KnowledgeIssues article={article} />
+                  <section id="bedienweg" tabIndex={-1}>
+                    <h2>Bedienweg</h2>
+                    <KnowledgeProcedures article={article} guide={relatedGuide} />
+                    {article.sections.map((section, i) => (
+                      <section id={`abschnitt-${i}`} key={section.title} tabIndex={-1}>
+                        <h3>{section.title}</h3>
+                        <p>{section.body}</p>
+                        {section.steps && (
+                          <ol className="steps">
+                            {section.steps.map((step) => (
+                              <li key={step}>{step}</li>
+                            ))}
+                          </ol>
+                        )}
+                      </section>
+                    ))}
+                  </section>
+                  <KnowledgeResults article={article} guide={relatedGuide} />
+                  <KnowledgeEvidence article={article} />
+                </>
+              )}
             </>
           ) : (
             <>
@@ -273,22 +289,34 @@ export function ArticlePage({
             <span className="eyebrow">In diesem Beitrag</span>
             <nav aria-label="Inhaltsverzeichnis">
               {article.knowledge &&
-                [
-                  ['kurzantwort', 'Kurzantwort'],
-                  ['voraussetzungen', 'Voraussetzungen'],
-                  ['einschraenkungen', 'Einschränkungen'],
-                  ['bedienweg', 'Bedienweg'],
-                  ...article.knowledge.procedures.map((p) => [p.id, p.title]),
-                  ...article.sections.map((section, i) => [
-                    `abschnitt-${i}`,
-                    `${String(i + 1).padStart(2, '0')} ${section.title}`,
-                  ]),
-                  ['ergebnispruefung', 'Ergebnisprüfung'],
-                  ['nachweise', 'Nachweise und Geltungsbereich'],
-                  ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
-                  ['trainerhinweise', 'Für Trainer'],
-                  ['quellen', 'Quellen und Fundstellen'],
-                ].map(([target, label]) => (
+                (ownerFirst
+                  ? [
+                      ...ownerJumps,
+                      ['voraussetzungen', 'Voraussetzungen und vier Leserechte'],
+                      ['bedienweg', 'Owner-Wechsel: Ablauf'],
+                      ['ergebnispruefung', 'Owner-Wechsel: Ergebnisprüfung'],
+                      ...article.sections.map((section, i) => [`abschnitt-${i}`, section.title]),
+                      ['trainerhinweise', 'Für Trainer'],
+                      ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                      ['quellen', 'Quellen und Fundstellen'],
+                    ].filter(([target], i, all) => all.findIndex(([id]) => id === target) === i)
+                  : [
+                      ['kurzantwort', 'Kurzantwort'],
+                      ['voraussetzungen', 'Voraussetzungen'],
+                      ['einschraenkungen', 'Einschränkungen'],
+                      ['bedienweg', 'Bedienweg'],
+                      ...article.knowledge.procedures.map((p) => [p.id, p.title]),
+                      ...article.sections.map((section, i) => [
+                        `abschnitt-${i}`,
+                        `${String(i + 1).padStart(2, '0')} ${section.title}`,
+                      ]),
+                      ['ergebnispruefung', 'Ergebnisprüfung'],
+                      ['nachweise', 'Nachweise und Geltungsbereich'],
+                      ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                      ['trainerhinweise', 'Für Trainer'],
+                      ['quellen', 'Quellen und Fundstellen'],
+                    ]
+                ).map(([target, label]) => (
                   <button key={target} onClick={() => jumpToSection(target)}>
                     {label}
                   </button>

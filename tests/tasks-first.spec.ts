@@ -104,14 +104,25 @@ test('real articles expose the reading order and early keyboard jump targets', a
     const sectionIds = await page
       .locator('.article-content > section[id]')
       .evaluateAll((nodes) => nodes.map((node) => node.id));
-    expect(sectionIds.slice(0, 6)).toEqual([
-      'kurzantwort',
-      'voraussetzungen',
-      'einschraenkungen',
-      'bedienweg',
-      'ergebnispruefung',
-      'nachweise',
-    ]);
+    expect(sectionIds.slice(0, 6)).toEqual(
+      id === 'guide-project-permissions'
+        ? [
+            'kurzantwort',
+            'procedure-owner-change',
+            'abschnitt-5',
+            'procedure-permissions',
+            'abschnitt-6',
+            'abschnitt-7',
+          ]
+        : [
+            'kurzantwort',
+            'voraussetzungen',
+            'einschraenkungen',
+            'bedienweg',
+            'ergebnispruefung',
+            'nachweise',
+          ],
+    );
     await expect(page.locator('#einschraenkungen .source-ref').first()).not.toBeEmpty();
     for (const preservedId of [
       'fachlicher-kontext',

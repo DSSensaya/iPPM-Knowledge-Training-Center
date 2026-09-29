@@ -25,6 +25,10 @@ test('access slice is discoverable, source-aware, keyboard accessible and local'
     .getByRole('link')
     .click();
   await expect(page.locator('.demo-note')).toContainText('Quellenbasierter Entwurf');
+  await page
+    .getByRole('navigation', { name: 'Direkt zu den Abschnitten' })
+    .getByRole('button', { name: 'Kritische Einschränkungen', exact: true })
+    .click();
   await expect(
     page.getByRole('heading', {
       name: 'Build-Team-Synchronisation ist widersprüchlich beschrieben',
