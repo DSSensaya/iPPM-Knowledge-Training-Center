@@ -7,6 +7,7 @@ import type { Progress } from '../lib/storage';
 import { ArticleCard, PageTitle, SearchForm } from '../components/ui';
 import { roleLabel } from '../data/catalog';
 import OwnerChangeArticle, { ownerJumps } from '../components/OwnerChangeArticle';
+import MilestonePlanningArticle, { milestoneJumps } from '../components/MilestonePlanningArticle';
 import {
   KnowledgeEvidence,
   KnowledgeIssues,
@@ -23,6 +24,56 @@ const coreJumps = [
   ['ergebnispruefung', 'Ergebnisprüfung'],
   ['nachweise', 'Nachweise'],
 ] as const;
+
+const releaseJumps = [
+  ['kurzantwort', 'Einordnung'],
+  ['voraussetzungen', 'Geltungsbereich'],
+  ['bedienweg', 'Geplanter Umfang'],
+  ['ergebnispruefung', 'Offene Nachweise'],
+  ['nachweise', 'Quellen und Planungsstand'],
+] as const;
+
+function ReleaseScopeArticle({ article }: { article: (typeof visibleArticles)[number] }) {
+  return (
+    <>
+      <section id="kurzantwort" className="takeaway" tabIndex={-1}>
+        <h2>Einordnung</h2>
+        <p>{article.takeaway}</p>
+      </section>
+      <section id="voraussetzungen" tabIndex={-1}>
+        <h2>Geltungsbereich</h2>
+        <section id="abschnitt-0" tabIndex={-1}>
+          <h3>{article.sections[0].title}</h3>
+          <p>{article.sections[0].body}</p>
+        </section>
+      </section>
+      <section id="bedienweg" tabIndex={-1}>
+        <h2>Geplanter Umfang</h2>
+        {article.sections.slice(1, -1).map((section, index) => (
+          <section id={`abschnitt-${index + 1}`} key={section.title} tabIndex={-1}>
+            <h3>{section.title}</h3>
+            <p>{section.body}</p>
+            {section.steps && (
+              <ul>
+                {section.steps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+      </section>
+      <section id="ergebnispruefung" tabIndex={-1}>
+        <h2>Offene Nachweise</h2>
+        <section id={`abschnitt-${article.sections.length - 1}`} tabIndex={-1}>
+          <h3>{article.sections.at(-1)!.title}</h3>
+          <p>{article.sections.at(-1)!.body}</p>
+        </section>
+      </section>
+      <KnowledgeEvidence article={article} />
+    </>
+  );
+}
 
 function jumpToSection(id: string) {
   const section = document.getElementById(id);
@@ -162,7 +213,11 @@ export function ArticlePage({
   const saved = progress.bookmarks.includes(id),
     read = progress.read.includes(id);
   const ownerFirst = id === 'guide-project-permissions';
-  const AsideContainer = ownerFirst ? 'details' : Fragment;
+  const milestoneFirst = id === 'guide-deliverables-milestones';
+  const releaseScope = id === 'ippm-release-2-scope';
+  const readingFirst = ownerFirst || milestoneFirst;
+  const articleJumps = ownerFirst ? ownerJumps : milestoneJumps;
+  const AsideContainer = readingFirst ? 'details' : Fragment;
   const relatedGuide = visibleArticles.find(
     (candidate) =>
       article.related.includes(candidate.id) &&
@@ -178,7 +233,9 @@ export function ArticlePage({
         <ArrowLeft size={16} />
         Zur Wissensbasis
       </a>
-      <div className={`article-layout${ownerFirst ? ' owner-first' : ''}`}>
+      <div
+        className={`article-layout${readingFirst ? ' reading-first' : ''}${ownerFirst ? ' owner-first' : ''}${milestoneFirst ? ' milestone-first' : ''}`}
+      >
         <article className="article-content">
           <span className="eyebrow">
             {article.topic} / {article.kind}
@@ -190,7 +247,7 @@ export function ArticlePage({
                   .trigger
               : article.summary}
           </p>
-          {ownerFirst ? (
+          {readingFirst ? (
             <p className="owner-validity">R1 / SB1 · begrenzter Quellenbezug</p>
           ) : (
             <div className="article-meta">
@@ -211,19 +268,24 @@ export function ArticlePage({
           {article.knowledge ? (
             <>
               <nav className="article-jumps" aria-label="Direkt zu den Abschnitten">
-                {!ownerFirst && <strong>Direkt zu</strong>}
+                {!readingFirst && <strong>Direkt zu</strong>}
                 <div>
-                  {(ownerFirst ? ownerJumps.slice(0, 1) : coreJumps).map(([target, label]) => (
+                  {(readingFirst
+                    ? articleJumps.slice(0, 1)
+                    : releaseScope
+                      ? releaseJumps
+                      : coreJumps
+                  ).map(([target, label]) => (
                     <button key={target} type="button" onClick={() => jumpToSection(target)}>
                       {label}
                     </button>
                   ))}
                 </div>
-                {ownerFirst && (
+                {readingFirst && (
                   <details className="knowledge-details owner-more-jumps">
                     <summary>Weitere Abschnitte</summary>
                     <div>
-                      {ownerJumps.slice(1).map(([target, label]) => (
+                      {articleJumps.slice(1).map(([target, label]) => (
                         <button key={target} type="button" onClick={() => jumpToSection(target)}>
                           {label}
                         </button>
@@ -234,6 +296,10 @@ export function ArticlePage({
               </nav>
               {ownerFirst ? (
                 <OwnerChangeArticle article={article} />
+              ) : milestoneFirst ? (
+                <MilestonePlanningArticle article={article} />
+              ) : releaseScope ? (
+                <ReleaseScopeArticle article={article} />
               ) : (
                 <>
                   <section id="kurzantwort" className="takeaway" tabIndex={-1}>
@@ -308,8 +374,8 @@ export function ArticlePage({
             <Bookmark size={18} fill={saved ? 'currentColor' : 'none'} />
             {saved ? 'Aus Merkliste entfernen' : 'Beitrag merken'}
           </button>
-          <AsideContainer {...(ownerFirst ? { className: 'knowledge-details owner-index' } : {})}>
-            {ownerFirst && (
+          <AsideContainer {...(readingFirst ? { className: 'knowledge-details owner-index' } : {})}>
+            {readingFirst && (
               <>
                 <summary>Inhalt und Artikelangaben</summary>
                 <p>{article.summary}</p>
@@ -323,33 +389,50 @@ export function ArticlePage({
               <span className="eyebrow">In diesem Beitrag</span>
               <nav aria-label="Inhaltsverzeichnis">
                 {article.knowledge &&
-                  (ownerFirst
+                  (readingFirst
                     ? [
-                        ...ownerJumps,
-                        ['voraussetzungen', 'Voraussetzungen und vier Leserechte'],
-                        ['bedienweg', 'Owner-Wechsel: Ablauf'],
-                        ['ergebnispruefung', 'Owner-Wechsel: Ergebnisprüfung'],
+                        ...articleJumps,
+                        [
+                          'voraussetzungen',
+                          ownerFirst ? 'Voraussetzungen und vier Leserechte' : 'Voraussetzungen',
+                        ],
+                        ['bedienweg', ownerFirst ? 'Owner-Wechsel: Ablauf' : 'Ablauf'],
+                        [
+                          'ergebnispruefung',
+                          ownerFirst ? 'Owner-Wechsel: Ergebnisprüfung' : 'Ergebnisprüfung',
+                        ],
                         ...article.sections.map((section, i) => [`abschnitt-${i}`, section.title]),
                         ['trainerhinweise', 'Für Trainer'],
                         ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
                         ['quellen', 'Quellen und Fundstellen'],
                       ].filter(([target], i, all) => all.findIndex(([id]) => id === target) === i)
-                    : [
-                        ['kurzantwort', 'Kurzantwort'],
-                        ['voraussetzungen', 'Voraussetzungen'],
-                        ['einschraenkungen', 'Einschränkungen'],
-                        ['bedienweg', 'Bedienweg'],
-                        ...article.knowledge.procedures.map((p) => [p.id, p.title]),
-                        ...article.sections.map((section, i) => [
-                          `abschnitt-${i}`,
-                          `${String(i + 1).padStart(2, '0')} ${section.title}`,
-                        ]),
-                        ['ergebnispruefung', 'Ergebnisprüfung'],
-                        ['nachweise', 'Nachweise und Geltungsbereich'],
-                        ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
-                        ['trainerhinweise', 'Für Trainer'],
-                        ['quellen', 'Quellen und Fundstellen'],
-                      ]
+                    : releaseScope
+                      ? [
+                          ...releaseJumps,
+                          ...article.sections.map((section, i) => [
+                            `abschnitt-${i}`,
+                            section.title,
+                          ]),
+                          ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                          ['trainerhinweise', 'Für Trainer'],
+                          ['quellen', 'Quellen und Fundstellen'],
+                        ]
+                      : [
+                          ['kurzantwort', 'Kurzantwort'],
+                          ['voraussetzungen', 'Voraussetzungen'],
+                          ['einschraenkungen', 'Einschränkungen'],
+                          ['bedienweg', 'Bedienweg'],
+                          ...article.knowledge.procedures.map((p) => [p.id, p.title]),
+                          ...article.sections.map((section, i) => [
+                            `abschnitt-${i}`,
+                            `${String(i + 1).padStart(2, '0')} ${section.title}`,
+                          ]),
+                          ['ergebnispruefung', 'Ergebnisprüfung'],
+                          ['nachweise', 'Nachweise und Geltungsbereich'],
+                          ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                          ['trainerhinweise', 'Für Trainer'],
+                          ['quellen', 'Quellen und Fundstellen'],
+                        ]
                   ).map(([target, label]) => (
                     <button key={target} onClick={() => jumpToSection(target)}>
                       {label}

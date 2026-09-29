@@ -107,14 +107,21 @@ test('real articles expose the reading order and early keyboard jump targets', a
     expect(sectionIds.slice(0, 6)).toEqual(
       id === 'guide-project-permissions'
         ? ['procedure-owner-change']
-        : [
-            'kurzantwort',
-            'voraussetzungen',
-            'einschraenkungen',
-            'bedienweg',
-            'ergebnispruefung',
-            'nachweise',
-          ],
+        : id === 'guide-deliverables-milestones'
+          ? [
+              'procedure-deliverables',
+              'procedure-payment-terms',
+              'procedure-delivery-milestones',
+              'procedure-payment-milestones',
+            ]
+          : [
+              'kurzantwort',
+              'voraussetzungen',
+              'einschraenkungen',
+              'bedienweg',
+              'ergebnispruefung',
+              'nachweise',
+            ],
     );
     await expect(page.locator('#einschraenkungen .source-ref').first()).not.toBeEmpty();
     for (const preservedId of [
@@ -127,7 +134,9 @@ test('real articles expose the reading order and early keyboard jump targets', a
       await expect(page.locator(`#${preservedId}`)).toHaveCount(1);
     }
     const jumps = page.getByRole('navigation', { name: 'Direkt zu den Abschnitten' });
-    if (id === 'guide-project-permissions') await jumps.locator('summary').click();
+    if (['guide-project-permissions', 'guide-deliverables-milestones'].includes(id)) {
+      await jumps.locator('summary').click();
+    }
     await expect(jumps.getByRole('button')).toHaveCount(6);
     expect(
       await page.evaluate(() => {

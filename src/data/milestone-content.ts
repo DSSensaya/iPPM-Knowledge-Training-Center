@@ -299,3 +299,16 @@ for (const article of milestoneArticles.filter((a) =>
     ],
   });
 }
+
+const planningGuide = milestoneArticles.find(
+  (article) => article.id === 'guide-deliverables-milestones',
+)!;
+if (planningGuide.status !== 'demo') {
+  planningGuide.updated = '2026-09-29';
+  planningGuide.revisions.push({
+    number: 3,
+    date: '2026-09-29',
+    note: 'Vorhandene vier Prozeduren als zusammenhängenden Arbeitsweg vor Erläuterungen und Nachweisen lesefokussiert angeordnet; keine fachlichen Schritte ergänzt.',
+    sources: planningGuide.revisions.at(-1)!.sources.map((source) => ({ ...source })),
+  });
+}

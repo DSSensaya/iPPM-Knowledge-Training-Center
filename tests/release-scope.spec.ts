@@ -43,6 +43,18 @@ test('release scope opens from home search on desktop and mobile', async ({ page
     'keine technische Verfügbarkeit oder Schulungsreife',
   );
   await expect(page.locator('.demo-note')).toContainText('Fachlich nicht freigegeben');
+  const jumps = page.getByRole('navigation', { name: 'Direkt zu den Abschnitten' });
+  await expect(jumps.getByRole('button')).toHaveText([
+    'Einordnung',
+    'Geltungsbereich',
+    'Geplanter Umfang',
+    'Offene Nachweise',
+    'Quellen und Planungsstand',
+  ]);
+  await expect(page.getByRole('heading', { name: 'Bedienweg', exact: true })).toHaveCount(0);
+  await jumps.getByRole('button', { name: 'Geplanter Umfang' }).click();
+  await expect(page.locator('#bedienweg')).toBeFocused();
+  await expect(page.locator('#abschnitt-6')).toContainText('Detailkonfiguration');
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
   ).toBeTruthy();

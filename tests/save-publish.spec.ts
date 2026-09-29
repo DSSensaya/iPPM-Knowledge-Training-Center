@@ -106,6 +106,9 @@ test('crosscut article is searchable and linked from both real guides', async ({
     if (id === 'guide-project-permissions') {
       await page.getByText('Inhalt und Artikelangaben', { exact: true }).click();
       await page.getByText('Beleg und ergänzende Anleitung', { exact: true }).first().click();
+    } else {
+      await page.getByText('Inhalt und Artikelangaben', { exact: true }).click();
+      await page.locator(`#${procedureId}`).getByText('Beleg und ergänzende Anleitung').click();
     }
     const related = page.locator('.article-aside').getByRole('link', { name: articleTitle });
     await expect(related).toHaveAttribute('href', `#/artikel/${articleId}`);

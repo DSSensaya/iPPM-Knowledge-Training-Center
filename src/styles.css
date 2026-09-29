@@ -812,7 +812,7 @@ select {
 .article-jumps button:hover {
   background: var(--hover);
 }
-.owner-first .article-jumps > div > button:first-child {
+.reading-first .article-jumps > div > button:first-child {
   background: var(--ink);
   color: var(--white);
 }
@@ -823,21 +823,21 @@ select {
   padding: 16px;
   background: var(--base);
 }
-.owner-first .article-aside {
+.reading-first .article-aside {
   position: static;
 }
-.owner-first .article-content h1 {
+.reading-first .article-content h1 {
   font-size: 32px;
   margin: 12px 0 16px;
 }
-.owner-first .article-lead {
+.reading-first .article-lead {
   font-size: 16px;
 }
 .owner-validity {
   margin: 12px 0;
   font-weight: 700;
 }
-.owner-first .article-jumps {
+.reading-first .article-jumps {
   display: flex;
   flex-wrap: wrap;
   align-items: start;
@@ -845,14 +845,14 @@ select {
   padding: 0;
   background: var(--white);
 }
-.owner-first .article-jumps > div {
+.reading-first .article-jumps > div {
   display: block;
 }
 .owner-more-jumps > summary {
   min-height: 44px;
   padding: 8px 0;
 }
-.owner-first .owner-more-jumps {
+.reading-first .owner-more-jumps {
   margin: 0;
 }
 .owner-more-jumps > div {
@@ -872,10 +872,26 @@ select {
 .owner-first .owner-task #ergebnispruefung > ul li {
   margin-bottom: 4px;
 }
-.owner-first .owner-index .aside-block {
+.reading-first .owner-index .aside-block {
   margin-top: 24px;
 }
 .owner-first .owner-supplement > section {
+  margin: 24px 0;
+}
+.milestone-first .milestone-task > section {
+  margin: 24px 0;
+}
+.milestone-first .milestone-task li {
+  margin-bottom: 8px;
+}
+.milestone-first .milestone-task .steps li {
+  margin-bottom: 24px;
+}
+.milestone-first .milestone-task .steps li::marker {
+  font-size: 20px;
+  font-weight: 700;
+}
+.milestone-first .milestone-supplement > section {
   margin: 24px 0;
 }
 .article-content section {

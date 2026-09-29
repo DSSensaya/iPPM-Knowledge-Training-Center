@@ -56,6 +56,19 @@ test('SB1 delivery and payment path is searchable, source-aware and usable on de
     'keine künstliche Vorgänger-Verknüpfung',
   );
   await expect(page.locator('#procedure-payment-milestones')).toContainText('Ext.Pay');
+  await expect(page.locator('.article-content > section[id]')).toHaveCount(4);
+  expect(
+    await page
+      .locator('.article-content > section[id]')
+      .evaluateAll((nodes) => nodes.map((node) => node.id)),
+  ).toEqual([
+    'procedure-deliverables',
+    'procedure-payment-terms',
+    'procedure-delivery-milestones',
+    'procedure-payment-milestones',
+  ]);
+  await expect(page.locator('#procedure-deliverables .steps')).toBeVisible();
+  await page.getByText('Nachweise und Quellen', { exact: true }).click();
   await page.getByText('Technischer Nachweis, TTT und Beschreibungsstand', { exact: true }).click();
   await expect(page.locator('#nachweise')).toContainText('teilweise verifiziert');
   await expect(page.locator('#nachweise')).toContainText('Im Handbuchentwurf konkret beschrieben');
@@ -75,6 +88,7 @@ test('SB1 delivery and payment path is searchable, source-aware and usable on de
     (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze())
       .violations,
   ).toEqual([]);
+  await page.getByText('Nachweise und Quellen', { exact: true }).click();
   await page.getByRole('link', { name: 'Prozessschritte und Zuständigkeiten ansehen' }).click();
   const slice = page.getByRole('region', { name: 'SB1: Liefergegenstände und Meilensteine' });
   await expect(slice.getByRole('heading')).toHaveCount(5);
