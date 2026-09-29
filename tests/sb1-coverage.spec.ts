@@ -68,7 +68,7 @@ test('SB1 list preserves exactly 24 source T numbers, original titles and row lo
   ]);
 });
 
-test('all 24 matrix steps have material with 20 partial procedures and four orientations', () => {
+test('all 24 matrix steps have material with 21 partial procedures and three orientations', () => {
   const linked = sb1Coverage.filter((item) => item.realMaterials.length);
   const unlinked = sb1Coverage.filter((item) => !item.realMaterials.length);
   expect(linked.map((item) => item.number).sort()).toEqual([...linkedSteps.keys()].sort());
@@ -77,7 +77,7 @@ test('all 24 matrix steps have material with 20 partial procedures and four orie
   expect(processSteps).toHaveLength(24);
   for (const item of linked) {
     expect(item.materialStatus).toBe(
-      ['1.1', '1.2', '4.12', '4.13'].includes(item.number)
+      ['1.1', '1.2', '4.13'].includes(item.number)
         ? 'Orientierung vorhanden · kein Gesamtbedienweg'
         : 'Reales Teilmaterial vorhanden',
     );
@@ -179,11 +179,11 @@ test('SB1 list is keyboard readable and responsive while existing process views 
     page.getByRole('region', { name: 'SB1: Liefergegenstände und Meilensteine' }),
   ).toBeVisible();
   await expect(coverage).toContainText('weder geschult noch praktisch geprüft oder freigegeben');
-  await expect(coverage).toContainText('20 Schritte mit realem Teilmaterial');
-  await expect(coverage).toContainText('4 Schritte mit Orientierung ohne Gesamtbedienweg');
+  await expect(coverage).toContainText('21 Schritte mit realem Teilmaterial');
+  await expect(coverage).toContainText('3 Schritte mit Orientierung ohne Gesamtbedienweg');
   await expect(
     page.getByRole('region', { name: 'SB1: Projektstatus ermitteln' }).getByRole('link'),
-  ).toHaveText('Orientierung, Quellen und Einschränkungen zu 4.12 öffnen');
+  ).toHaveText('Bedienweg, Quellen und Einschränkungen zu 4.12 öffnen');
   const linked = coverage.locator('[data-matrix-number="2.6"]');
   const summary = linked.locator('summary');
   await summary.focus();
@@ -198,8 +198,8 @@ test('SB1 list is keyboard readable and responsive while existing process views 
   const missing = coverage.locator('[data-matrix-number="4.12"]');
   await missing.locator('summary').focus();
   await page.keyboard.press('Enter');
-  await expect(missing).toContainText('Orientierung vorhanden · kein Gesamtbedienweg');
-  await expect(missing).toContainText('FIN-/SAP-Feldkorrektur ist erledigt');
+  await expect(missing).toContainText('Reales Teilmaterial vorhanden');
+  await expect(missing).toContainText('FIN-/SAP-Feldkorrektur ist bestätigt');
   await expect(missing.getByRole('link')).toHaveCount(1);
   for (const [number, text] of [
     ['1.1', 'Quellenkonflikt'],

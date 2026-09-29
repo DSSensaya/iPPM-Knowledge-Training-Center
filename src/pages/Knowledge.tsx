@@ -25,6 +25,15 @@ const coreJumps = [
   ['nachweise', 'Nachweise'],
 ] as const;
 
+const statusJumps = [
+  ['kurzantwort', 'Kurzantwort'],
+  ['voraussetzungen', 'Voraussetzungen'],
+  ['bedienweg', 'Bedienweg'],
+  ['ergebnispruefung', 'Ergebnisprüfung'],
+  ['einschraenkungen', 'Kritische Einschränkungen'],
+  ['nachweise', 'Nachweise'],
+] as const;
+
 const releaseJumps = [
   ['kurzantwort', 'Einordnung'],
   ['voraussetzungen', 'Geltungsbereich'],
@@ -214,6 +223,7 @@ export function ArticlePage({
     read = progress.read.includes(id);
   const ownerFirst = id === 'guide-project-permissions';
   const milestoneFirst = id === 'guide-deliverables-milestones';
+  const statusPathFirst = id === 'guide-status-orientation';
   const releaseScope = id === 'ippm-release-2-scope';
   const readingFirst = ownerFirst || milestoneFirst;
   const articleJumps = ownerFirst ? ownerJumps : milestoneJumps;
@@ -274,7 +284,9 @@ export function ArticlePage({
                     ? articleJumps.slice(0, 1)
                     : releaseScope
                       ? releaseJumps
-                      : coreJumps
+                      : statusPathFirst
+                        ? statusJumps
+                        : coreJumps
                   ).map(([target, label]) => (
                     <button key={target} type="button" onClick={() => jumpToSection(target)}>
                       {label}
@@ -307,7 +319,7 @@ export function ArticlePage({
                     <p>{article.takeaway}</p>
                   </section>
                   <KnowledgePrerequisites article={article} guide={relatedGuide} />
-                  <KnowledgeIssues article={article} />
+                  {!statusPathFirst && <KnowledgeIssues article={article} />}
                   <section id="bedienweg" tabIndex={-1}>
                     <h2>Bedienweg</h2>
                     <KnowledgeProcedures article={article} guide={relatedGuide} />
@@ -326,6 +338,7 @@ export function ArticlePage({
                     ))}
                   </section>
                   <KnowledgeResults article={article} guide={relatedGuide} />
+                  {statusPathFirst && <KnowledgeIssues article={article} />}
                   <KnowledgeEvidence article={article} />
                 </>
               )}
@@ -417,22 +430,39 @@ export function ArticlePage({
                           ['trainerhinweise', 'Für Trainer'],
                           ['quellen', 'Quellen und Fundstellen'],
                         ]
-                      : [
-                          ['kurzantwort', 'Kurzantwort'],
-                          ['voraussetzungen', 'Voraussetzungen'],
-                          ['einschraenkungen', 'Einschränkungen'],
-                          ['bedienweg', 'Bedienweg'],
-                          ...article.knowledge.procedures.map((p) => [p.id, p.title]),
-                          ...article.sections.map((section, i) => [
-                            `abschnitt-${i}`,
-                            `${String(i + 1).padStart(2, '0')} ${section.title}`,
-                          ]),
-                          ['ergebnispruefung', 'Ergebnisprüfung'],
-                          ['nachweise', 'Nachweise und Geltungsbereich'],
-                          ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
-                          ['trainerhinweise', 'Für Trainer'],
-                          ['quellen', 'Quellen und Fundstellen'],
-                        ]
+                      : statusPathFirst
+                        ? [
+                            ['kurzantwort', 'Kurzantwort'],
+                            ['voraussetzungen', 'Voraussetzungen'],
+                            ['bedienweg', 'Bedienweg'],
+                            ...article.knowledge.procedures.map((p) => [p.id, p.title]),
+                            ...article.sections.map((section, i) => [
+                              `abschnitt-${i}`,
+                              `${String(i + 1).padStart(2, '0')} ${section.title}`,
+                            ]),
+                            ['ergebnispruefung', 'Ergebnisprüfung'],
+                            ['einschraenkungen', 'Kritische Einschränkungen'],
+                            ['nachweise', 'Nachweise und Geltungsbereich'],
+                            ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                            ['trainerhinweise', 'Für Trainer'],
+                            ['quellen', 'Quellen und Fundstellen'],
+                          ]
+                        : [
+                            ['kurzantwort', 'Kurzantwort'],
+                            ['voraussetzungen', 'Voraussetzungen'],
+                            ['einschraenkungen', 'Einschränkungen'],
+                            ['bedienweg', 'Bedienweg'],
+                            ...article.knowledge.procedures.map((p) => [p.id, p.title]),
+                            ...article.sections.map((section, i) => [
+                              `abschnitt-${i}`,
+                              `${String(i + 1).padStart(2, '0')} ${section.title}`,
+                            ]),
+                            ['ergebnispruefung', 'Ergebnisprüfung'],
+                            ['nachweise', 'Nachweise und Geltungsbereich'],
+                            ['fachlicher-kontext', 'Aufgabe und Geltungsbereich'],
+                            ['trainerhinweise', 'Für Trainer'],
+                            ['quellen', 'Quellen und Fundstellen'],
+                          ]
                   ).map(([target, label]) => (
                     <button key={target} onClick={() => jumpToSection(target)}>
                       {label}

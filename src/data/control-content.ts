@@ -163,10 +163,10 @@ export const controlRows: ControlRow[] = [
     scopeRow: 26,
     section: '§5.5.4 Projektstatus ermitteln',
     fRow: 31,
-    orientation: true,
+    orientation: false,
     answer:
-      'PM und Projektkernteam begründen den Status aus Fortschritt, Reviewstatus und fachlicher Einschätzung. FIN-/SAP-Statusfelder sind korrigiert; die Projektstatusübersicht zeigt die erwarteten Projekte und Daten korrekt. Pflegezyklus und praktische Center-Erprobung bleiben gesonderte Themen.',
-    gap: 'FIN-/SAP-Feldkorrektur ist erledigt (TTT-D-39, beide Umgebungen); die Projektstatusübersicht ist bestätigt. Technisch offen bleiben abweichende Bestands-Sites und fehlende Rechte; Änderungen werden nicht automatisch nachgezogen (TTT-D-40). Pflegezyklus ist ein prozessuales Thema nach R1B (TTT-D-42), kein aktueller Feldfehler. Der Center-Beitrag bleibt Orientierung ohne vollständigen Pflegebedienweg.',
+      'PM und Projektkernteam ermitteln den Basisstatus; der PM pflegt die ihm zugänglichen Dimensionen mit Ampel, Trend, Kommentar und Recent Achievements auf PDP Status. PMO Status bleibt beim PMO. Der gespeicherte Stand ist mit Plan, Reviewstatus und Projektstatusübersicht abzugleichen.',
+    gap: 'Nur der PM-Pflegeweg im R1-/SB1-Kontext ist beschrieben; PMO Status wird durch das PMO gepflegt. FIN-/SAP-Feldkorrektur ist bestätigt (TTT-D-39), ebenso die Projektstatusübersicht; das belegt keine Bearbeitungsrechte in der Zielumgebung. Bestands-Sites können abweichen, Änderungen werden nicht automatisch nachgezogen (TTT-D-40). Pflegezyklus und praktische Schulungserprobung bleiben offen (TTT-D-42). T verlangte vor Schulung die inzwischen bestätigte Feldkorrektur und verweist auf §5.5.3; im vorliegenden B steht Statuspflege unter §5.5.4. F bewertet den Gesamtstand weiter nur teilweise verifiziert.',
     evidence: [
       ...e('C23', 'Punkte 5 und 7'),
       ...e('TTT', 'Zeilen 40–43, A:G'),
@@ -178,25 +178,24 @@ export const controlRows: ControlRow[] = [
     ],
     sections: [
       {
-        title: 'Bewertung vorbereiten',
-        body: 'Aktuellen Planfortschritt, Reviewstatus und fachliche Einschätzungen zusammentragen und mit dem Projektkernteam abgleichen. B nennt Red, Amber, Green sowie besser, gleich, schlechter als Status-/Trendwerte; Kommentare begründen die Bewertung, Recent Achievements beschreibt erreichte Fortschritte. FIN-/SAP-Felder sind korrigiert; daraus keine automatische Ampelberechnung ableiten.',
-      },
-      {
         title: 'Dimensionen und Zuständigkeit',
-        body: 'B nennt Customer Satisfaction, Contract under control, Schedule, Performance, Cost under control, Financials, Resources, SAP PS Quality, PMO Status, Process Quality und Product Quality. PMO Status wird laut B durch das PMO gepflegt. Daraus folgt keine PM-Bearbeitungsberechtigung für alle elf Dimensionen. Die Zuordnung von Financials und SAP PS Quality ist korrigiert (TTT-D-39).',
-      },
-      {
-        title: 'Status bewerten und Ergebnis prüfen',
-        body: 'FIN-/SAP-Korrektur und funktionierende Statusübersicht sind bestätigt. Im vorbereiteten Schulungsprojekt die betroffene Dimension, den Status, Trend und Kommentar fachlich begründen und den gespeicherten Stand erneut vergleichen. Bearbeitungsrechte und Besonderheiten von Bestandsprojekten berücksichtigen. Pflegezyklus organisatorisch abstimmen; keine verbindliche Frequenz erfinden.',
+        body: 'B §5.5.4 nennt Customer Satisfaction, Contract under control, Schedule, Performance, Cost under control, Financials, Resources, SAP PS Quality, PMO Status, Process Quality und Product Quality. PMO Status wird durch das PMO gepflegt; die PM-Anleitung umfasst diesen Eintrag nicht. C23 Punkt 5 bestätigt die Korrektur der FIN-/SAP-Zuordnung. Ein allgemeiner Pflegezyklus oder eine automatische Ampelberechnung sind damit nicht belegt.',
       },
     ],
-    actions: [],
+    actions: [
+      'Prüfen Sie den gepflegten Projektfortschritt im veröffentlichten Plan und den aktuellen Reviewstatus. Stimmen Sie die fachliche Einschätzung der betroffenen Statusdimensionen mit dem Projektkernteam ab.',
+      'Öffnen Sie das Kundenprojekt in PWA und wechseln Sie zur PDP Status. Prüfen Sie, welche Dimensionen mit dem vorgesehenen PM-Konto tatsächlich bearbeitbar sind; PMO Status wird durch das PMO gepflegt.',
+      'Wählen Sie für jede von Ihnen zu pflegende Dimension im Feld Status Red, Amber oder Green und im Feld Trend besser, gleich oder schlechter. Begründen Sie die Bewertung im zugehörigen Kommentar; Amber und Red sind laut B stets zu kommentieren.',
+      'Halten Sie die seit dem letzten Bericht erreichten Fortschritte unter Recent Achievements fest. Speichern Sie die Projektdetailseite.',
+      'Öffnen Sie den gespeicherten Stand erneut. Vergleichen Sie Status, Trend, Kommentare und Recent Achievements mit Ihrer Bewertung sowie mit Planfortschritt und Reviewstatus. Prüfen Sie die Darstellung in der bestätigten Projektstatusübersicht; bei Abweichungen insbesondere Rechte und Bestands-Site-Konfiguration gesondert klären.',
+    ],
     checks: [
-      'Lässt sich jede Bewertung auf aktuelle Ausgangsinformationen und eine Begründung zurückführen?',
-      'Sind Status und Trend begründet und gespeicherte Werte in der bestätigten Übersicht nachvollziehbar?',
+      'Lässt sich jede vom PM gepflegte Bewertung auf Fortschritt, Reviewstatus und die gemeinsame fachliche Einschätzung zurückführen?',
+      'Sind Amber und Red kommentiert und sind Status, Trend sowie Recent Achievements nach dem Speichern wieder auffindbar?',
+      'Stimmt die Projektstatusübersicht mit den gespeicherten Angaben überein, ohne PMO Status als PM-Eingabe zu behandeln?',
     ],
     exercise:
-      'Fiktive Fallbesprechung: Eine Genehmigung verzögert den Termin, andere Zielgrößen bleiben unverändert. Betroffene Dimension und begründete Einschätzung diskutieren. An der funktionierenden Übersicht eines vorbereiteten Schulungsprojekts die Datenherkunft und Darstellung vergleichen; keine erneute FIN-/SAP-Fehlerklärung voraussetzen.',
+      'Didaktischer Vorschlag mit fiktiven Daten: Eine Genehmigung verzögert den Termin. Zuerst im Gespräch die betroffene Dimension, Ampel, Trend und Begründung aus vorbereitetem Plan- und Reviewstand ableiten. Nur in einem vorgeprüften Schulungsprojekt mit bestätigten PM-Rechten die eigene Bewertung auf PDP Status speichern und gegen die Projektstatusübersicht prüfen. PMO Status nicht ändern; eine Leseübung ist kein praktischer Systemnachweis.',
   },
   {
     number: '4.13',
@@ -365,9 +364,19 @@ export const controlArticles: Article[] = controlRows.map((r) => {
           id: `procedure-${r.id}`,
           title: r.number === '3.4' ? 'Vorgegebenes Tailoring dokumentieren und prüfen' : r.title,
           functionId: fn(r),
-          trigger: r.answer,
+          trigger:
+            r.number === '4.12'
+              ? 'Der aktuelle Projektstand soll als begründete Ampel- und Trendbewertung für das R1-Basisreporting festgehalten werden.'
+              : r.answer,
           prerequisites: [
-            'Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen.',
+            ...(r.number === '4.12'
+              ? [
+                  'Der PM hat ein bereitgestelltes Contract-Execution-Kundenprojekt, einen veröffentlichten Plan mit gepflegtem Fortschritt und einen aktuellen Reviewstatus. Projektkernteam und fachliche Bewertungsgrundlagen stehen zur Abstimmung bereit.',
+                  'Vor einer praktischen Übung PM-Bearbeitungsrechte, PDP Status und Bestands-Site-Konfiguration mit dem vorgesehenen Konto prüfen. Die kritischen Einschränkungen vor Ausführung lesen; nur fiktive Übungsdaten verwenden.',
+                ]
+              : [
+                  'Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen.',
+                ]),
           ],
           actions: r.actions.map((text) => ({ text, tool: r.tool })),
           expectedResults: [
@@ -375,7 +384,9 @@ export const controlArticles: Article[] = controlRows.map((r) => {
               ? 'Der vorgegebene Meilenstein bleibt mit Begründung erhalten; Tailored und tatsächliche Inaktivität sind getrennt geprüft.'
               : r.number === '4.9'
                 ? 'Der Entscheidungsbedarf ist mit Adressat, Termin und Konsequenzen erneut lesbar; Empfängerbearbeitung bleibt separat nachzuweisen.'
-                : 'Die externen Ereignisse sind mit fachlich passenden Typen und getrennten Stichtagen und Planterminen erneut auffindbar.',
+                : r.number === '4.12'
+                  ? 'Die vom PM gepflegten Statusdimensionen, Trends, Kommentare und Recent Achievements sind nach dem Speichern erneut lesbar und fachlich mit Plan und Reviewstatus abgeglichen; PMO Status bleibt beim PMO.'
+                  : 'Die externen Ereignisse sind mit fachlich passenden Typen und getrennten Stichtagen und Planterminen erneut auffindbar.',
           ],
           checkQuestions: r.checks,
           evidence: e('B', r.section),
@@ -385,12 +396,15 @@ export const controlArticles: Article[] = controlRows.map((r) => {
     id: `guide-${r.id}`,
     title: r.title,
     summary: r.answer,
-    takeaway: r.answer,
+    takeaway:
+      r.number === '4.12'
+        ? 'Planfortschritt und Reviewstatus mit dem Projektkernteam abgleichen, dann die eigenen Statusdimensionen auf PDP Status bewerten, begründen, speichern und erneut prüfen. PMO Status pflegt das PMO. Bearbeitungsrechte und mögliche Abweichungen bei Bestands-Sites vor der Anwendung prüfen.'
+        : r.answer,
     kind: r.orientation ? 'Grundlagen' : 'Anleitung',
     status: 'source-draft',
     topic: r.number.startsWith('3.') ? 'Projektplanung' : 'Status & Reporting',
     roles: ['pm'],
-    minutes: 6,
+    minutes: r.number === '4.12' ? 8 : 6,
     updated: '2026-09-23',
     sections: [
       ...r.sections,
@@ -535,5 +549,16 @@ for (const article of controlArticles.filter((a) => ['guide-r1-reporting'].inclu
         sourceId: 'TTT',
       },
     ],
+  });
+}
+
+const statusArticle = controlArticles.find((article) => article.id === 'guide-status-orientation')!;
+if (statusArticle.status !== 'demo') {
+  statusArticle.updated = '2026-09-29';
+  statusArticle.revisions.push({
+    number: 3,
+    date: '2026-09-29',
+    note: 'B §5.5.4 als begrenzten PM-Pflegeweg im Center ergänzt; C23-Korrekturen und verbleibende Rechte-/Bestands-Site-Grenzen abgeglichen. Quellenentwurf ohne praktische Prüfung oder fachliche Freigabe.',
+    sources: statusArticle.revisions.at(-1)!.sources.map((source) => ({ ...source })),
   });
 }

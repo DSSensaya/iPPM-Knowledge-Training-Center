@@ -8,7 +8,7 @@ import { searchArticles } from '../src/lib/search';
 
 test('planning and control preserve evidence boundaries and demo separation', () => {
   expect(controlArticles).toHaveLength(5);
-  expect(controlArticles.map((a) => a.knowledge!.procedures.length)).toEqual([1, 1, 1, 0, 0]);
+  expect(controlArticles.map((a) => a.knowledge!.procedures.length)).toEqual([1, 1, 1, 1, 0]);
   for (const a of controlArticles) {
     expect(a.status).toBe('source-draft');
     expect(a.reviews).toEqual([]);
@@ -37,6 +37,17 @@ test('planning and control preserve evidence boundaries and demo separation', ()
     ]),
   );
   expect(sb1Coverage.find((r) => r.number === '4.12')?.gap).toContain('FIN-/SAP');
+  const status = controlArticles.find((article) => article.id === 'guide-status-orientation')!;
+  expect(status.status).toBe('source-draft');
+  expect(status.revisions.map((revision) => revision.number)).toEqual([1, 2, 3]);
+  expect(status.knowledge!.procedures[0].actions).toHaveLength(5);
+  expect(status.knowledge!.procedures[0].actions[2].text).toContain('Amber und Red');
+  expect(status.knowledge!.procedures[0].actions[1].text).toContain('PMO Status');
+  expect(status.knowledge!.procedures[0].evidence).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ sourceId: 'B', locator: '§5.5.4 Projektstatus ermitteln' }),
+    ]),
+  );
   expect(sb1Coverage.find((r) => r.number === '4.13')?.gap).toContain(
     'ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt',
   );
@@ -74,13 +85,35 @@ test('all new tasks are reachable from coverage with visible limitations and acc
     await page.keyboard.press('Enter');
     await expect(page.locator('#einschraenkungen')).toBeFocused();
     await expect(page.locator('#einschraenkungen')).toContainText('keine Abnahme');
-    await expect(page.locator('[id^="procedure-"]')).toHaveCount(index < 3 ? 1 : 0);
+    await expect(page.locator('[id^="procedure-"]')).toHaveCount(index < 4 ? 1 : 0);
     if (number === '3.4')
       await expect(page.locator('#einschraenkungen')).toContainText('R1-OPEN-06');
     if (number === '4.9')
       await expect(page.locator('#einschraenkungen')).toContainText('Empfängerzugriff');
-    if (number === '4.12')
+    if (number === '4.12') {
       await expect(page.locator('#einschraenkungen')).toContainText('FIN-/SAP');
+      await expect(page.locator('#einschraenkungen')).toContainText('Bestands-Sites');
+      const path = page.locator('#procedure-status-orientation');
+      await expect(path.locator('li')).toHaveCount(5);
+      await expect(path).toContainText('Recent Achievements');
+      await expect(path).toContainText('PMO Status wird durch das PMO gepflegt');
+      await expect(page.locator('#ergebnispruefung')).toContainText('PMO Status bleibt beim PMO');
+      await expect(page.locator('#quellen')).toContainText('R1 Funktionsmatrix');
+      expect(
+        await page.evaluate(() =>
+          Boolean(
+            document
+              .getElementById('bedienweg')!
+              .compareDocumentPosition(document.getElementById('einschraenkungen')!) &
+            Node.DOCUMENT_POSITION_FOLLOWING,
+          ),
+        ),
+      ).toBeTruthy();
+      await page.screenshot({
+        path: `test-results/status-${info.project.name}.png`,
+        fullPage: true,
+      });
+    }
     if (number === '4.13')
       await expect(page.locator('#einschraenkungen')).toContainText('R1B-FS-02');
     expect(
