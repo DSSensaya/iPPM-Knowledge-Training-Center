@@ -342,8 +342,20 @@ export function ArticlePage({
                     ))}
                   </section>
                   <KnowledgeResults article={article} guide={relatedGuide} />
-                  {statusPathFirst && <KnowledgeIssues article={article} />}
-                  <KnowledgeEvidence article={article} />
+                  {statusPathFirst && (
+                    <section id="einschraenkungen" className="knowledge-issues" tabIndex={-1}>
+                      <h2>Einschränkungen vor der Anwendung</h2>
+                      <ul>
+                        <li>PMO Status bleibt beim PMO.</li>
+                        <li>
+                          PM-Bearbeitungsrechte und Bestands-Sites in der Zielumgebung prüfen.
+                        </li>
+                        <li>Der Pflegezyklus ist offen.</li>
+                        <li>Die praktische Erprobung des Center-Wegs steht aus.</li>
+                      </ul>
+                    </section>
+                  )}
+                  <KnowledgeEvidence article={article} includeIssueDetails={statusPathFirst} />
                 </>
               )}
             </>

@@ -91,10 +91,9 @@ export function KnowledgeOverview({ article }: { article: Article }) {
     </section>
   );
 }
-export function KnowledgeIssues({ article }: { article: Article }) {
+function IssueDetails({ article }: { article: Article }) {
   return (
-    <section id="einschraenkungen" className="knowledge-issues" tabIndex={-1}>
-      <h2>Einschränkungen vor der Anwendung</h2>
+    <>
       {knowledgeFor(article).issues.map((i) => (
         <div key={i.id}>
           <h3>{i.title}</h3>
@@ -104,6 +103,15 @@ export function KnowledgeIssues({ article }: { article: Article }) {
           <Evidence refs={i.evidence} />
         </div>
       ))}
+    </>
+  );
+}
+
+export function KnowledgeIssues({ article }: { article: Article }) {
+  return (
+    <section id="einschraenkungen" className="knowledge-issues" tabIndex={-1}>
+      <h2>Einschränkungen vor der Anwendung</h2>
+      <IssueDetails article={article} />
     </section>
   );
 }
@@ -423,9 +431,11 @@ export function KnowledgeTrainer({ article }: { article: Article }) {
 export function KnowledgeEvidence({
   article,
   includeTrainer = true,
+  includeIssueDetails = false,
 }: {
   article: Article;
   includeTrainer?: boolean;
+  includeIssueDetails?: boolean;
 }) {
   const data = knowledgeFor(article);
   const refs = articleEvidence(article);
@@ -433,6 +443,12 @@ export function KnowledgeEvidence({
     <>
       <section id="nachweise" tabIndex={-1}>
         <h2>Nachweise und Geltungsbereich</h2>
+        {includeIssueDetails && (
+          <details className="knowledge-details">
+            <summary>Begründung der Einschränkungen und Fundstellen</summary>
+            <IssueDetails article={article} />
+          </details>
+        )}
         <KnowledgeOverview article={article} />
         <h3>Schulungsbezug und Quellenbewertungen</h3>
         <p>

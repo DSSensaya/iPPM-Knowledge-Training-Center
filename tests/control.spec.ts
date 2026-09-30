@@ -84,15 +84,31 @@ test('all new tasks are reachable from coverage with visible limitations and acc
     await jumps.getByRole('button', { name: 'Kritische Einschränkungen' }).focus();
     await page.keyboard.press('Enter');
     await expect(page.locator('#einschraenkungen')).toBeFocused();
-    await expect(page.locator('#einschraenkungen')).toContainText('keine Abnahme');
+    if (number !== '4.12')
+      await expect(page.locator('#einschraenkungen')).toContainText('keine Abnahme');
     await expect(page.locator('[id^="procedure-"]')).toHaveCount(index < 4 ? 1 : 0);
     if (number === '3.4')
       await expect(page.locator('#einschraenkungen')).toContainText('R1-OPEN-06');
     if (number === '4.9')
       await expect(page.locator('#einschraenkungen')).toContainText('Empfängerzugriff');
     if (number === '4.12') {
-      await expect(page.locator('#einschraenkungen')).toContainText('FIN-/SAP');
-      await expect(page.locator('#einschraenkungen')).toContainText('Bestands-Sites');
+      const warning = page.locator('#einschraenkungen');
+      await expect(warning.locator('li')).toHaveCount(4);
+      await expect(warning).toContainText('PMO Status bleibt beim PMO');
+      await expect(warning).toContainText('PM-Bearbeitungsrechte und Bestands-Sites');
+      await expect(warning).toContainText('Pflegezyklus ist offen');
+      await expect(warning).toContainText('praktische Erprobung');
+      await expect(warning).not.toContainText('TTT-D-39');
+      await expect(warning.locator('.source-ref')).toHaveCount(0);
+      const details = page.locator('#nachweise details').filter({
+        has: page.locator('summary', { hasText: 'Begründung der Einschränkungen und Fundstellen' }),
+      });
+      await expect(details).not.toHaveAttribute('open', '');
+      await details.locator('summary').click();
+      await expect(details).toContainText('FIN-/SAP-Feldkorrektur ist bestätigt');
+      await expect(details).toContainText('TTT-D-39');
+      await expect(details.locator('.source-ref')).not.toHaveCount(0);
+      await details.locator('summary').click();
       const path = page.locator('#procedure-status-orientation');
       await expect(path.locator('li')).toHaveCount(5);
       await expect(path).toContainText('Recent Achievements');
