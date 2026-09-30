@@ -1,6 +1,6 @@
 # Produkt-Roadmap: lokale Wissensbasis bis iPPM Release 4b
 
-Stand: 28.09.2026 · Center v0.7.1 mit konsolidiertem Start-Date-/EDC-Pflegefall · Aktuelle Produktstrategie
+Stand: 30.09.2026 · Center v0.8.0 lokal abgeschlossen · Aktuelle Produktstrategie
 
 Diese Roadmap steuert Prioritäten und Umfang der Weiterentwicklung. Sie erteilt keine fachliche Freigabe für iPPM-Bedienwege und ersetzt keine Prüfung der Zielumgebung. Entwicklungsstufen werden nach den folgenden Ergebniskriterien abgeschlossen, nicht nach festen Terminen oder Beitragszahlen.
 
@@ -107,11 +107,13 @@ v1.0 bietet vollständige Orientierung über SB1 und belastbare Anleitungen für
 
 **Übergang zu v0.9:** Jeder SB1-Schritt hat eine nachvollziehbare Behandlung: nutzbares Material, klarer Teilumfang oder begründete Lücke. Kritische Konflikte für den vorgesehenen Pilotumfang sind geklärt oder durch eine ausdrückliche Umfangsbegrenzung ausgeschlossen.
 
-### v0.8 – Vorhandenen Bestand zur Entscheidung erschließen
+### v0.8 – Vorhandenen Bestand erschließen
 
 **Gezielte Erweiterung vom 29.09.2026 auf ausdrücklichen Auftrag:** Die [lokale v0.8-Vorbereitung](v0.8-vorbereitung.md) erschließt sämtliche vorhandenen Prozessnummern, Scope-IDs und Funktionsnachweise sowie bestehende Prozeduren/Use Cases über die vorhandene Prozessansicht und Suche. Nutzbare Inhalte, belegte Teilinhalte und Platzhalter bleiben unterscheidbar; Quellen-, Revisions- und Freigabestatus ändern sich dadurch nicht.
 
-**Abweichung und Begrenzung:** Diese zusätzliche Stufe erweitert die Orientierung über den bisherigen SB1-Ausschnitt hinaus. Die oben beschriebene Pflegepriorität, der begrenzte operative Schulungsumfang und die v0.9-/v1.0-Kriterien bleiben erhalten. Kein Handbuch-Vollimport, keine automatische Anlage einzelner Artikelseiten, kein Abdeckungsdashboard und keine Behauptung vollständiger Schulungsreife. Die Entscheidung über Center v0.8 bleibt bei der Auftraggeberin; dies ist kein Releaseabschluss.
+**Abweichung und Begrenzung:** Diese zusätzliche Stufe erweitert die Orientierung über den bisherigen SB1-Ausschnitt hinaus. Die oben beschriebene Pflegepriorität, der begrenzte operative Schulungsumfang und die v0.9-/v1.0-Kriterien bleiben erhalten. Kein Handbuch-Vollimport, keine automatische Anlage einzelner Artikelseiten, kein Abdeckungsdashboard und keine Behauptung vollständiger Schulungsreife.
+
+**Lokaler Abschluss v0.8.0 vom 30.09.2026:** Auf ausdrücklichen Abschlussauftrag ist der vorhandene Bestand vollständig hinsichtlich Auffindbarkeit und Kennzeichnung erschlossen. Die [Release-Notizen](v0.8-abschluss.md) dokumentieren Kandidat, Prüfstand und erhaltene Fremdänderungen. Fachliche Lücken und Freigabegrenzen bleiben bestehen; kein Tag und keine Veröffentlichung.
 
 ### v0.9 – Kontinuierliche Pflege und lokalen Betrieb erproben
 

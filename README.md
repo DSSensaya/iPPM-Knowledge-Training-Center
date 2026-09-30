@@ -43,9 +43,9 @@ npm.cmd run preview -- --port 4173
 
 Anschließend **http://127.0.0.1:4173** öffnen. Die einmalige Installation benötigt Zugang zur npm-Registry. Der laufende Entwicklungs- oder Produktionsserver benötigt kein Internet. Alle Inhalte und Assets kommen aus dem Workspace. Der Server bindet nur an die lokale Loopback-Adresse. Der lokale Server muss laufen; das direkte Öffnen von `dist/index.html` als Datei ist nicht vorgesehen.
 
-## Stand v0.7.1
+## Stand v0.8.0
 
-v0.7.1 konsolidiert v0.7 mit den bestätigten TtT-Klärungen; sie ist keine neue Produktstufe. Die Vorbereitung der v0.9-Pilotphase folgt weiterhin der Roadmap.
+v0.8.0 erschließt den vorhandenen Prozess- und Use-Case-Bestand vollständig hinsichtlich Auffindbarkeit und Kennzeichnung. Der lokale Abschluss baut auf `829b4d1` und der v0.7.1-Konsolidierung auf. Vollständige fachliche Schulungsreife oder Freigabe wird nicht behauptet; dokumentierte fachliche Lücken bleiben bestehen. Die weitere kontrollierte Pflege folgt der Roadmap. Umfang, Änderungstrennung und Prüfstand stehen in den [v0.8-Release-Notizen](docs/v0.8-abschluss.md).
 
 Für die manuelle Prüfung zeigt die lokale Oberfläche ausschließlich quellenbasierte Beiträge. Die bisherigen Demo-Beiträge und Demo-Lernpfade bleiben mit ihren IDs und vorhandenen v1-Sicherungsdaten erhalten, erscheinen aber weder in Navigation, Suche, Prozessen noch Merkliste; alte Direktlinks öffnen keinen Demo-Inhalt.
 
@@ -53,7 +53,7 @@ Für die manuelle Prüfung zeigt die lokale Oberfläche ausschließlich quellenb
 - **Wissensbasis:** Fünfzehn quellenbasierte SB1-Entwürfe und ein Quellenentwurf zur R1B-/R2-Planung sind sichtbar. Die neun früheren Demo-Beiträge bleiben nur als Bestandsdaten erhalten. Fachbeiträge beginnen mit Kurzantwort, Voraussetzungen, kritischen Einschränkungen, Bedienweg, Ergebnisprüfung und Nachweisen; eine frühe Sprungnavigation führt zu diesen Abschnitten.
 - **Querschnitt:** Speichern und Prüfen in Liste oder PDP, Speichern/Veröffentlichen/Einchecken im MS Project Client und Speichern/Einchecken beim Owner-Wechsel sind kontextbezogen beschrieben.
 - **Trainerbereich:** Ein fiktives Owner-Wechsel-Szenario für TM und ILSM kann vorbereitet und je Konto ausgewertet werden. Es ist kein protokollierter praktischer Durchlauf.
-- **Prozesse:** 20 Schritte mit realem Teilmaterial und vier Schritte mit gesonderter Orientierung ohne Gesamtbedienweg sind angebunden. Eine gesonderte Liste behandelt genau 24 SB1-Matrixschritte mit Quellen, Material, Lücken und Konflikten. Antrag, PMO-Anlage, Statuspflege und R1-Basisreporting bleiben ohne Gesamtbedienweg. LCM-3 gilt einmal pro Kalenderjahr; FIN-/SAP-Korrektur, ML-Filter und Statusübersicht sind bestätigt. Weitere LCM-Terminregeln und Empfängerbearbeitung bleiben begrenzt.
+- **Prozesse:** Der Katalog erschließt alle 52 Prozessschritte sowie die vorhandenen Scope-, Funktions- und Use-Case-Kennungen. Die gesonderte SB1-Liste bleibt bei 24 Schritten: 21 mit realem Teilmaterial und drei mit Orientierung ohne Gesamtbedienweg. Projektstatus enthält einen begrenzten PM-Pflegeweg; Antrag, PMO-Anlage und R1-Basisreporting bleiben Orientierung. LCM-3 gilt einmal pro Kalenderjahr; FIN-/SAP-Korrektur, ML-Filter und Statusübersicht sind bestätigt. Weitere LCM-Terminregeln und Empfängerbearbeitung bleiben begrenzt.
 - **Demo und Lernstand:** Drei Lernpfade und ihre Wissenschecks bleiben Demo. Bestehende IDs, Hash-Links und die lokale Speicherversion 1 bleiben erhalten; Merkliste und Lernstand können exportiert und validiert importiert werden.
 
 Die sechzehn Fachbeiträge sind **quellenbasierte Entwürfe**, keine fachlich freigegebenen Arbeitsanweisungen. Material, Lesemarkierungen und Demo-Abschlüsse belegen weder Schulung noch praktische Zielumgebungsprüfung. Der technische Abschluss und die offenen Prüfungen sind in [docs/v0.7-abschluss.md](docs/v0.7-abschluss.md) festgehalten.
@@ -89,7 +89,7 @@ Die additive fachliche Struktur liegt in `src/data/domain.ts`, die kuratierten B
 
 ## Prüfen
 
-Die [lokale v0.8-Entscheidungsvorbereitung](docs/v0.8-vorbereitung.md) ergänzt die bestehende Prozessansicht um einen durchsuchbaren Katalog aller 52 Prozessschritte, 31 Scope-IDs, 36 Funktionsnachweise und vorhandenen Arbeitsaufgaben/Use Cases. Beitragskarten und Artikel unterscheiden zusätzlich die redaktionellen Inhaltsstände „Nutzbar“, „Teilweise belegt“ und „Platzhalter“. Die Paketversion bleibt bis zur Release-Entscheidung bei 0.7.1; Quellenstatus und fachliche Freigaben werden nicht angehoben.
+Die [v0.8-Entscheidungsvorbereitung](docs/v0.8-vorbereitung.md) dokumentiert den durchsuchbaren Katalog aller 52 Prozessschritte, 31 Scope-IDs, 36 Funktionsnachweise und vorhandenen Arbeitsaufgaben/Use Cases. Beitragskarten und Artikel unterscheiden zusätzlich die redaktionellen Inhaltsstände „Nutzbar“, „Teilweise belegt“ und „Platzhalter“. Der [lokale Abschluss v0.8.0](docs/v0.8-abschluss.md) erhöht weder Quellenstatus noch fachliche Freigaben.
 
 ```powershell
 npm.cmd run build

@@ -13,7 +13,7 @@ test('home, navigation and responsive layout are accessible and local', async ({
   });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Ihre nächsten iPPM-Aufgaben.' })).toBeVisible();
-  await expect(page.locator('.prototype-label')).toHaveText('v0.7.1');
+  await expect(page.locator('.prototype-label')).toHaveText('v0.8.0');
   await expect(page.getByRole('main')).toBeFocused();
   const routes = [
     '/',
