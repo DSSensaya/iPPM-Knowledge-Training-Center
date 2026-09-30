@@ -152,12 +152,6 @@ test('real articles expose the reading order and early keyboard jump targets', a
   }
   for (const { id } of taskArticles) {
     await page.goto(`/#/artikel/${id}`);
-    if (id === 'guide-r1-reporting') {
-      await expect(page.locator('[id^="procedure-"]')).toHaveCount(0);
-      await expect(page.locator('#bedienweg')).toContainText('kein ausführbarer Bedienweg');
-      await expect(page.locator('#bedienweg a')).toHaveCount(0);
-      continue;
-    }
     await expect(page.locator('[id^="procedure-"]').first()).toBeVisible();
     await expect(page.locator('[id^="procedure-"] .source-ref').first()).not.toBeEmpty();
     await expect(page.locator('#ergebnispruefung')).toContainText('Prüffragen');

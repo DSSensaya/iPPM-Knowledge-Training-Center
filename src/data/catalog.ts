@@ -755,6 +755,24 @@ export const assessmentLabels: Record<Assessment['dimension'], string> = {
 
 export const knowledgeLinks: KnowledgeLink[] = [
   {
+    id: 'link-status-reporting',
+    from: { kind: 'procedure', id: 'procedure-status-orientation' },
+    to: { kind: 'procedure', id: 'procedure-r1-reporting' },
+    relation: 'feeds',
+    statement:
+      'Der vorhandene PM-Statusweg liefert gespeicherte Ampeln, Trends, Kommentare und Recent Achievements für den Abgleich; PMO Status bleibt beim PMO. Paket A setzt die gepflegten Angaben voraus.',
+    evidence: e('B', '§5.5.4-5.5.5: Statusdaten als Grundlage des Reportings'),
+  },
+  {
+    id: 'link-published-plan-reporting',
+    from: { kind: 'procedure', id: 'procedure-r1-reporting' },
+    to: { kind: 'procedure', id: 'procedure-save-project-plan' },
+    relation: 'requires',
+    statement:
+      'Für den Planvergleich muss der gepflegte Plan veröffentlicht vorliegen. Der vorhandene Client-Speicherweg beschreibt den Abschluss und die Ergebnisprüfung; Paket A veröffentlicht selbst keinen Plan.',
+    evidence: e('B', '§4.5.6; §5.5.5: veröffentlichter Projektplan als Voraussetzung'),
+  },
+  {
     id: 'link-terms-payment',
     from: { kind: 'function', id: 'fn-payment-terms' },
     to: { kind: 'function', id: 'fn-payment-milestones' },

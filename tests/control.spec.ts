@@ -8,7 +8,7 @@ import { searchArticles } from '../src/lib/search';
 
 test('planning and control preserve evidence boundaries and demo separation', () => {
   expect(controlArticles).toHaveLength(5);
-  expect(controlArticles.map((a) => a.knowledge!.procedures.length)).toEqual([1, 1, 1, 1, 0]);
+  expect(controlArticles.map((a) => a.knowledge!.procedures.length)).toEqual([1, 1, 1, 1, 1]);
   for (const a of controlArticles) {
     expect(a.status).toBe('source-draft');
     expect(a.reviews).toEqual([]);
@@ -61,17 +61,17 @@ test('planning and control preserve evidence boundaries and demo separation', ()
     expect(searchArticles(query, 'Alle Themen', 'pm').map((a) => a.id)).toContain(id);
 });
 
-test('all new tasks are reachable from coverage with visible limitations and accessible reading', async ({
-  page,
-  baseURL,
-}, info) => {
-  const errors: string[] = [],
-    external: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
-  page.on('request', (request) => {
-    if (new URL(request.url()).origin !== baseURL) external.push(request.url());
-  });
-  for (const [index, number] of ['3.3', '3.4', '4.9', '4.12', '4.13'].entries()) {
+for (const [index, number] of ['3.3', '3.4', '4.9', '4.12', '4.13'].entries())
+  test(`task ${number} is reachable from coverage with visible limitations and accessible reading`, async ({
+    page,
+    baseURL,
+  }, info) => {
+    const errors: string[] = [],
+      external: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    page.on('request', (request) => {
+      if (new URL(request.url()).origin !== baseURL) external.push(request.url());
+    });
     const a = controlArticles[index];
     await page.goto('/#/prozesse');
     const entry = page.locator(`[data-matrix-number="${number}"]`);
@@ -84,9 +84,9 @@ test('all new tasks are reachable from coverage with visible limitations and acc
     await jumps.getByRole('button', { name: 'Kritische Einschränkungen' }).focus();
     await page.keyboard.press('Enter');
     await expect(page.locator('#einschraenkungen')).toBeFocused();
-    if (number !== '4.12')
+    if (!['4.12', '4.13'].includes(number))
       await expect(page.locator('#einschraenkungen')).toContainText('keine Abnahme');
-    await expect(page.locator('[id^="procedure-"]')).toHaveCount(index < 4 ? 1 : 0);
+    await expect(page.locator('[id^="procedure-"]')).toHaveCount(1);
     if (number === '3.4')
       await expect(page.locator('#einschraenkungen')).toContainText('R1-OPEN-06');
     if (number === '4.9')
@@ -130,8 +130,10 @@ test('all new tasks are reachable from coverage with visible limitations and acc
         fullPage: true,
       });
     }
-    if (number === '4.13')
-      await expect(page.locator('#einschraenkungen')).toContainText('R1B-FS-02');
+    if (number === '4.13') {
+      await expect(page.locator('#einschraenkungen')).toContainText('Reporting-PDP, Power BI');
+      await expect(page.locator('#nachweise')).toContainText('R1B-FS-02');
+    }
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
     ).toBeTruthy();
@@ -139,11 +141,13 @@ test('all new tasks are reachable from coverage with visible limitations and acc
       (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze())
         .violations,
     ).toEqual([]);
-  }
-  await page.screenshot({ path: `test-results/control-${info.project.name}.png`, fullPage: true });
-  expect(errors).toEqual([]);
-  expect(external).toEqual([]);
-});
+    await page.screenshot({
+      path: `test-results/control-${number}-${info.project.name}.png`,
+      fullPage: true,
+    });
+    expect(errors).toEqual([]);
+    expect(external).toEqual([]);
+  });
 
 test('new source reading preserves v1 backups and completed demo paths', async ({ page }) => {
   await page.goto('/');

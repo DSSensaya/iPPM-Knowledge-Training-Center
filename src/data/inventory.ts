@@ -61,6 +61,7 @@ const usableProcedures = new Set([
   'procedure-save-project-plan',
   'procedure-save-owner-change',
   'procedure-project-objectives',
+  'procedure-r1-reporting',
 ]);
 const missingNote = (entry: InventorySource) => {
   if (entry.id === 'step-5-1' || entry.id === 'FS-28')

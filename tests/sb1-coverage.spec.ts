@@ -68,7 +68,7 @@ test('SB1 list preserves exactly 24 source T numbers, original titles and row lo
   ]);
 });
 
-test('all 24 matrix steps have material with 21 partial procedures and three orientations', () => {
+test('all 24 matrix steps have material with 22 partial procedures and two orientations', () => {
   const linked = sb1Coverage.filter((item) => item.realMaterials.length);
   const unlinked = sb1Coverage.filter((item) => !item.realMaterials.length);
   expect(linked.map((item) => item.number).sort()).toEqual([...linkedSteps.keys()].sort());
@@ -77,7 +77,7 @@ test('all 24 matrix steps have material with 21 partial procedures and three ori
   expect(processSteps).toHaveLength(24);
   for (const item of linked) {
     expect(item.materialStatus).toBe(
-      ['1.1', '1.2', '4.13'].includes(item.number)
+      ['1.1', '1.2'].includes(item.number)
         ? 'Orientierung vorhanden · kein Gesamtbedienweg'
         : 'Reales Teilmaterial vorhanden',
     );
@@ -179,8 +179,8 @@ test('SB1 list is keyboard readable and responsive while existing process views 
     page.getByRole('region', { name: 'SB1: Liefergegenstände und Meilensteine' }),
   ).toBeVisible();
   await expect(coverage).toContainText('weder geschult noch praktisch geprüft oder freigegeben');
-  await expect(coverage).toContainText('21 Schritte mit realem Teilmaterial');
-  await expect(coverage).toContainText('3 Schritte mit Orientierung ohne Gesamtbedienweg');
+  await expect(coverage).toContainText('22 Schritte mit realem Teilmaterial');
+  await expect(coverage).toContainText('2 Schritte mit Orientierung ohne Gesamtbedienweg');
   await expect(
     page.getByRole('region', { name: 'SB1: Projektstatus ermitteln' }).getByRole('link'),
   ).toHaveText('Bedienweg, Quellen und Einschränkungen zu 4.12 öffnen');

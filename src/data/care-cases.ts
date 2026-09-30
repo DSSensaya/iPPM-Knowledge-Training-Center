@@ -66,6 +66,321 @@ const field = 'edc-field-provision';
 
 export const careCases: CareCase[] = [
   {
+    id: 'care-r1-statusabgleich-2026-09-30',
+    title: 'Paket A: R1-Projektstatusübersicht mit Quelldaten abgleichen',
+    recordedOn: '2026-09-30',
+    origin: 'new-insight',
+    observation:
+      'Konkreter redaktioneller Umsetzungsauftrag zu Paket A. Keine neue Systembeobachtung; vorhandene Originalquellen und Arbeitsstand abgeglichen.',
+    historicalQuestion: {
+      text: '4.13 hatte Orientierung, aber keine Prozedur zum Vergleich von Projektübersicht und vorhandenen Eingangsdaten.',
+      evidence: [
+        {
+          sourceId: 'B',
+          locator: '§5.5.4-5.5.5',
+          derivation: 'direct',
+        },
+        {
+          sourceId: 'C23',
+          locator: 'Punkte 5-7',
+          derivation: 'direct',
+        },
+        {
+          sourceId: 'T',
+          locator: 'Release1-Matrix!A53:Q53',
+          derivation: 'direct',
+        },
+        {
+          sourceId: 'S',
+          locator: '02_SCOPE_ID_MASTER!A5:L6',
+          derivation: 'direct',
+        },
+        {
+          sourceId: 'F',
+          locator: 'R1 Funktionsmatrix!A9:J10',
+          derivation: 'direct',
+        },
+        {
+          sourceId: 'TTT',
+          locator: 'Zeilen 40-43, A:G',
+          derivation: 'direct',
+        },
+      ],
+      resolution:
+        'Begrenzten Abgleich im bestehenden Reporting-Beitrag ergänzen; bestätigte Korrekturen geschlossen und praktische Nachweise offen halten.',
+    },
+    claims: [
+      {
+        id: 'bounded-r1-comparison',
+        text: 'B beschreibt den Vergleich mit gepflegten Plan- und Statusdaten; T ordnet die R1-Ansicht zu. Der begrenzte Center-Abgleich ist daraus redaktionell abgeleitet, keine fachliche Freigabe.',
+        confirmation: 'unconfirmed',
+        confirmedOn: null,
+        evidence: [
+          {
+            sourceId: 'B',
+            locator: '§5.5.4-5.5.5',
+            derivation: 'direct',
+          },
+          {
+            sourceId: 'C23',
+            locator: 'Punkte 5-7',
+            derivation: 'direct',
+          },
+          {
+            sourceId: 'T',
+            locator: 'Release1-Matrix!A53:Q53',
+            derivation: 'direct',
+          },
+          {
+            sourceId: 'S',
+            locator: '02_SCOPE_ID_MASTER!A5:L6',
+            derivation: 'direct',
+          },
+          {
+            sourceId: 'F',
+            locator: 'R1 Funktionsmatrix!A9:J10',
+            derivation: 'direct',
+          },
+          {
+            sourceId: 'TTT',
+            locator: 'Zeilen 40-43, A:G',
+            derivation: 'direct',
+          },
+        ],
+        scope: {
+          documented:
+            'PM-Kundenprojekt: Project Center, veröffentlichter Plan und gespeicherter PDP Status; R1-04 nur Teilreferenz.',
+          release: 'R1 / SB1 – begrenzter Quellenentwurf',
+          environment: null,
+        },
+        unknowns: [
+          'Praktischer Durchlauf mit Konto, Projekt, Release/Build und Umgebung.',
+          'Fachliche Freigabe der Beitragsrevision 3; Rechte- und Bestands-Site-Reichweite.',
+        ],
+      },
+    ],
+    impacts: [
+      {
+        target: {
+          kind: 'document',
+          path: 'README.md',
+          locator: 'Funktionen: Übersicht und Prozesse',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Aktuelle Funktionsbeschreibung und SB1-Zählung nach tatsächlichem Teilumfang fortschreiben.',
+      },
+      {
+        target: {
+          kind: 'article',
+          id: 'guide-r1-reporting',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Revision 2 → 3; source-draft und leere Reviews erhalten.',
+      },
+      {
+        target: {
+          kind: 'procedure',
+          id: 'procedure-r1-reporting',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Ein begrenzter Abgleich; Voraussetzungen, Handlung und Ergebnisprüfung.',
+      },
+      {
+        target: {
+          kind: 'step',
+          id: 'step-4-13',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Reales Teilmaterial statt bloßer Orientierung; Umfang bleibt begrenzt.',
+      },
+      {
+        target: {
+          kind: 'issue',
+          id: 'issue-r1-reporting-boundary',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Aktuelle Endpunkt- und Nachweisgrenzen, ohne neue Filterlücke.',
+      },
+      {
+        target: {
+          kind: 'article',
+          id: 'guide-status-orientation',
+        },
+        relation: 'candidate',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Vorhandene Prozedur wiederverwenden; keine Inhalts- oder Revisionsänderung.',
+      },
+      {
+        target: {
+          kind: 'article',
+          id: 'guide-save-publish-checkin',
+        },
+        relation: 'candidate',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Vorhandenen Client-Abschluss als Voraussetzung verknüpfen; Revision unverändert.',
+      },
+      {
+        target: {
+          kind: 'document',
+          path: 'docs/v0.9-planung.md',
+          locator: 'Paket A',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Tatsächlichen redaktionellen Fortschritt und offene Nachweise ausweisen; Historie erhalten.',
+      },
+      {
+        target: {
+          kind: 'document',
+          path: 'docs/ROADMAP.md',
+          locator: 'Paket A',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Tatsächlichen redaktionellen Fortschritt und offene Nachweise ausweisen; Historie erhalten.',
+      },
+      {
+        target: {
+          kind: 'document',
+          path: 'docs/pflegefall-r1-statusabgleich.md',
+          locator: 'Paket A',
+        },
+        relation: 'direct',
+        claimIds: ['bounded-r1-comparison'],
+        note: 'Tatsächlichen redaktionellen Fortschritt und offene Nachweise ausweisen; Historie erhalten.',
+      },
+    ],
+    sourceSnapshots: [
+      {
+        sourceId: 'B',
+        sha256: 'E4AED78DC586A4F60CC98B411F109D8E59295A78CE570BF23005C7247AFD7727',
+      },
+      {
+        sourceId: 'C23',
+        sha256: 'B0A43BEBC4F414190DB98EB28576BC4B3DDBA888BCD31D19E1DECC478154751D',
+      },
+      {
+        sourceId: 'T',
+        sha256: '1F6F3C23BDA042B67E9DB2BC88722EDBBA3C2591CA3F6AEA2A73FC9335C5A0DB',
+      },
+      {
+        sourceId: 'F',
+        sha256: 'B68766FE1877A72A2E437F354ED7441C990C6D640E0A9185D77A22F04A35B0A4',
+      },
+      {
+        sourceId: 'S',
+        sha256: 'E33A4CF88E48B201040BC93B82FFA5DCEEC0C9EEC5F0DFBF63665E8EEF908939',
+      },
+      {
+        sourceId: 'TTT',
+        sha256: 'F20FC9AA5DCF380FA4E0CDB7F5D1E301DB8C89620AFA62B345107160FF2CBC36',
+      },
+    ],
+    historicalAdoption: {
+      articleRevisions: [
+        {
+          articleId: 'guide-r1-reporting',
+          revision: 2,
+        },
+      ],
+      decisionEvidence: null,
+      note: 'Vorhandene Revision 2 dokumentiert den Ausgangsstand; keine nachträgliche Freigabe.',
+    },
+    change: {
+      baseline: {
+        commit: '8268d3939494580ca238cee891ce1b867adcf1ef',
+        files: [
+          {
+            path: 'README.md',
+            sha256: '1434BEE5C916D380C0500536EC9117D52F358DC9C3FC672F22B300965887BB58',
+          },
+          {
+            path: 'src/data/control-content.ts',
+            sha256: '7E8044917D2E08F73B3BAC645BD6C5F8DD1633282FFE7C1A7F9504904041BC63',
+          },
+          {
+            path: 'src/data/content-readiness.ts',
+            sha256: '5C7FFDF8C72027C54BD57E8107B4BA7EE85DEBC70F40CC34A71E78FEBE4AE5DE',
+          },
+          {
+            path: 'src/data/inventory.ts',
+            sha256: 'A4A7AE30618E8BC3F86E011526DF4B655DCC65D7AA1D6867F5484EA95EE9E570',
+          },
+          {
+            path: 'src/data/catalog.ts',
+            sha256: 'B70C93110F3FA2A9F119CADDCE26811341FF1239BF27B958B69CE28C3EF556AF',
+          },
+          {
+            path: 'src/data/care-cases.ts',
+            sha256: 'FC786E22E6B3D3A795418C216F041B69EB0DB4D5FCB78A222E93F257B95334B9',
+          },
+          {
+            path: 'src/pages/Knowledge.tsx',
+            sha256: 'B9E112EB894EA746AD4437A870A87F25445CD49C21B189A6100B953D356D0039',
+          },
+          {
+            path: 'docs/v0.9-planung.md',
+            sha256: '51CA9989007ECBA964EE6A2F781E29CA70E23CDAC3A7BDE932D55376F9AAA5D6',
+          },
+          {
+            path: 'docs/ROADMAP.md',
+            sha256: '4EFE1A40063CB90AE7F4C2B206EA1E844B2054CDFDD3C0739EE40913384680AD',
+          },
+          {
+            path: 'tests/control.spec.ts',
+            sha256: '0CA7B56DF2D8264D02CFD3DF7665F4961F3DFA54C7569AF159278B4BCF0662E4',
+          },
+          {
+            path: 'tests/sb1-coverage.spec.ts',
+            sha256: '0C4F5B3DE4AA29918A353A9926FE9BCCE714D869901EBDD5F814785453FC55F3',
+          },
+        ],
+        articleRevisions: [
+          {
+            articleId: 'guide-r1-reporting',
+            revision: 2,
+          },
+          {
+            articleId: 'guide-status-orientation',
+            revision: 3,
+          },
+          {
+            articleId: 'guide-save-publish-checkin',
+            revision: 3,
+          },
+        ],
+      },
+      proposal: [
+        'Genau eine Abgleichprozedur in guide-r1-reporting ergänzen, ohne Eingabepflege oder Berichtsverteilung anzuleiten.',
+        'Handlung und Ergebnisprüfung vor ausführliche Quelleninformationen stellen; R1-04 nur als belegten Teilbezug ergänzen.',
+      ],
+      rationale:
+        'Bestehender Beitrag, Prozedur- und Beziehungsmodell genügen. Der Anwender kann Datenherkunft und offene Abweichungen erkennen, ohne Statusautomatik oder Rechtezusage.',
+      decision: {
+        status: 'accepted',
+        date: '2026-09-30',
+        record: 'docs/pflegefall-r1-statusabgleich.md#redaktionelle-entscheidung',
+        scope:
+          'Expliziter Umsetzungsauftrag Paket A einschließlich lokalem Commit; redaktionelle Übernahme innerhalb der Quellenreichweite. Keine fachliche Freigabe oder praktische iPPM-Bestätigung.',
+      },
+      implementation: {
+        date: '2026-09-30',
+        articleRevisions: [
+          {
+            articleId: 'guide-r1-reporting',
+            revision: 3,
+          },
+        ],
+      },
+    },
+    practicalEvidence: [],
+  },
+  {
     id: 'care-start-date-edc',
     title: 'Start Date / EDC: bestehende Übernahme nachvollziehen',
     recordedOn: '2026-09-28',

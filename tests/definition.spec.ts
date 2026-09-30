@@ -23,9 +23,9 @@ test('v0.6 adds nine definition steps and two orientation steps without claiming
   ]);
   expect(
     sb1Coverage.filter((item) => item.materialStatus === 'Reales Teilmaterial vorhanden'),
-  ).toHaveLength(21);
+  ).toHaveLength(22);
   expect(sb1Coverage.filter((item) => item.materialStatus.startsWith('Orientierung'))).toHaveLength(
-    3,
+    2,
   );
   expect(
     sb1Coverage.filter((item) => !item.realMaterials.length).map((item) => item.number),

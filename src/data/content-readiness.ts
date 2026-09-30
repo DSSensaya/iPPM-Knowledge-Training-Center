@@ -45,7 +45,7 @@ export const contentReadiness: Record<string, { state: ContentReadiness; note: s
   },
   'guide-r1-reporting': {
     state: 'Teilweise belegt',
-    note: 'Basis-Reporting ist eingeordnet. Ein vollständiger Berichtsweg und Power-BI-Bediennachweise fehlen.',
+    note: 'Begrenzter Abgleich von Projektstatusübersicht, veröffentlichtem Plan und PDP Status mit Voraussetzungen und Ergebnisprüfung. Praktische Erprobung, Rechte-/Bestands-Site-Reichweite und fachliche Freigabe bleiben offen; kein vollständiger Berichtsweg.',
   },
   'faq-role-vs-access': {
     state: 'Teilweise belegt',

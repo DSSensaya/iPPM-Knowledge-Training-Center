@@ -261,8 +261,27 @@ test('v0.5 real packages keep issue, evidence and dependency references in scope
       for (const id of assessment.issueIds) expect(issueIds.has(id)).toBeTruthy();
     }
     for (const link of data.links) {
-      expect(functionIds.has(link.from.id)).toBeTruthy();
-      expect(functionIds.has(link.to.id)).toBeTruthy();
+      const endpoints = [link.from, link.to];
+      // A cross-article procedure dependency must resolve to actual related material.
+      // Existing within-article function links retain both-endpoint coverage.
+      if (endpoints.every((endpoint) => endpoint.kind === 'function')) {
+        expect(functionIds.has(link.from.id)).toBeTruthy();
+        expect(functionIds.has(link.to.id)).toBeTruthy();
+      } else {
+        expect(
+          endpoints.some((endpoint) => knowledge.procedures.some((p) => p.id === endpoint.id)),
+        ).toBeTruthy();
+        for (const endpoint of endpoints) {
+          expect(endpoint.kind).toBe('procedure');
+          expect(
+            articles.some(
+              (candidate) =>
+                (candidate.id === article.id || article.related.includes(candidate.id)) &&
+                candidate.knowledge?.procedures.some((p) => p.id === endpoint.id),
+            ),
+          ).toBeTruthy();
+        }
+      }
     }
     expect(articleEvidence(article).length).toBeGreaterThan(0);
   }

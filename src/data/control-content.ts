@@ -202,46 +202,54 @@ export const controlRows: ControlRow[] = [
     row: 53,
     title: 'Projektreporting durchführen',
     id: 'r1-reporting',
-    tool: 'Project Center · Projektfortschritt- und -status / PDP Status / Escalations',
+    tool: 'PWA / Project Center – Projektfortschritt- und -status',
     scope: 'R1-05',
     scopeRow: 6,
     section: '§5.5.5 Projektreporting durchführen',
     fRow: 10,
-    orientation: true,
+    orientation: false,
     answer:
-      'R1-Basisreporting über die funktionierende Projektstatusübersicht im Project Center vorbereiten. ML-Filter ist neben PSPV.org und WW umgesetzt. Angaben auf Projektplan, Status und Eskalationen zurückführen; Reporting-PDP und Power BI bleiben außerhalb dieses R1-Wegs.',
-    gap: 'ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt. Keine offene Filterkorrektur mehr. Reporting-PDP/Power BI bleiben außerhalb des R1-Schulungsumfangs (R1B-FS-02 bis -04); eine universelle L1- oder Aktualisierungsregel wird daraus nicht abgeleitet. Pflegezyklus und vollständiger PPR-Prozess sind zukünftige prozessuale Themen nach R1B. Praktische Center-Erprobung bleibt offen.',
+      'Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest.',
+    gap: 'ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt. Keine offene Filterkorrektur mehr. Der Abgleich setzt gepflegte Eingangsdaten und geprüften Zugriff im konkreten Konto-/Projektkontext voraus; Bestands-Sites können abweichen. Keine universelle L1-Sichtbarkeit, Aktualisierungsregel oder automatische Ampel-/Trendberechnung ableiten. Reporting-PDP/Power BI bleiben außerhalb des R1-Schulungsumfangs (R1B-FS-02 bis -04). Pflegezyklus und vollständiger PPR-Prozess bleiben gesonderte Themen nach R1B. Praktische Center-Erprobung und fachliche Freigabe fehlen.',
     evidence: [
-      ...e('C23', 'Punkte 6–7'),
-      ...e('TTT', 'Zeilen 41–43, A:G'),
-      ...e('B', '§5.5.5 Projektreporting durchführen'),
-      ...e('T', 'Release1-Matrix!A53:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10'),
-      ...e('F', 'R1 Funktionsmatrix!A9:J10', 'FS-04 / FS-05'),
+      ...e('B', '§5.5.4 Projektstatus ermitteln; §5.5.5 Projektreporting durchführen'),
+      ...e('C23', 'Punkte 5-7'),
+      ...e('TTT', 'Zeilen 40-43, A:G'),
+      ...e('T', 'Release1-Matrix!A52:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10'),
+      ...e('F', 'R1 Funktionsmatrix!A9:J10; A31:J31', 'FS-04 / FS-05 / FS-26'),
+      ...e('S', '02_SCOPE_ID_MASTER!A5:L6', 'R1-04 / R1-05'),
       ...e('F', 'R1B Abgrenzung!A6:J8', 'R1B-FS-02 bis R1B-FS-04'),
       ...e('S', '02_SCOPE_ID_MASTER!A28:L30', 'R1B-02 bis R1B-04'),
     ],
     sections: [
       {
-        title: 'R1-Basisreporting vorbereiten',
-        body: 'Voraussetzung sind ein veröffentlichter Projektplan und nachvollziehbare Fortschritts-, Review- und Statusangaben. Im R1-Teilumfang dienen Project Center sowie Status- und Eskalationsdaten als Grundlage. Fehlende oder veraltete Werte bleiben als Lücke sichtbar. Ein Bericht erzeugt keine fehlenden Ausgangsdaten und behebt keine Statusfeldfehler.',
+        title: 'Datenherkunft unterscheiden',
+        body: 'Der veröffentlichte Projektplan liefert den gepflegten Fortschritt und Reviewstand. PDP Status enthält die mit dem Projektkernteam ermittelte Ampel- und Trendbewertung mit Kommentaren und Recent Achievements; PMO Status wird durch das PMO gepflegt. Die Übersicht macht vorhandene Daten sichtbar. Ein Fortschrittsgrad berechnet hier keine Ampel oder keinen Trend. Vergleichen Sie jeweils dieselbe Information und denselben Projektstand; nicht jede PDP-Angabe muss eine eigene Übersichtsspalte besitzen.',
       },
       {
-        title: 'ML-Filter nutzen und Datenherkunft nachvollziehen',
-        body: 'Nutzen Sie die Ansicht „Projektfortschritt- und -status“ im Project Center. Sie funktioniert mit den erwarteten Projekten und Daten korrekt. ML ist neben PSPV.org und WW als Filter umgesetzt. Passenden Filter auswählen und Fortschritt, Ampeln und Trends anhand von Projektplan und PDP Status nachvollziehen. Bei späteren Abweichungen Datenquelle und Aktualität prüfen; die alte Filterlücke ist geschlossen.',
+        title: 'Bei Abweichungen endet dieser Vergleich',
+        body: 'Fehlende Projekte, veraltete Werte, unpassende Spalten oder nicht erklärbare Unterschiede als offene Prüfpunkte festhalten. B verlangt Korrekturen an der Quelle; dieser Abgleich nimmt keine Änderungen vor. Für bereits fachlich geklärte Eingabekorrekturen die vorhandenen Beiträge zu Statuspflege beziehungsweise Speichern, Veröffentlichen und Einchecken verwenden. Ungeklärte Feldzuordnung, Rechte oder Bestands-Site-Konfiguration vor Weiterverwendung über den etablierten Klärungsweg prüfen lassen. Eine wiederholte Anzeige allein bestätigt weder Aktualität noch richtige Datenherkunft.',
       },
       {
-        title: 'Entscheidungsinformation abgrenzen',
-        body: 'Offene Eskalationen mit benötigter Entscheidung und Termin benennen. Ein dokumentierter Eintrag ist keine bestätigte Empfängerbearbeitung. Adressaten und Pflegerhythmus tatsächlich abstimmen. Reporting-PDP und Power BI gehören gemäß S/F zu R1B und sind laut T für R1-Basisreporting nicht erforderlich; B wird an dieser Stelle nicht als ausführbarer Weg übernommen.',
+        title: 'Begrenzter R1-Weg',
+        body: 'Der Weg endet mit einem nachvollziehbaren Vergleichsergebnis. R1-04 ist nur für den belegten Project-Center-Teilaspekt angebunden; ein vollständiger Portfolio-/Programmweg ist damit nicht beschrieben. Reporting-PDP, Power BI, Eskalationsbearbeitung, Berichtsverteilung und ein allgemeiner Statuspflegezyklus bleiben außerhalb. Die historische L1-Aussage aus B begründet keine universelle Sichtbarkeitszusage für andere Konten oder Projekte.',
       },
     ],
-    actions: [],
+    actions: [
+      'Legen Sie für den Vergleich die erwarteten Kundenprojekte, den verwendeten Plan-/Statusstand und die fachlich passende Auswahl fest. Prüfen Sie den veröffentlichten Plan mit gepflegtem Fortschritt und aktuellem Reviewstatus sowie den gespeicherten PDP Status. Fehlen diese Daten oder der Zugriff, halten Sie die Voraussetzung als offen fest und bleiben Sie beim Quellenvergleich.',
+      'Öffnen Sie das Project Center und wählen Sie die Ansicht "Projektfortschritt- und -status". Wählen Sie den für Ihre vorbereiteten Projekte passenden Filter (ML, PSPV.org oder WW). Vergleichen Sie erwartete und angezeigte Projekte; die gewählte Ansicht oder der Filter ersetzt keine Prüfung der tatsächlichen Projektzuordnung und Leserechte.',
+      'Vergleichen Sie den angezeigten Fortschritt für dasselbe Kundenprojekt mit dem gepflegten Fortschritt im veröffentlichten Plan. Prüfen Sie, ob der für die Statusbewertung verwendete Reviewstand aktuell ist. Ein unveröffentlichter Arbeitsstand ist kein geeigneter Nachweis für den angezeigten Planstand.',
+      'Öffnen Sie dasselbe Kundenprojekt in PWA auf PDP Status. Vergleichen Sie die angezeigten Ampeln und Trends je erkennbarer Dimension mit den gespeicherten Angaben. Nutzen Sie Kommentare und Recent Achievements zur fachlichen Einordnung. PMO Status nur als vorhandene PMO-Angabe lesen; aus Fortschritt keine neue Bewertung berechnen und keine Statuswerte ändern.',
+      'Halten Sie je geprüftem Projekt die verglichenen Werte und ihre Herkunft, Filter, Plan-/Statusstand sowie Übereinstimmungen oder konkrete Abweichungen fest. Für einen praktischen Prüfnachweis zusätzlich Datum, Prüfer, Konto, Release/Build, Umgebung und Beitragsrevision festhalten. Bei fehlender Herkunft oder ungeklärtem Unterschied endet der Weg mit einem offenen Prüfpunkt; das Ergebnis bis zur Klärung nicht als bestätigte Berichtsgrundlage verwenden.',
+    ],
     checks: [
-      'Sind erwartete Projekte und tatsächliche Filterwirkung abgeglichen, einschließlich ML falls verwendet?',
-      'Lassen sich Berichtswerte auf den veröffentlichten Plan und geprüfte Status-/Eskalationsdaten zurückführen?',
-      'Bleiben Reporting-PDP, Power BI und unbelegte Empfängerbearbeitung außerhalb des R1-Pilotumfangs?',
+      'Sind die erwarteten Projekte und die tatsächliche Filterwirkung mit dem vorgesehenen Konto geprüft, einschließlich ML falls verwendet?',
+      'Ist der Fortschritt auf denselben veröffentlichten Plan und einen aktuellen Reviewstand zurückgeführt, ohne einen unveröffentlichten Arbeitsstand gleichzusetzen?',
+      'Stimmen die vergleichbaren Ampeln und Trends mit dem gespeicherten PDP Status überein, sind Kommentare und Recent Achievements nachvollziehbar und bleibt PMO Status beim PMO?',
+      'Sind Übereinstimmungen, konkrete Abweichungen und fehlende Nachweise samt Datenherkunft getrennt dokumentiert, ohne Wiederholungen als Bestätigung oder den Abgleich als Fachfreigabe zu behandeln?',
     ],
     exercise:
-      'Fiktiver Vergleich: Für zwei vorbereitete Kundenprojekte die passende Portfolioauswahl, darunter ML, nutzen und angezeigte Werte mit Plan und Status vergleichen. Die funktionierende Übersicht ist die Grundlage; Power BI ist nicht Teil der Übung.',
+      'Didaktischer Vorschlag mit fiktiven Daten: Zwei vorbereitete Kundenprojekte, darunter eines in ML, mit veröffentlichtem Fortschritt, aktuellem Reviewstand und gespeichertem PDP Status vergleichen. Eine Übereinstimmung und eine vorbereitete Abweichung oder Datenlücke erklären. Filter, Projekt, Vergleichswerte und Quellenstand festhalten; bei der Lücke mit offenem Prüfpunkt enden. Nur mit geprüften Konten und geeignetem Zielstand praktisch ausführen. Eine Leseübung liefert keinen iPPM-Systemnachweis.',
   },
 ];
 
@@ -250,6 +258,7 @@ export const controlScope: ScopeItem[] = [
   ['R1-15', 'Tailoring über Deaktivieren und Dokumentieren', 16],
   ['R1-24', 'Eskalationen über PDP Escalations', 25],
   ['R1-25', 'Basisstatus über PDP Status', 26],
+  ['R1-04', 'Project Center – belegter Teilaspekt der Projektübersicht', 5],
   ['R1-05', 'Project Center mit Statussicht', 6],
 ].map(([id, title, row]) => ({
   id: String(id),
@@ -274,6 +283,18 @@ export const controlFunctions: FunctionDefinition[] = controlRows.map((r) => ({
       coverage: 'partial',
       evidence: e('S', `02_SCOPE_ID_MASTER!A${r.scopeRow}:L${r.scopeRow}`, r.scope),
     },
+    ...(r.number === '4.13'
+      ? [
+          {
+            scopeId: 'R1-04',
+            coverage: 'partial' as const,
+            evidence: [
+              ...e('S', '02_SCOPE_ID_MASTER!A5:L5', 'R1-04'),
+              ...e('F', 'R1 Funktionsmatrix!A9:J9', 'FS-04'),
+            ],
+          },
+        ]
+      : []),
     ...(r.number === '3.4'
       ? [
           {
@@ -362,21 +383,31 @@ export const controlArticles: Article[] = controlRows.map((r) => {
     : [
         {
           id: `procedure-${r.id}`,
-          title: r.number === '3.4' ? 'Vorgegebenes Tailoring dokumentieren und prüfen' : r.title,
+          title:
+            r.number === '3.4'
+              ? 'Vorgegebenes Tailoring dokumentieren und prüfen'
+              : r.number === '4.13'
+                ? 'R1-Projektstatusübersicht mit Plan und PDP Status abgleichen'
+                : r.title,
           functionId: fn(r),
           trigger:
             r.number === '4.12'
               ? 'Der aktuelle Projektstand soll als begründete Ampel- und Trendbewertung für das R1-Basisreporting festgehalten werden.'
               : r.answer,
           prerequisites: [
-            ...(r.number === '4.12'
+            ...(r.number === '4.13'
               ? [
-                  'Der PM hat ein bereitgestelltes Contract-Execution-Kundenprojekt, einen veröffentlichten Plan mit gepflegtem Fortschritt und einen aktuellen Reviewstatus. Projektkernteam und fachliche Bewertungsgrundlagen stehen zur Abstimmung bereit.',
-                  'Vor einer praktischen Übung PM-Bearbeitungsrechte, PDP Status und Bestands-Site-Konfiguration mit dem vorgesehenen Konto prüfen. Die kritischen Einschränkungen vor Ausführung lesen; nur fiktive Übungsdaten verwenden.',
+                  'Vorhandene, eindeutig zugeordnete Contract-Execution-Kundenprojekte mit veröffentlichtem Plan, gepflegtem Fortschritt, aktuellem Reviewstatus und gespeichertem PDP Status. Erwartete Projekte, Auswahl und Vergleichsstand müssen feststehen; fehlende Eingangsdaten nicht im Reporting erzeugen.',
+                  'Mit dem vorgesehenen Konto tatsächlichen Lesezugriff auf Project Center, Plan und PDP Status sowie Felder und Bestands-Site im Zielstand prüfen. C23 bestätigt die Korrekturen, erteilt aber keine Rechtezusage. Für eine praktische Übung nur vorbereitete Projekte mit fiktiven Daten verwenden.',
                 ]
-              : [
-                  'Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen.',
-                ]),
+              : r.number === '4.12'
+                ? [
+                    'Der PM hat ein bereitgestelltes Contract-Execution-Kundenprojekt, einen veröffentlichten Plan mit gepflegtem Fortschritt und einen aktuellen Reviewstatus. Projektkernteam und fachliche Bewertungsgrundlagen stehen zur Abstimmung bereit.',
+                    'Vor einer praktischen Übung PM-Bearbeitungsrechte, PDP Status und Bestands-Site-Konfiguration mit dem vorgesehenen Konto prüfen. Die kritischen Einschränkungen vor Ausführung lesen; nur fiktive Übungsdaten verwenden.',
+                  ]
+                : [
+                    'Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen.',
+                  ]),
           ],
           actions: r.actions.map((text) => ({ text, tool: r.tool })),
           expectedResults: [
@@ -386,10 +417,25 @@ export const controlArticles: Article[] = controlRows.map((r) => {
                 ? 'Der Entscheidungsbedarf ist mit Adressat, Termin und Konsequenzen erneut lesbar; Empfängerbearbeitung bleibt separat nachzuweisen.'
                 : r.number === '4.12'
                   ? 'Die vom PM gepflegten Statusdimensionen, Trends, Kommentare und Recent Achievements sind nach dem Speichern erneut lesbar und fachlich mit Plan und Reviewstatus abgeglichen; PMO Status bleibt beim PMO.'
-                  : 'Die externen Ereignisse sind mit fachlich passenden Typen und getrennten Stichtagen und Planterminen erneut auffindbar.',
+                  : r.number === '4.13'
+                    ? 'Für die vorbereiteten Kundenprojekte sind Projektauswahl, Fortschritt aus dem veröffentlichten Plan und Ampeln/Trends aus PDP Status getrennt abgeglichen. Vergleichswerte, Herkunft und Stand sind nachvollziehbar; Abweichungen oder fehlende Nachweise bleiben ausdrücklich offen. Kein Status wurde berechnet oder geändert und keine Berichtsverteilung bestätigt.'
+                    : 'Die externen Ereignisse sind mit fachlich passenden Typen und getrennten Stichtagen und Planterminen erneut auffindbar.',
           ],
           checkQuestions: r.checks,
-          evidence: e('B', r.section),
+          evidence:
+            r.number === '4.13'
+              ? [
+                  ...e('B', '§5.5.4-5.5.5: Eingangsdaten und Vergleich'),
+                  ...e('C23', 'Punkte 5-7: Korrekturen, Filter und Übersicht'),
+                  ...e('T', 'Release1-Matrix!A53:Q53: R1-Ansicht'),
+                  ...e(
+                    'B',
+                    '§5.5.5: Vergleichsergebnis dokumentieren und bei ungeklärten Abweichungen stoppen',
+                    undefined,
+                    'inferred',
+                  ),
+                ]
+              : e('B', r.section),
         },
       ];
   return {
@@ -448,6 +494,9 @@ export const controlArticles: Article[] = controlRows.map((r) => {
     knowledge: {
       functionIds: [fn(r)],
       stepIds: [`step-${r.number.replace('.', '-')}`],
+      ...(r.number === '4.13'
+        ? { linkIds: ['link-status-reporting', 'link-published-plan-reporting'] }
+        : {}),
       issueIds: [
         `issue-${r.id}-boundary`,
         'issue-f-r1-open-12',
@@ -560,5 +609,16 @@ if (statusArticle.status !== 'demo') {
     date: '2026-09-29',
     note: 'B §5.5.4 als begrenzten PM-Pflegeweg im Center ergänzt; C23-Korrekturen und verbleibende Rechte-/Bestands-Site-Grenzen abgeglichen. Quellenentwurf ohne praktische Prüfung oder fachliche Freigabe.',
     sources: statusArticle.revisions.at(-1)!.sources.map((source) => ({ ...source })),
+  });
+}
+
+const reportingArticle = controlArticles.find((article) => article.id === 'guide-r1-reporting')!;
+if (reportingArticle.status !== 'demo') {
+  reportingArticle.updated = '2026-09-30';
+  reportingArticle.revisions.push({
+    number: 3,
+    date: '2026-09-30',
+    note: 'Paket A: begrenzten Abgleich von Projektstatusübersicht, veröffentlichtem Plan und PDP Status mit Voraussetzungen und Ergebnisprüfung ergänzt. R1-04 nur als belegten Teilbezug angebunden. Quellenentwurf; praktische iPPM-Erprobung und fachliche Freigabe bleiben offen.',
+    sources: reportingArticle.revisions.at(-1)!.sources.map((source) => ({ ...source })),
   });
 }

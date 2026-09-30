@@ -227,6 +227,8 @@ export function ArticlePage({
   const ownerFirst = id === 'guide-project-permissions';
   const milestoneFirst = id === 'guide-deliverables-milestones';
   const statusPathFirst = id === 'guide-status-orientation';
+  const reportingPathFirst = id === 'guide-r1-reporting';
+  const pathFirst = statusPathFirst || reportingPathFirst;
   const releaseScope = id === 'ippm-release-2-scope';
   const readingFirst = ownerFirst || milestoneFirst;
   const articleJumps = ownerFirst ? ownerJumps : milestoneJumps;
@@ -288,7 +290,7 @@ export function ArticlePage({
                     ? articleJumps.slice(0, 1)
                     : releaseScope
                       ? releaseJumps
-                      : statusPathFirst
+                      : pathFirst
                         ? statusJumps
                         : coreJumps
                   ).map(([target, label]) => (
@@ -323,7 +325,7 @@ export function ArticlePage({
                     <p>{article.takeaway}</p>
                   </section>
                   <KnowledgePrerequisites article={article} guide={relatedGuide} />
-                  {!statusPathFirst && <KnowledgeIssues article={article} />}
+                  {!pathFirst && <KnowledgeIssues article={article} />}
                   <section id="bedienweg" tabIndex={-1}>
                     <h2>Bedienweg</h2>
                     <KnowledgeProcedures article={article} guide={relatedGuide} />
@@ -342,20 +344,42 @@ export function ArticlePage({
                     ))}
                   </section>
                   <KnowledgeResults article={article} guide={relatedGuide} />
-                  {statusPathFirst && (
+                  {pathFirst && (
                     <section id="einschraenkungen" className="knowledge-issues" tabIndex={-1}>
                       <h2>Einschränkungen vor der Anwendung</h2>
-                      <ul>
-                        <li>PMO Status bleibt beim PMO.</li>
-                        <li>
-                          PM-Bearbeitungsrechte und Bestands-Sites in der Zielumgebung prüfen.
-                        </li>
-                        <li>Der Pflegezyklus ist offen.</li>
-                        <li>Die praktische Erprobung des Center-Wegs steht aus.</li>
-                      </ul>
+                      {reportingPathFirst ? (
+                        <ul>
+                          <li>
+                            Nur vorhandene Plan- und Statusdaten vergleichen; PMO Status bleibt beim
+                            PMO.
+                          </li>
+                          <li>
+                            Leserechte, Felder und Bestands-Sites im konkreten Zielstand prüfen;
+                            keine universelle L1-Sichtbarkeit oder Aktualisierungsregel
+                            voraussetzen.
+                          </li>
+                          <li>
+                            Bei fehlender Datenherkunft oder ungeklärten Abweichungen mit offenem
+                            Prüfpunkt enden. Keine automatische Ampel- oder Trendberechnung.
+                          </li>
+                          <li>
+                            Praktische iPPM-Erprobung und fachliche Freigabe fehlen. Reporting-PDP,
+                            Power BI und vollständiger Pflege-/Reportingprozess bleiben außerhalb.
+                          </li>
+                        </ul>
+                      ) : (
+                        <ul>
+                          <li>PMO Status bleibt beim PMO.</li>
+                          <li>
+                            PM-Bearbeitungsrechte und Bestands-Sites in der Zielumgebung prüfen.
+                          </li>
+                          <li>Der Pflegezyklus ist offen.</li>
+                          <li>Die praktische Erprobung des Center-Wegs steht aus.</li>
+                        </ul>
+                      )}
                     </section>
                   )}
-                  <KnowledgeEvidence article={article} includeIssueDetails={statusPathFirst} />
+                  <KnowledgeEvidence article={article} includeIssueDetails={pathFirst} />
                 </>
               )}
             </>
@@ -446,7 +470,7 @@ export function ArticlePage({
                           ['trainerhinweise', 'Für Trainer'],
                           ['quellen', 'Quellen und Fundstellen'],
                         ]
-                      : statusPathFirst
+                      : pathFirst
                         ? [
                             ['kurzantwort', 'Kurzantwort'],
                             ['voraussetzungen', 'Voraussetzungen'],
