@@ -1,3 +1,6 @@
+import EditorialNote from './EditorialNote';
+import EditorialObject from './EditorialObject';
+import type { EditContent } from './KnowledgeContext';
 import type { Article } from '../data/types';
 import type { Procedure } from '../data/domain';
 import { ownerReading } from '../data/access-content';
@@ -13,19 +16,43 @@ export const ownerJumps = [
   ['nachweise', 'Nachweise'],
 ] as const;
 
-function CompleteTask({ procedure, primary = false }: { procedure: Procedure; primary?: boolean }) {
+function CompleteTask({
+  procedure,
+  primary = false,
+  index,
+  edit,
+}: {
+  procedure: Procedure;
+  primary?: boolean;
+  index: number;
+  edit: EditContent;
+}) {
   return (
     <section id={procedure.id} tabIndex={-1} className="knowledge-procedure owner-task">
-      <h2>{procedure.title}</h2>
+      {edit(<h2>{procedure.title}</h2>, procedure.title + ' – Bedienweg', [
+        'procedures',
+        index,
+        'trigger',
+      ])}
       {!primary && (
         <p>
           <strong>Auslöser: </strong>
           {procedure.trigger}
         </p>
       )}
-      {primary && <p className="owner-action-note">{ownerReading.beforeStart}</p>}
+      {primary && (
+        <>
+          <p className="owner-action-note">{ownerReading.beforeStart}</p>
+          <EditorialObject object={ownerReading} field="beforeStart" label="Vor dem Start" />
+        </>
+      )}
       <section id={primary ? 'voraussetzungen' : undefined} tabIndex={-1}>
-        <h3>Voraussetzungen</h3>
+        {edit(<h3>Voraussetzungen</h3>, procedure.title + ' – Voraussetzungen', [
+          'procedures',
+          index,
+          'prerequisites',
+          0,
+        ])}
         <ul>
           {procedure.prerequisites.map((text) => (
             <li key={text}>{text}</li>
@@ -33,7 +60,12 @@ function CompleteTask({ procedure, primary = false }: { procedure: Procedure; pr
         </ul>
         {procedure.requiredRights && (
           <>
-            <h3>Diese vier Leserechte zuerst sichern</h3>
+            {edit(<h3>Diese vier Leserechte zuerst sichern</h3>, 'Leserechte', [
+              'procedures',
+              index,
+              'requiredRights',
+              0,
+            ])}
             <ul>
               {procedure.requiredRights.map((text) => (
                 <li key={text}>{text}</li>
@@ -66,7 +98,12 @@ function CompleteTask({ procedure, primary = false }: { procedure: Procedure; pr
         </details>
       </section>
       <section id={primary ? 'ergebnispruefung' : undefined} tabIndex={-1}>
-        <h3>Ergebnisprüfung</h3>
+        {edit(<h3>Ergebnisprüfung</h3>, procedure.title + ' – Ergebnisprüfung', [
+          'procedures',
+          index,
+          'expectedResults',
+          0,
+        ])}
         <p>
           <strong>Erwartetes Ergebnis laut Entwurf</strong>
         </p>
@@ -83,22 +120,25 @@ function CompleteTask({ procedure, primary = false }: { procedure: Procedure; pr
             ))}
           </ul>
         </details>
-        <p className="small">
-          Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren
-          Konten.
-        </p>
+        <EditorialNote id="ownerchangearticle-8" className="small" />
       </section>
     </section>
   );
 }
 
-export default function OwnerChangeArticle({ article }: { article: Article }) {
+export default function OwnerChangeArticle({
+  article,
+  edit,
+}: {
+  article: Article;
+  edit: EditContent;
+}) {
   const procedures = article.knowledge!.procedures;
   function section(index: number, disclosure?: string) {
     const content = article.sections[index];
     return (
       <section id={`abschnitt-${index}`} key={index} tabIndex={-1}>
-        <h3>{content.title}</h3>
+        {edit(<h3>{content.title}</h3>, 'Abschnitt ' + (index + 1), ['sections', index, 'title'])}
         {disclosure ? (
           <details className="knowledge-details" data-section-content>
             <summary>{disclosure}</summary>
@@ -115,10 +155,16 @@ export default function OwnerChangeArticle({ article }: { article: Article }) {
       <CompleteTask
         procedure={procedures.find((p) => p.id === 'procedure-owner-change')!}
         primary
+        index={procedures.findIndex((p) => p.id === 'procedure-owner-change')}
+        edit={edit}
       />
       <details className="knowledge-details owner-supplement">
         <summary>Stakeholder berechtigen</summary>
-        <CompleteTask procedure={procedures.find((p) => p.id === 'procedure-permissions')!} />
+        <CompleteTask
+          procedure={procedures.find((p) => p.id === 'procedure-permissions')!}
+          index={procedures.findIndex((p) => p.id === 'procedure-permissions')}
+          edit={edit}
+        />
         {section(6)}
         {section(7)}
       </details>
@@ -131,6 +177,7 @@ export default function OwnerChangeArticle({ article }: { article: Article }) {
         <section id="owner-learning" className="owner-learning" tabIndex={-1}>
           <h2>Vertiefen und schulen</h2>
           <p>{ownerReading.learningIntro}</p>
+          <EditorialObject object={ownerReading} field="learningIntro" label="Lesehinweis" />
           {section(1, 'Use Case lesen')}
           {section(2, 'Schulung vorbereiten')}
           {section(3, 'Leseübung öffnen')}
@@ -146,7 +193,7 @@ export default function OwnerChangeArticle({ article }: { article: Article }) {
         <summary>Nachweise und Quellen</summary>
         <section id="kurzantwort" tabIndex={-1}>
           <h2>Kurzantwort für PM</h2>
-          <p>{article.takeaway}</p>
+          {edit(<p>{article.takeaway}</p>, 'Kurzantwort', ['takeaway'])}
         </section>
         {section(0)}
         <KnowledgeEvidence article={article} includeTrainer={false} />

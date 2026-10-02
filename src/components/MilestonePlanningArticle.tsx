@@ -1,3 +1,5 @@
+import EditorialNote from './EditorialNote';
+import type { EditContent } from './KnowledgeContext';
 import type { Article } from '../data/types';
 import type { Procedure } from '../data/domain';
 import { Evidence, KnowledgeEvidence, KnowledgeIssues, KnowledgeTrainer } from './KnowledgeContext';
@@ -11,16 +13,35 @@ export const milestoneJumps = [
   ['nachweise', 'Nachweise'],
 ] as const;
 
-function Task({ procedure, first }: { procedure: Procedure; first: boolean }) {
+function Task({
+  procedure,
+  first,
+  index,
+  edit,
+}: {
+  procedure: Procedure;
+  first: boolean;
+  index: number;
+  edit: EditContent;
+}) {
   return (
     <section id={procedure.id} tabIndex={-1} className="knowledge-procedure milestone-task">
-      <h2>{procedure.title}</h2>
+      {edit(<h2>{procedure.title}</h2>, procedure.title + ' – Bedienweg', [
+        'procedures',
+        index,
+        'trigger',
+      ])}
       <p>
         <strong>Auslöser: </strong>
         {procedure.trigger}
       </p>
       <section id={first ? 'voraussetzungen' : undefined} tabIndex={first ? -1 : undefined}>
-        <h3>Voraussetzungen</h3>
+        {edit(<h3>Voraussetzungen</h3>, procedure.title + ' – Voraussetzungen', [
+          'procedures',
+          index,
+          'prerequisites',
+          0,
+        ])}
         <ul>
           {procedure.prerequisites.map((item) => (
             <li key={item}>{item}</li>
@@ -39,7 +60,12 @@ function Task({ procedure, first }: { procedure: Procedure; first: boolean }) {
         </ol>
       </section>
       <section id={first ? 'ergebnispruefung' : undefined} tabIndex={first ? -1 : undefined}>
-        <h3>Ergebnis prüfen</h3>
+        {edit(<h3>Ergebnis prüfen</h3>, procedure.title + ' – Ergebnisprüfung', [
+          'procedures',
+          index,
+          'expectedResults',
+          0,
+        ])}
         <ul>
           {procedure.expectedResults.map((result) => (
             <li key={result}>{result}</li>
@@ -53,9 +79,7 @@ function Task({ procedure, first }: { procedure: Procedure; first: boolean }) {
             <li key={question}>{question}</li>
           ))}
         </ul>
-        <p className="small">
-          Beschriebenes Ergebnis laut Entwurf; kein erfolgreicher Test mit Ihren Konten.
-        </p>
+        <EditorialNote id="milestoneplanningarticle-9" className="small" />
       </section>
       <details className="knowledge-details">
         <summary>Beleg und ergänzende Anleitung</summary>
@@ -73,12 +97,24 @@ function Task({ procedure, first }: { procedure: Procedure; first: boolean }) {
   );
 }
 
-export default function MilestonePlanningArticle({ article }: { article: Article }) {
+export default function MilestonePlanningArticle({
+  article,
+  edit,
+}: {
+  article: Article;
+  edit: EditContent;
+}) {
   const procedures = article.knowledge!.procedures;
   return (
     <>
       {procedures.map((procedure, index) => (
-        <Task key={procedure.id} procedure={procedure} first={index === 0} />
+        <Task
+          key={procedure.id}
+          procedure={procedure}
+          first={index === 0}
+          index={index}
+          edit={edit}
+        />
       ))}
       <details className="knowledge-details milestone-supplement">
         <summary>Kritische Einschränkungen im Detail</summary>
@@ -87,8 +123,12 @@ export default function MilestonePlanningArticle({ article }: { article: Article
       <details className="knowledge-details milestone-supplement">
         <summary>Fachliche Erläuterungen</summary>
         {article.sections.map((section, index) => (
-          <section id={`abschnitt-${index}`} key={section.title} tabIndex={-1}>
-            <h3>{section.title}</h3>
+          <section id={`abschnitt-${index}`} key={index} tabIndex={-1}>
+            {edit(<h3>{section.title}</h3>, 'Abschnitt ' + (index + 1), [
+              'sections',
+              index,
+              'title',
+            ])}
             <p>{section.body}</p>
           </section>
         ))}
@@ -101,7 +141,7 @@ export default function MilestonePlanningArticle({ article }: { article: Article
         <summary>Nachweise und Quellen</summary>
         <section id="kurzantwort" tabIndex={-1}>
           <h2>Kurzantwort</h2>
-          <p>{article.takeaway}</p>
+          {edit(<p>{article.takeaway}</p>, 'Kurzantwort', ['takeaway'])}
         </section>
         <KnowledgeEvidence article={article} includeTrainer={false} />
       </details>

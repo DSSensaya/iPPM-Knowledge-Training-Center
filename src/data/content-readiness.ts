@@ -1,3 +1,4 @@
+import { registerObject } from '../lib/editorial-registry';
 import type { Article } from './types';
 
 // Editorial usability of this bounded content, independent of source/review status.
@@ -77,3 +78,7 @@ export function readinessFor(article: Article) {
     }
   );
 }
+
+Object.entries(contentReadiness).forEach(([id, value]) =>
+  registerObject(`readiness:${id}`, value, ['note'], 'src/data/content-readiness.ts'),
+);

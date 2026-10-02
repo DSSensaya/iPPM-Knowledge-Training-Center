@@ -614,6 +614,12 @@ if (statusArticle.status !== 'demo') {
 
 const reportingArticle = controlArticles.find((article) => article.id === 'guide-r1-reporting')!;
 if (reportingArticle.status !== 'demo') {
+  reportingArticle.knowledge.applicationLimitations = [
+    'Nur vorhandene Plan- und Statusdaten vergleichen; PMO Status bleibt beim PMO.',
+    'Leserechte, Felder und Bestands-Sites im konkreten Zielstand prüfen; keine universelle L1-Sichtbarkeit oder Aktualisierungsregel voraussetzen.',
+    'Bei fehlender Datenherkunft oder ungeklärten Abweichungen mit offenem Prüfpunkt enden. Keine automatische Ampel- oder Trendberechnung.',
+    'Praktische iPPM-Erprobung und fachliche Freigabe fehlen. Reporting-PDP, Power BI und vollständiger Pflege-/Reportingprozess bleiben außerhalb.',
+  ];
   reportingArticle.updated = '2026-09-30';
   reportingArticle.revisions.push({
     number: 3,

@@ -1,4 +1,9 @@
+import EditorialNote from './EditorialNote';
+import EditorialObject from './EditorialObject';
 import { useState } from 'react';
+import type { ReactNode } from 'react';
+import type { EditorPath } from '../lib/editorial';
+export type EditContent = (content: ReactNode, label: string, path: EditorPath) => ReactNode;
 import type { Article } from '../data/types';
 import type { EvidenceRef, OwnerChangeTrainerPackage } from '../data/domain';
 import {
@@ -39,6 +44,7 @@ export function KnowledgeOverview({ article }: { article: Article }) {
         {data.functions.map((f) => (
           <li key={f.id}>
             <a href={`#/wissen?q=${encodeURIComponent(f.title)}`}>{f.title}</a>: {f.outcome}
+            <EditorialObject object={f} label="Arbeitsaufgabe" />
             <span className="context-line">
               {f.context.projectTypes.join(', ')} · {f.context.tools.join(', ')}
             </span>
@@ -65,6 +71,15 @@ export function KnowledgeOverview({ article }: { article: Article }) {
         . Die Zuordnung belegt Umfang, keine technische Reife. Teilbezüge sind bei den Funktionen
         ausgewiesen.
       </p>
+      {data.releases
+        .filter((release) => release.basis === 'current-scope')
+        .map((release) => (
+          <EditorialObject
+            key={release.id}
+            object={scopeItems.find((scope) => scope.id === release.subject.id)}
+            label="Scope-Bezeichnung"
+          />
+        ))}
       {data.links.length > 0 && (
         <>
           <h4>Fachliche Abhängigkeiten</h4>
@@ -78,16 +93,14 @@ export function KnowledgeOverview({ article }: { article: Article }) {
                 </strong>
                 {link.condition && <span className="context-line">Wenn: {link.condition}</span>}
                 <p>{link.statement}</p>
+                <EditorialObject object={link} label="Abhängigkeit" />
                 <Evidence refs={link.evidence} />
               </li>
             ))}
           </ul>
         </>
       )}
-      <p>
-        Geprüfte Zielumgebung: nicht angegeben. Die technischen Bewertungen beziehen sich auf die
-        jeweils begrenzten Quellenkontexte.
-      </p>
+      <EditorialNote id="knowledgecontext-0" />
     </section>
   );
 }
@@ -97,6 +110,7 @@ function IssueDetails({ article }: { article: Article }) {
       {knowledgeFor(article).issues.map((i) => (
         <div key={i.id}>
           <h3>{i.title}</h3>
+          <EditorialObject object={i} label="Einschränkung" />
           <p>
             <strong>{i.status}.</strong> {i.limitation}
           </p>
@@ -123,15 +137,36 @@ function GuideReference({ guide }: { guide?: Article }) {
   );
 }
 
-export function KnowledgePrerequisites({ article, guide }: { article: Article; guide?: Article }) {
+export function KnowledgePrerequisites({
+  article,
+  guide,
+  edit,
+}: {
+  article: Article;
+  guide?: Article;
+  edit?: EditContent;
+}) {
   const procedures = article.knowledge?.procedures ?? [];
   return (
     <section id="voraussetzungen" tabIndex={-1}>
-      <h2>Voraussetzungen</h2>
+      {edit && procedures.length === 1 ? (
+        edit(<h2>Voraussetzungen</h2>, 'Voraussetzungen', ['procedures', 0, 'prerequisites', 0])
+      ) : (
+        <h2>Voraussetzungen</h2>
+      )}
       {procedures.length ? (
-        procedures.map((procedure) => (
+        procedures.map((procedure, index) => (
           <div key={procedure.id}>
-            <h3>{procedure.title}</h3>
+            {edit && procedures.length > 1 ? (
+              edit(<h3>{procedure.title}</h3>, procedure.title + ' – Voraussetzungen', [
+                'procedures',
+                index,
+                'prerequisites',
+                0,
+              ])
+            ) : (
+              <h3>{procedure.title}</h3>
+            )}
             <ul>
               {procedure.prerequisites.map((item) => (
                 <li key={item}>{item}</li>
@@ -157,16 +192,21 @@ export function KnowledgePrerequisites({ article, guide }: { article: Article; g
           <GuideReference guide={guide} />
         </p>
       ) : (
-        <p>
-          Vor praktischer Nutzung müssen die unten genannten fachlichen und technischen
-          Voraussetzungen nachgewiesen sein. Dieser Beitrag bietet Orientierung.
-        </p>
+        <EditorialNote id="knowledgecontext-1" />
       )}
     </section>
   );
 }
 
-export function KnowledgeProcedures({ article, guide }: { article: Article; guide?: Article }) {
+export function KnowledgeProcedures({
+  article,
+  guide,
+  edit,
+}: {
+  article: Article;
+  guide?: Article;
+  edit?: EditContent;
+}) {
   const procedures = article.knowledge?.procedures ?? [];
   return (
     <>
@@ -177,14 +217,15 @@ export function KnowledgeProcedures({ article, guide }: { article: Article; guid
             in der zugehörigen Anleitung: <GuideReference guide={guide} />
           </p>
         ) : (
-          <p>
-            Für diesen Schritt liegt hier kein ausführbarer Bedienweg vor. Die Orientierung und
-            Prüffragen im fachlichen Kontext benennen die Vorbereitung und die offenen Nachweise.
-          </p>
+          <EditorialNote id="knowledgecontext-2" />
         ))}
-      {procedures.map((p) => (
+      {procedures.map((p, index) => (
         <section key={p.id} id={p.id} tabIndex={-1} className="knowledge-procedure">
-          <h3>{p.title}</h3>
+          {edit && procedures.length > 1 ? (
+            edit(<h3>{p.title}</h3>, p.title + ' – Bedienweg', ['procedures', index, 'trigger'])
+          ) : (
+            <h3>{p.title}</h3>
+          )}
           <p>
             <strong>Auslöser: </strong>
             {p.trigger}
@@ -212,16 +253,37 @@ export function KnowledgeProcedures({ article, guide }: { article: Article; guid
   );
 }
 
-export function KnowledgeResults({ article, guide }: { article: Article; guide?: Article }) {
+export function KnowledgeResults({
+  article,
+  guide,
+  edit,
+}: {
+  article: Article;
+  guide?: Article;
+  edit?: EditContent;
+}) {
   const procedures = article.knowledge?.procedures ?? [];
   return (
     <section id="ergebnispruefung" tabIndex={-1}>
-      <h2>Ergebnisprüfung</h2>
+      {edit && procedures.length === 1 ? (
+        edit(<h2>Ergebnisprüfung</h2>, 'Ergebnisprüfung', ['procedures', 0, 'expectedResults', 0])
+      ) : (
+        <h2>Ergebnisprüfung</h2>
+      )}
       {procedures.length ? (
         <>
-          {procedures.map((procedure) => (
+          {procedures.map((procedure, index) => (
             <div key={procedure.id}>
-              <h3>{procedure.title}</h3>
+              {edit && procedures.length > 1 ? (
+                edit(<h3>{procedure.title}</h3>, procedure.title + ' – Ergebnisprüfung', [
+                  'procedures',
+                  index,
+                  'expectedResults',
+                  0,
+                ])
+              ) : (
+                <h3>{procedure.title}</h3>
+              )}
               <p>
                 <strong>Erwartetes Ergebnis laut Entwurf</strong>
               </p>
@@ -240,10 +302,7 @@ export function KnowledgeResults({ article, guide }: { article: Article; guide?:
               </ul>
             </div>
           ))}
-          <p className="small">
-            Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren
-            Konten.
-          </p>
+          <EditorialNote id="knowledgecontext-3" className="small" />
         </>
       ) : guide ? (
         <p>
@@ -279,11 +338,7 @@ function OwnerChangeTrainer({
   return (
     <details className="knowledge-details owner-training">
       <summary>Trainerpaket Owner-Wechsel · fiktives Szenario</summary>
-      <p>
-        Alle Projekt- und Kontobezeichnungen sind fiktiv. Prüfen Sie den tatsächlichen
-        Ausgangszustand im geeigneten Schulungssystem. Einträge hier werden nicht gespeichert; ein
-        praktischer Durchlauf ist nicht belegt.
-      </p>
+      <EditorialNote id="knowledgecontext-4" />
       <label htmlFor="owner-training-variant">Variante</label>
       <select
         id="owner-training-variant"
@@ -299,6 +354,7 @@ function OwnerChangeTrainer({
       <p className="small">Beim Variantenwechsel werden die Eingaben dieser Ansicht geleert.</p>
       <div key={variant.id}>
         <h3>Ausgangszustand und Ziel</h3>
+        <EditorialObject object={plan} label="Trainerpaket" />
         <dl>
           <dt>Kundenprojekt</dt>
           <dd>{plan.customerProject}</dd>
@@ -381,10 +437,7 @@ function OwnerChangeTrainer({
           ))}
         </select>
       </div>
-      <p>
-        Auch eine bestätigte Beobachtung erledigt keine offenen Issues. Build Team, effektive
-        Rechte, Bestands-Sites und Schulungsumgebung bleiben gesondert zu prüfen.
-      </p>
+      <EditorialNote id="knowledgecontext-5" />
       <ul>
         {openIssues.map((issue) => (
           <li key={issue.id}>
@@ -405,6 +458,7 @@ export function KnowledgeTrainer({ article }: { article: Article }) {
   return (
     <section id="trainerhinweise" tabIndex={-1}>
       <h2>Für die Schulung vorbereiten</h2>
+      <EditorialObject object={trainer} label="Trainerhinweise" />
       <details className="knowledge-details">
         <summary>Lernziel, Voraussetzungen und Übungsvorschlag</summary>
         <p>
@@ -451,10 +505,7 @@ export function KnowledgeEvidence({
         )}
         <KnowledgeOverview article={article} />
         <h3>Schulungsbezug und Quellenbewertungen</h3>
-        <p>
-          Die Aussagen bleiben nach Quelle und Reichweite getrennt. Ein beschriebener oder geübter
-          Einzelweg gibt diesen Center-Inhalt nicht fachlich frei.
-        </p>
+        <EditorialNote id="knowledgecontext-6" />
         <details className="knowledge-details">
           <summary>
             {data.training.length > 0
@@ -518,11 +569,7 @@ export function KnowledgeEvidence({
       {includeTrainer && <KnowledgeTrainer article={article} />}
       <section id="quellen" tabIndex={-1}>
         <h2>Quellen und Fundstellen</h2>
-        <p>
-          Die Fundstellen beziehen sich auf die lokal analysierten Dateien. Originaldateien werden
-          hier nicht geladen; referenzierte TTT-Originale und Quick Guides sind nicht als verfügbare
-          Downloads hinterlegt.
-        </p>
+        <EditorialNote id="knowledgecontext-7" />
         {sources
           .filter((s) => refs.some((r) => r.sourceId === s.id))
           .map((s) => (

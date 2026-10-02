@@ -1,3 +1,4 @@
+import { registerObject, shareOrigin } from '../lib/editorial-registry';
 import type { EvidenceRef } from './domain';
 import { inventorySource } from './inventory-source';
 import { visibleArticles } from './content';
@@ -167,3 +168,48 @@ export const inventory: InventoryEntry[] = [
     })),
   ),
 ];
+
+const noteOrigins = new Map<string, { id: string; value: { note: string } }>();
+inventory.forEach((item) => {
+  const coverage =
+    item.kind === 'Prozessschritt'
+      ? sb1Coverage.find((row) => row.number === item.aliases[0])
+      : undefined;
+  if (coverage) {
+    Object.defineProperty(item, 'note', {
+      enumerable: true,
+      get: () => `${coverage.treatedScope} Offene Grenze: ${coverage.gap}`,
+    });
+    return;
+  }
+  let origin = noteOrigins.get(item.note);
+  if (!origin) {
+    const id = `inventory-note:${item.id}`,
+      value = { note: item.note };
+    registerObject(id, value, ['note'], 'src/data/inventory.ts');
+    origin = { id, value };
+    noteOrigins.set(item.note, origin);
+  }
+  shareOrigin(item, origin.value, origin.id);
+});
+
+export function refreshInventory() {
+  for (const entry of inventory) {
+    const fn = functions.find((item) => item.id === entry.id);
+    const process = processCatalog.find((item) => item.id === entry.id);
+    const procedure = visibleArticles
+      .flatMap((item) => item.knowledge?.procedures ?? [])
+      .find((item) => item.id === entry.id);
+    if (fn) {
+      entry.title = fn.title;
+      entry.context = fn.outcome;
+      entry.aliases = fn.aliases;
+    }
+    if (process) entry.title = process.title;
+    if (procedure) {
+      entry.title = procedure.title;
+      entry.context = procedure.trigger;
+    }
+  }
+}
+refreshInventory();

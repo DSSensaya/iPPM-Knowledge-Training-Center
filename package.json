@@ -9,7 +9,10 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "playwright test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "edit": "vite --mode local-edit --host 127.0.0.1 --port 5174 --strictPort",
+    "build:editor": "tsc -b && node scripts/build-editor.mjs",
+    "edit:built": "node dist-editor/server.js"
   },
   "dependencies": {
     "lucide-react": "^0.577.0",

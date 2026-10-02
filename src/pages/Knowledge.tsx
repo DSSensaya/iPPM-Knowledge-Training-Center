@@ -1,5 +1,9 @@
-import { ArrowLeft, ArrowRight, Bookmark, Check, Clock3, RotateCcw } from 'lucide-react';
-import { Fragment } from 'react';
+import LocalArticleEditor from '../components/LocalArticleEditor';
+import type { EditorPath, LocalArticleEditorHandle } from '../components/LocalArticleEditor';
+import type { ReactNode } from 'react';
+import type { EditContent } from '../components/KnowledgeContext';
+import { ArrowLeft, ArrowRight, Bookmark, Check, Clock3, Pencil, RotateCcw } from 'lucide-react';
+import { Fragment, useRef, useState } from 'react';
 import ContentReadiness from '../components/ContentReadiness';
 import { InventorySearchLink } from '../components/Inventory';
 import { roles, topics, visibleArticles } from '../data/content';
@@ -17,6 +21,8 @@ import {
   KnowledgeProcedures,
   KnowledgeResults,
 } from '../components/KnowledgeContext';
+
+declare const __LOCAL_EDITOR__: boolean;
 
 const coreJumps = [
   ['kurzantwort', 'Kurzantwort'],
@@ -44,25 +50,35 @@ const releaseJumps = [
   ['nachweise', 'Quellen und Planungsstand'],
 ] as const;
 
-function ReleaseScopeArticle({ article }: { article: (typeof visibleArticles)[number] }) {
+function ReleaseScopeArticle({
+  article,
+  edit,
+}: {
+  article: (typeof visibleArticles)[number];
+  edit: EditContent;
+}) {
   return (
     <>
       <section id="kurzantwort" className="takeaway" tabIndex={-1}>
         <h2>Einordnung</h2>
-        <p>{article.takeaway}</p>
+        {edit(<p>{article.takeaway}</p>, 'Kurzantwort', ['takeaway'])}
       </section>
       <section id="voraussetzungen" tabIndex={-1}>
         <h2>Geltungsbereich</h2>
         <section id="abschnitt-0" tabIndex={-1}>
-          <h3>{article.sections[0].title}</h3>
+          {edit(<h3>{article.sections[0].title}</h3>, 'Abschnitt 1', ['sections', 0, 'title'])}
           <p>{article.sections[0].body}</p>
         </section>
       </section>
       <section id="bedienweg" tabIndex={-1}>
         <h2>Geplanter Umfang</h2>
         {article.sections.slice(1, -1).map((section, index) => (
-          <section id={`abschnitt-${index + 1}`} key={section.title} tabIndex={-1}>
-            <h3>{section.title}</h3>
+          <section id={`abschnitt-${index + 1}`} key={index} tabIndex={-1}>
+            {edit(<h3>{section.title}</h3>, 'Abschnitt ' + (index + 2), [
+              'sections',
+              index + 1,
+              'title',
+            ])}
             <p>{section.body}</p>
             {section.steps && (
               <ul>
@@ -77,7 +93,11 @@ function ReleaseScopeArticle({ article }: { article: (typeof visibleArticles)[nu
       <section id="ergebnispruefung" tabIndex={-1}>
         <h2>Offene Nachweise</h2>
         <section id={`abschnitt-${article.sections.length - 1}`} tabIndex={-1}>
-          <h3>{article.sections.at(-1)!.title}</h3>
+          {edit(<h3>{article.sections.at(-1)!.title}</h3>, 'Abschnitt ' + article.sections.length, [
+            'sections',
+            article.sections.length - 1,
+            'title',
+          ])}
           <p>{article.sections.at(-1)!.body}</p>
         </section>
       </section>
@@ -211,6 +231,8 @@ export function ArticlePage({
   toggleSave: (id: string) => void;
   toggleRead: (id: string) => void;
 }) {
+  const editor = useRef<LocalArticleEditorHandle>(null);
+  const [editorReady, setEditorReady] = useState(false);
   const article = visibleArticles.find((a) => a.id === id);
   if (!article)
     return (
@@ -222,6 +244,36 @@ export function ArticlePage({
         </a>
       </div>
     );
+  const canEdit = __LOCAL_EDITOR__;
+  function editableContent(content: ReactNode, label: string, path: EditorPath) {
+    if (
+      !canEdit ||
+      (path[0] === 'procedures' && !article?.knowledge?.procedures[path[1]]) ||
+      (path[0] === 'limitations' && !article?.knowledge?.applicationLimitations?.length)
+    )
+      return content;
+    return (
+      <>
+        <div className="inline-edit-target">
+          {content}
+          <button
+            type="button"
+            className="icon-button inline-edit-button"
+            aria-label={label + ' bearbeiten'}
+            title={label + ' bearbeiten'}
+            disabled={!editorReady}
+            onClick={(event) => {
+              const slot = event.currentTarget.parentElement?.nextElementSibling;
+              if (slot instanceof HTMLElement) void editor.current?.edit(path, slot, label);
+            }}
+          >
+            <Pencil size={14} aria-hidden="true" />
+          </button>
+        </div>
+        <div className="local-editor-slot" />
+      </>
+    );
+  }
   const saved = progress.bookmarks.includes(id),
     read = progress.read.includes(id);
   const ownerFirst = id === 'guide-project-permissions';
@@ -255,14 +307,32 @@ export function ArticlePage({
           <span className="eyebrow">
             {article.topic} / {article.kind}
           </span>
-          <h1>{article.title}</h1>
+          {editableContent(<h1>{article.title}</h1>, 'Titel', ['title'])}
           <ContentReadiness article={article} />
-          <p className="article-lead">
-            {ownerFirst
-              ? article.knowledge!.procedures.find((p) => p.id === 'procedure-owner-change')!
-                  .trigger
-              : article.summary}
-          </p>
+          {__LOCAL_EDITOR__ && (
+            <LocalArticleEditor
+              key={article.id}
+              article={article}
+              ref={editor}
+              onReady={setEditorReady}
+            />
+          )}
+          {editableContent(
+            <p className="article-lead">
+              {ownerFirst
+                ? article.knowledge!.procedures.find((p) => p.id === 'procedure-owner-change')!
+                    .trigger
+                : article.summary}
+            </p>,
+            'Zusammenfassung',
+            ownerFirst
+              ? [
+                  'procedures',
+                  article.knowledge!.procedures.findIndex((p) => p.id === 'procedure-owner-change'),
+                  'trigger',
+                ]
+              : ['summary'],
+          )}
           {readingFirst ? (
             <p className="owner-validity">R1 / SB1 · begrenzter Quellenbezug</p>
           ) : (
@@ -278,9 +348,45 @@ export function ArticlePage({
           )}
           <div className="demo-note">
             {article.status === 'source-draft'
-              ? 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
+              ? article.userConfirmations?.some(
+                  (confirmation) => confirmation.kind === 'center-final',
+                )
+                ? 'Quellenstand: Quellenbasierter Entwurf · Center-Freigaben siehe unten'
+                : 'Quellenbasierter Entwurf · Fachlich nicht freigegeben'
               : 'Fachlich geprüfter Inhalt'}
           </div>
+          {!!article.userConfirmations?.length && (
+            <details className="knowledge-details" aria-label="Nutzerbestätigte Erkenntnisse">
+              <summary>
+                {article.userConfirmations.some(
+                  (confirmation) => confirmation.kind === 'center-final',
+                )
+                  ? 'Bestätigungen und Center-Freigaben'
+                  : 'Vom Nutzer fachlich bestätigte Änderungen'}{' '}
+                ({article.userConfirmations.length})
+              </summary>
+              <ul>
+                {article.userConfirmations.map((confirmation) => (
+                  <li key={confirmation.revision}>
+                    {confirmation.kind === 'center-final' && (
+                      <strong>Für das Center final freigegeben · </strong>
+                    )}
+                    Revision {confirmation.revision} · {confirmation.date} ·{' '}
+                    {confirmation.confirmedBy}: {confirmation.fields.join(', ')}
+                  </li>
+                ))}
+              </ul>
+              {article.userConfirmations.some(
+                (confirmation) => confirmation.kind !== 'center-final',
+              ) && (
+                <p className="small">
+                  Die Bestätigung gilt für die genannten Felder. Sie ist eine ausdrückliche
+                  Nutzerbestätigung und keine externe Quellenprüfung, Beitragsfreigabe oder
+                  Systemerprobung.
+                </p>
+              )}
+            </details>
+          )}
           {article.knowledge ? (
             <>
               <nav className="article-jumps" aria-label="Direkt zu den Abschnitten">
@@ -313,68 +419,77 @@ export function ArticlePage({
                 )}
               </nav>
               {ownerFirst ? (
-                <OwnerChangeArticle article={article} />
+                <OwnerChangeArticle article={article} edit={editableContent} />
               ) : milestoneFirst ? (
-                <MilestonePlanningArticle article={article} />
+                <MilestonePlanningArticle article={article} edit={editableContent} />
               ) : releaseScope ? (
-                <ReleaseScopeArticle article={article} />
+                <ReleaseScopeArticle article={article} edit={editableContent} />
               ) : (
                 <>
                   <section id="kurzantwort" className="takeaway" tabIndex={-1}>
                     <h2>Kurzantwort</h2>
-                    <p>{article.takeaway}</p>
+                    {editableContent(<p>{article.takeaway}</p>, 'Kurzantwort', ['takeaway'])}
                   </section>
-                  <KnowledgePrerequisites article={article} guide={relatedGuide} />
+                  <KnowledgePrerequisites
+                    article={article}
+                    guide={relatedGuide}
+                    edit={canEdit ? editableContent : undefined}
+                  />
                   {!pathFirst && <KnowledgeIssues article={article} />}
                   <section id="bedienweg" tabIndex={-1}>
-                    <h2>Bedienweg</h2>
-                    <KnowledgeProcedures article={article} guide={relatedGuide} />
+                    {article.knowledge.procedures.length === 1 ? (
+                      editableContent(<h2>Bedienweg</h2>, 'Bedienweg', ['procedures', 0, 'trigger'])
+                    ) : (
+                      <h2>Bedienweg</h2>
+                    )}
+                    <KnowledgeProcedures
+                      article={article}
+                      guide={relatedGuide}
+                      edit={editableContent}
+                    />
                     {article.sections.map((section, i) => (
-                      <section id={`abschnitt-${i}`} key={section.title} tabIndex={-1}>
-                        <h3>{section.title}</h3>
-                        <p>{section.body}</p>
-                        {section.steps && (
-                          <ol className="steps">
-                            {section.steps.map((step) => (
-                              <li key={step}>{step}</li>
-                            ))}
-                          </ol>
+                      <section id={`abschnitt-${i}`} key={i} tabIndex={-1}>
+                        {editableContent(
+                          <div>
+                            <h3>{section.title}</h3>
+                            <p>{section.body}</p>
+                            {section.steps && (
+                              <ol className="steps">
+                                {section.steps.map((step) => (
+                                  <li key={step}>{step}</li>
+                                ))}
+                              </ol>
+                            )}
+                          </div>,
+                          'Abschnitt ' + (i + 1),
+                          ['sections', i, 'title'],
                         )}
                       </section>
                     ))}
                   </section>
-                  <KnowledgeResults article={article} guide={relatedGuide} />
+                  <KnowledgeResults
+                    article={article}
+                    guide={relatedGuide}
+                    edit={canEdit ? editableContent : undefined}
+                  />
                   {pathFirst && (
                     <section id="einschraenkungen" className="knowledge-issues" tabIndex={-1}>
-                      <h2>Einschränkungen vor der Anwendung</h2>
+                      {editableContent(
+                        <h2>Einschränkungen vor der Anwendung</h2>,
+                        'Einschränkungen',
+                        ['limitations', 0],
+                      )}
                       {reportingPathFirst ? (
                         <ul>
-                          <li>
-                            Nur vorhandene Plan- und Statusdaten vergleichen; PMO Status bleibt beim
-                            PMO.
-                          </li>
-                          <li>
-                            Leserechte, Felder und Bestands-Sites im konkreten Zielstand prüfen;
-                            keine universelle L1-Sichtbarkeit oder Aktualisierungsregel
-                            voraussetzen.
-                          </li>
-                          <li>
-                            Bei fehlender Datenherkunft oder ungeklärten Abweichungen mit offenem
-                            Prüfpunkt enden. Keine automatische Ampel- oder Trendberechnung.
-                          </li>
-                          <li>
-                            Praktische iPPM-Erprobung und fachliche Freigabe fehlen. Reporting-PDP,
-                            Power BI und vollständiger Pflege-/Reportingprozess bleiben außerhalb.
-                          </li>
+                          {article.knowledge.applicationLimitations?.map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
                         </ul>
                       ) : (
                         <ul>
-                          <li>PMO Status bleibt beim PMO.</li>
-                          <li>
-                            PM-Bearbeitungsrechte und Bestands-Sites in der Zielumgebung prüfen.
-                          </li>
-                          <li>Der Pflegezyklus ist offen.</li>
-                          <li>Die praktische Erprobung des Center-Wegs steht aus.</li>
+                          {article.knowledge.applicationLimitations?.map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
                         </ul>
                       )}
                     </section>

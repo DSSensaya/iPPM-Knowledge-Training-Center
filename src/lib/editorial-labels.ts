@@ -1,0 +1,46 @@
+const labels: Record<string, string> = {
+  title: 'Titel',
+  summary: 'Zusammenfassung',
+  description: 'Beschreibung',
+  text: 'Text',
+  objective: 'Lernziel',
+  preparation: 'Vorbereitung',
+  exercise: 'Übung',
+  expectedResult: 'Erwartetes Übungsergebnis',
+  limitation: 'Einschränkung',
+  customerProject: 'Kundenprojekt',
+  pmAccount: 'PM-Konto',
+  currentOwner: 'Owner aktuell',
+  currentSubprojects: 'Subprojects aktuell',
+  variants: 'Varianten',
+  label: 'Bezeichnung',
+  subproject: 'Teilprojekt',
+  targetAccount: 'Zielkonto',
+  plannedOwner: 'Owner geplant',
+  plannedSubprojects: 'Subprojects geplant',
+  prechecks: 'Vorprüfungen',
+  pmExpected: 'Erwartung PM-Konto',
+  targetExpected: 'Erwartung Zielkonto',
+  resetCheck: 'Rücksetzung',
+  beforeStart: 'Vor dem Start',
+  learningIntro: 'Einleitung zur Schulung',
+  responsibility: 'Zuständigkeit',
+  outcome: 'Ergebnis',
+  aliases: 'Weitere Bezeichnungen',
+  phase: 'Phase',
+  input: 'Voraussetzung',
+  output: 'Erwartetes Ergebnis',
+  statement: 'Aussage',
+  condition: 'Bedingung',
+  treatedScope: 'Behandelter Teilumfang',
+  gap: 'Konkrete Lücke',
+  note: 'Hinweis',
+  question: 'Frage',
+  answer: 'Antwort',
+};
+export function editorialLabel(path: string) {
+  return path
+    .split(' / ')
+    .map((part) => (/^\d+$/.test(part) ? String(Number(part) + 1) : (labels[part] ?? part)))
+    .join(' / ');
+}

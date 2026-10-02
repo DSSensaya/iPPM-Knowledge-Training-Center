@@ -32,7 +32,16 @@ export interface ReviewEvidence {
   environment: string;
   record: string;
 }
+export interface UserConfirmation {
+  // Absent for historical personal confirmations; Center approval is explicit.
+  kind?: 'center-final';
+  revision: number;
+  date: string;
+  confirmedBy: string;
+  fields: string[];
+}
 interface ArticleBase {
+  extra?: Record<string, string>;
   id: string;
   title: string;
   summary: string;
@@ -53,6 +62,7 @@ export type Article = ArticleBase &
         knowledge: KnowledgeContext;
         revisions: ContentRevision[];
         reviews: ReviewEvidence[];
+        userConfirmations?: UserConfirmation[];
       }
   );
 export interface LearningPath {

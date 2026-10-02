@@ -1,3 +1,4 @@
+import { registerObject } from '../lib/editorial-registry';
 import type {
   Assessment,
   FunctionDefinition,
@@ -810,3 +811,62 @@ export const knowledgeLinks: KnowledgeLink[] = [
     ),
   },
 ];
+
+roleCatalog.forEach((item) =>
+  registerObject(
+    'roleCatalog:' + item.id,
+    item,
+    ['label', 'responsibility'],
+    'src/data/catalog.ts',
+  ),
+);
+
+processCatalog.forEach((item) =>
+  registerObject('processCatalog:' + item.id, item, ['title'], 'src/data/catalog.ts'),
+);
+
+scopeItems.forEach((item) =>
+  registerObject('scopeItems:' + item.id, item, ['title'], 'src/data/catalog.ts'),
+);
+
+functions.forEach((item) =>
+  registerObject(
+    'functions:' + item.id,
+    item,
+    ['title', 'outcome', 'aliases'],
+    'src/data/catalog.ts',
+  ),
+);
+
+processSteps.forEach((item) =>
+  registerObject(
+    'processSteps:' + item.id,
+    item,
+    ['title', 'phase', 'input', 'output'],
+    'src/data/catalog.ts',
+  ),
+);
+
+processViews
+  .filter((item) => ['access', 'milestones'].includes(item.id))
+  .forEach((item) =>
+    registerObject(
+      'processViews:' + item.id,
+      item,
+      ['title', 'description'],
+      'src/data/catalog.ts',
+    ),
+  );
+
+issues.forEach((item) =>
+  registerObject('issues:' + item.id, item, ['title', 'limitation'], 'src/data/catalog.ts'),
+);
+
+knowledgeLinks.forEach((item) =>
+  registerObject(
+    'knowledgeLinks:' + item.id,
+    item,
+    ['statement', 'condition'],
+    'src/data/catalog.ts',
+  ),
+);

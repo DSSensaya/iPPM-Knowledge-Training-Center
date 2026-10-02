@@ -1,7 +1,7 @@
+import EditorialObject from '../components/EditorialObject';
 import { ArrowRight } from 'lucide-react';
-import { faqs } from '../data/content';
+import { faqs, visibleArticles } from '../data/content';
 import { PageTitle } from '../components/ui';
-import { accessArticles } from '../data/access-content';
 export default function Help() {
   return (
     <>
@@ -13,7 +13,7 @@ export default function Help() {
       <div className="help-layout">
         <section>
           <h2>Häufige Fragen</h2>
-          {accessArticles
+          {visibleArticles
             .filter((a) => a.kind === 'FAQ')
             .map((a) => (
               <p key={a.id}>
@@ -28,6 +28,7 @@ export default function Help() {
                   <span aria-hidden="true">+</span>
                 </summary>
                 <p>{faq.answer}</p>
+                <EditorialObject object={faq} label="Hilfe" />
               </details>
             ))}
           </div>

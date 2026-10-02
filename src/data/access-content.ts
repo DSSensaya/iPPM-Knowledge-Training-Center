@@ -1,3 +1,4 @@
+import { registerObject } from '../lib/editorial-registry';
 import type { Article, ContentRevision } from './types';
 import type { KnowledgeContext, OwnerChangeTrainerPackage } from './domain';
 import { evidence as e } from './sources';
@@ -360,3 +361,10 @@ if (ownerGuide.status !== 'demo') {
     sources: ownerGuide.revisions.at(-1)!.sources.map((source) => ({ ...source })),
   });
 }
+
+registerObject(
+  'owner-reading',
+  ownerReading,
+  ['beforeStart', 'learningIntro'],
+  'src/data/access-content.ts',
+);

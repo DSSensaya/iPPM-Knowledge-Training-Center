@@ -1,3 +1,4 @@
+import { registerObject } from '../lib/editorial-registry';
 import type { EvidenceRef } from './domain';
 import { evidence } from './sources';
 import { definitionRows, definitionIssues } from './definition-catalog';
@@ -377,3 +378,22 @@ export const sb1AdditionalHandbookTopics = [
     evidence: evidence('B', '§5.5.2 Projektfortschritt pflegen'),
   },
 ];
+
+sb1Coverage.forEach((item, index) =>
+  registerObject(
+    'sb1Coverage:' + ('id' in item ? item.id : 'number' in item ? item.number : index),
+    item,
+    ['treatedScope', 'gap'],
+    'src/data/sb1-coverage.ts',
+  ),
+);
+
+sb1AdditionalHandbookTopics.forEach((item, index) =>
+  registerObject(
+    'sb1AdditionalHandbookTopics:' +
+      ('id' in item ? item.id : 'number' in item ? item.number : index),
+    item,
+    ['title', 'note'],
+    'src/data/sb1-coverage.ts',
+  ),
+);

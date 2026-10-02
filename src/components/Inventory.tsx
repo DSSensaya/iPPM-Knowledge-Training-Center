@@ -1,8 +1,35 @@
+import EditorialObject from './EditorialObject';
+import ArticlePencil from './ArticlePencil';
 import { useState } from 'react';
 import { inventory } from '../data/inventory';
 import { visibleArticles } from '../data/content';
 import { sources } from '../data/sources';
 import { searchInventory } from '../lib/inventory-search';
+import { functions, processCatalog } from '../data/catalog';
+import { sb1Coverage } from '../data/sb1-coverage';
+
+declare const __LOCAL_EDITOR__: boolean;
+function InventoryOrigin({ id }: { id: string }) {
+  if (!__LOCAL_EDITOR__) return null;
+  const fn = functions.find((item) => item.id === id);
+  const process = processCatalog.find((item) => item.id === id);
+  const article = visibleArticles.find((item) =>
+    item.knowledge?.procedures.some((p) => p.id === id),
+  );
+  return fn || process ? (
+    <EditorialObject object={fn ?? process} label="Ursprungsobjekt" />
+  ) : article ? (
+    <ArticlePencil
+      article={article}
+      path={[
+        'procedures',
+        article.knowledge!.procedures.findIndex((item) => item.id === id),
+        'trigger',
+      ]}
+      label="Bedienweg am Ursprungsbeitrag"
+    />
+  ) : null;
+}
 
 export function InventorySearchLink({ query }: { query: string }) {
   if (!query.trim()) return null;
@@ -73,6 +100,15 @@ export default function Inventory() {
                 <div className="sb1-coverage-details">
                   <p>{entry.context}</p>
                   <p>{entry.note}</p>
+                  <EditorialObject
+                    object={
+                      entry.kind === 'Prozessschritt'
+                        ? (sb1Coverage.find((row) => row.number === entry.aliases[0]) ?? entry)
+                        : entry
+                    }
+                    label="Kataloghinweis"
+                  />
+                  <InventoryOrigin id={entry.id} />
                   {entry.articleIds.length > 0 && (
                     <ul>
                       {entry.articleIds.map((id) => (

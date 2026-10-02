@@ -2026,3 +2026,198 @@ details > p {
 .inventory .knowledge-details .knowledge-details {
   padding: 0;
 }
+
+/* Direct edit controls appear only beside allowed text in local authoring mode. */
+.inline-edit-target {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.inline-edit-target > :first-child {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.inline-edit-button {
+  flex: 0 0 44px;
+  color: var(--muted);
+  background: none;
+}
+.inline-edit-button:hover:not(:disabled),
+.inline-edit-button:focus-visible {
+  color: var(--ink);
+  background: var(--hover);
+}
+.local-editor-slot:empty {
+  display: none;
+}
+@media print {
+  .inline-edit-button {
+    display: none;
+  }
+}
+
+/* Local authoring uses existing design tokens and explicit editable boundaries. */
+.local-editor {
+  background: var(--base);
+  padding: 24px;
+  margin: 24px 0;
+}
+.local-editor-field {
+  display: block;
+  font-weight: 700;
+  margin: 16px 0;
+}
+.local-editor-field input,
+.local-editor-field select,
+.local-editor-field textarea {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px;
+  font: inherit;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+.local-editor-field textarea {
+  resize: vertical;
+}
+.local-editor-field textarea:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+.local-editor fieldset {
+  border: 0;
+  padding: 0;
+  margin: 24px 0;
+  min-width: 0;
+}
+.local-editor legend {
+  font-weight: 700;
+}
+.local-editor .local-editor-tool-selection {
+  margin: 0;
+}
+.local-editor-tool-options {
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--ink);
+  background: var(--white);
+}
+.local-editor-tool-options fieldset {
+  margin: 12px;
+}
+.local-editor-tool-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.local-editor-tool-option:hover {
+  background: var(--hover);
+}
+.local-editor-tool-option:has(input:checked) {
+  background: var(--signal-dark);
+}
+.local-editor-tool-option:has(input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+.local-editor-field .local-editor-tool-option input {
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  padding: 0;
+  flex-shrink: 0;
+  accent-color: var(--ink);
+}
+.local-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+  position: sticky;
+  bottom: 8px;
+  padding: 8px;
+  background: var(--base);
+  z-index: 1;
+}
+.local-editor-actions .local-editor-cancel {
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--ink);
+}
+.local-editor-actions .local-editor-cancel:hover:not(:disabled) {
+  background: var(--hover);
+}
+.local-editor-actions .button:disabled {
+  color: var(--muted);
+  background: var(--hover);
+  border-color: var(--active);
+}
+.local-editor-actions [role='status'] {
+  flex-basis: 100%;
+}
+.local-editor-comparison,
+.local-editor-conflict {
+  border-left: 4px solid var(--signal);
+  padding-left: 16px;
+}
+.local-editor p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.local-editor-dialog {
+  width: min(760px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 24px;
+  margin: auto;
+  overflow: auto;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+.local-editor-dialog::backdrop {
+  background: var(--dark);
+}
+.local-editor-dialog .local-editor-save-options {
+  background: var(--base);
+  padding: 16px;
+}
+.local-editor-save-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+.local-editor-save-option input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin: 3px 0 0;
+  accent-color: var(--ink);
+}
+.local-editor-dialog .local-editor-actions {
+  bottom: -24px;
+  margin-bottom: 0;
+  background: var(--white);
+}
+.local-editor-dialog .local-editor-comparison {
+  margin: 16px 0;
+}
+@media print {
+  .local-editor,
+  .local-editor-slot {
+    display: none;
+  }
+}

@@ -96,6 +96,10 @@ export interface KnowledgeLink {
   condition?: string;
   evidence: EvidenceRef[];
 }
+export interface ToolSelection {
+  toolIds: string[];
+  relation: 'all' | 'alternative';
+}
 export interface Procedure {
   id: string;
   title: string;
@@ -104,7 +108,7 @@ export interface Procedure {
   trigger: string;
   prerequisites: string[];
   requiredRights?: string[];
-  actions: { text: string; tool: string }[];
+  actions: { text: string; tool: string; toolSelection?: ToolSelection }[];
   expectedResults: string[];
   checkQuestions: string[];
   evidence: EvidenceRef[];
@@ -129,6 +133,7 @@ export interface OwnerChangeTrainerPackage {
   resetCheck: string;
 }
 export interface KnowledgeContext {
+  applicationLimitations?: string[];
   functionIds: string[];
   stepIds: string[];
   issueIds: string[];

@@ -1,3 +1,4 @@
+import { registerArticle, registerObject, shareOrigin } from '../lib/editorial-registry';
 import type { Article, LearningPath, Process, Role, Topic } from './types';
 import { accessArticles } from './access-content';
 import { milestoneArticles } from './milestone-content';
@@ -350,6 +351,29 @@ export const articles: Article[] = [
 ];
 // Permanent application boundary: legacy demo data is retained for compatibility only.
 // Routes, search, related links and personal statistics must use visibleArticles.
+const statusArticle = articles.find((article) => article.id === 'guide-status-orientation')!;
+statusArticle.knowledge!.applicationLimitations = [
+  'PMO Status bleibt beim PMO.',
+  'PM-Bearbeitungsrechte und Bestands-Sites in der Zielumgebung prüfen.',
+  'Der Pflegezyklus ist offen.',
+  'Die praktische Erprobung des Center-Wegs steht aus.',
+];
+export const baseArticles = articles.map((article) => structuredClone(article));
+const articleSources = new Map([
+  ...releaseArticles.map((article) => [article.id, 'src/data/release-content.ts'] as const),
+  ...controlArticles.map((article) => [article.id, 'src/data/control-content.ts'] as const),
+  ...accessArticles.map((article) => [article.id, 'src/data/access-content.ts'] as const),
+  ...milestoneArticles.map((article) => [article.id, 'src/data/milestone-content.ts'] as const),
+  ...savePublishArticles.map(
+    (article) => [article.id, 'src/data/save-publish-content.ts'] as const,
+  ),
+  ...definitionArticles.map((article) => [article.id, 'src/data/definition-content.ts'] as const),
+]);
+articles.forEach((article, index) => {
+  if (article.status !== 'demo')
+    articles[index] = registerArticle(article, articleSources.get(article.id));
+});
+
 export const visibleArticles = articles.filter((article) => article.status !== 'demo');
 
 export const recommendedArticleIds = [
@@ -524,3 +548,47 @@ export const faqs = [
       'Ja. Nach der einmaligen Installation der Entwicklungsabhängigkeiten benötigt die Anwendung nur den lokalen Server. Inhalte, Schriften und Programmdateien werden lokal ausgeliefert; es werden keine externen Dienste aufgerufen. Beim Löschen der Browserdaten gehen lokal gespeicherte Fortschritte und Merkeinträge verloren. Eine Sicherung können Sie unter „Mein Lernbereich“ exportieren.',
   },
 ];
+
+faqs.forEach((item, index) =>
+  registerObject(`help:${index}`, item, ['question', 'answer'], 'src/data/content.ts'),
+);
+
+// Shared trainer text has one journal, even where the guide adds an Owner scenario.
+const trainerOrigins = new Map<string, { id: string; value: object }>();
+for (const article of articles) {
+  if (!article.knowledge) continue;
+  const trainer = article.knowledge.trainer;
+  const { ownerChange, ...core } = trainer;
+  const key = JSON.stringify(core);
+  let origin = trainerOrigins.get(key);
+  if (!origin) {
+    const id = 'trainer:' + article.id;
+    registerObject(
+      id,
+      core,
+      ['objective', 'preparation', 'exercise', 'expectedResult', 'limitation'],
+      articleSources.get(article.id)!,
+    );
+    origin = { id, value: core };
+    trainerOrigins.set(key, origin);
+  }
+  shareOrigin(trainer, origin.value, origin.id);
+  if (ownerChange) {
+    registerObject(
+      'trainer-owner:' + ownerChange.procedureId,
+      ownerChange,
+      [
+        'customerProject',
+        'pmAccount',
+        'currentOwner',
+        'currentSubprojects',
+        'variants',
+        'prechecks',
+        'pmExpected',
+        'targetExpected',
+        'resetCheck',
+      ],
+      'src/data/access-content.ts',
+    );
+  }
+}

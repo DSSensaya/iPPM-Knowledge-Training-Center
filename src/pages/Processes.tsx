@@ -1,6 +1,8 @@
+import ArticlePencil from '../components/ArticlePencil';
+import EditorialObject from '../components/EditorialObject';
 import { visibleArticles } from '../data/content';
 import { PageTitle } from '../components/ui';
-import { issues, processSteps, processViews, roleLabel } from '../data/catalog';
+import { issues, processSteps, processViews, roleLabel, roleCatalog } from '../data/catalog';
 import { sb1AdditionalHandbookTopics, sb1Coverage } from '../data/sb1-coverage';
 import { sources } from '../data/sources';
 import Inventory from '../components/Inventory';
@@ -19,7 +21,23 @@ export default function Processes() {
       {processViews.map((view) => (
         <section className="process-section" aria-label={view.title} key={view.id}>
           <h2>{view.title}</h2>
+          {['access', 'milestones'].includes(view.id) ? (
+            <EditorialObject object={view} label="Prozessansicht" />
+          ) : (
+            <ArticlePencil
+              article={visibleArticles.find((a) => a.id === view.articleId)!}
+              path={['title']}
+              label="Prozesstitel am Ursprungsbeitrag"
+            />
+          )}
           <p>{view.description}</p>
+          {!['access', 'milestones'].includes(view.id) && (
+            <ArticlePencil
+              article={visibleArticles.find((a) => a.id === view.articleId)!}
+              path={['summary']}
+              label="Prozessbeschreibung am Ursprungsbeitrag"
+            />
+          )}
           <ul className="knowledge-step-list">
             {view.stepIds.map((id) => {
               const s = processSteps.find((step) => step.id === id)!;
@@ -31,6 +49,12 @@ export default function Processes() {
                   <p>
                     <strong>{roleLabel(s.roleId)}</strong>
                   </p>
+                  <EditorialObject
+                    object={roleCatalog.find((role) => role.id === s.roleId)}
+                    field="label"
+                    label="Rolle"
+                  />
+                  <EditorialObject object={s} label="Prozessschritt" />
                   <p>Voraussetzung: {s.input}</p>
                   <p>Erwartetes Ergebnis: {s.output}</p>
                   <a href={`#/artikel/${view.articleId}`}>
@@ -76,6 +100,7 @@ export default function Processes() {
                   <span>{item.materialStatus}</span>
                 </summary>
                 <div className="sb1-coverage-details">
+                  <EditorialObject object={item} label="Matrixkommentar" />
                   <p>
                     <strong>Fundstelle in T:</strong> {sourceLabel(item.matrixEvidence.sourceId)} ·{' '}
                     {item.matrixEvidence.locator}
@@ -133,6 +158,7 @@ export default function Processes() {
         <ul className="sb1-additional-topics">
           {sb1AdditionalHandbookTopics.map((topic) => (
             <li key={topic.title}>
+              <EditorialObject object={topic} label="Handbuchthema" />
               <strong>{topic.title}</strong> · {topic.note}{' '}
               <span>
                 Beleg:{' '}
