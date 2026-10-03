@@ -1,0 +1,988 @@
+[
+  {
+    "id": "fn-external-milestones",
+    "title": "Weitere Projektmeilensteine planen",
+    "summary": "Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt.",
+    "roleIds": ["pm"],
+    "systemIds": ["project-client"],
+    "aliases": ["MS Project Client · 10 Phasen- und Meilensteinplan"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §4.5.4 Tabelle 18; §4.5.6",
+      "F: R1 Funktionsmatrix!A14:J16",
+      "F: R1 Funktionsmatrix!A14:J14"
+    ],
+    "openPointIds": ["issue-external-milestones-boundary", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; MS Project Client · 10 Phasen- und Meilensteinplan"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Funktionsmatrixbewertung mit begrenztem Nachweis; keine Prüfung dieses Center-Beitrags oder der Zielumgebung."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-08",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-phases-tailoring",
+    "title": "Projektphasen und LCM Review-Termine planen",
+    "summary": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen.",
+    "roleIds": ["pm"],
+    "systemIds": ["project-client"],
+    "aliases": ["MS Project Client · 10 Phasen- und Meilensteinplan / 20 Projektstrukturplan"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "C23: Punkte 8–9 und 11",
+      "TTT: Zeilen 27, 31–32, 39 und 47, A:G",
+      "B: §4.5.5 Projektphasen und LCM-Review-Termine planen",
+      "T: Regeln & Entscheidungen!A7:D7",
+      "F: R1 Funktionsmatrix!A21:J21",
+      "F: Klärungsbedarf!A10:D10",
+      "K: Enterprise Custom Fields: Tailored; Lookup Table ATLAS Tailoring Status"
+    ],
+    "openPointIds": ["issue-phases-tailoring-boundary", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; MS Project Client · 10 Phasen- und Meilensteinplan / 20 Projektstrukturplan"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "verifiziert",
+        "steps": [
+          "Nur FS-16: Tailoring-Bedienprinzip; keine Review-Frequenz, Center-Freigabe oder Zielumgebungsprüfung."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-15",
+        "relation": "partial"
+      },
+      {
+        "targetId": "R1-08",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-escalation-capture",
+    "title": "Eskalation an Multi-Projektmanagement durchführen",
+    "summary": "Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen.",
+    "roleIds": ["pm"],
+    "systemIds": ["pdp", "pwa"],
+    "aliases": ["PWA · PDP Escalations / Liste Escalations"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "TTT: Zeilen 36–38, A:G",
+      "B: §5.5.3 Eskalation an Multi-Projektmanagement durchführen",
+      "T: Release1-Matrix!A49:Q49; PDP-Abdeckung!A16:H16",
+      "F: R1 Funktionsmatrix!A30:J30",
+      "F: Klärungsbedarf!A13:D13"
+    ],
+    "openPointIds": ["issue-escalation-capture-boundary", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PWA · PDP Escalations / Liste Escalations"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Funktionsmatrixbewertung mit begrenztem Nachweis; keine Prüfung dieses Center-Beitrags oder der Zielumgebung."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: documentation",
+        "body": "NOCH NICHT VERBINDLICH DOKUMENTIEREN",
+        "steps": [
+          "FS-25 Gesamtweg; dieser Center-Entwurf beschränkt sich auf Erfassung und ersetzt keine End-to-end-Freigabe."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: training",
+        "body": "noch nicht schulungsfähig",
+        "steps": [
+          "FS-25 Gesamtweg einschließlich Empfängerbearbeitung; SB1-Zuordnung in T ist kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-24",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-status-orientation",
+    "title": "Projektstatus ermitteln",
+    "summary": "PM und Projektkernteam ermitteln den Basisstatus; der PM pflegt die ihm zugänglichen Dimensionen mit Ampel, Trend, Kommentar und Recent Achievements auf PDP Status. PMO Status bleibt beim PMO. Der gespeicherte Stand ist mit Plan, Reviewstatus und Projektstatusübersicht abzugleichen.",
+    "roleIds": ["pm"],
+    "systemIds": ["pdp", "pwa"],
+    "aliases": ["PWA · PDP Status"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "C23: Punkte 5 und 7",
+      "TTT: Zeilen 40–43, A:G",
+      "B: §5.5.4 Projektstatus ermitteln",
+      "T: Release1-Matrix!A52:Q52; PDP-Abdeckung!A17:H17; Offene Punkte!A4:F4 und A10:F10",
+      "F: R1 Funktionsmatrix!A31:J31",
+      "F: Klärungsbedarf!A14:D15",
+      "K: PDP-Feldkatalog: Status, Recent Achievements; Q4 Contract Execution Z. 117"
+    ],
+    "openPointIds": ["issue-status-orientation-boundary", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PWA · PDP Status"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Aktualisiert 23.09.2026: FIN-/SAP-Felder korrigiert; Bestands-Sites und Pflegezyklus gesondert behandeln."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-25",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-r1-reporting",
+    "title": "Projektreporting durchführen",
+    "summary": "Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest.",
+    "roleIds": ["pm"],
+    "systemIds": ["pwa"],
+    "aliases": ["PWA / Project Center – Projektfortschritt- und -status"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §5.5.4 Projektstatus ermitteln; §5.5.5 Projektreporting durchführen",
+      "C23: Punkte 5-7",
+      "TTT: Zeilen 40-43, A:G",
+      "T: Release1-Matrix!A52:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10",
+      "F: R1 Funktionsmatrix!A9:J10; A31:J31",
+      "S: 02_SCOPE_ID_MASTER!A5:L6",
+      "F: R1B Abgrenzung!A6:J8",
+      "S: 02_SCOPE_ID_MASTER!A28:L30",
+      "F: R1 Funktionsmatrix!A10:J10"
+    ],
+    "openPointIds": ["issue-r1-reporting-boundary", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PWA / Project Center – Projektfortschritt- und -status"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Aktualisiert 23.09.2026: ML-Filter neben PSPV.org und WW sowie erwartete Projekte und Daten der Statusübersicht bestätigt; keine Power-BI-Abnahme."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-05",
+        "relation": "partial"
+      },
+      {
+        "targetId": "R1-04",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-project-request",
+    "title": "Projekt beantragen",
+    "summary": "Benötigte Antragsinformationen und ungeprüfter Antragsweg sind unterschieden.",
+    "roleIds": ["pm"],
+    "systemIds": ["service-portal"],
+    "aliases": ["TopDesk / Service UHD"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §3.1.1 Projekt beantragen", "F: R1 Funktionsmatrix!A6:J6"],
+    "openPointIds": ["issue-project-request-scope", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; TopDesk / Service UHD"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "nicht nachgewiesen",
+        "steps": ["Vollständiger Beantragungs-/Ticketweg; kein Durchlaufnachweis"],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-02",
+        "relation": "partial"
+      }
+    ],
+    "openPoints": [
+      "F FS-02: nicht im aktuellen Schulungsumfang; die abweichende SB1-Zuordnung in T bleibt erhalten."
+    ]
+  },
+  {
+    "id": "fn-project-provision",
+    "title": "Projekt anlegen",
+    "summary": "Bereitstellungs- und Übernahmekriterien sind bekannt; kein ausführbarer PMO-Gesamtweg.",
+    "roleIds": ["pmo"],
+    "systemIds": ["pwa"],
+    "aliases": ["PWA / Project Center / PMO Status"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §3.1.2–3.1.4 Projekt anlegen", "F: R1 Funktionsmatrix!A5:J5"],
+    "openPointIds": [
+      "issue-project-provision-proof",
+      "issue-definition-configuration",
+      "issue-f-r1-open-12"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; System Delivery; ILS Delivery; L1; L2; L3; PWA / Project Center / PMO Status"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Begrenzte Funktionsmatrixbewertung; keine Prüfung dieses Center-Beitrags oder der Zielumgebung"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-01",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-project-master-data",
+    "title": "Projektstammdaten anlegen",
+    "summary": "Start Date ist mit dem Projektplan synchronisiert; EDC bleibt der unabhängige vertragliche Starttermin.",
+    "roleIds": ["pm"],
+    "systemIds": ["pdp"],
+    "aliases": ["PDP Overview"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §3.6.1 Projektstammdaten anlegen", "F: R1 Funktionsmatrix!A7:J7"],
+    "openPointIds": [
+      "issue-definition-configuration",
+      "issue-f-r1-open-12",
+      "open-start-date-sync",
+      "open-edc-contract-start",
+      "open-edc-field-provision"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PDP Overview"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Begrenzte Funktionsmatrixbewertung; keine Prüfung dieses Center-Beitrags oder der Zielumgebung"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-project-objectives",
+    "title": "Projektziele festlegen",
+    "summary": "Überprüfbare Ziele, Assumptions und Constraints sind getrennt dokumentiert.",
+    "roleIds": ["pm"],
+    "systemIds": ["pdp"],
+    "aliases": ["PDP Objectives"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §3.6.4 Projektziele festlegen", "F: R1 Funktionsmatrix!A7:J7"],
+    "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PDP Objectives"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Begrenzte Funktionsmatrixbewertung; keine Prüfung dieses Center-Beitrags oder der Zielumgebung"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-project-organization",
+    "title": "Projektorganisation festlegen",
+    "summary": "Kernteam, Teilprojekte und Unteraufträge sind nachvollziehbar dokumentiert; Rechte separat prüfen.",
+    "roleIds": ["pm"],
+    "systemIds": ["pdp"],
+    "aliases": ["PDP Organisation"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §3.6.5 Projektorganisation festlegen", "F: R1 Funktionsmatrix!A12:J12"],
+    "openPointIds": [
+      "issue-definition-roles",
+      "issue-definition-configuration",
+      "issue-f-r1-open-12"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PDP Organisation"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Begrenzte Funktionsmatrixbewertung; keine Prüfung dieses Center-Beitrags oder der Zielumgebung"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-07",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-system-definition",
+    "title": "System-Teilprojekt definieren",
+    "summary": "System-Stammdaten sind mit dem Kundenprojekt vereinbar. Systemumfang ist gegenüber Kundenprojekt und angrenzenden Teilprojekten abgegrenzt. Mitarbeiter, Projektrolle und Prozessrolle des System-Teams sind dokumentiert.",
+    "roleIds": ["tm"],
+    "systemIds": ["pdp"],
+    "aliases": ["PDP System Overview", "PDP System Scope", "PDP System Organ."],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §3.8.1 Stammdaten für System-TP anlegen",
+      "B: §3.8.2 Projektumfang für System-TP festlegen",
+      "B: §3.8.3 Projektorganisation für System-TP festlegen",
+      "F: R1 Funktionsmatrix!A7:J7"
+    ],
+    "openPointIds": [
+      "issue-definition-roles",
+      "issue-definition-configuration",
+      "issue-f-r1-open-12",
+      "open-start-date-sync",
+      "open-edc-contract-start",
+      "open-edc-field-provision",
+      "open-project-purpose-removal"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "System Delivery; L2; L3 als Segment unter System Delivery L2; PDP System Overview; PDP System Scope; PDP System Organ."
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Begrenzte Funktionsmatrixbewertung; keine Prüfung dieses Center-Beitrags oder der Zielumgebung"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-ils-definition",
+    "title": "ILS-Teilprojekt definieren",
+    "summary": "ILS-Stammdaten sind mit dem Kundenprojekt vereinbar. ILS-Leistungen sind gegenüber Kundenprojekt, Systementwicklung und Unterauftragnehmern abgegrenzt. Mitarbeiter, Projektrolle und Prozessrolle des ILS-Teams sind dokumentiert.",
+    "roleIds": ["ilsm"],
+    "systemIds": ["pdp"],
+    "aliases": ["PDP ILS Overview", "PDP ILS Scope", "PDP ILS Organisation"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §3.9.1 Stammdaten für ILS-TP anlegen",
+      "B: §3.9.2 Projektumfang für ILS-TP festlegen",
+      "B: §3.9.3 Projektorganisation für ILS-TP festlegen",
+      "F: R1 Funktionsmatrix!A7:J7"
+    ],
+    "openPointIds": [
+      "issue-definition-roles",
+      "issue-definition-configuration",
+      "issue-f-r1-open-12",
+      "open-start-date-sync",
+      "open-edc-contract-start",
+      "open-edc-field-provision",
+      "open-project-purpose-removal"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "ILS Delivery; L2; PDP ILS Overview; PDP ILS Scope; PDP ILS Organisation"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Begrenzte Funktionsmatrixbewertung; keine Prüfung dieses Center-Beitrags oder der Zielumgebung"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Handbuchentwurf",
+        "steps": [
+          "Bedienbeschreibung beziehungsweise Orientierung im Handbuch; keine technische Freigabe"
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-deliverables",
+    "title": "Liefergegenstände einzeln erfassen",
+    "summary": "Der vereinbarte Projektumfang und die einzelnen Liefergegenstände sind für die Terminplanung nachvollziehbar.",
+    "roleIds": ["pm"],
+    "systemIds": ["pwa", "pdp"],
+    "aliases": ["List of Deliverables", "PDP Scope", "Liefergegenstand"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §3.6.2 Projektumfang festlegen",
+      "F: R1 Funktionsmatrix!A7:J8",
+      "C23: Punkt 2",
+      "TTT: Zeilen 8–9, A:G",
+      "B: §3.6.2 Projektumfang festlegen; §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen"
+    ],
+    "openPointIds": ["issue-f-r1-open-12", "issue-f-r1-open-08"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PWA; PDP Scope; List of Deliverables"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Aktualisiert 23.09.2026: Führende Liste und Liefermeilensteinverknüpfung bestätigt; praktische Darstellung großer Lieferlisten bleibt offen.",
+          "TTT-Kontext; Zielumgebung nicht angegeben"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": ["Aktueller vorgesehener SB1-Bedienweg; kein zusätzlicher Ausführungsnachweis."],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "partial"
+      },
+      {
+        "targetId": "fn-delivery-milestones",
+        "relation": "feeds",
+        "note": "Die führende Liste im Contract Execution Project und die spezifischen Teilprojektlisten liefern die Liefergegenstände. Die Verknüpfung zu Liefermeilensteinen über die Funktion Lieferung ist umgesetzt. Nach Änderungen Einträge und Termine fachlich abgleichen; keine umfassende Feldsynchronisierung ableiten."
+      }
+    ]
+  },
+  {
+    "id": "fn-delivery-milestones",
+    "title": "Liefermeilensteine planen",
+    "summary": "Für relevante Liefergegenstände sind Plantermin, Stichtag und Meilensteintyp nachvollziehbar gepflegt.",
+    "roleIds": ["pm"],
+    "systemIds": ["project-client"],
+    "aliases": ["Liefermeilenstein", "Ext.Del", "Stichtag", "Ansicht 10"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen",
+      "F: R1 Funktionsmatrix!A14:J16",
+      "C23: Punkt 2"
+    ],
+    "openPointIds": ["issue-f-r1-open-12", "issue-f-r1-open-08", "issue-milestone-client"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; MS Project Client; Ansicht 10 Phasen- und Meilensteinplan"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Liefergegenstandsbezug ist umgesetzt; Ausgangsplan und konkrete Schulungsübung bleiben separat zu prüfen.",
+          "TTT-Kontext; Zielumgebung nicht angegeben"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": ["Aktueller vorgesehener SB1-Bedienweg; kein zusätzlicher Ausführungsnachweis."],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-08",
+        "relation": "partial"
+      },
+      {
+        "targetId": "R1-10",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-payment-terms",
+    "title": "Zahlungsbedingungen für die Planung erfassen",
+    "summary": "Zahlungsfristen und auslösende Bedingungen sind im Vertragskontext nachvollziehbar.",
+    "roleIds": ["pm"],
+    "systemIds": ["pwa", "pdp"],
+    "aliases": ["PDP Contract", "Terms of Payment", "Zahlungsfrist", "Vertragsdaten"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen",
+      "F: R1 Funktionsmatrix!A7:J7",
+      "B: §3.6.3 Vertragsdaten einpflegen",
+      "B: §3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen; §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen"
+    ],
+    "openPointIds": ["issue-f-r1-open-12", "issue-payment-terms-context"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PWA; PDP Contract"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "PDP-Grundpflege im TTT-Kontext; konkrete Vertragsangaben und Feldabgrenzungen sind im Zielkontext zu prüfen.",
+          "TTT-Kontext; Zielumgebung nicht angegeben"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": ["Aktueller vorgesehener SB1-Bedienweg; kein zusätzlicher Ausführungsnachweis."],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "partial"
+      },
+      {
+        "targetId": "fn-payment-milestones",
+        "relation": "feeds",
+        "note": "Die in der PDP Contract dokumentierten Zahlungsbedingungen und Fristen liefern den fachlichen Eingang für Zahlungsmeilensteine."
+      }
+    ]
+  },
+  {
+    "id": "fn-payment-milestones",
+    "title": "Zahlungsmeilensteine begründet planen",
+    "summary": "Zahlungstermine sind mit Liefertermin und Zahlungsfrist oder mit einer begründeten direkten Terminierung hinterlegt.",
+    "roleIds": ["pm"],
+    "systemIds": ["pdp", "project-client"],
+    "aliases": ["Zahlungsmeilenstein", "Ext.Pay", "Terms of Payment", "Ansicht 30"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §3.6.3 Vertragsdaten einpflegen; §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen",
+      "F: R1 Funktionsmatrix!A14:J14",
+      "B: §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen"
+    ],
+    "openPointIds": ["issue-f-r1-open-12", "issue-milestone-client"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; L1; PDP Contract; MS Project Client; Ansicht 10; Ansicht 30"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Meilensteinplanung im abgegrenzten TTT-Kontext; die beiden Zahlungsvarianten des Handbuchentwurfs sind kein separat protokollierter Systemtest.",
+          "TTT-Kontext; Zielumgebung nicht angegeben"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": ["Aktueller vorgesehener SB1-Bedienweg; kein zusätzlicher Ausführungsnachweis."],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-08",
+        "relation": "partial"
+      },
+      {
+        "targetId": "fn-delivery-milestones",
+        "relation": "requires",
+        "note": "Liefermeilenstein und Zahlungsfrist aus den Vertragsdaten müssen fachlich zusammenpassen. Ohne auslösende Lieferung ist eine begründete direkte Terminierung zulässig.",
+        "condition": "Zahlung wird durch eine Lieferung ausgelöst"
+      }
+    ]
+  },
+  {
+    "id": "fn-project-permissions",
+    "title": "Zugriffsrechte gezielt vergeben",
+    "summary": "Stakeholder erhalten die für ihre Aufgabe erforderlichen Einzelrechte.",
+    "roleIds": ["pm", "tm", "ilsm"],
+    "systemIds": ["pwa", "project-site"],
+    "aliases": ["Project Permissions", "Zugriffsrechte", "Einzelberechtigungen"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [
+      {
+        "articleId": "guide-save-publish-checkin",
+        "kind": "reference",
+        "procedureIds": [],
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "sourceRefs": [
+      "B: §3.6.6 Zugriffsrechte festlegen; §3.8.4 / §3.9.4 Teilprojekt-Zugriff",
+      "F: R1 Funktionsmatrix!A11:J11"
+    ],
+    "openPointIds": [
+      "issue-f-r1-open-07",
+      "issue-f-r1-open-01",
+      "issue-f-r1-open-02",
+      "issue-f-r1-open-12"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; System Delivery; ILS Delivery; L1; L2; L3 nur bei passendem System-Teilprojekt; PWA; Project Center; Project Permissions; Project Site"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "teilweise verifiziert",
+        "steps": [
+          "Einzelweg mit Project Permissions; Konten, Bestandsprojekte und Gesamtmatrix bleiben begrenzt.",
+          "TTT-Kontext; genauer Systemstand nicht angegeben"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: ttt",
+        "body": "selbst geübt",
+        "steps": [
+          "Quellenbewertung des abgegrenzten Wegs; keine Freigabe dieses Center-Entwurfs und kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: documentation",
+        "body": "DOKUMENTIERBAR MIT HINWEIS",
+        "steps": [
+          "Quellenbewertung des abgegrenzten Wegs; keine Freigabe dieses Center-Entwurfs und kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: training",
+        "body": "schulungsfähig mit Einschränkung",
+        "steps": [
+          "Quellenbewertung des abgegrenzten Wegs; keine Freigabe dieses Center-Entwurfs und kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": [
+          "Beschreibungsstand des aktuellen vorgesehenen SB1-Wegs; kein zusätzlicher Ausführungsnachweis."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-06",
+        "relation": "whole"
+      },
+      {
+        "targetId": "R1-23",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-owner-change",
+    "title": "Owner wechseln und Eigenzugriff erhalten",
+    "summary": "TM oder ILSM übernimmt das Teilprojekt; der PM behält lesenden Zugriff.",
+    "roleIds": ["pm", "tm", "ilsm"],
+    "systemIds": ["pwa", "project-site", "pdp"],
+    "aliases": ["Owner", "Teilprojektleiter einsetzen", "Owner-Wechsel"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §3.6.7 Teilprojektleiter einsetzen", "F: R1 Funktionsmatrix!A13:J13"],
+    "openPointIds": ["issue-f-r1-open-07", "issue-f-r1-open-12"],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "System Delivery; ILS Delivery; L1; L2; L3 nur bei passendem System-Teilprojekt; PWA; Project Center; Project Permissions; Project Site; System Overview; ILS Overview; Organisation / Subprojects"
+      },
+      {
+        "title": "Begrenzter Quellenstand: technical",
+        "body": "verifiziert",
+        "steps": [
+          "Nur der geübte Ablauf: benötigten Eigenzugriff sichern, dann Owner wechseln. Keine formale Produktivabnahme und keine Freigabe der gesamten Rechte-Matrix.",
+          "TTT-Kontext; genauer Systemstand nicht angegeben"
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: ttt",
+        "body": "selbst geübt",
+        "steps": [
+          "Quellenbewertung des abgegrenzten Wegs; keine Freigabe dieses Center-Entwurfs und kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: documentation",
+        "body": "VERBINDLICH DOKUMENTIERBAR",
+        "steps": [
+          "Quellenbewertung des abgegrenzten Wegs; keine Freigabe dieses Center-Entwurfs und kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: training",
+        "body": "grundsätzlich schulungsfähig",
+        "steps": [
+          "Quellenbewertung des abgegrenzten Wegs; keine Freigabe dieses Center-Entwurfs und kein Schulungsnachweis."
+        ],
+        "purpose": "context"
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": [
+          "Beschreibungsstand des aktuellen vorgesehenen SB1-Wegs; kein zusätzlicher Ausführungsnachweis."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-06",
+        "relation": "partial"
+      },
+      {
+        "targetId": "R1-07",
+        "relation": "partial"
+      },
+      {
+        "targetId": "R1-23",
+        "relation": "partial"
+      }
+    ]
+  },
+  {
+    "id": "fn-build-team",
+    "title": "Operative Teammitglieder zuordnen",
+    "summary": "Arbeitsressourcen werden dem Projektteam zugeordnet; effektive Zugriffe sind gesondert zu prüfen.",
+    "roleIds": ["pm", "tm", "ilsm"],
+    "systemIds": ["pwa", "pdp", "project-site"],
+    "aliases": ["Build Team", "Build a Team", "Teamzuordnung"],
+    "releaseIds": ["release-1"],
+    "trainingBlockIds": [],
+    "materials": [],
+    "sourceRefs": [
+      "B: §3.6.6 Zugriffsrechte festlegen; §3.8.4 / §3.9.4 Teilprojekt-Zugriff",
+      "T: Regeln & Entscheidungen!A6:D6",
+      "TTT: Zeile 17, F:G",
+      "C23: Punkt 3",
+      "B: §3.6.6 Zugriffsrechte festlegen; §3.8.4 / §3.9.4",
+      "H: Tabelle 1, Zeile R1, Spalte Scope: Projektteam besetzen"
+    ],
+    "openPointIds": [
+      "issue-f-r1-open-07",
+      "issue-build-sync",
+      "issue-f-r1-open-02",
+      "issue-f-r1-open-12"
+    ],
+    "content": [
+      {
+        "title": "Geltungsbereich",
+        "body": "Contract Execution; System Delivery; ILS Delivery; L1; L2; L3 nur bei passendem System-Teilprojekt; Build Team; PDP Organisation; Project Site"
+      },
+      {
+        "title": "Quellenbezug R1",
+        "body": "Ursprünglich zusammen geplant: Build a Team und Rechte vergeben. Kein heutiger Reife- oder SB1-Nachweis."
+      },
+      {
+        "title": "Begrenzter Quellenstand: procedure-description",
+        "body": "Im Handbuchentwurf konkret beschrieben",
+        "steps": [
+          "Beschreibungsstand des aktuellen vorgesehenen SB1-Wegs; kein zusätzlicher Ausführungsnachweis."
+        ],
+        "purpose": "context"
+      }
+    ],
+    "relationships": [
+      {
+        "targetId": "R1-23",
+        "relation": "partial"
+      }
+    ],
+    "openPoints": [
+      "Bestätigt am 23.09.2026: Build Team wird in SB1 geschult. Die frühere Beschränkung auf Project Permissions ist überholt.",
+      "Aktueller Handbuchentwurf: Build Team für operative Teammitglieder; keine detaillierte Ressourcen- oder Kapazitätsplanung."
+    ]
+  },
+  {
+    "id": "task-review-status",
+    "title": "Reviewstatus pflegen",
+    "summary": "Handbuchthema ohne eigene Nummer unter den 24 SB1-Matrixschritten; im Center noch kein realer Bedienweg.",
+    "roleIds": [],
+    "systemIds": [],
+    "trainingBlockIds": [],
+    "releaseIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §5.5.1 Reviewstatus pflegen"]
+  },
+  {
+    "id": "task-project-progress",
+    "title": "Projektfortschritt pflegen",
+    "summary": "Handbuchthema ohne eigene Nummer unter den 24 SB1-Matrixschritten; nicht mit dem Demo-Lernfortschritt gleichsetzen.",
+    "roleIds": [],
+    "systemIds": [],
+    "trainingBlockIds": [],
+    "releaseIds": [],
+    "materials": [],
+    "sourceRefs": ["B: §5.5.2 Projektfortschritt pflegen"]
+  }
+]

@@ -52,8 +52,7 @@ export async function startEditor(root = process.cwd(), port = 5174) {
       }
     }
   });
-  // The API shares exactly the development handler, but loads the current data via a
-  // one-shot compiler. No Vite development server, HMR, source serving or watcher runs.
+  // Same direct JSON handler as development. No compiler, HMR or source serving runs.
   const runtime = {
     config: { server: { host: '127.0.0.1' } },
     httpServer: server,

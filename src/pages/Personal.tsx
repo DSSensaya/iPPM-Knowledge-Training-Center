@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { ArrowRight, Download, Upload } from 'lucide-react';
-import { visibleArticles } from '../data/content';
+import { content } from '../content';
 import type { Progress } from '../lib/storage';
 import { validateProgress } from '../lib/storage';
 import { ArticleCard, PageTitle } from '../components/ui';
@@ -16,7 +16,7 @@ export default function Personal({
 }) {
   const [message, setMessage] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
-  const saved = visibleArticles.filter((a) => progress.bookmarks.includes(a.id));
+  const saved = content.articles.filter((a) => progress.bookmarks.includes(a.id));
   function exportData() {
     const url = URL.createObjectURL(
       new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' }),
@@ -39,7 +39,7 @@ export default function Personal({
         <div>
           <strong>
             {progress.read
-              .filter((id) => visibleArticles.some((a) => a.id === id))
+              .filter((id) => content.articles.some((a) => a.id === id))
               .length.toString()
               .padStart(2, '0')}
           </strong>

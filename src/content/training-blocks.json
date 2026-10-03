@@ -1,0 +1,14 @@
+[
+  {
+    "id": "sb1",
+    "releaseId": "release-1",
+    "code": "SB01",
+    "title": "Schulungsblock 01"
+  },
+  {
+    "id": "sb2",
+    "releaseId": "release-1",
+    "code": "SB02",
+    "title": "Schulungsblock 02"
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "id": "guide-escalation-capture",
+  "title": "Eskalation an Multi-Projektmanagement durchführen",
+  "summary": "Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen.",
+  "roleIds": ["pm"],
+  "systemIds": ["pdp", "pwa"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Erfassung und Adressierung sind beschrieben. Empfängerzugriff, Resolution-Historie und vollständige Bearbeitung sind offen."
+    },
+    {
+      "title": "Erfassung und Empfängerbearbeitung trennen",
+      "body": "B beschreibt eine terminierte Entscheidungsanforderung, wenn die Mittel des Projekts nicht ausreichen. Eskalationen aus Teilprojekten gehen an den PM; als Entscheider nennt B den zuständigen Bereichsleiter. Konkrete Person und Kommunikationsweg müssen tatsächlich vereinbart sein. Assigned To ist kein Zugriffs- oder Zustellnachweis. Das Nachhalten bis zur Entscheidung ist eine fachliche Aufgabe; ein vollständiger Bearbeitungsweg wird hier nicht angeleitet."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Fiktive Daten, geeignete Konten und tatsächlichen Systemstand vorbereiten. Offene fachliche Entscheidungen nicht durch Übungsannahmen ersetzen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktiv: Eine externe Genehmigung verzögert sich. Bis 01.06.2027 wird eine Entscheidung zwischen Umplanung und Warten benötigt. Sachverhalt, bevorzugte Option und Konsequenzen in einem vorbereiteten Übungsprojekt erfassen. Den Empfänger nur als geprüftes Testkonto einsetzen; aus dem Eintrag keine erfolgte Entscheidung ableiten.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Ist klar, welche Entscheidung bis wann von wem benötigt wird und was ohne Entscheidung geschieht? Sind gespeicherter Eintrag und Adressierung erneut prüfbar, während Empfängerzugriff und Entscheidung als gesonderte Nachweise offen bleiben?",
+      "steps": [
+        "Quellenentwurf; keine fachliche Freigabe, praktische Erprobung oder Schulungsreife nachgewiesen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Status & Reporting",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": ["issue-escalation-capture-boundary", "issue-f-r1-open-12"],
+  "sourceRefs": [
+    "TTT: Zeilen 36–38, A:G",
+    "B: §5.5.3 Eskalation an Multi-Projektmanagement durchführen",
+    "T: Release1-Matrix!A49:Q49; PDP-Abdeckung!A16:H16",
+    "F: R1 Funktionsmatrix!A30:J30",
+    "F: Klärungsbedarf!A13:D13"
+  ],
+  "relatedArticleIds": [
+    "guide-save-publish-checkin",
+    "guide-status-orientation",
+    "guide-r1-reporting"
+  ],
+  "procedureIds": ["procedure-escalation-capture"],
+  "releaseIds": ["release-1"]
+}

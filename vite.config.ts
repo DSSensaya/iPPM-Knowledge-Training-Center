@@ -1,13 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { editorialValidationPlugin, localEditorPlugin } from './scripts/local-editor-plugin';
+import { contentValidationPlugin, localEditorPlugin } from './scripts/local-editor-plugin';
 
 export default defineConfig(({ command, mode }) => {
   const editing = mode === 'local-edit';
   return {
     plugins: [
       react(),
-      editorialValidationPlugin(process.cwd()),
+      contentValidationPlugin(process.cwd()),
       ...(editing && command === 'serve' ? [localEditorPlugin(process.cwd())] : []),
     ],
     base: './',

@@ -9,5 +9,5 @@ playwright-report/
 *.tsbuildinfo
 
 # Temporary files of the explicitly local editorial writer
-src/data/local-editorial.json.lock
-src/data/local-editorial.json.*.tmp
+src/content/.editor.lock
+src/content/**/*.json.*.tmp

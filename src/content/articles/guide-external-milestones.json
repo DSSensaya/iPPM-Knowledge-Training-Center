@@ -1,0 +1,51 @@
+{
+  "id": "guide-external-milestones",
+  "title": "Weitere Projektmeilensteine planen",
+  "summary": "Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt.",
+  "roleIds": ["pm"],
+  "systemIds": ["project-client"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Externe Meilensteine sind beschrieben. Der FAT-Vermerk und verfügbare Ext-Subtypen sind nicht abschließend geklärt."
+    },
+    {
+      "title": "Externe Voraussetzungen abgrenzen",
+      "body": "Beistellungen sind externe Planungsannahmen. Sie werden nicht als interne Arbeitspakete oder projektinterne Reviews erfasst. Ext.Exp und Ext.Pro sind Beispiele aus B, keine pauschale Typzuordnung für jede Beistellung. Verwenden Sie nur einen fachlich passenden, tatsächlich verfügbaren Subtyp."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Fiktive Daten, geeignete Konten und tatsächlichen Systemstand vorbereiten. Offene fachliche Entscheidungen nicht durch Übungsannahmen ersetzen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktiv: Eine beigestellte Prüfvorrichtung wird am 15.06.2027 benötigt, ihre Ankunft ist für 10.06.2027 geplant. Eine externe Genehmigung wird am 01.06.2027 benötigt und für 28.05.2027 erwartet. Zwei getrennte Meilensteine im vorbereiteten Übungsplan erfassen und Soll-/Plantermine vergleichen; keine echten Projektdaten verwenden.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Sind Beistellung beziehungsweise Genehmigung eindeutig als externe Ereignisse sichtbar? Sind Stichtag, Anfang, Restriktion und Strukturmerkmale fachlich plausibel und im erneut geöffneten Stand erhalten?",
+      "steps": [
+        "Quellenentwurf; keine fachliche Freigabe, praktische Erprobung oder Schulungsreife nachgewiesen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": ["issue-external-milestones-boundary", "issue-f-r1-open-12"],
+  "sourceRefs": ["B: §4.5.4 Tabelle 18; §4.5.6", "F: R1 Funktionsmatrix!A14:J16"],
+  "relatedArticleIds": ["guide-save-publish-checkin", "guide-deliverables-milestones"],
+  "procedureIds": ["procedure-external-milestones"],
+  "releaseIds": ["release-1"]
+}

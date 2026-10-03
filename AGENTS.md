@@ -5,9 +5,9 @@
 - Vollständig lokaler Betrieb: keine CDNs, Cloud-APIs, Telemetrie oder externen Fonts. Server standardmäßig nur an `127.0.0.1` binden.
 - Deutsche, aufgabenorientierte Oberfläche; semantisches HTML, Tastaturbedienung, sichtbarer Fokus und responsive Darstellung erhalten.
 - Fachliche Demonstrationsinhalte eindeutig kennzeichnen. Keine erfundenen internen Freigaben, Kontakte oder verbindlichen Unternehmensprozesse behaupten.
-- Inhalte und stabile IDs in `src/data/` pflegen; Darstellung, Suche und versionierte lokale Persistenz getrennt halten. Bestehende IDs nicht ohne Migration ändern.
+- Kanonische Inhalte und stabile IDs als JSON in `src/content/` pflegen; Darstellung, Suche und versionierte lokale Persistenz getrennt halten. Bestehende IDs nicht ohne Migration ändern.
 - Lernfortschritt und Merkliste enthalten keine vertraulichen Projektdaten. Speicherfehler sichtbar abfangen.
-- Vor Übergabe `npm.cmd run build` und `npm.cmd test` ausführen. Neue fachliche Funktionen mit sinnvollen Ende-zu-Ende-Prüfungen absichern.
+- Vor Übergabe `npm run verify` (unter Windows `npm.cmd run verify`) ausführen. Neue fachliche Funktionen mit sinnvollen Ende-zu-Ende-Prüfungen absichern.
 
 ## Code-Review-Richtlinien
 
@@ -20,3 +20,11 @@
 - Prüfe, ob relevante Änderungen ausreichend getestet sind und bestehende Funktionen nicht unbeabsichtigt beeinträchtigen.
 - Im Review keinen Code ändern, committen oder mergen, sofern dies nicht ausdrücklich beauftragt wurde.
 - Wenn keine relevanten Probleme bestehen, dies klar feststellen und keine künstlichen Findings erzeugen.
+
+## Content-first Architektur
+
+- `docs/ARCHITECTURE.md` beschreibt den aktuellen Datenfluss; `docs/CONTENT_GUIDE.md` die Inhaltspflege. `docs/archive/` ist historische Dokumentation ohne normative Runtime-Wirkung.
+- Es gibt einen vollständigen ProcessStep-Bestand in `src/content/processes.json`. Coverage, Inventory, Suche und Schulungsbezüge entstehen aus generischen Queries. Keine parallelen Coverage-, Readiness-, Assignment- oder Assessment-Datenbestände anlegen.
+- Artikelstatus: `draft`, `usable`, `approved`. Nutzbarkeit ist keine vollständige Prozessabdeckung; `approved` gilt ausschließlich für das Knowledge Center.
+- Originalquellen erhalten. Quellenwidersprüche und fachlich notwendige Grenzen sichtbar lassen. Keine Releasegültigkeit aus TrainingBlock-Zuordnungen ableiten.
+- Bedienwege nur einmal in `procedures.json` pflegen; Verbindungen über stabile IDs. Normale Beiträge benötigen keine Quellen-, Review- oder Historienobjekte.

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "P",
+    "title": "Prozessdiagramm Projektabwicklung",
+    "path": "sources/iPPM_Prozess-Projektabwicklung.vsdx"
+  },
+  {
+    "id": "N28",
+    "title": "Gemeldete Erkenntnisse zu Project Purpose und WBS",
+    "path": "sources/Erkenntnisse_ProjectPurpose_WBS_2026-09-28.md",
+    "date": "2026-09-28"
+  },
+  {
+    "id": "R2P",
+    "title": "Aktuelle Releaseplanung R1B / Release 2",
+    "path": "sources/iPPM_Releaseplanung_Release-2.docx"
+  },
+  {
+    "id": "TTT",
+    "title": "Abgestimmte TtT-Restpunkte",
+    "path": "sources/TtT_Restpunkte_abgestimmt_2026-09-23.xlsx",
+    "date": "2026-09-23"
+  },
+  {
+    "id": "C23",
+    "title": "Bestätigte Klärungen 23.09.2026",
+    "path": "sources/Klaerungen_2026-09-23.md",
+    "date": "2026-09-23"
+  },
+  {
+    "id": "B",
+    "title": "SB1-Handbuch",
+    "path": "sources/iPPM_HB_SB01-Projektdefinition und Phasen-Meilensteinplanung.docx"
+  },
+  {
+    "id": "F",
+    "title": "R1-Funktionsmatrix",
+    "path": "sources/iPPM_R1_Funktionsmatrix.xlsx",
+    "date": "2026-09-18"
+  },
+  {
+    "id": "K",
+    "title": "Konfigurationshandbuch",
+    "path": "sources/ATLAS_iPPM_Zentrales_Konfigurationshandbuch.html",
+    "date": "2026-09-16"
+  },
+  {
+    "id": "S",
+    "title": "Release-1-Scope",
+    "path": "sources/iPPM_Release1_Scope_Katalog_AI_READY.xlsx"
+  },
+  {
+    "id": "T",
+    "title": "Schulungsmatrix SB1/SB2",
+    "path": "sources/iPPM_Schulungsblock1+2_Matrix.xlsx"
+  },
+  {
+    "id": "H",
+    "title": "Ursprüngliche Gesamt-Releaseplanung",
+    "path": "sources/iPPM_Releaseplanung_V2.docx"
+  }
+]

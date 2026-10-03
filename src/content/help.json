@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Sind die Inhalte offizielle TKMS-ATLAS-Vorgaben?",
+    "answer": "Das Center ist eine pragmatische Wissens- und Arbeitshilfe. Entwurf, Nutzbar und Im Knowledge Center freigegeben beschreiben den jeweiligen Beitrag. Eine Center-Freigabe ist keine System- oder Unternehmensfreigabe und ersetzt keine geltenden TKMS-ATLAS-Vorgaben. Geltungsbereich und offene Punkte vor der Anwendung beachten."
+  },
+  {
+    "question": "Wie speichere ich Lesemarkierungen und Merkliste?",
+    "answer": "Öffnen Sie einen Beitrag und wählen Sie „Als gelesen markieren“ oder „Beitrag merken“. Diese Angaben werden automatisch in diesem Browser gespeichert und können unter „Mein Lernbereich“ gesichert werden. Es gibt kein Benutzerkonto und keine Synchronisation; eine Lesemarkierung ist kein Schulungsnachweis."
+  },
+  {
+    "question": "Warum sehe ich ein Projekt oder eine Funktion in iPPM nicht?",
+    "answer": "Prüfen Sie zunächst, ob Sie im richtigen Arbeitskontext und mit der vorgesehenen Rolle arbeiten. Zugriffsrechte und verfügbare Funktionen hängen von der produktiven Konfiguration ab. Wenden Sie sich über Ihren etablierten internen Supportweg an die zuständige Ansprechperson. Dieses lokale Center verändert keine Berechtigungen."
+  },
+  {
+    "question": "Was gehört in eine hilfreiche Supportanfrage?",
+    "answer": "Beschreiben Sie die Aufgabe, die erwartete und die tatsächlich beobachtete Reaktion sowie die Schritte bis zum Problem. Ergänzen Sie Zeitpunkt und eine verständliche Fehlermeldung. Verwenden Sie ausschließlich freigegebene interne Supportkanäle und beachten Sie die geltenden Regeln für vertrauliche Daten."
+  },
+  {
+    "question": "Kann ich die Plattform ohne Internet verwenden?",
+    "answer": "Ja. Nach der einmaligen Installation der Entwicklungsabhängigkeiten benötigt die Anwendung nur den lokalen Server. Inhalte, Schriften und Programmdateien werden lokal ausgeliefert; es werden keine externen Dienste aufgerufen. Beim Löschen der Browserdaten gehen lokal gespeicherte Fortschritte und Merkeinträge verloren. Eine Sicherung können Sie unter „Mein Lernbereich“ exportieren."
+  }
+]

@@ -1,0 +1,85 @@
+{
+  "id": "faq-role-vs-access",
+  "title": "Rollenliste, Build Team und Project Permissions unterscheiden",
+  "summary": "Warum eine eingetragene Projektrolle noch keinen Zugriff beweist und welcher Zugriffsweg im SB1-Entwurf für wen vorgesehen ist.",
+  "roleIds": ["pm", "tm", "ilsm", "pmo"],
+  "systemIds": ["pwa", "project-site", "pdp"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Rolle, Teamzuordnung und Einzelzugriff sind abgegrenzt. Die vollständige Rechte- und Synchronisationswirkung bleibt offen."
+    },
+    {
+      "title": "Reicht mein Eintrag in der Projektorganisation?",
+      "body": "Nein. Die PDP Organisation bzw. System Organ. oder ILS Organisation dokumentiert Mitarbeiter, Projektrolle und Prozessrolle. Die tatsächlich wirksamen Zugriffe müssen gesondert eingerichtet und geprüft werden. Der grundsätzliche iPPM-Zugang setzt laut Handbuch die passende Gruppen-/User-Zuordnung voraus."
+    },
+    {
+      "title": "Wann ist Build Team vorgesehen?",
+      "body": "Build Team wird in SB1 für operative Personen im Projekt oder Teilprojekt geschult. Teamzuordnung ist von Vorgangszuweisung und Kapazitätsplanung zu unterscheiden. Die ältere SB1-Beschränkung ist aufgehoben; die Rechte-/Ressourcenwirkung aus TTT-D-15 bleibt technisch offen."
+    },
+    {
+      "title": "Wann verwende ich Project Permissions?",
+      "body": "Für zusätzliche Stakeholder, die nicht als Arbeitsressourcen ins Team aufgenommen werden sollen, beschreibt der Entwurf gezielte Einzelrechte. Vor einem Owner-Wechsel sichert der PM darüber auch seinen benötigten Lesezugriff. Nicht jeder Stakeholder benötigt Bearbeitungs- oder Publish-Rechte."
+    },
+    {
+      "title": "Was ändert sich zwischen PM, TM und ILSM?",
+      "body": "Der PM verantwortet das Kundenprojekt, der TM das System-Teilprojekt und der ILSM das ILS-Teilprojekt. Der Entwurf beschreibt gleiche grundlegende Rechteprofile, aber unterschiedliche Verantwortungsbereiche. Daraus folgt keine Garantie effektiver Rechte jedes Kontos. Das PMO stellt die Projektumgebung bereit."
+    },
+    {
+      "title": "Ist der Owner-Wechsel damit vollständig freigegeben?",
+      "body": "Nein. Die Funktionsmatrix bewertet den konkret geübten Weg „Eigenzugriff sichern, dann Owner wechseln“ als verifiziert. Die vollständige Rechtematrix, reguläre Konten, Bestands-Sites und Zielumgebung bleiben gesonderte Prüfpunkte. Ein erfolgreich gelesener Beitrag ändert keinen dieser Nachweise."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Rollenverantwortung, Teamzugehörigkeit und wirksame Rechte sind drei getrennte Fragen."
+    },
+    {
+      "title": "Optionale Übung: Ziel",
+      "body": "Fachliche Rolle, Teamzuordnung und Einzelrechte unterscheiden; einen Owner-Wechsel mit erhaltenem PM-Lesezugriff nachvollziehen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Bereitgestelltes System- oder ILS-Schulungsprojekt, PM-Konto und Ziel-Owner-Konto prüfen.",
+        "Vor der Übung die wirksamen Konten-/Site-Rechte und den Systemstand prüfen. Build Team gehört bestätigt zu SB1; Rechte-Synchronisation bleibt gesondert offen.",
+        "Keine produktiven oder vertraulichen Projektdaten im Center erfassen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Vorgeschlagene Übung: Den Ablauf „Owner wechseln“ im geprüften Schulungskontext durchführen. Anschließend PM-Zugriff und Zugriff des neuen Owners getrennt prüfen und die Zuordnung mit Subprojects vergleichen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Die Rollenübergabe und die vorgesehenen Lesezugriffe sind mit den betroffenen Konten nachvollzogen. Build-Team-Synchronisation wird damit nicht mitgeprüft oder freigegeben.",
+      "steps": [
+        "Redaktioneller Übungsvorschlag, kein bereits durchgeführter Unterricht und kein Schulungsnachweis. SB1 ist hier ein fachlicher Bezug; die Demo-Lernpfade bleiben unverändert."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Team & Zugriff",
+  "kind": "FAQ",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-build-sync",
+    "issue-f-r1-open-07",
+    "issue-f-r1-open-01",
+    "issue-f-r1-open-02",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "TTT: Abgestimmte Restpunkte vom 23.09.2026",
+    "C23: Bestätigte Klärungen vom 23.09.2026",
+    "B: §1.4 Berechtigungen; §3.6.5–3.6.7 Organisation, Zugriffsrechte und Teilprojektleiter",
+    "B: §3.8.4 / §3.9.4 Zugriffsrechte für System-/ILS-Teilprojekte"
+  ],
+  "relatedArticleIds": ["guide-project-permissions"],
+  "procedureIds": [],
+  "releaseIds": ["release-1"]
+}

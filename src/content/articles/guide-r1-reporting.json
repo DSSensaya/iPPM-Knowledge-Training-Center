@@ -1,0 +1,77 @@
+{
+  "id": "guide-r1-reporting",
+  "title": "Projektreporting durchführen",
+  "summary": "Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest.",
+  "roleIds": ["pm"],
+  "systemIds": ["pwa"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Begrenzter Abgleich von Projektstatusübersicht, veröffentlichtem Plan und PDP Status mit Voraussetzungen und Ergebnisprüfung. Praktische Erprobung, Rechte-/Bestands-Site-Reichweite und fachliche Freigabe bleiben offen; kein vollständiger Berichtsweg."
+    },
+    {
+      "title": "Datenherkunft unterscheiden",
+      "body": "Der veröffentlichte Projektplan liefert den gepflegten Fortschritt und Reviewstand. PDP Status enthält die mit dem Projektkernteam ermittelte Ampel- und Trendbewertung mit Kommentaren und Recent Achievements; PMO Status wird durch das PMO gepflegt. Die Übersicht macht vorhandene Daten sichtbar. Ein Fortschrittsgrad berechnet hier keine Ampel oder keinen Trend. Vergleichen Sie jeweils dieselbe Information und denselben Projektstand; nicht jede PDP-Angabe muss eine eigene Übersichtsspalte besitzen."
+    },
+    {
+      "title": "Bei Abweichungen endet dieser Vergleich",
+      "body": "Fehlende Projekte, veraltete Werte, unpassende Spalten oder nicht erklärbare Unterschiede als offene Prüfpunkte festhalten. B verlangt Korrekturen an der Quelle; dieser Abgleich nimmt keine Änderungen vor. Für bereits fachlich geklärte Eingabekorrekturen die vorhandenen Beiträge zu Statuspflege beziehungsweise Speichern, Veröffentlichen und Einchecken verwenden. Ungeklärte Feldzuordnung, Rechte oder Bestands-Site-Konfiguration vor Weiterverwendung über den etablierten Klärungsweg prüfen lassen. Eine wiederholte Anzeige allein bestätigt weder Aktualität noch richtige Datenherkunft."
+    },
+    {
+      "title": "Begrenzter R1-Weg",
+      "body": "Der Weg endet mit einem nachvollziehbaren Vergleichsergebnis. R1-04 ist nur für den belegten Project-Center-Teilaspekt angebunden; ein vollständiger Portfolio-/Programmweg ist damit nicht beschrieben. Reporting-PDP, Power BI, Eskalationsbearbeitung, Berichtsverteilung und ein allgemeiner Statuspflegezyklus bleiben außerhalb. Die historische L1-Aussage aus B begründet keine universelle Sichtbarkeitszusage für andere Konten oder Projekte."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Fiktive Daten, geeignete Konten und tatsächlichen Systemstand vorbereiten. Offene fachliche Entscheidungen nicht durch Übungsannahmen ersetzen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Didaktischer Vorschlag mit fiktiven Daten: Zwei vorbereitete Kundenprojekte, darunter eines in ML, mit veröffentlichtem Fortschritt, aktuellem Reviewstand und gespeichertem PDP Status vergleichen. Eine Übereinstimmung und eine vorbereitete Abweichung oder Datenlücke erklären. Filter, Projekt, Vergleichswerte und Quellenstand festhalten; bei der Lücke mit offenem Prüfpunkt enden. Nur mit geprüften Konten und geeignetem Zielstand praktisch ausführen. Eine Leseübung liefert keinen iPPM-Systemnachweis.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Sind die erwarteten Projekte und die tatsächliche Filterwirkung mit dem vorgesehenen Konto geprüft, einschließlich ML falls verwendet? Ist der Fortschritt auf denselben veröffentlichten Plan und einen aktuellen Reviewstand zurückgeführt, ohne einen unveröffentlichten Arbeitsstand gleichzusetzen? Stimmen die vergleichbaren Ampeln und Trends mit dem gespeicherten PDP Status überein, sind Kommentare und Recent Achievements nachvollziehbar und bleibt PMO Status beim PMO? Sind Übereinstimmungen, konkrete Abweichungen und fehlende Nachweise samt Datenherkunft getrennt dokumentiert, ohne Wiederholungen als Bestätigung oder den Abgleich als Fachfreigabe zu behandeln?",
+      "steps": [
+        "Quellenentwurf; keine fachliche Freigabe, praktische Erprobung oder Schulungsreife nachgewiesen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Status & Reporting",
+  "kind": "Anleitung",
+  "openPoints": [
+    "Nur vorhandene Plan- und Statusdaten vergleichen; PMO Status bleibt beim PMO.",
+    "Leserechte, Felder und Bestands-Sites im konkreten Zielstand prüfen; keine universelle L1-Sichtbarkeit oder Aktualisierungsregel voraussetzen.",
+    "Bei fehlender Datenherkunft oder ungeklärten Abweichungen mit offenem Prüfpunkt enden. Keine automatische Ampel- oder Trendberechnung.",
+    "Praktische iPPM-Erprobung und fachliche Freigabe fehlen. Reporting-PDP, Power BI und vollständiger Pflege-/Reportingprozess bleiben außerhalb."
+  ],
+  "openPointIds": ["issue-r1-reporting-boundary", "issue-f-r1-open-12"],
+  "sourceRefs": [
+    "B: §5.5.4 Projektstatus ermitteln; §5.5.5 Projektreporting durchführen",
+    "C23: Punkte 5-7",
+    "TTT: Zeilen 40-43, A:G",
+    "T: Release1-Matrix!A52:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10",
+    "F: R1 Funktionsmatrix!A9:J10; A31:J31",
+    "S: 02_SCOPE_ID_MASTER!A5:L6",
+    "F: R1B Abgrenzung!A6:J8",
+    "S: 02_SCOPE_ID_MASTER!A28:L30"
+  ],
+  "relatedArticleIds": [
+    "guide-save-publish-checkin",
+    "guide-escalation-capture",
+    "guide-status-orientation"
+  ],
+  "procedureIds": ["procedure-r1-reporting"],
+  "releaseIds": ["release-1"]
+}

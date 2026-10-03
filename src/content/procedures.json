@@ -1,0 +1,929 @@
+[
+  {
+    "id": "procedure-external-milestones",
+    "title": "Weitere Projektmeilensteine planen",
+    "trigger": "Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt.",
+    "prerequisites": [
+      "Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie den ausgecheckten Contract-Execution-Plan in Ansicht 10 Phasen- und Meilensteinplan. Kopieren Sie den passenden generischen Meilenstein an die fachlich richtige Stelle und benennen Sie das Ereignis eindeutig.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan"
+      },
+      {
+        "text": "Pflegen Sie den verbindlichen oder fachlich maßgeblichen Termin unter Stichtag und den geplanten Termin unter Anfang. Prüfen Sie die entstehende Einschränkung „Anfang nicht früher als“ gegen die beabsichtigte Planung; keine ungeprüfte Terminwirkung voraussetzen.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan"
+      },
+      {
+        "text": "Prüfen Sie WBS Level „Pr – Projekt“, WBS Type „Meilenstein“ und Milestone Type „Ext“ oder den passenden verfügbaren Ext-Subtyp. Prüfen Sie verbleibende generische Einträge auf Doppelzählung; der Entwurf erfordert keine Löschung.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan"
+      },
+      {
+        "text": "Speichern, veröffentlichen und einchecken gemäß der verlinkten Querschnittsanleitung. Öffnen Sie den veröffentlichten Stand erneut und vergleichen Sie Ereignis, Typ, Stichtag und Plantermin.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan"
+      }
+    ],
+    "expectedResults": [
+      "Die externen Ereignisse sind mit fachlich passenden Typen und getrennten Stichtagen und Planterminen erneut auffindbar."
+    ],
+    "checkQuestions": [
+      "Sind Beistellung beziehungsweise Genehmigung eindeutig als externe Ereignisse sichtbar?",
+      "Sind Stichtag, Anfang, Restriktion und Strukturmerkmale fachlich plausibel und im erneut geöffneten Stand erhalten?"
+    ],
+    "sourceRefs": ["B: §4.5.4 Tabelle 18; §4.5.6"],
+    "taskId": "fn-external-milestones",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-phases-tailoring",
+    "title": "Vorgegebenes Tailoring dokumentieren und prüfen",
+    "trigger": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen.",
+    "prerequisites": [
+      "Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen."
+    ],
+    "actions": [
+      {
+        "text": "Nur mit einer separat dokumentierten fachlichen Tailoring-Entscheidung und einem vorbereiteten Übungsplan fortfahren. Fehlt sie, beim Quellenvergleich bleiben und keinen Review deaktivieren. Liefer-/Zahlungsplanung und ausgecheckten Plan prüfen.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan / 20 Projektstrukturplan"
+      },
+      {
+        "text": "Den vorgegebenen Review-Meilenstein in Ansicht 20 Projektstrukturplan identifizieren. Tailored auf „T“ setzen und die konkrete Begründung in Notizen dokumentieren. B nennt „-“ (not tailored) und „T“ (tailored), K bestätigt das Textfeld mit Lookup ATLAS Tailoring Status; Werte im Zielstand prüfen.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan / 20 Projektstrukturplan"
+      },
+      {
+        "text": "Den betreffenden Meilenstein über „Vorgang deaktivieren“ deaktivieren; nicht löschen. Die Feldmarkierung allein ist kein Nachweis der Deaktivierung.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan / 20 Projektstrukturplan"
+      },
+      {
+        "text": "Speichern, veröffentlichen und einchecken gemäß Querschnittsanleitung. Den erneut geöffneten Stand auf erhaltenen Meilenstein, Inaktivität, Tailored und Notizen prüfen; angrenzende Phasen und Termine auf unerwartete Änderungen kontrollieren.",
+        "tool": "MS Project Client · 10 Phasen- und Meilensteinplan / 20 Projektstrukturplan"
+      }
+    ],
+    "expectedResults": [
+      "Der vorgegebene Meilenstein bleibt mit Begründung erhalten; Tailored und tatsächliche Inaktivität sind getrennt geprüft."
+    ],
+    "checkQuestions": [
+      "Ist die fachliche Entscheidung separat vorgegeben, ohne aus Jahresabständen abgeleitet zu werden?",
+      "Bleibt der Meilenstein erhalten und ist er tatsächlich deaktiviert, mit Tailored = T und nachvollziehbaren Notizen?",
+      "Sind unerwartete Phasen-/Terminänderungen dokumentiert und vor Weiterverwendung geklärt?"
+    ],
+    "sourceRefs": ["B: §4.5.5 Projektphasen und LCM-Review-Termine planen"],
+    "taskId": "fn-phases-tailoring",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-escalation-capture",
+    "title": "Eskalation an Multi-Projektmanagement durchführen",
+    "trigger": "Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen.",
+    "prerequisites": [
+      "Nur in einer vorab geprüften Übungsumgebung mit fiktiven Daten arbeiten. Projekt, Bearbeitungsrechte, Felder und Client prüfen. Die kritischen Einschränkungen vor Ausführung lesen."
+    ],
+    "actions": [
+      {
+        "text": "Nach Prüfung der tatsächlichen Bearbeitungsrechte das Kundenprojekt in PWA öffnen, PDP Escalations wählen und einen neuen Eintrag in der Liste Escalations anlegen.",
+        "tool": "PWA · PDP Escalations / Liste Escalations"
+      },
+      {
+        "text": "Title als kurze Sachverhaltsbeschreibung und Owner als eskalierende Person erfassen. Assigned To mit dem tatsächlich zuständigen Entscheider und Due Date mit dem benötigten Entscheidungstermin belegen. Den in B beschriebenen Status „gemeldet“ nur verwenden, wenn im Zielstand verfügbar und fachlich passend.",
+        "tool": "PWA · PDP Escalations / Liste Escalations"
+      },
+      {
+        "text": "Impact on für die betroffene Zieldimension Leistung, Termine oder Kosten prüfen. Description mit Ursache, Auswirkung und benötigter Entscheidung füllen; Mitigation Plan mit der bevorzugten Option und Contingency Plan mit den Konsequenzen einer ausbleibenden oder verspäteten Entscheidung.",
+        "tool": "PWA · PDP Escalations / Liste Escalations"
+      },
+      {
+        "text": "Speichern und den Eintrag erneut öffnen. Angaben einschließlich Adressat und Termin vergleichen. Eine sichtbare Erfassung bestätigt weder Zugriff noch Bearbeitung durch den Empfänger.",
+        "tool": "PWA · PDP Escalations / Liste Escalations"
+      },
+      {
+        "text": "Den tatsächlich vereinbarten zusätzlichen Kommunikationsweg für die Information des Entscheiders verwenden. Für die Übung nur vorbereitete Testkonten verwenden. Empfängerzugriff und Projektlistenanzeige gesondert prüfen; bei fehlendem Nachweis bleibt die Übergabe offen.",
+        "tool": "PWA · PDP Escalations / Liste Escalations"
+      }
+    ],
+    "expectedResults": [
+      "Der Entscheidungsbedarf ist mit Adressat, Termin und Konsequenzen erneut lesbar; Empfängerbearbeitung bleibt separat nachzuweisen."
+    ],
+    "checkQuestions": [
+      "Ist klar, welche Entscheidung bis wann von wem benötigt wird und was ohne Entscheidung geschieht?",
+      "Sind gespeicherter Eintrag und Adressierung erneut prüfbar, während Empfängerzugriff und Entscheidung als gesonderte Nachweise offen bleiben?"
+    ],
+    "sourceRefs": ["B: §5.5.3 Eskalation an Multi-Projektmanagement durchführen"],
+    "taskId": "fn-escalation-capture",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-status-orientation",
+    "title": "Projektstatus ermitteln",
+    "trigger": "Der aktuelle Projektstand soll als begründete Ampel- und Trendbewertung für das R1-Basisreporting festgehalten werden.",
+    "prerequisites": [
+      "Der PM hat ein bereitgestelltes Contract-Execution-Kundenprojekt, einen veröffentlichten Plan mit gepflegtem Fortschritt und einen aktuellen Reviewstatus. Projektkernteam und fachliche Bewertungsgrundlagen stehen zur Abstimmung bereit.",
+      "Vor einer praktischen Übung PM-Bearbeitungsrechte, PDP Status und Bestands-Site-Konfiguration mit dem vorgesehenen Konto prüfen. Die kritischen Einschränkungen vor Ausführung lesen; nur fiktive Übungsdaten verwenden."
+    ],
+    "actions": [
+      {
+        "text": "Prüfen Sie den gepflegten Projektfortschritt im veröffentlichten Plan und den aktuellen Reviewstatus. Stimmen Sie die fachliche Einschätzung der betroffenen Statusdimensionen mit dem Projektkernteam ab.",
+        "tool": "PWA · PDP Status"
+      },
+      {
+        "text": "Öffnen Sie das Kundenprojekt in PWA und wechseln Sie zur PDP Status. Prüfen Sie, welche Dimensionen mit dem vorgesehenen PM-Konto tatsächlich bearbeitbar sind; PMO Status wird durch das PMO gepflegt.",
+        "tool": "PWA · PDP Status"
+      },
+      {
+        "text": "Wählen Sie für jede von Ihnen zu pflegende Dimension im Feld Status Red, Amber oder Green und im Feld Trend besser, gleich oder schlechter. Begründen Sie die Bewertung im zugehörigen Kommentar; Amber und Red sind laut B stets zu kommentieren.",
+        "tool": "PWA · PDP Status"
+      },
+      {
+        "text": "Halten Sie die seit dem letzten Bericht erreichten Fortschritte unter Recent Achievements fest. Speichern Sie die Projektdetailseite.",
+        "tool": "PWA · PDP Status"
+      },
+      {
+        "text": "Öffnen Sie den gespeicherten Stand erneut. Vergleichen Sie Status, Trend, Kommentare und Recent Achievements mit Ihrer Bewertung sowie mit Planfortschritt und Reviewstatus. Prüfen Sie die Darstellung in der bestätigten Projektstatusübersicht; bei Abweichungen insbesondere Rechte und Bestands-Site-Konfiguration gesondert klären.",
+        "tool": "PWA · PDP Status"
+      }
+    ],
+    "expectedResults": [
+      "Die vom PM gepflegten Statusdimensionen, Trends, Kommentare und Recent Achievements sind nach dem Speichern erneut lesbar und fachlich mit Plan und Reviewstatus abgeglichen; PMO Status bleibt beim PMO."
+    ],
+    "checkQuestions": [
+      "Lässt sich jede vom PM gepflegte Bewertung auf Fortschritt, Reviewstatus und die gemeinsame fachliche Einschätzung zurückführen?",
+      "Sind Amber und Red kommentiert und sind Status, Trend sowie Recent Achievements nach dem Speichern wieder auffindbar?",
+      "Stimmt die Projektstatusübersicht mit den gespeicherten Angaben überein, ohne PMO Status als PM-Eingabe zu behandeln?"
+    ],
+    "sourceRefs": [
+      "B: §5.5.4 Projektstatus ermitteln",
+      "B: §5.5.4-5.5.5: Statusdaten als Grundlage des Reportings"
+    ],
+    "taskId": "fn-status-orientation",
+    "releaseIds": ["release-1"],
+    "relationships": [
+      {
+        "targetId": "procedure-r1-reporting",
+        "relation": "feeds",
+        "note": "Der vorhandene PM-Statusweg liefert gespeicherte Ampeln, Trends, Kommentare und Recent Achievements für den Abgleich; PMO Status bleibt beim PMO. Paket A setzt die gepflegten Angaben voraus."
+      }
+    ]
+  },
+  {
+    "id": "procedure-r1-reporting",
+    "title": "R1-Projektstatusübersicht mit Plan und PDP Status abgleichen",
+    "trigger": "Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest.",
+    "prerequisites": [
+      "Vorhandene, eindeutig zugeordnete Contract-Execution-Kundenprojekte mit veröffentlichtem Plan, gepflegtem Fortschritt, aktuellem Reviewstatus und gespeichertem PDP Status. Erwartete Projekte, Auswahl und Vergleichsstand müssen feststehen; fehlende Eingangsdaten nicht im Reporting erzeugen.",
+      "Mit dem vorgesehenen Konto tatsächlichen Lesezugriff auf Project Center, Plan und PDP Status sowie Felder und Bestands-Site im Zielstand prüfen. C23 bestätigt die Korrekturen, erteilt aber keine Rechtezusage. Für eine praktische Übung nur vorbereitete Projekte mit fiktiven Daten verwenden."
+    ],
+    "actions": [
+      {
+        "text": "Legen Sie für den Vergleich die erwarteten Kundenprojekte, den verwendeten Plan-/Statusstand und die fachlich passende Auswahl fest. Prüfen Sie den veröffentlichten Plan mit gepflegtem Fortschritt und aktuellem Reviewstatus sowie den gespeicherten PDP Status. Fehlen diese Daten oder der Zugriff, halten Sie die Voraussetzung als offen fest und bleiben Sie beim Quellenvergleich.",
+        "tool": "PWA / Project Center – Projektfortschritt- und -status"
+      },
+      {
+        "text": "Öffnen Sie das Project Center und wählen Sie die Ansicht \"Projektfortschritt- und -status\". Wählen Sie den für Ihre vorbereiteten Projekte passenden Filter (ML, PSPV.org oder WW). Vergleichen Sie erwartete und angezeigte Projekte; die gewählte Ansicht oder der Filter ersetzt keine Prüfung der tatsächlichen Projektzuordnung und Leserechte.",
+        "tool": "PWA / Project Center – Projektfortschritt- und -status"
+      },
+      {
+        "text": "Vergleichen Sie den angezeigten Fortschritt für dasselbe Kundenprojekt mit dem gepflegten Fortschritt im veröffentlichten Plan. Prüfen Sie, ob der für die Statusbewertung verwendete Reviewstand aktuell ist. Ein unveröffentlichter Arbeitsstand ist kein geeigneter Nachweis für den angezeigten Planstand.",
+        "tool": "PWA / Project Center – Projektfortschritt- und -status"
+      },
+      {
+        "text": "Öffnen Sie dasselbe Kundenprojekt in PWA auf PDP Status. Vergleichen Sie die angezeigten Ampeln und Trends je erkennbarer Dimension mit den gespeicherten Angaben. Nutzen Sie Kommentare und Recent Achievements zur fachlichen Einordnung. PMO Status nur als vorhandene PMO-Angabe lesen; aus Fortschritt keine neue Bewertung berechnen und keine Statuswerte ändern.",
+        "tool": "PWA / Project Center – Projektfortschritt- und -status"
+      },
+      {
+        "text": "Halten Sie je geprüftem Projekt die verglichenen Werte und ihre Herkunft, Filter, Plan-/Statusstand sowie Übereinstimmungen oder konkrete Abweichungen fest. Für einen praktischen Prüfnachweis zusätzlich Datum, Prüfer, Konto, Release/Build, Umgebung und Beitragsrevision festhalten. Bei fehlender Herkunft oder ungeklärtem Unterschied endet der Weg mit einem offenen Prüfpunkt; das Ergebnis bis zur Klärung nicht als bestätigte Berichtsgrundlage verwenden.",
+        "tool": "PWA / Project Center – Projektfortschritt- und -status"
+      }
+    ],
+    "expectedResults": [
+      "Für die vorbereiteten Kundenprojekte sind Projektauswahl, Fortschritt aus dem veröffentlichten Plan und Ampeln/Trends aus PDP Status getrennt abgeglichen. Vergleichswerte, Herkunft und Stand sind nachvollziehbar; Abweichungen oder fehlende Nachweise bleiben ausdrücklich offen. Kein Status wurde berechnet oder geändert und keine Berichtsverteilung bestätigt."
+    ],
+    "checkQuestions": [
+      "Sind die erwarteten Projekte und die tatsächliche Filterwirkung mit dem vorgesehenen Konto geprüft, einschließlich ML falls verwendet?",
+      "Ist der Fortschritt auf denselben veröffentlichten Plan und einen aktuellen Reviewstand zurückgeführt, ohne einen unveröffentlichten Arbeitsstand gleichzusetzen?",
+      "Stimmen die vergleichbaren Ampeln und Trends mit dem gespeicherten PDP Status überein, sind Kommentare und Recent Achievements nachvollziehbar und bleibt PMO Status beim PMO?",
+      "Sind Übereinstimmungen, konkrete Abweichungen und fehlende Nachweise samt Datenherkunft getrennt dokumentiert, ohne Wiederholungen als Bestätigung oder den Abgleich als Fachfreigabe zu behandeln?"
+    ],
+    "sourceRefs": [
+      "B: §5.5.4-5.5.5: Eingangsdaten und Vergleich",
+      "C23: Punkte 5-7: Korrekturen, Filter und Übersicht",
+      "T: Release1-Matrix!A53:Q53: R1-Ansicht",
+      "B: §5.5.5: Vergleichsergebnis dokumentieren und bei ungeklärten Abweichungen stoppen",
+      "B: §4.5.6; §5.5.5: veröffentlichter Projektplan als Voraussetzung"
+    ],
+    "taskId": "fn-r1-reporting",
+    "releaseIds": ["release-1"],
+    "relationships": [
+      {
+        "targetId": "procedure-save-project-plan",
+        "relation": "requires",
+        "note": "Für den Planvergleich muss der gepflegte Plan veröffentlicht vorliegen. Der vorhandene Client-Speicherweg beschreibt den Abschluss und die Ergebnisprüfung; Paket A veröffentlicht selbst keinen Plan."
+      }
+    ]
+  },
+  {
+    "id": "procedure-permissions",
+    "title": "Stakeholder gezielt berechtigen",
+    "trigger": "Eine Person benötigt Zugriff, soll aber nicht als operative Arbeitsressource ins Team aufgenommen werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist bereitgestellt; Sie verfügen über die erforderlichen Rechte zur Rechteverwaltung.",
+      "Die Person ist als User in der PWA verfügbar.",
+      "Zweck und benötigter Zugriff sind geklärt: PM für das Kundenprojekt, TM für das System-Teilprojekt, ILSM für das ILS-Teilprojekt."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie im betreffenden Projekt Project Permissions und wählen Sie die Person aus.",
+        "tool": "PWA / Project Center / Project Permissions"
+      },
+      {
+        "text": "Wählen Sie nur die benötigten Rechte: Open the project, Edit and save the project, Publish the project, View the Project Summary in the Project Center, View the Project Schedule Details oder View the Project Site. Die Liste ist keine Empfehlung, alle Rechte zu vergeben.",
+        "tool": "Project Permissions"
+      },
+      {
+        "text": "Prüfen Sie die Rechtekombination aus Sicht der betroffenen Person. Dokumentieren Sie fachlich relevante Rollen- oder Zugriffsentscheidungen in der Projektorganisation.",
+        "tool": "Project Center, Project Site und PDP Organisation"
+      }
+    ],
+    "expectedResults": [
+      "Zusätzliche Stakeholder besitzen nur die für ihren Zweck ausgewählten Rechte."
+    ],
+    "checkQuestions": [
+      "Kann die betreffende Person die benötigten Inhalte öffnen, ohne unnötige Bearbeitungs- oder Veröffentlichungsrechte zu erhalten?"
+    ],
+    "sourceRefs": ["B: §3.6.6 Zugriffsrechte festlegen, Tabelle 14; §3.8.4 / §3.9.4"],
+    "taskId": "fn-project-permissions",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-owner-change",
+    "title": "Quick Guide: Owner wechseln und lesenden Eigenzugriff sichern",
+    "relatedArticleId": "guide-save-publish-checkin",
+    "trigger": "Ein vom PMO bereitgestelltes System- oder ILS-Teilprojekt wird an den vorgesehenen Teilprojektleiter übergeben.",
+    "prerequisites": [
+      "Der PM kann das Teilprojekt öffnen und verfügt über die erforderlichen Rechte für Selbstberechtigung und Owner-Änderung.",
+      "Das Teilprojekt ist vom PMO angelegt und bereitgestellt; der vorgesehene TM bzw. ILSM ist als User verfügbar.",
+      "Verwenden Sie für eine Übung ausschließlich einen vorher geprüften Schulungskontext. Konten und Site-Zugriff sind nicht pauschal nachgewiesen."
+    ],
+    "requiredRights": [
+      "Open the project",
+      "View the Project Summary in the Project Center",
+      "View the Project Schedule Details",
+      "View the Project Site"
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie als PM das Teilprojekt. Sichern Sie sich vor dem Owner-Wechsel über Project Permissions die vier oben genannten Rechte.",
+        "tool": "PWA / Project Center / Project Permissions"
+      },
+      {
+        "text": "System-Teilprojekt: Öffnen Sie System Overview und tragen Sie den vorgesehenen Technical Manager im Feld Owner ein. ILS-Teilprojekt: Verwenden Sie ILS Overview und den vorgesehenen ILS Manager.",
+        "tool": "PDP System Overview oder ILS Overview"
+      },
+      {
+        "text": "Speichern Sie die Änderung und schließen Sie die Bearbeitung mit Check-in ab. Wiederholen Sie den abgegrenzten Weg bei weiteren zu übergebenden Teilprojekten.",
+        "tool": "PWA"
+      },
+      {
+        "text": "Informieren Sie die eingesetzten Teilprojektleiter über die Übergabe. Dokumentieren Sie die Zuordnung zusätzlich unter Subprojects auf der PDP Organisation.",
+        "tool": "PDP Organisation / Subprojects"
+      }
+    ],
+    "expectedResults": [
+      "TM bzw. ILSM ist Owner und kann das eigene Teilprojekt öffnen.",
+      "Der PM behält lesenden Zugriff auf das Teilprojekt und die vorgesehenen Inhalte.",
+      "Owner und Teilprojektleiter-Zuordnung unter Subprojects stimmen überein."
+    ],
+    "checkQuestions": [
+      "Sind die vier Rechte vor der Übergabe gesichert?",
+      "Können der neue Owner und der PM anschließend mit ihren jeweiligen Konten die vorgesehenen Inhalte öffnen?",
+      "Stimmt die Zuordnung im Owner-Feld mit Subprojects überein?"
+    ],
+    "sourceRefs": ["B: §3.6.7 Teilprojektleiter einsetzen"],
+    "taskId": "fn-owner-change",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-deliverables",
+    "title": "Liefergegenstände als Planungsgrundlage erfassen",
+    "trigger": "Der PM definiert den Umfang eines vom PMO bereitgestellten Kundenprojekts.",
+    "prerequisites": [
+      "Kundenprojekt vom Typ Contract Execution ist bereitgestellt; der PM kann die PDP Scope und die Liste öffnen.",
+      "Leistungsumfang, Ausschlüsse und relevante Liefergegenstände sind mit dem Projektkernteam fachlich geklärt."
+    ],
+    "actions": [
+      {
+        "text": "Beschreiben Sie auf der PDP Scope den enthaltenen und ausdrücklich ausgeschlossenen Umfang sowie die vorgesehenen Merkmale und Basisprodukte.",
+        "tool": "PWA / PDP Scope"
+      },
+      {
+        "text": "Nutzen Sie für das Gesamtprojekt die führende List of Deliverables im Contract Execution Project; Teilprojekte pflegen ihre spezifischen Liefergegenstände. Legen Sie für jeden relevanten Liefergegenstand einen eigenen Eintrag mit eindeutiger Bezeichnung an. Pflegen Sie fachlichen Termin, vertragliche Relevanz und Freigabeinstanz nach den vorhandenen Angaben.",
+        "tool": "PDP Scope / List of Deliverables"
+      },
+      {
+        "text": "Speichern Sie die Liste, prüfen Sie die Initialbelegung „geplant“ und stimmen Sie die Einträge mit dem Projektkernteam ab.",
+        "tool": "List of Deliverables"
+      }
+    ],
+    "expectedResults": [
+      "Der Projektumfang ist nachvollziehbar beschrieben; die relevanten Liefergegenstände liegen einzeln als Eingang für die Meilensteinplanung vor."
+    ],
+    "checkQuestions": [
+      "Ist für jeden geplanten Liefermeilenstein ein fachlich passender Listeneintrag auffindbar?"
+    ],
+    "sourceRefs": ["B: §3.6.2 Schritt-für-Schritt: Projektumfang festlegen, Tabelle 11"],
+    "taskId": "fn-deliverables",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-payment-terms",
+    "title": "Zahlungsbedingungen als Planungsgrundlage erfassen",
+    "trigger": "Die Vertragsangaben für das Kundenprojekt werden vor der Zahlungsmeilensteinplanung gepflegt.",
+    "prerequisites": [
+      "Vertragliche Zahlungsbedingungen und die zugehörigen Auslöser liegen fachlich geklärt vor.",
+      "Der PM kann die PDP Contract im bereitgestellten Kundenprojekt bearbeiten."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie die PDP Contract und prüfen Sie den Vertragskontext auf Übereinstimmung mit den vorhandenen Unterlagen.",
+        "tool": "PWA / PDP Contract"
+      },
+      {
+        "text": "Pflegen Sie Terms of Payment so, dass auslösende Lieferung und vereinbarte Zahlungsfrist als Zeitabstand nachvollziehbar sind; halten Sie Zahlungen ohne Lieferauslöser fachlich getrennt fest.",
+        "tool": "PDP Contract / Terms of Payment"
+      },
+      {
+        "text": "Speichern Sie die Eingaben und gleichen Sie die Angaben vor der Planung mit der fachlich abgestimmten Vertragslage ab.",
+        "tool": "PDP Contract"
+      }
+    ],
+    "expectedResults": [
+      "Die Zahlungsbedingungen liefern eine prüfbare Grundlage für die Terminierung der Zahlungsmeilensteine."
+    ],
+    "checkQuestions": [
+      "Sind Auslöser und Frist eines vereinbarten Zahlungszeitpunkts nachvollziehbar?"
+    ],
+    "sourceRefs": ["B: §3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen"],
+    "taskId": "fn-payment-terms",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-delivery-milestones",
+    "title": "Liefermeilensteine mit Stichtag und Plantermin planen",
+    "trigger": "Die bestätigten Liefergegenstände sollen im Kundenprojektplan terminiert werden.",
+    "prerequisites": [
+      "Die List of Deliverables und die fachlich maßgeblichen Liefertermine liegen vor.",
+      "Der PM kann den Projektplan im MS Project Client bearbeiten; der Plan ist ausgecheckt und Ansicht 10 ist aktiv."
+    ],
+    "actions": [
+      {
+        "text": "Erzeugen Sie für jeden relevanten Liefergegenstand einen Liefermeilenstein aus dem vorgesehenen generischen Template-Meilenstein und benennen Sie ihn eindeutig.",
+        "tool": "MS Project Client / Ansicht 10 Phasen- und Meilensteinplan"
+      },
+      {
+        "text": "Pflegen Sie den vertraglichen Zieltermin im Feld Stichtag und anschließend den aktuellen Plantermin im Feld Anfang. Prüfen Sie die dabei entstehende Einschränkung „Anfang nicht früher als“.",
+        "tool": "MS Project Client / Ansicht 10"
+      },
+      {
+        "text": "Prüfen Sie WBS Level „Pr – Projekt“, WBS Type „Meilenstein“, Milestone Type „Ext.Del“ und den fachlichen Bezug zum Eintrag in der List of Deliverables.",
+        "tool": "MS Project Client / Ansicht 10 und PDP Scope"
+      }
+    ],
+    "expectedResults": [
+      "Jeder relevante Liefergegenstand hat einen zuordenbaren Liefermeilenstein mit Stichtag, Plantermin und passender Klassifikation."
+    ],
+    "checkQuestions": [
+      "Sind Stichtag und Anfang fachlich unterschieden und die Termine mit der Liste abgeglichen?"
+    ],
+    "sourceRefs": [
+      "B: §4.4 Fachlicher Soll-Ablauf; §4.5.1 Projektplan öffnen und auschecken; §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen, Tabelle 16"
+    ],
+    "taskId": "fn-delivery-milestones",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-payment-milestones",
+    "title": "Zahlungsmeilensteine mit oder ohne Lieferbezug planen",
+    "relatedArticleId": "guide-save-publish-checkin",
+    "trigger": "Vertragliche Zahlungsbedingungen sollen als Zahlungstermine im Projektplan sichtbar werden.",
+    "prerequisites": [
+      "Zahlungsbedingungen und Fristen sind in der PDP Contract nachvollziehbar erfasst.",
+      "Soweit eine Lieferung die Zahlung auslöst, ist der zugehörige Liefermeilenstein geplant.",
+      "Der Projektplan ist zur Bearbeitung ausgecheckt; Ansicht 10 ist aktiv."
+    ],
+    "actions": [
+      {
+        "text": "Erzeugen und benennen Sie einen Zahlungsmeilenstein aus dem vorgesehenen Template. Prüfen Sie WBS Level „Pr – Projekt“, WBS Type „Meilenstein“ und Milestone Type „Ext.Pay“.",
+        "tool": "MS Project Client / Ansicht 10"
+      },
+      {
+        "text": "Wenn eine Lieferung die Zahlung auslöst: Verknüpfen Sie den Zahlungsmeilenstein mit dem begründenden Liefermeilenstein als Vorgänger, tragen Sie die vereinbarte Zahlungsfrist als Zeitabstand ein und prüfen Sie den resultierenden Anfang-Termin. Für die Verknüpfung kann Ansicht 30 genutzt werden; wechseln Sie danach zurück zu Ansicht 10.",
+        "tool": "MS Project Client / Ansicht 30 Ablauf- und Terminplan; Ansicht 10"
+      },
+      {
+        "text": "Wenn keine Lieferung die Zahlung auslöst: Erzeugen Sie keine künstliche Vorgänger-Verknüpfung. Setzen Sie den Plantermin direkt im Feld Anfang und halten Sie die fachliche Begründung nachvollziehbar.",
+        "tool": "MS Project Client / Ansicht 10"
+      },
+      {
+        "text": "Übernehmen Sie Anfang nur dann in Stichtag, wenn dieser Termin den vertraglich verbindlichen Zahlungszeitpunkt korrekt abbildet. Speichern, veröffentlichen und checken Sie den geprüften Plan ein.",
+        "tool": "MS Project Client"
+      }
+    ],
+    "expectedResults": [
+      "Für jeden Zahlungsmeilenstein ist erkennbar, ob Liefertermin und Zahlungsfrist oder eine begründete direkte Terminierung zugrunde liegen. Der Plan ist veröffentlicht und eingecheckt."
+    ],
+    "checkQuestions": [
+      "Stimmt der Zahlungszeitpunkt mit den Terms of Payment überein?",
+      "Ist eine Vorgänger-Verknüpfung nur bei auslösender Lieferung gesetzt?",
+      "Wurde nach der letzten Änderung veröffentlicht und eingecheckt?"
+    ],
+    "sourceRefs": [
+      "B: §3.6.3 Vertragsdaten einpflegen; §4.5.3 Schritt-für-Schritt: Zahlungsmeilensteine planen, Tabelle 18; §4.5.6 Speichern, veröffentlichen und einchecken"
+    ],
+    "taskId": "fn-payment-milestones",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-save-deliverables-list",
+    "title": "Lieferliste speichern und prüfen",
+    "relatedArticleId": "guide-deliverables-milestones",
+    "trigger": "Liefergegenstände in der List of Deliverables wurden bearbeitet.",
+    "prerequisites": [
+      "Die fachlich abgestimmten Liefergegenstände und die nötigen Bearbeitungsrechte liegen vor."
+    ],
+    "actions": [
+      {
+        "text": "Speichern Sie die Liste, prüfen Sie die Initialbelegung „geplant“ und stimmen Sie die Einträge mit dem Projektkernteam ab.",
+        "tool": "List of Deliverables"
+      }
+    ],
+    "expectedResults": [
+      "Die gespeicherten Listeneinträge sollen mit den fachlich abgestimmten Liefergegenständen übereinstimmen."
+    ],
+    "checkQuestions": [
+      "Ist für jeden geplanten Liefermeilenstein ein fachlich passender Listeneintrag auffindbar?",
+      "Sind die gespeicherten Liefergegenstände in der Liste wieder auffindbar?"
+    ],
+    "sourceRefs": ["B: §3.6.2 Schritt-für-Schritt: Projektumfang festlegen, Tabelle 11"],
+    "taskId": "fn-deliverables",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-save-payment-terms-pdp",
+    "title": "Zahlungsbedingungen auf PDP Contract speichern und prüfen",
+    "relatedArticleId": "guide-deliverables-milestones",
+    "trigger": "Zahlungsbedingungen auf der PDP Contract wurden bearbeitet.",
+    "prerequisites": [
+      "Die fachlich abgestimmten Vertragsangaben und die nötigen Bearbeitungsrechte liegen vor."
+    ],
+    "actions": [
+      {
+        "text": "Speichern Sie die Eingaben und gleichen Sie die Angaben vor der Planung mit der fachlich abgestimmten Vertragslage ab.",
+        "tool": "PDP Contract"
+      }
+    ],
+    "expectedResults": [
+      "Die gespeicherten Zahlungsbedingungen sollen mit der fachlich abgestimmten Vertragslage übereinstimmen."
+    ],
+    "checkQuestions": [
+      "Sind Auslöser und Frist eines vereinbarten Zahlungszeitpunkts nachvollziehbar?",
+      "Sind die gespeicherten Zahlungsbedingungen auf der PDP Contract wieder auffindbar?"
+    ],
+    "sourceRefs": ["B: §3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen"],
+    "taskId": "fn-payment-terms",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-save-project-plan",
+    "title": "MS Project Client: geprüften Plan veröffentlichen und einchecken",
+    "relatedArticleId": "guide-deliverables-milestones",
+    "trigger": "Der bearbeitete Projektplan soll als geprüfter Planstand weitergegeben werden.",
+    "prerequisites": [
+      "Der Projektplan ist im MS Project Client zur Bearbeitung ausgecheckt; Termine und fachliche Zuordnung wurden geprüft."
+    ],
+    "actions": [
+      {
+        "text": "Speichern Sie den geprüften Projektplan, veröffentlichen Sie ihn und checken Sie ihn anschließend ein.",
+        "tool": "MS Project Client"
+      },
+      {
+        "text": "Prüfen Sie den veröffentlichten Stand gegen die fachlich geprüften Planangaben.",
+        "tool": "MS Project Client / veröffentlichter Projektplan"
+      }
+    ],
+    "expectedResults": [
+      "Der geprüfte Planstand soll veröffentlicht und eingecheckt sowie im veröffentlichten Stand nachvollziehbar sein."
+    ],
+    "checkQuestions": [
+      "Wurde nach der letzten Änderung veröffentlicht und eingecheckt?",
+      "Entspricht der veröffentlichte Stand den geprüften Planangaben?"
+    ],
+    "sourceRefs": ["B: §4.5.6 Speichern, veröffentlichen und einchecken"],
+    "taskId": "fn-payment-milestones",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-save-owner-change",
+    "title": "Owner-Wechsel: PM-Leserechte sichern, speichern und einchecken",
+    "relatedArticleId": "guide-project-permissions",
+    "trigger": "Ein vom PMO bereitgestelltes System- oder ILS-Teilprojekt wird an den vorgesehenen Teilprojektleiter übergeben.",
+    "prerequisites": [
+      "Der PM kann das Teilprojekt öffnen und verfügt über die erforderlichen Rechte für Selbstberechtigung und Owner-Änderung.",
+      "Das Teilprojekt ist vom PMO angelegt und bereitgestellt; der vorgesehene TM bzw. ILSM ist als User verfügbar.",
+      "Verwenden Sie für eine Übung ausschließlich einen vorher geprüften Schulungskontext. Konten und Site-Zugriff sind nicht pauschal nachgewiesen."
+    ],
+    "requiredRights": [
+      "Open the project",
+      "View the Project Summary in the Project Center",
+      "View the Project Schedule Details",
+      "View the Project Site"
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie als PM das Teilprojekt. Sichern Sie sich vor dem Owner-Wechsel über Project Permissions die vier oben genannten Rechte.",
+        "tool": "PWA / Project Center / Project Permissions"
+      },
+      {
+        "text": "System-Teilprojekt: Öffnen Sie System Overview und tragen Sie den vorgesehenen Technical Manager im Feld Owner ein. ILS-Teilprojekt: Verwenden Sie ILS Overview und den vorgesehenen ILS Manager.",
+        "tool": "PDP System Overview oder ILS Overview"
+      },
+      {
+        "text": "Speichern Sie die Änderung und schließen Sie die Bearbeitung mit Check-in ab. Wiederholen Sie den abgegrenzten Weg bei weiteren zu übergebenden Teilprojekten.",
+        "tool": "PWA"
+      }
+    ],
+    "expectedResults": [
+      "Nach der Übergabe sollen der neue Owner, der lesende PM-Zugriff und die Zuordnung unter Subprojects übereinstimmen."
+    ],
+    "checkQuestions": [
+      "Sind die vier Rechte vor der Übergabe gesichert?",
+      "Können der neue Owner und der PM anschließend mit ihren jeweiligen Konten die vorgesehenen Inhalte öffnen?",
+      "Stimmt die Zuordnung im Owner-Feld mit Subprojects überein?"
+    ],
+    "sourceRefs": ["B: §3.6.7 Teilprojektleiter einsetzen"],
+    "taskId": "fn-owner-change",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-project-takeover",
+    "title": "Bereitgestellte Projektumgebung als PM prüfen",
+    "trigger": "Das PMO hat eine Projektumgebung zur Übernahme gemeldet.",
+    "prerequisites": [
+      "Das PMO hat die Bereitstellung bestätigt. Ein reguläres PM-Konto und der passende MS Project Client sind verfügbar; Antragsdaten stehen zum Vergleich bereit."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie nach bestätigter Bereitstellung PWA und das Project Center. Wählen Sie eine verfügbare Rollenansicht, etwa Projekte und Teilprojekte, und öffnen Sie das bereitgestellte Projekt.",
+        "tool": "PWA / Project Center / Project Site / MS Project Client"
+      },
+      {
+        "text": "Prüfen Sie anhand der PDPs die Projektart. Öffnen Sie die Project Site und kontrollieren Sie die Erreichbarkeit mit Ihrem regulären Konto.",
+        "tool": "PWA / Project Center / Project Site / MS Project Client"
+      },
+      {
+        "text": "Öffnen Sie den Projektplan im MS Project Client zunächst ohne Inhalte zu verändern. Prüfen Sie Projektname, Project ID, Owner, Main Project, Projektphase und Projektlevel auf Plausibilität gegenüber der beantragten Struktur.",
+        "tool": "PWA / Project Center / Project Site / MS Project Client"
+      },
+      {
+        "text": "Melden Sie Abweichungen dem PMO, bevor Sie die fachliche Definition beginnen. Teilprojektübergaben an TM oder ILSM folgen dem gesonderten Owner-Weg mit vorher gesichertem PM-Lesezugriff.",
+        "tool": "PWA / Project Center / Project Site / MS Project Client"
+      }
+    ],
+    "expectedResults": [
+      "Sind Projekt, Project Site und initialer Projektplan erreichbar und der beantragten Struktur zugeordnet?"
+    ],
+    "checkQuestions": [
+      "Sind Projekt, Project Site und initialer Projektplan erreichbar und der beantragten Struktur zugeordnet?",
+      "Passen EPT, Owner, Main Project und Ebene zur vorgesehenen Aufgabe?",
+      "Sind Abweichungen vor der fachlichen Pflege geklärt?"
+    ],
+    "sourceRefs": ["B: §3.1.4 Projektumgebung übernehmen; §3.6.7"],
+    "taskId": "fn-project-provision",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-project-master-data",
+    "title": "Kundenprojekt auf Overview vervollständigen",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie das Kundenprojekt im Project Center und rufen Sie Overview auf. Prüfen Sie Contract Execution / L1 und den bereitgestellten Kontext; melden Sie strukturelle Abweichungen dem PMO.",
+        "tool": "PWA / Project Center / PDP Overview"
+      },
+      {
+        "text": "Prüfen Sie Project-Name und Owner; ergänzen Sie eine präzise Short Description. Ändern Sie den Owner nur im abgestimmten Übergabeprozess.",
+        "tool": "PWA / Project Center / PDP Overview"
+      },
+      {
+        "text": "Pflegen Sie Security Classification und ISMS Classification nach der höchsten Einstufung der verarbeiteten Informationen. Pflegen Sie Project Credits (TKMS) anhand des vorgesehenen Project Categorization Template. B beschreibt Category (TKMS) als daraus abgeleitet; kontrollieren Sie die Anzeige im Zielstand.",
+        "tool": "PWA / Project Center / PDP Overview"
+      },
+      {
+        "text": "Prüfen Sie Portfolio und Program. Laut B stammen sie aus PMO-Feldern und sind nicht direkt editierbar. Melden Sie Abweichungen dem PMO. Pflegen Sie Customer Country und Contractor, soweit fachlich erforderlich.",
+        "tool": "PWA / Project Center / PDP Overview"
+      },
+      {
+        "text": "Ergänzen Sie vorhandene Contract-ID (CLM), Offer-No. (SAP AK), SAP-ID (SAP PS), additional References und General Remarks. Project ID ist ein Strukturmerkmal; nicht fachlich umbenennen.",
+        "tool": "PWA / Project Center / PDP Overview"
+      },
+      {
+        "text": "Prüfen Sie Project Phase und Start Date gegen den fachlichen Projektbeginn. Start Date auf PDP Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. Berücksichtigen Sie bei einer Änderung die Auswirkung auf die jeweils andere Seite und prüfen Sie den resultierenden Plan. EDC ist unabhängig davon der vertragliche Starttermin. Finish Date gegen den Plan prüfen.",
+        "tool": "PWA / Project Center / PDP Overview"
+      }
+    ],
+    "expectedResults": [
+      "Sind Kurzbeschreibung, Klassifikation, Referenzen und fachlicher Beginn vollständig und plausibel?"
+    ],
+    "checkQuestions": [
+      "Sind Kurzbeschreibung, Klassifikation, Referenzen und fachlicher Beginn vollständig und plausibel?",
+      "Stimmen PMO-Strukturfelder mit dem Antrag überein?",
+      "Sind Start Date auf Overview und im Projektplan nach der Änderung konsistent und vom vertraglichen EDC getrennt?"
+    ],
+    "sourceRefs": ["B: §3.6.1 Tabelle 10; §3.1.2", "C23: Punkt 1 (nur Start Date / EDC)"],
+    "taskId": "fn-project-master-data",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-project-objectives",
+    "title": "Ziele, Annahmen und Randbedingungen erfassen",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Stimmen Sie Ziele mit Projektsponsor und Projektkernteam ab; öffnen Sie Objectives im Kundenprojekt.",
+        "tool": "PDP Objectives / Objectives-Liste"
+      },
+      {
+        "text": "Legen Sie je fachlich eigenständigem Ziel einen eigenen Listeneintrag an: Kurzbezeichnung und Projektziel als überprüfbaren Sollzustand, zugehörigen Stakeholder und eine tatsächlich verfügbare Zielklasse aus dem Lookup. Der Portfolio-Owner kann laut B als Sponsor geführt werden.",
+        "tool": "PDP Objectives / Objectives-Liste"
+      },
+      {
+        "text": "Prüfen Sie nach dem Anlegen den in B beschriebenen Initialstatus „geplant“. Spätere Änderungen richten sich nach dem tatsächlichen Zielstatus. Ein abweichender Initialstatus ist ein Prüfpunkt, kein Anlass, eine Systemwirkung zu behaupten.",
+        "tool": "PDP Objectives / Objectives-Liste"
+      },
+      {
+        "text": "Erfassen Sie unter Assumptions noch zu bestätigende Planungsannahmen und unter Constraints feststehende Einschränkungen. Führen Sie beides getrennt von Zielen.",
+        "tool": "PDP Objectives / Objectives-Liste"
+      },
+      {
+        "text": "Speichern Sie die Eingaben. Öffnen Sie die bearbeiteten Angaben erneut und vergleichen Sie Ziele, Annahmen und Randbedingungen mit Scope, Liefergegenständen und Phasen-/Meilensteinplanung.",
+        "tool": "PDP Objectives / Objectives-Liste"
+      }
+    ],
+    "expectedResults": [
+      "Ist jedes Ziel ein überprüfbarer Sollzustand mit Stakeholder und vorgegebener Zielklasse?"
+    ],
+    "checkQuestions": [
+      "Ist jedes Ziel ein überprüfbarer Sollzustand mit Stakeholder und vorgegebener Zielklasse?",
+      "Sind Annahmen und verbindliche Randbedingungen getrennt erfasst?",
+      "Sind die gespeicherten Einträge wieder auffindbar und fachlich konsistent?"
+    ],
+    "sourceRefs": ["B: §3.6.4 Tabelle 12"],
+    "taskId": "fn-project-objectives",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-project-organization",
+    "title": "Kernteam, Teilprojekte und Unteraufträge dokumentieren",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie Organisation im Kundenprojekt. Prüfen Sie die verfügbaren Listen und die Personenauswahl mit dem vorgesehenen Konto.",
+        "tool": "PDP Organisation"
+      },
+      {
+        "text": "Pflegen Sie im Project Core Team je Mitarbeiter die Projektrolle und die zugehörige Prozessrolle. Verwenden Sie die tatsächlich verfügbaren Rollenwerte.",
+        "tool": "PDP Organisation"
+      },
+      {
+        "text": "Pflegen Sie unter Subprojects Name, Scope und Teilprojektleiter. Vergleichen Sie die Einträge mit der bereitgestellten Struktur und dem abgestimmten Owner. Die Liste ersetzt weder die PMO-Anlage noch einen Owner-Wechsel.",
+        "tool": "PDP Organisation"
+      },
+      {
+        "text": "Dokumentieren Sie Unteraufträge mit Name des Unterauftragnehmers (UAN), Scope, POC und Order Value. B nennt die Liste Subcontracts; T nennt Subcontractors. Prüfen Sie die tatsächliche Bezeichnung und Zuordnung in der Zielumgebung.",
+        "tool": "PDP Organisation"
+      },
+      {
+        "text": "Speichern Sie die Angaben und prüfen Sie die gespeicherten Einträge auf Vollständigkeit und Aktualität. Prüfen Sie wirksame Rechte gesondert anhand des bestehenden Zugriffsartikels.",
+        "tool": "PDP Organisation"
+      }
+    ],
+    "expectedResults": [
+      "Sind Kernteam, Teilprojekte und Unteraufträge vollständig und aktuell dokumentiert?"
+    ],
+    "checkQuestions": [
+      "Sind Kernteam, Teilprojekte und Unteraufträge vollständig und aktuell dokumentiert?",
+      "Stimmen Teilprojektleiter, Owner-Übergabe und Subprojects fachlich überein?",
+      "Sind dokumentierte Rollen und tatsächlich benötigte Rechte getrennt geprüft?"
+    ],
+    "sourceRefs": ["B: §3.6.5 Tabelle 13; §3.6.7"],
+    "taskId": "fn-project-organization",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-system-master-data",
+    "title": "System-Stammdaten pflegen",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie als TM das übergebene System-Teilprojekt im Project Center und System Overview. Prüfen Sie Owner, Project ID, Portfolio, Main Project und gültiges Start Date. System Delivery gilt für L2; Segment-Teilprojekte L3 liegen unter System Delivery L2. Strukturabweichungen an das PMO geben.",
+        "tool": "PDP System Overview"
+      },
+      {
+        "text": "Pflegen Sie Short Description und Security Classification sowie ISMS Classification nach der höchsten Einstufung der im Teilprojekt verarbeiteten Informationen.",
+        "tool": "PDP System Overview"
+      },
+      {
+        "text": "Passen Sie Start Date bei fachlichem Bedarf an und berücksichtigen Sie die wechselseitige Synchronisation zwischen Overview und Projektplan. EDC ist unabhängig davon nur der vertragliche Starttermin. Finish Date und resultierenden Plan prüfen.",
+        "tool": "PDP System Overview"
+      },
+      {
+        "text": "Ergänzen Sie vorhandene SAP-ID (SAP PS), sinnvolle additional References und General Remarks zum Teilprojekt.",
+        "tool": "PDP System Overview"
+      }
+    ],
+    "expectedResults": [
+      "Sind System-Kurzbeschreibung, Klassifikation und Start Date mit dem Kundenprojekt vereinbar?"
+    ],
+    "checkQuestions": [
+      "Sind System-Kurzbeschreibung, Klassifikation und Start Date mit dem Kundenprojekt vereinbar?",
+      "Sind Struktur und Referenzen plausibel und Terminwirkungen gesondert geprüft?"
+    ],
+    "sourceRefs": ["B: §3.8.1; §3.7"],
+    "taskId": "fn-system-definition",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-system-scope",
+    "title": "System-Leistungsumfang abgrenzen",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie System Scope. Project Purpose gehört nicht mehr zum Pflegeweg. Laut Auftraggebermeldung (Eingang 28.09.2026) ist das Feld aus allen betroffenen Teilprojekt-PDPs entfernt; die Prüfung ergab laut Meldung keine Beeinträchtigung bestehender Daten oder Formulare. Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang liegen nicht vor. Ein noch sichtbares Feld als Abweichung zur gemeldeten Konfiguration erfassen.",
+        "tool": "PDP System Scope"
+      },
+      {
+        "text": "Beschreiben Sie Scope und sinnvolle Ausschlüsse unter not in scope. Grenzen Sie die Systemleistung gegenüber Kundenprojekt und angrenzenden Teilprojekten ab; stimmen Sie Schnittstellen ab.",
+        "tool": "PDP System Scope"
+      },
+      {
+        "text": "Referenzieren Sie Base Products. Stimmen Sie die fachlichen Merkmale (Characteristics) gemäß der Einordnung in B §3.7 mit dem Kundenprojekt ab; die konkrete Feldverfügbarkeit ist im Zielstand zu prüfen.",
+        "tool": "PDP System Scope"
+      }
+    ],
+    "expectedResults": [
+      "Ist der System-Umfang eindeutig abgegrenzt und sind Basisprodukte sowie Schnittstellen nachvollziehbar?"
+    ],
+    "checkQuestions": [
+      "Ist der System-Umfang eindeutig abgegrenzt und sind Basisprodukte sowie Schnittstellen nachvollziehbar?",
+      "Sind Doppelzuordnungen und ungedeckte Leistungen im Vergleich zum Kundenprojekt geklärt?"
+    ],
+    "sourceRefs": ["B: §3.8.2; §3.7", "N28: Punkt 1 (gemeldete Entfernung und Prüfung)"],
+    "taskId": "fn-system-definition",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-system-organization",
+    "title": "System-Team dokumentieren",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie System Organ. und prüfen Sie die verfügbaren Rollen und die Personenauswahl.",
+        "tool": "PDP System Organ."
+      },
+      {
+        "text": "Dokumentieren Sie je Projektrolle den Mitarbeiter, die Projektrolle und die entsprechende Prozessrolle als Referenz. Verwenden Sie nur im geprüften Zielstand verfügbare Rollen.",
+        "tool": "PDP System Organ."
+      },
+      {
+        "text": "Vergleichen Sie die fachliche Organisation mit dem Kundenprojekt. Prüfen Sie Teamzuordnung und wirksame Rechte gesondert über die bestehende Anleitung zu Zugriff und Owner-Wechsel.",
+        "tool": "PDP System Organ."
+      }
+    ],
+    "expectedResults": [
+      "Ist für jede System-Projektrolle ein Mitarbeiter mit zugehöriger Prozessrolle dokumentiert?"
+    ],
+    "checkQuestions": [
+      "Ist für jede System-Projektrolle ein Mitarbeiter mit zugehöriger Prozessrolle dokumentiert?",
+      "Sind Rechte unabhängig von der Rollenliste geprüft?"
+    ],
+    "sourceRefs": ["B: §3.8.3"],
+    "taskId": "fn-system-definition",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-ils-master-data",
+    "title": "ILS-Stammdaten pflegen",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie als ILSM das übergebene ILS-Teilprojekt im Project Center und ILS Overview. Prüfen Sie Owner, Project ID, Portfolio, Main Project und gültiges Start Date. ILS Delivery ist für das ILS-Teilprojekt auf L2 vorgesehen. Strukturabweichungen an das PMO geben.",
+        "tool": "PDP ILS Overview"
+      },
+      {
+        "text": "Pflegen Sie Short Description und Security Classification sowie ISMS Classification nach der höchsten Einstufung der im Teilprojekt verarbeiteten Informationen.",
+        "tool": "PDP ILS Overview"
+      },
+      {
+        "text": "Passen Sie Start Date bei fachlichem Bedarf an und berücksichtigen Sie die wechselseitige Synchronisation zwischen Overview und Projektplan. EDC ist unabhängig davon nur der vertragliche Starttermin. Finish Date und resultierenden Plan prüfen.",
+        "tool": "PDP ILS Overview"
+      },
+      {
+        "text": "Ergänzen Sie vorhandene SAP-ID (SAP PS), sinnvolle additional References und General Remarks zum Teilprojekt.",
+        "tool": "PDP ILS Overview"
+      }
+    ],
+    "expectedResults": [
+      "Sind ILS-Kurzbeschreibung, Klassifikation und Start Date mit dem Kundenprojekt vereinbar?"
+    ],
+    "checkQuestions": [
+      "Sind ILS-Kurzbeschreibung, Klassifikation und Start Date mit dem Kundenprojekt vereinbar?",
+      "Sind Struktur und Referenzen plausibel und Terminwirkungen gesondert geprüft?"
+    ],
+    "sourceRefs": ["B: §3.9.1; §3.7"],
+    "taskId": "fn-ils-definition",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-ils-scope",
+    "title": "ILS-Leistungsumfang abgrenzen",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie ILS Scope. Project Purpose gehört nicht mehr zum Pflegeweg. Laut Auftraggebermeldung (Eingang 28.09.2026) ist das Feld aus allen betroffenen Teilprojekt-PDPs entfernt; die Prüfung ergab laut Meldung keine Beeinträchtigung bestehender Daten oder Formulare. Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang liegen nicht vor. Ein noch sichtbares Feld als Abweichung zur gemeldeten Konfiguration erfassen.",
+        "tool": "PDP ILS Scope"
+      },
+      {
+        "text": "Beschreiben Sie Scope und sinnvolle Ausschlüsse unter not in scope. Ordnen Sie ILS-Leistungen eindeutig zu und grenzen Sie sie gegenüber Kundenprojekt, Systementwicklung und gegebenenfalls Unterauftragnehmern ab.",
+        "tool": "PDP ILS Scope"
+      },
+      {
+        "text": "Referenzieren Sie Base Products. Stimmen Sie die fachlichen Merkmale (Characteristics) gemäß der Einordnung in B §3.7 mit dem Kundenprojekt ab; die konkrete Feldverfügbarkeit ist im Zielstand zu prüfen.",
+        "tool": "PDP ILS Scope"
+      }
+    ],
+    "expectedResults": [
+      "Ist der ILS-Umfang eindeutig abgegrenzt und sind Basisprodukte sowie Schnittstellen nachvollziehbar?"
+    ],
+    "checkQuestions": [
+      "Ist der ILS-Umfang eindeutig abgegrenzt und sind Basisprodukte sowie Schnittstellen nachvollziehbar?",
+      "Sind Doppelzuordnungen und ungedeckte Leistungen im Vergleich zum Kundenprojekt geklärt?"
+    ],
+    "sourceRefs": ["B: §3.9.2; §3.7", "N28: Punkt 1 (gemeldete Entfernung und Prüfung)"],
+    "taskId": "fn-ils-definition",
+    "releaseIds": ["release-1"]
+  },
+  {
+    "id": "procedure-ils-organization",
+    "title": "ILS-Team dokumentieren",
+    "trigger": "Die fachliche Definition soll ergänzt oder geprüft werden.",
+    "prerequisites": [
+      "Das betreffende Projekt ist durch das PMO bereitgestellt und übergeben. Fachliche Ausgangsangaben liegen vor; tatsächlicher Zugriff und Bearbeitungsrechte sind mit dem vorgesehenen Konto geprüft. Eine sichtbare PDP genügt nicht."
+    ],
+    "actions": [
+      {
+        "text": "Öffnen Sie ILS Organisation und prüfen Sie die verfügbaren Rollen und die Personenauswahl.",
+        "tool": "PDP ILS Organisation"
+      },
+      {
+        "text": "Dokumentieren Sie je Projektrolle den Mitarbeiter, die Projektrolle und die entsprechende Prozessrolle als Referenz. Verwenden Sie nur im geprüften Zielstand verfügbare Rollen.",
+        "tool": "PDP ILS Organisation"
+      },
+      {
+        "text": "Vergleichen Sie die fachliche Organisation mit dem Kundenprojekt. Prüfen Sie Teamzuordnung und wirksame Rechte gesondert über die bestehende Anleitung zu Zugriff und Owner-Wechsel.",
+        "tool": "PDP ILS Organisation"
+      }
+    ],
+    "expectedResults": [
+      "Ist für jede ILS-Projektrolle ein Mitarbeiter mit zugehöriger Prozessrolle dokumentiert?"
+    ],
+    "checkQuestions": [
+      "Ist für jede ILS-Projektrolle ein Mitarbeiter mit zugehöriger Prozessrolle dokumentiert?",
+      "Sind Rechte unabhängig von der Rollenliste geprüft?"
+    ],
+    "sourceRefs": ["B: §3.9.3"],
+    "taskId": "fn-ils-definition",
+    "releaseIds": ["release-1"]
+  }
+]

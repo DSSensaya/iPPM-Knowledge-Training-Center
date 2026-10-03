@@ -1,0 +1,26 @@
+[
+  {
+    "id": "pm",
+    "label": "Projektmanager (PM)",
+    "aliases": ["PM", "Project Manager"],
+    "responsibility": "Kundenprojekt; Übergabe der Teilprojekte"
+  },
+  {
+    "id": "pmo",
+    "label": "Project Management Office (PMO)",
+    "aliases": ["PMO", "PMO Member"],
+    "responsibility": "Projektumgebung bereitstellen und Struktur prüfen"
+  },
+  {
+    "id": "tm",
+    "label": "Technical Manager (TM)",
+    "aliases": ["TM", "System-Teilprojektleitung"],
+    "responsibility": "System-Teilprojekt"
+  },
+  {
+    "id": "ilsm",
+    "label": "ILS Manager (ILSM)",
+    "aliases": ["ILSM", "ILS-Teilprojektleitung"],
+    "responsibility": "ILS-Teilprojekt"
+  }
+]

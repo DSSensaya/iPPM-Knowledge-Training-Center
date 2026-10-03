@@ -1,0 +1,77 @@
+{
+  "id": "guide-project-handover",
+  "title": "Projektumgebung vorbereiten und übernehmen",
+  "summary": "Orientierung für Antrag und PMO-Bereitstellung sowie eine abgegrenzte Übernahmeprüfung für den PM. Kein nachgewiesener Gesamtweg von TopDesk bis Projektanlage.",
+  "roleIds": ["pm", "pmo"],
+  "systemIds": ["service-portal", "pwa", "project-client", "project-site"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Übernahmeprüfung ist beschrieben. Vollständiger Antrag und PMO-Bereitstellung sind nicht als Gesamtweg belegt."
+    },
+    {
+      "title": "Antrag vorbereiten – Orientierung, kein freigegebener Ticketweg",
+      "body": "B §3.1.1 nennt den designierten PM als Antragsteller und TopDesk / Service UHD als Kanal. Vorzubereiten sind Projektentscheidung, eindeutiger Projektname, PM, Grobstruktur, Teilprojekttyp und -name, vorgesehene TM/ILSM sowie initiale ISMS-/VS-Einstufung. B beschreibt maximal 40 Zeichen ohne Sonderzeichen für Namen und bis zu fünf direkt beantragbare Teilprojekte; für mehr Teilprojekte nennt B manuelle Abstimmung mit dem PMO. Diese Formulargrenzen und der tatsächliche Erstzugang müssen bestätigt werden. Automatische Owner-, Ticket- oder E-Mail-Wirkungen werden hier nicht zugesichert."
+    },
+    {
+      "title": "Was das PMO bereitstellen soll",
+      "body": "Nach B gehören zur Umgebung die passenden EPTs, Owner und Strukturzuordnungen, Project Sites, initiale Planvorlagen und bei Multiprojektstruktur die Planverknüpfungen. Contract Execution: Kundenprojekt L1; System Delivery: System L2 oder Segment L3 unter System L2; ILS Delivery: ILS L2. PMO-Steuerungsfelder wie Portfolio, Program, Main Project, Main Subproject und Project Phase sind vor der Übergabe abzugleichen. ID-Erzeugung, manuelle Referenz Project-ID – PMO sowie Speichern, Veröffentlichung und Einchecken müssen im vollständigen Durchlauf geprüft werden. Hieraus folgt keine Anleitung zur operativen Anlage."
+    },
+    {
+      "title": "Von der Übernahme zur Definition",
+      "body": "Der PM vervollständigt Overview, Scope, Contract, Objectives und Organisation. Für Liefergegenstände und Zahlungsbedingungen stehen bestehende Anleitungen bereit. Vor Übergabe eines Teilprojekts sichert der PM seinen Lesezugriff und setzt anschließend TM oder ILSM als Owner ein; danach beginnt die jeweilige Teilprojektdefinition. Reihenfolge und Prüfungen sind fachliche Übergänge, keine behauptete automatische Systemverkettung."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Bereiten Sie Projektentscheidung, Grobstruktur und Verantwortliche vor. Lassen Sie den aktuellen Antragsweg klären und prüfen Sie nach bestätigter Bereitstellung Projekt, Site und Plan. Die SB1-Zuordnung des Antrags in T widerspricht der Schulungsbewertung in F; ein vollständiger PMO-Durchlauf fehlt."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ausschließlich fiktive Daten und vorab geprüfte Übungskonten verwenden. Dieser Vorschlag ist kein durchgeführter Schulungsnachweis.",
+        "EPT, PDPs, Listen, Lookup-Werte, Bearbeitungsrechte und Speicher-/Abschlussweg in der konkreten Schulungsumgebung vorab prüfen. Abweichungen samt Quellen- und Inhaltsrevision protokollieren."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktives Leseszenario: Ein Kundenprojekt mit einem System- und einem ILS-Teilprojekt wird angekündigt. Ordnen Sie EPT, Ebene und Verantwortung zu und formulieren Sie die Übernahmeprüfungen. Keinen Antrag absenden und keine PMO-Anlage simulieren.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Contract Execution / L1 / PM, System Delivery / L2 / TM und ILS Delivery / L2 / ILSM sind unterschieden. Erreichbarkeit und Struktur werden geprüft; ein Ticket- oder Bereitstellungserfolg wird nicht behauptet.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag. Fachliche Freigabe, Nutzer-/Trainererprobung und Zielumgebungsnachweis fehlen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Grundlagen",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-project-request-scope",
+    "issue-project-provision-proof",
+    "issue-definition-configuration",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "B: §3.1.1 Projekt beantragen",
+    "B: §3.1.2–3.1.4 Projekt anlegen",
+    "TTT: Zeilen 7–9, 14 und 21, A:G",
+    "C23: Punkte 1–4"
+  ],
+  "relatedArticleIds": [
+    "guide-project-master-data",
+    "guide-project-objectives",
+    "guide-project-organization",
+    "guide-project-permissions",
+    "guide-subproject-definition",
+    "guide-deliverables-milestones"
+  ],
+  "procedureIds": ["procedure-project-takeover"],
+  "releaseIds": ["release-1"]
+}

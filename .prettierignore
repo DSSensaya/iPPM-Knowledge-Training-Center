@@ -6,4 +6,5 @@ dist
 test-results
 playwright-report
 sources
-docs/v0.3-inhalts-und-datenmodell.md
+docs/archive
+dist-editor

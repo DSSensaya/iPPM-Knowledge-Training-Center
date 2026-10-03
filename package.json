@@ -12,7 +12,9 @@
     "format:check": "prettier --check .",
     "edit": "vite --mode local-edit --host 127.0.0.1 --port 5174 --strictPort",
     "build:editor": "tsc -b && node scripts/build-editor.mjs",
-    "edit:built": "node dist-editor/server.js"
+    "edit:built": "node dist-editor/server.js",
+    "verify": "npm run build && npm run build:editor && npm run typecheck:tools && npm test",
+    "typecheck:tools": "tsc -p tsconfig.tools.json"
   },
   "dependencies": {
     "lucide-react": "^0.577.0",
@@ -22,11 +24,15 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "^1.58.0",
+    "@types/node": "^22.20.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.1.0",
     "prettier": "^3.8.3",
     "typescript": "~5.9.3",
     "vite": "^7.3.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

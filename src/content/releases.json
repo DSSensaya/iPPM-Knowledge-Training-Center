@@ -1,0 +1,14 @@
+[
+  {
+    "id": "release-1",
+    "title": "Release 1",
+    "code": "R1",
+    "description": "Beschriebener R1-Kontext. Nutzbarkeit eines Beitrags ist keine technische oder unternehmensweite Freigabe."
+  },
+  {
+    "id": "R1B",
+    "title": "R1B – Planung",
+    "code": "R1B",
+    "description": "Planungsorientierung; konkrete Bedienwege, Umsetzung und Freigaben sind nicht belegt."
+  }
+]
