@@ -114,11 +114,19 @@ export interface ProcessStep extends Work {
   taskIds?: string[];
   aliases?: string[];
 }
+/** Explicit source-backed connections; no sequencing inferred from step order. */
+export interface ProcessFlow extends Sourced {
+  from: string;
+  to: string;
+  kind?: string;
+  label?: string;
+}
 export interface Process extends Sourced {
   id: string;
   title: string;
   description: string;
   steps: ProcessStep[];
+  flows?: ProcessFlow[];
 }
 export interface Task extends Work {
   summary: string;

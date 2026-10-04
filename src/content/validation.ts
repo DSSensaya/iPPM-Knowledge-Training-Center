@@ -212,7 +212,15 @@ export function validateContent(value: unknown): asserts value is ContentStore {
         optional(o, 'topic', str, p);
         optional(o, 'kind', str, p);
       } else if (name === 'processes') {
-        const o = object(x, p, ['id', 'title', 'description', 'steps', 'sourceRefs', 'sourceNote']);
+        const o = object(x, p, [
+          'id',
+          'title',
+          'description',
+          'steps',
+          'flows',
+          'sourceRefs',
+          'sourceNote',
+        ]);
         str(o.title, p);
         str(o.description, p);
         sourced(o, p);
@@ -237,6 +245,37 @@ export function validateContent(value: unknown): asserts value is ContentStore {
           for (const key of ['description', 'input', 'output']) optional(so, key, str, q);
           optional(so, 'taskIds', (v, p) => references(v, 'tasks', p), q);
         }
+        const stepIds = new Set((o.steps as { id: string }[]).map((s) => s.id));
+        const flowKeys = new Set<string>();
+        optional(
+          o,
+          'flows',
+          (v, path) =>
+            arr(v, path).forEach((x, i) => {
+              const q = `${path}[${i}]`;
+              const flow = object(x, q, [
+                'from',
+                'to',
+                'kind',
+                'label',
+                'sourceRefs',
+                'sourceNote',
+              ]);
+              for (const endpoint of ['from', 'to']) {
+                if (!stepIds.has(str(flow[endpoint], `${q}.${endpoint}`)))
+                  fail(q, 'Unbekannter Flow-Endpunkt im Prozess');
+              }
+              optional(flow, 'kind', str, q);
+              optional(flow, 'label', str, q);
+              sourced(flow, q);
+              if (!(flow.sourceRefs as string[] | undefined)?.length && !flow.sourceNote)
+                fail(q, 'Flow ohne Quellenbeleg');
+              const key = JSON.stringify([flow.from, flow.to, flow.kind, flow.label]);
+              if (flowKeys.has(key)) fail(q, 'Doppelte Flow-Beziehung');
+              flowKeys.add(key);
+            }),
+          p,
+        );
       } else if (name === 'tasks') {
         const o = object(x, p, [...workKeys, 'summary', 'aliases', 'content', 'relationships']);
         work(o, p);

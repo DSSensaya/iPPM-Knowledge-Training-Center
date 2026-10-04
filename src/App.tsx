@@ -160,7 +160,8 @@ export default function App() {
   }, [path, current]);
   let page;
   if (path === '/' || path === '/aufgaben') page = <Tasks />;
-  else if (path.startsWith('/schritt/')) page = <WorkPage id={path.split('/')[2]} kind="step" />;
+  else if (path.startsWith('/schritt/'))
+    page = <WorkPage id={path.split('/')[2]} kind="step" params={params} />;
   else if (path.startsWith('/aufgabe/')) page = <WorkPage id={path.split('/')[2]} kind="task" />;
   else if (path.startsWith('/thema/')) page = <WorkPage id={path.split('/')[2]} kind="topic" />;
   else if (path.startsWith('/bedienweg/')) page = <ProcedurePage id={path.split('/')[2]} />;
@@ -216,11 +217,19 @@ export default function App() {
         Zum Inhalt springen
       </a>
       <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
-        <a href="#/" className="brand" aria-label="iPPM Startseite">
-          <span className="brand-name">
-            iPPM
-            <span className="brand-marker" />
-          </span>
+        <a
+          href="#/"
+          className="brand"
+          aria-label="iPPM Startseite"
+          onClick={() => setMenuOpen(false)}
+        >
+          <img
+            className="brand-logo"
+            src={`${import.meta.env.BASE_URL}brand/ippm/ippm-logo-simple-on-dark.png`}
+            width={1224}
+            height={330}
+            alt=""
+          />
           <span>
             Knowledge &<br />
             Training Center

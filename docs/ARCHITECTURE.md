@@ -99,3 +99,27 @@ tests/             Integrität/Migration, Reader, Editor-API und Browserbedienun
 ```
 
 Die Tests sichern Fachverhalten und Integrität. Daten-/API-Prüfungen laufen einmal im Integrity-Projekt; Reader und Editor werden auf Desktop und Mobilansicht geprüft. Die eingefrorene Migrationsfixture ist ein Vergleich zum Ausgangscommit und keine Runtime-Quelle. Sie darf bei späteren bewusst freigegebenen Fachänderungen gezielt aktualisiert werden; eine globale Neugenerierung als Ersatz für fachliche Prüfung ist nicht vorgesehen.
+
+## Prozesslandkarte
+
+`ProcessSwimlane` und die bestehende Liste lesen dieselben 52 kanonischen Schritte.
+`Process.flows?: ProcessFlow[]` ergänzt ausschließlich explizite, mit einer Quelle
+belegte Beziehungen (`from`, `to`, optional `kind`/`label`). Der Validator prüft
+Endpunkte innerhalb des jeweiligen Prozesses, Belege und Duplikate auch beim
+lokalen Editor-Speichern. Bestehende Relationship-Kontexte bleiben eigenständig.
+
+`getProcessLayout()` berechnet deterministische Rollen-/Phasenplätze ohne
+Inhaltskopien und ohne Ableitung von Flow-Beziehungen. `ResizeObserver` beobachtet
+Board und Karten; SVG-Geometrie wird im nächsten Animation-Frame neu gemessen.
+Zeilenabstände und Spaltengassen führen orthogonale Linien an Karten vorbei.
+SVG ist dekorativ, nicht fokussierbar und blockiert keine Pointer-Ereignisse.
+Aufklappbare Textverbindungen enthalten dieselben Ziele und Quellen, auch in der
+kompakten Mobilansicht. Karten bleiben semantische Links innerhalb von Listen.
+
+Die bestehende Hash-Route `/schritt/<id>` bleibt gültig. Optionale Parameter
+`prozess` und `ansicht=karte|liste` erhalten den Herkunftskontext. Die Rückroute
+wird aus der tatsächlichen kanonischen Prozesszugehörigkeit gebildet. Die
+Ansicht steht in der URL; Scrollposition und Karten-/Listenfokus liegen nur in
+einer sitzungslokalen Map, einschließlich horizontaler Kartenposition. Browser
+Zurück und der explizite Rücklink stellen diese Werte wieder her. Nach Reload
+bleibt die Ansicht erhalten, Scroll-/Fokuswerte werden nicht persistiert.

@@ -5,14 +5,22 @@
   --base: #f4f4f4;
   --hover: #e6e6e6;
   --active: #d1d1d1;
-  --muted: #5f5f5f;
+  --muted: #767676;
+  --muted-soft: #5f5f5f;
+  --border: #767676;
   --steel-light: #c2c2c2;
-  --neutral-70: #5f5f5f;
-  --signal: #fdee66;
+  --dark-hover: #484848;
+  --signal: #fdee65;
   --signal-dark: #fffa94;
   --success: #52843d;
   --error: #c42b2b;
-  --warning: #f9a800;
+  --warning: #d87621;
+  --info: #3b6bfc;
+  --focus: #3863e5;
+  --focus-dark: #6289fd;
+  --radius-control: 4px;
+  --radius-focus: 5px;
+  /* project: local Arial fallback and numeric weights; no font files supplied. */
   --font-body: 'TKMS', Arial, sans-serif;
   --font-heading: 'TKMS Headline', Arial, sans-serif;
 }
