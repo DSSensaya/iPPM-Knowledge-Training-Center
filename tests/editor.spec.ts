@@ -70,76 +70,117 @@ async function openJson(page: import('@playwright/test').Page) {
   return page.getByLabel('Kanonischer JSON-Inhalt');
 }
 
-test('malformed JSON shapes never crash the editor or replace the raw draft', async ({
-  page,
-  editor: { root, base },
-}) => {
+const malformedArticleCases: {
+  name: string;
+  value: (article: Record<string, unknown>) => unknown;
+}[] = [
+  { name: 'null article', value: () => null },
+  { name: 'number article', value: () => 42 },
+  { name: 'boolean article', value: () => true },
+  { name: 'string article', value: () => 'Text' },
+  { name: 'array article', value: () => [] },
+  { name: 'object content instead of sections', value: (article) => ({ ...article, content: {} }) },
+  { name: 'object roleIds instead of array', value: (article) => ({ ...article, roleIds: {} }) },
+  {
+    name: 'boolean systemIds instead of array',
+    value: (article) => ({ ...article, systemIds: false }),
+  },
+  {
+    name: 'object procedureIds instead of array',
+    value: (article) => ({ ...article, procedureIds: {} }),
+  },
+  { name: 'null content section', value: (article) => ({ ...article, content: [null] }) },
+  {
+    name: 'object section steps instead of array',
+    value: (article) => ({ ...article, content: [{ title: 'Test', body: 'Text', steps: {} }] }),
+  },
+  {
+    name: 'object openPoints instead of array',
+    value: (article) => ({ ...article, openPoints: {} }),
+  },
+  {
+    name: 'number sourceRefs instead of array',
+    value: (article) => ({ ...article, sourceRefs: 9 }),
+  },
+  { name: 'object title instead of text', value: (article) => ({ ...article, title: {} }) },
+];
+
+async function checkMalformedArticle(
+  page: import('@playwright/test').Page,
+  root: string,
+  base: string,
+  invalidValue: (article: Record<string, unknown>) => unknown,
+) {
   const crashes: string[] = [];
   page.on('pageerror', (e) => crashes.push(e.message));
   await openArticle(page, base);
   const input = await openJson(page);
   const original = await input.inputValue(),
     article = JSON.parse(original);
-  const disk = await readFile(
-    join(root, 'src/content/articles/guide-project-objectives.json'),
-    'utf8',
+  const path = join(root, 'src/content/articles/guide-project-objectives.json');
+  const disk = await readFile(path, 'utf8');
+  const raw = '  ' + JSON.stringify(invalidValue(article), null, 2) + '\n';
+  await input.fill(raw);
+  await expect(page.getByRole('alert').filter({ hasText: 'JSON-Entwurf prüfen' })).toBeVisible();
+  await expect(input).toHaveValue(raw);
+  await expect(page.getByRole('heading', { name: 'Artikel bearbeiten', exact: true })).toHaveCount(
+    0,
   );
-  for (const invalid of [
-    null,
-    42,
-    true,
-    'Text',
-    [],
-    { ...article, content: {} },
-    { ...article, roleIds: {} },
-    { ...article, systemIds: false },
-    { ...article, procedureIds: {} },
-    { ...article, content: [null] },
-    { ...article, content: [{ title: 'Test', body: 'Text', steps: {} }] },
-    { ...article, openPoints: {} },
-    { ...article, sourceRefs: 9 },
-    { ...article, title: {} },
-  ]) {
-    const raw = '  ' + JSON.stringify(invalid, null, 2) + '\n';
-    await input.fill(raw);
-    await expect(page.getByRole('alert').filter({ hasText: 'JSON-Entwurf prüfen' })).toBeVisible();
-    await expect(input).toHaveValue(raw);
-    await expect(
-      page.getByRole('heading', { name: 'Artikel bearbeiten', exact: true }),
-    ).toHaveCount(0);
-    await page.getByRole('button', { name: 'Änderungen speichern', exact: true }).click();
-    await expect(
-      page.getByRole('button', { name: 'Änderungen speichern', exact: true }),
-    ).toBeEnabled();
-    await expect(input).toHaveValue(raw);
-    expect(
-      await readFile(join(root, 'src/content/articles/guide-project-objectives.json'), 'utf8'),
-    ).toBe(disk);
-    await input.fill(original);
-    await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toHaveValue(
-      article.title,
-    );
-  }
+  await page.getByRole('button', { name: 'Änderungen speichern', exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: 'Änderungen speichern', exact: true }),
+  ).toBeEnabled();
+  await expect(input).toHaveValue(raw);
+  expect(await readFile(path, 'utf8')).toBe(disk);
+  await input.fill(original);
+  await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toHaveValue(
+    article.title,
+  );
   expect(crashes).toEqual([]);
-  for (const collection of ['procedures', 'roles', 'processes']) {
-    await page.getByLabel('Inhalt auswählen').selectOption(collection);
-    await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
-    const json = await openJson(page),
-      valid = await json.inputValue();
-    await json.fill('{"wrong":true}');
-    await expect(page.getByRole('alert').filter({ hasText: 'Liste erwartet' })).toBeVisible();
-    await expect(json).toHaveValue('{"wrong":true}');
-    const malformed = JSON.parse(valid);
-    const field =
-      collection === 'procedures' ? 'actions' : collection === 'processes' ? 'steps' : 'aliases';
-    malformed[0][field] = {};
-    const raw = JSON.stringify(malformed, null, 2);
-    await json.fill(raw);
-    await expect(page.getByRole('alert').filter({ hasText: 'Liste erwartet' })).toBeVisible();
-    await expect(json).toHaveValue(raw);
-    await json.fill(valid);
-  }
-  expect(crashes).toEqual([]);
+}
+
+// Each invalid shape gets its own normal 30-second budget and isolated editor fixture.
+test.describe('malformed article JSON', () => {
+  for (const { name, value } of malformedArticleCases)
+    test(`${name}: preserves raw draft, rejects save and recovers after correction`, async ({
+      page,
+      editor: { root, base },
+    }) => {
+      await checkMalformedArticle(page, root, base, value);
+    });
+});
+
+test.describe('malformed collection JSON', () => {
+  for (const [collection, field] of [
+    ['procedures', 'actions'],
+    ['roles', 'aliases'],
+    ['processes', 'steps'],
+  ] as const)
+    for (const shape of ['root object', 'nested array as object'] as const)
+      test(`${collection}: ${shape} retains raw draft without crashing`, async ({
+        page,
+        editor: { base },
+      }) => {
+        const crashes: string[] = [];
+        page.on('pageerror', (e) => crashes.push(e.message));
+        await page.goto(base + '/#/redaktion');
+        await page.getByLabel('Inhalt auswählen').selectOption(collection);
+        await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
+        const json = await openJson(page),
+          valid = await json.inputValue();
+        const malformed = JSON.parse(valid);
+        malformed[0][field] = {};
+        const raw = shape === 'root object' ? '{"wrong":true}' : JSON.stringify(malformed, null, 2);
+        await json.fill(raw);
+        await expect(page.getByRole('alert').filter({ hasText: 'Liste erwartet' })).toBeVisible();
+        await expect(json).toHaveValue(raw);
+        await json.fill(valid);
+        await expect(json).toHaveValue(valid);
+        await expect(
+          page.getByRole('alert').filter({ hasText: 'JSON-Entwurf prüfen' }),
+        ).toHaveCount(0);
+        expect(crashes).toEqual([]);
+      });
 });
 
 test('dirty draft protects main navigation, internal routes, object changes and reload actions', async ({
