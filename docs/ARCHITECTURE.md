@@ -87,7 +87,10 @@ Die bisherigen 16 Artikel-URLs, 52 Schritt-IDs, 25 Procedure-IDs und vier fachli
 
 ```text
 src/content/       JSON, Typen, Validierung, Ladepunkt
-src/lib/           queries.ts, search.ts, storage.ts
+src/lib/           Queries, Suche, Prozesslayout und sitzungslokale Prozessnavigation
+src/hooks/         React-Zustand und Aktionen für den Lernfortschritt
+src/services/      versioniertes Laden, Speichern und Zusammenführen des Lernfortschritts
+src/types/         gemeinsamer Progress-Vertrag für Hook, Speicherung und Darstellung
 src/components/    gemeinsame Inhalts- und UI-Bausteine
 src/pages/         Aufgaben, Prozesse, Rollen, Wissen, Schulungen, Persönliches, Hilfe
 src/editor/        direkter JSON-Editor und abgeleiteter Bestand
