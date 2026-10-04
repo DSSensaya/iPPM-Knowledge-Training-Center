@@ -45,7 +45,7 @@ test('browser editor saves title, reloads canonical data and keeps conflicting i
   );
 });
 
-test('editor has accessible responsive fields', async ({ page, editor: { base } }) => {
+test('editor has accessible responsive fields', async ({ page, editor: { base } }, testInfo) => {
   await page.goto(base + '/#/redaktion');
   await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toBeVisible();
@@ -56,6 +56,46 @@ test('editor has accessible responsive fields', async ({ page, editor: { base } 
     (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze())
       .violations,
   ).toEqual([]);
+  await page.screenshot({ path: testInfo.outputPath('editor.png') });
+});
+
+test('disabled editor actions retain neutral states during save and recover afterwards', async ({
+  page,
+  editor: { base },
+}) => {
+  await page.goto(base + '/#/redaktion');
+  await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
+  const save = page.getByRole('button', { name: 'Änderungen speichern', exact: true });
+  await page
+    .getByRole('textbox', { name: 'Titel', exact: true })
+    .fill('Titel im isolierten Zustandstest');
+  let releaseSave!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    releaseSave = resolve;
+  });
+  await page.route('**/__local-editor/files/**', async (route) => {
+    if (route.request().method() === 'PUT') await pending;
+    await route.continue();
+  });
+  try {
+    await save.click();
+    await expect(save).toBeDisabled();
+    await expect(save).toHaveCSS('background-color', 'rgb(230, 230, 230)');
+    await expect(save).toHaveCSS('color', 'rgb(118, 118, 118)');
+    await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toBeDisabled();
+  } finally {
+    releaseSave();
+  }
+  await expect(
+    page
+      .getByRole('status')
+      .filter({ hasText: 'Direkt in der kanonischen JSON-Datei gespeichert' }),
+  ).toBeVisible();
+  const title = page.getByRole('textbox', { name: 'Titel', exact: true });
+  await expect(title).toBeEnabled();
+  await expect(save).toBeDisabled();
+  await title.fill('Weitere Änderung im isolierten Zustandstest');
+  await expect(save).toBeEnabled();
 });
 
 async function openArticle(page: import('@playwright/test').Page, base: string) {

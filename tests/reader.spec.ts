@@ -1,11 +1,129 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import baseline from './fixtures/migration-baseline.json' with { type: 'json' };
+import { createHash } from 'node:crypto';
 async function navigate(page: import('@playwright/test').Page, name: string) {
   const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
   if (!(await nav.isVisible())) await page.getByRole('button', { name: 'Menü öffnen' }).click();
   await nav.getByRole('link', { name, exact: true }).click();
 }
+
+test('original transparent logo assets load and the sidebar uses the simple dark variant', async ({
+  page,
+  request,
+}, testInfo) => {
+  const hashes = {
+    'full-on-dark': 'c0a6df593b13d1f6672626ab410ad405a65e31d4ec795b548266bf06debaf4ad',
+    'full-on-light': '721258811f4c9d45ed34a0723d1fe429a25b40e01c76616019cfc7f4137332e9',
+    'simple-on-dark': '3908b2f8e14172343a13d94765362e53133b934c203c30941c8939af3fa85922',
+    'simple-on-light': '41cd2b4b8db372dd65721a689551e990db1eb97c991cc73933d0a2e2f20eb876',
+  };
+  for (const [variant, hash] of Object.entries(hashes)) {
+    const response = await request.get(`/brand/ippm/ippm-logo-${variant}.png`);
+    expect(response.ok()).toBeTruthy();
+    expect(response.headers()['content-type']).toContain('image/png');
+    expect(
+      createHash('sha256')
+        .update(await response.body())
+        .digest('hex'),
+    ).toBe(hash);
+  }
+  await page.goto('/');
+  if (!(await page.locator('.sidebar').isVisible()))
+    await page.getByRole('button', { name: 'Menü öffnen' }).click();
+  const brand = page.getByRole('link', { name: 'iPPM Startseite', exact: true });
+  await expect(brand).toHaveAttribute('href', '#/');
+  const logo = brand.locator('img');
+  await expect(logo).toHaveAttribute('src', /brand\/ippm\/ippm-logo-simple-on-dark\.png$/);
+  await expect(logo).toHaveAttribute('alt', '');
+  expect(
+    await logo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth === 1224),
+  ).toBeTruthy();
+  await expect(brand).toContainText('Knowledge &');
+  await expect(brand).toContainText('Training Center');
+  await expect(page.locator('.brand-name, .brand-marker')).toHaveCount(0);
+  await brand.focus();
+  await page.keyboard.press('Tab');
+  await expect(
+    page.getByRole('navigation', { name: 'Hauptnavigation' }).getByRole('link').first(),
+  ).toBeFocused();
+  await expect(page.locator('.sidebar :focus')).toHaveCSS('outline-color', 'rgb(98, 137, 253)');
+  await page.screenshot({ path: testInfo.outputPath('branding.png') });
+  await brand.click();
+  await expect(page.locator('main h1')).toHaveText('Aufgaben');
+  if (testInfo.project.name === 'mobile') {
+    await expect(page.locator('.sidebar')).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Menü öffnen' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+  }
+});
+
+test('primary and secondary actions keep independent hover, pressed and blue keyboard focus states', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const input = page.getByRole('searchbox', { name: 'Wissen und Aufgaben durchsuchen' });
+  const primary = page.getByRole('button', { name: 'Suchen', exact: true });
+  await expect(primary).toHaveCSS('background-color', 'rgb(253, 238, 101)');
+  await expect(primary).toHaveCSS('color', 'rgb(26, 26, 26)');
+  await expect(primary).toHaveCSS('border-radius', '999px');
+  await input.focus();
+  await page.keyboard.press('Tab');
+  await expect(primary).toBeFocused();
+  await expect(primary).toHaveCSS('outline-color', 'rgb(56, 99, 229)');
+  await expect(primary).toHaveCSS('outline-style', 'solid');
+  await primary.hover();
+  await expect(primary).toHaveCSS('background-color', 'rgb(48, 48, 48)');
+  await expect(primary).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await page.mouse.down();
+  await expect(primary).toHaveCSS('background-color', 'rgb(48, 48, 48)');
+  await page.mouse.move(0, 0);
+  await page.mouse.up();
+  await page.goto('/#/artikel/guide-project-objectives');
+  const secondary = page.getByRole('button', { name: 'Beitrag merken', exact: true });
+  await expect(secondary).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(secondary).toHaveCSS('border-color', 'rgb(118, 118, 118)');
+  await secondary.focus();
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Shift+Tab');
+  await expect(secondary).toHaveCSS('outline-color', 'rgb(56, 99, 229)');
+  await secondary.hover();
+  await expect(secondary).toHaveCSS('background-color', 'rgb(48, 48, 48)');
+  await expect(secondary).toHaveCSS('color', 'rgb(255, 255, 255)');
+});
+
+test('360px reference and enlarged text preserve navigation and long content without overflow', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  for (const route of ['/', '/#/wissen', '/#/artikel/guide-project-permissions', '/#/hilfe']) {
+    await page.goto(route);
+    await expect(page.locator('main h1')).toBeVisible();
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+    ).toBeTruthy();
+  }
+  await page.screenshot({ path: testInfo.outputPath('mobile-long-content.png'), fullPage: true });
+  await page.getByRole('button', { name: 'Menü öffnen' }).click();
+  await expect(page.getByRole('button', { name: 'Menü schließen' })).toHaveAttribute(
+    'aria-expanded',
+    'true',
+  );
+  await page
+    .getByRole('navigation', { name: 'Hauptnavigation' })
+    .getByRole('link', { name: 'Wissen', exact: true })
+    .click();
+  await expect(page.locator('.sidebar')).toBeHidden();
+  await page.addStyleTag({
+    content:
+      'body { font-size: 36px; } h1 { font-size: 96px; } h2 { font-size: 40px; } h3 { font-size: 36px; }',
+  });
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+});
 test('four user entries expose tasks, processes, roles and knowledge', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Aufgaben', exact: true })).toBeVisible();

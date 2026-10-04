@@ -1,410 +1,681 @@
 ---
-version: alpha
-name: TKMS Corporate Design
-summary: Machine-readable design tokens and generation guardrails for TKMS digital interfaces, dashboards, technical documentation, and presentation-derived visual artefacts.
+version: "2026-10-04"
+name: "TKMS Corporate Design — iPPM implementation profile"
+status: "working-reference"
+scope: "digital interfaces for iPPM Knowledge & Training Center"
+source_of_truth:
+  verified_at: "2026-10-04"
+  foundations: "https://www.figma.com/design/QvoaMhaiaLSdxFs3kBEKFG?node-id=321-2"
+  components: "https://www.figma.com/design/57itDZCyeZS0j00XWd7wAJ?node-id=0-1"
+  modules: "https://www.figma.com/design/si7aAjDqVuNmknYfkBJmM1?node-id=0-1"
+  note: "This file is an implementation profile derived from the verified Figma copies. Figma remains authoritative for concrete component geometry, variants, assets and bindings."
+
+branding:
+  product: "iPPM"
+  decision_level: "project"
+  product_logo:
+    rule: "Use the provided iPPM logo assets as the default application/product logo. They replace the TKMS wordmark in ordinary iPPM product UI."
+    full:
+      on-light: "public/brand/ippm/ippm-logo-full-on-light.png"
+      on-dark: "public/brand/ippm/ippm-logo-full-on-dark.png"
+    simple:
+      on-light: "public/brand/ippm/ippm-logo-simple-on-light.png"
+      on-dark: "public/brand/ippm/ippm-logo-simple-on-dark.png"
+    default-variant: "simple"
+    preserve:
+      - "original proportions"
+      - "transparent background"
+      - "original artwork"
+    forbid:
+      - "retyping or rebuilding the logo"
+      - "recoloring"
+      - "distortion"
+      - "drop shadow, glow, outline or gradient effects"
+  tkms_logo:
+    default-in-product-ui: false
+    rule: "Do not use the TKMS wordmark as the standard iPPM application logo. Use it only where an explicit corporate, legal, template or sender context requires it."
+
+evidence_levels:
+  verified: "Directly checked in the Figma copies on 2026-10-04."
+  derived: "Implementation guidance inferred from verified references; not an additional brand rule."
+  project: "iPPM-specific decision; not claimed as a general TKMS rule."
+  open: "Not verified. Do not invent a replacement value."
+
 colors:
-  primary: "#1A1A1A"
-  secondary: "#303030"
-  tertiary: "#FDEE66"
-  surface: "#FFFFFF"
-  surface-base-1: "#F4F4F4"
-  surface-hover: "#E6E6E6"
-  surface-active: "#D1D1D1"
-  surface-inverted: "#303030"
-  on-surface: "#1A1A1A"
-  on-surface-secondary: "#767676"
-  on-surface-inverted: "#FFFFFF"
-  steel-medium: "#949494"
-  steel-light: "#C2C2C2"
-  neutral-85: "#3C3C3C"
-  neutral-80: "#484848"
-  neutral-70: "#5F5F5F"
-  neutral-60: "#767676"
-  neutral-40: "#A3A3A3"
-  neutral-20: "#D1D1D1"
-  neutral-10: "#E6E6E6"
-  neutral-5: "#F4F4F4"
-  signal-dark: "#FFFA94"
-  signal: "#FDEE66"
-  error: "#C42B2B"
-  error-on-dark: "#FD8888"
-  info: "#3B6BFC"
-  info-on-dark: "#6289FD"
-  success: "#52843D"
-  success-on-dark: "#759D64"
-  warning: "#F9A800"
+  primitives:
+    tkms-black: "#1A1A1A"
+    tkms-white: "#FFFFFF"
+    signal-light: "#FDEE65"
+    signal-dark: "#FFFA94"
+    steel-90: "#303030"
+    steel-85: "#3C3C3C"
+    steel-80: "#484848"
+    steel-70: "#5F5F5F"
+    steel-60: "#767676"
+    steel-50: "#949494"
+    steel-40: "#A3A3A3"
+    steel-30: "#C2C2C2"
+    steel-20: "#D1D1D1"
+    steel-10: "#E6E6E6"
+    steel-5: "#F4F4F4"
+    error-light: "#C42B2B"
+    error-dark: "#FD8888"
+    focus-light: "#3863E5"
+    focus-dark: "#6289FD"
+    info: "#3B6BFC"
+    success-light: "#52843D"
+    success-dark: "#759D64"
+    warning-light: "#D87621"
+    warning-dark: "#F9A800"
+
+  semantic:
+    light:
+      background-base-0: "#FFFFFF"
+      background-base-1: "#F4F4F4"
+      background-hover: "#E6E6E6"
+      background-active: "#D1D1D1"
+      background-inverted: "#303030"
+      background-signal: "#FDEE65"
+      text-primary: "#1A1A1A"
+      text-secondary: "#767676"
+      text-inverted: "#FFFFFF"
+      text-disabled: "#C2C2C2"
+      text-on-signal: "#1A1A1A"
+      icon-primary: "#1A1A1A"
+      icon-secondary: "#767676"
+      border-primary: "#1A1A1A"
+      border-secondary: "#767676"
+      focus: "#3863E5"
+      logo: "#1A1A1A"
+    light-soft:
+      background-base-0: "#F4F4F4"
+      background-base-1: "#FFFFFF"
+      background-hover: "#E6E6E6"
+      background-active: "#D1D1D1"
+      background-inverted: "#3C3C3C"
+      background-signal: "#FDEE65"
+      text-primary: "#1A1A1A"
+      text-secondary: "#5F5F5F"
+      text-inverted: "#FFFFFF"
+      text-disabled: "#C2C2C2"
+      text-on-signal: "#1A1A1A"
+      focus: "#3863E5"
+      logo: "#1A1A1A"
+    dark:
+      background-base-0: "#303030"
+      background-base-1: "#3C3C3C"
+      background-hover: "#484848"
+      background-active: "#484848"
+      background-inverted: "#FFFFFF"
+      background-signal: "#FFFA94"
+      text-primary: "#FFFFFF"
+      text-secondary: "#C2C2C2"
+      text-inverted: "#1A1A1A"
+      text-disabled: "#5F5F5F"
+      text-on-signal: "#1A1A1A"
+      icon-primary: "#FFFFFF"
+      icon-secondary: "#C2C2C2"
+      border-primary: "#FFFFFF"
+      border-secondary: "#C2C2C2"
+      focus: "#6289FD"
+      logo: "#FFFFFF"
+    dark-soft:
+      background-base-0: "#3C3C3C"
+      background-base-1: "#303030"
+      background-hover: "#484848"
+      background-active: "#5F5F5F"
+      background-inverted: "#F4F4F4"
+      background-signal: "#FFFA94"
+      text-primary: "#FFFFFF"
+      text-secondary: "#D1D1D1"
+      text-inverted: "#1A1A1A"
+      text-disabled: "#5F5F5F"
+      text-on-signal: "#1A1A1A"
+      focus: "#6289FD"
+      logo: "#FFFFFF"
+
 typography:
-  headline-display:
-    fontFamily: "TKMS Headline, Arial, sans-serif"
-    fontSize: 48px
-    fontWeight: 400
-    lineHeight: 1.1
-    letterSpacing: 0em
-  headline-lg:
-    fontFamily: "TKMS Headline, Arial, sans-serif"
-    fontSize: 32px
-    fontWeight: 400
-    lineHeight: 1.15
-    letterSpacing: 0em
-  headline-md:
-    fontFamily: "TKMS Headline, Arial, sans-serif"
-    fontSize: 24px
-    fontWeight: 400
-    lineHeight: 1.2
-    letterSpacing: 0em
-  headline-sm:
-    fontFamily: "TKMS Headline, Arial, sans-serif"
-    fontSize: 20px
-    fontWeight: 400
-    lineHeight: 1.25
-    letterSpacing: 0em
-  body-lg:
-    fontFamily: "TKMS, Arial, sans-serif"
-    fontSize: 18px
-    fontWeight: 400
-    lineHeight: 1.5
-    letterSpacing: 0em
-  body-md:
-    fontFamily: "TKMS, Arial, sans-serif"
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.5
-    letterSpacing: 0em
-  body-sm:
-    fontFamily: "TKMS, Arial, sans-serif"
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 1.45
-    letterSpacing: 0em
-  label-lg:
-    fontFamily: "TKMS, Arial, sans-serif"
-    fontSize: 16px
-    fontWeight: 700
-    lineHeight: 1.25
-    letterSpacing: 0em
-  label-md:
-    fontFamily: "TKMS, Arial, sans-serif"
-    fontSize: 14px
-    fontWeight: 700
-    lineHeight: 1.3
-    letterSpacing: 0em
-  label-sm:
-    fontFamily: "TKMS, Arial, sans-serif"
-    fontSize: 12px
-    fontWeight: 700
-    lineHeight: 1.35
-    letterSpacing: 0.04em
-rounded:
-  none: 0px
+  family:
+    headline: "TKMS Headline"
+    copy: "TKMS"
+    fallback: null
+  size:
+    tagline: {desktop: 18, mobile: 18}
+    headline-h1-display: {desktop: 96, mobile: 44}
+    headline-h1: {desktop: 64, mobile: 48}
+    headline-h2: {desktop: 56, mobile: 32}
+    headline-h3: {desktop: 48, mobile: 28}
+    headline-h4: {desktop: 40, mobile: 24}
+    headline-h5: {desktop: 32, mobile: 20}
+    headline-h6: {desktop: 20, mobile: 18}
+    copy-24: {desktop: 24, mobile: 22}
+    copy-20: {desktop: 20, mobile: 20}
+    copy-18: {desktop: 18, mobile: 18}
+    copy-16: {desktop: 16, mobile: 16}
+    copy-14: {desktop: 14, mobile: 14}
+    keyfacts-headline-text: {desktop: 24, mobile: 24}
+    keyfacts-headline-number: {desktop: 64, mobile: 64}
+    navigation-level-1: {desktop: 24, mobile: 20}
+    navigation-level-2: {desktop: 20, mobile: 16}
+    navigation-level-3: {desktop: 16, mobile: 16}
+    navigation-meta: {desktop: 16, mobile: 16}
+    quote-large: {desktop: 80, mobile: 58}
+    quote-regular: {desktop: 44, mobile: 32}
+    quote-small: {desktop: 32, mobile: 28}
+  verified-style-examples:
+    headline-h1:
+      size-desktop: "64px"
+      line-height: "100%"
+      letter-spacing: "1%"
+    copy-regular:
+      size-desktop: "18px"
+      line-height: "135%"
+      letter-spacing: "0%"
+
+layout:
+  desktop:
+    columns: 12
+    margin: "80px"
+    gutter: "24px"
+    verified-reference-width: "1440px"
+  mobile:
+    columns: 6
+    margin: "24px"
+    gutter: "16px"
+    verified-reference-width: "360px"
+  css-breakpoints: null
+  tablet-layout: null
+  global-max-width: null
+
 spacing:
-  xxs: 4px
-  xs: 8px
-  sm: 12px
-  md: 16px
-  lg: 24px
-  xl: 32px
-  xxl: 48px
-  xxxl: 64px
-  page-desktop: 48px
-  page-mobile: 16px
-  grid-columns-desktop: 12
-  grid-columns-mobile: 4
+  scale: [4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 160]
+  mobile-padding: 24
+  headline-copy: 24
+
+geometry:
+  corner-radius-small: "4px"
+  corner-radius-small-focusline: "5px"
+  rule: "Do not apply one global radius to every component. Use the geometry of the referenced component."
+  pills: "Buttons and tags may be pill-shaped where shown by the component reference."
+
 components:
-  button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 16px
-    height: 40px
-  button-primary-hover:
-    backgroundColor: "{colors.secondary}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 16px
-    height: 40px
-  button-primary-dark:
-    backgroundColor: "{colors.signal-dark}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 16px
-    height: 40px
-  button-secondary:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 16px
-    height: 40px
-  card-default:
-    backgroundColor: "{colors.surface-base-1}"
-    textColor: "{colors.on-surface}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: 24px
-  card-dark:
-    backgroundColor: "{colors.secondary}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: 24px
-  input-default:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.on-surface}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: 12px
-    height: 44px
-  table-header:
-    backgroundColor: "{colors.secondary}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 12px
-  callout-takeaway:
-    backgroundColor: "{colors.signal}"
-    textColor: "{colors.primary}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: 16px
-  status-error:
-    backgroundColor: "{colors.error}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 12px
-  status-info:
-    backgroundColor: "{colors.info}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 12px
-  status-success:
-    backgroundColor: "{colors.success}"
-    textColor: "{colors.on-surface-inverted}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 12px
-  status-warning:
-    backgroundColor: "{colors.warning}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 12px
+  primary-button:
+    light:
+      background-default: "#FDEE65"
+      background-hover-pressed: "#303030"
+      text-default: "#1A1A1A"
+      text-hover: "#FFFFFF"
+      focus: "#3863E5"
+    dark:
+      background-default: "#FFFA94"
+      background-hover-pressed: "#FFFFFF"
+      text-default: "#1A1A1A"
+      text-hover: "#1A1A1A"
+      focus: "#6289FD"
+  secondary-button:
+    light:
+      border: "#767676"
+      border-hover: "#303030"
+      background-default: "#FFFFFF"
+      background-hover: "#303030"
+      text: "#1A1A1A"
+      text-hover: "#FFFFFF"
+    dark:
+      border: "#A3A3A3"
+      border-hover: "#FFFFFF"
+      background-default: "#303030"
+      background-hover: "#FFFFFF"
+      text: "#FFFFFF"
+      text-hover: "#1A1A1A"
+  focus:
+    rule: "Use the component's visible blue focus treatment. Do not replace it with a global yellow focus outline."
+  shadow:
+    rule: "Do not impose a global no-shadow rule. 'Dropdown Shadow – Lightmode' exists; exact parameters remain open."
+  gradient:
+    rule: "Do not impose a global no-gradient rule. Verified references include a dark hero gradient and a video gradient."
 ---
 
-# TKMS Corporate Design System
+# TKMS Corporate Design — iPPM implementation profile
 
-## Overview
+## 1. Purpose and precedence
 
-Create a precise, confident, technically competent, and calm interface for TKMS digital products, technical documentation, dashboards, process visualisations, and presentation-derived artefacts.
+This file is the compact implementation guide for the **iPPM Knowledge & Training Center**.
 
-The visual language is industrial minimalism with Swiss-design discipline: strict geometric alignment, high information clarity, generous whitespace, limited colours, and no ornamental design. Every visual element must serve a functional purpose: hierarchy, navigation, interaction, grouping, status, or data interpretation.
+It is intentionally smaller than the full Figma review documentation, but it must stay aligned with the verified TKMS digital design references.
 
-Default to light mode. Use dark mode intentionally for immersive system views, technical dashboards, hero areas, or contexts where it creates a clear hierarchy—not as a decorative alternative.
+Use this precedence when implementing or reviewing UI:
 
-The functional line is a defining TKMS structural element. When separation is necessary, use vertical signal-yellow lines rather than horizontal separators.
+1. **Concrete Figma component/module reference**
+2. **Verified values in this `DESIGN.md`**
+3. **Existing iPPM application pattern that does not contradict 1–2**
+4. **Project-specific decision explicitly documented as such**
+5. If none applies: **leave the point open; do not invent a “TKMS” rule**
 
-## Colors
+A value marked `null`, `open`, or described as not verified is deliberately unspecified.
 
-The normative color values are in the YAML front matter. Do not introduce colours outside this palette.
+## 2. Source status
 
-- **Primary / TKMS Black** (`#1A1A1A`): Core text, primary light-mode actions, and high-contrast data values. Never substitute pure black (`#000000`).
-- **Secondary / TKMS Steel Dark** (`#303030`): Dark surfaces, inverted containers, table headers, and secondary dark actions.
-- **Signal** (`#FDEE66`): Deliberate emphasis, structural dividers, benchmarks, selected focal points, and take-away callouts. Never use it as routine text highlighting.
-- **Signal Dark** (`#FFFA94`): Signal background for dark mode and high-contrast dark surfaces.
-- **Neutral surfaces** (`#F4F4F4`, `#E6E6E6`, `#D1D1D1`): Quiet grouping and interaction-state layers in light mode.
-- **Status colours**: Error `#C42B2B`, information `#3B6BFC`, success `#52843D`, and warning `#F9A800`. Use only to encode an explicit semantic status.
+Verified on **04.10.2026**:
 
-Use status labels, icons, values, or text in addition to status colour. Colour by itself must never carry essential meaning.
+- Foundations (Kopie): logo, colors, typography, icons, grid, spacing and all 169 local variable definitions
+- Components (Kopie): all 14 numbered component areas and the local 11-token collection
+- Modules (Kopie): all 31 numbered module areas; selected notes/compositions and example pages
 
-### Light and dark surfaces
+This is a **working implementation reference**, not a new independent brand approval.
 
-| Purpose | Light mode | Dark mode |
+Do not silently transfer rules from unrelated TKMS print material, old Figma originals, other design systems, or the previous repository `DESIGN.md` when they conflict with the verified sources.
+
+## 3. Visual character
+
+Use:
+
+- the **iPPM product logo** as the standard visible product/application mark; choose the correct light/dark asset for the surface;
+- strong typography and clear hierarchy;
+- neutral white/Steel surfaces;
+- signal yellow for deliberate actions and emphasis;
+- precise rectangular content areas;
+- component-specific geometry, including pill-shaped buttons/tags where the component specifies them;
+- generous whitespace and deliberate responsive composition;
+- existing TKMS icons/assets instead of arbitrary external icon families;
+- technical/maritime imagery where it is relevant to the actual content.
+
+Do not turn these characteristics into global restrictions that contradict a concrete component or module.
+
+## 4. iPPM product logo
+
+The **iPPM logo supplied with this project replaces the TKMS wordmark as the default logo of the iPPM Knowledge & Training Center**.
+
+This is an **iPPM project decision**, not a claim that the TKMS corporate logo rules have changed.
+
+### 4.1 Canonical assets
+
+Use these repository paths:
+
+| Purpose | Surface | Asset |
 |---|---|---|
-| Base surface | White | TKMS Steel Dark |
-| Raised/grouped surface | TKMS Black 5% | TKMS Black 85% |
-| Hover state | TKMS Black 10% | TKMS Black 80% |
-| Active/selected surface | TKMS Black 20% | TKMS Black 70% |
-| Primary text | TKMS Black | White |
-| Secondary text | TKMS Black 60% | TKMS Steel Light |
-| Signal surface | TKMS Signal | TKMS Signal Dark |
+| Full logo with subtitle | light | `public/brand/ippm/ippm-logo-full-on-light.png` |
+| Full logo with subtitle | dark | `public/brand/ippm/ippm-logo-full-on-dark.png` |
+| Simple iPPM wordmark | light | `public/brand/ippm/ippm-logo-simple-on-light.png` |
+| Simple iPPM wordmark | dark | `public/brand/ippm/ippm-logo-simple-on-dark.png` |
 
-## Typography
+`on-light` means the artwork is dark and intended for a light surface.  
+`on-dark` means the artwork is light and intended for a dark surface.
 
-Use **TKMS Headline** for all display titles and headings. Use **TKMS** for body copy, controls, labels, forms, tables, metadata, and numerical data. If TKMS fonts are unavailable in a prototype, use the front-matter Arial fallback only; never replace them with decorative, rounded, or novelty fonts.
+### 4.2 Variant selection
 
-Use the typography tokens in the YAML front matter. Maintain a clear hierarchy:
+Use the **simple logo as the default application/header mark** because it remains legible at smaller UI sizes.
 
-- Display and page headings use TKMS Headline, regular weight.
-- Content headings use TKMS Headline or TKMS bold when compact and data-dense.
-- Default readable body text uses TKMS 16 px regular.
-- Use 14 px for compact UI and 12 px only for subordinate metadata or exceptional dense tables.
-- Highlight key decisions, terms, or figures with bold weight—never by setting normal text in signal yellow.
-- Use sentence case for UI text. Use all caps only for compact labels, classifications, or template-defined areas.
-- Write action titles that state the main conclusion or user task. In presentation contexts, do not end action titles with a period.
+Use the **full logo** when the expanded product name is useful and sufficient space is available, for example on:
 
-For static presentation-style lists, use the diamond bullet `◆`. In interactive products, prioritise semantic HTML lists and accessible interaction patterns; only render a diamond marker when it does not reduce usability.
+- landing/start pages;
+- login or welcome contexts;
+- About / product-information views;
+- large hero or presentation-style product identification.
 
-## Layout
+Do not show the full and simple variants next to each other in the same brand lockup.
 
-Use grid-based, left-aligned layouts with a deliberate visual reading order. Start with the primary task, decision, or insight; position supporting details second.
+### 4.3 Surface selection
 
-- Desktop: 12-column grid with a maximum content width appropriate to the application; use 48 px page padding as the starting point.
-- Mobile: 4-column grid; use 16 px page padding as the starting point.
-- Use the defined 4/8-based spacing scale. Increase space before introducing a border, divider, or coloured surface.
-- Prefer broad, quiet base surfaces and contained content zones. Do not make every piece of content a floating card.
-- Use vertical signal-yellow dividers only for meaningful column, phase, or system-boundary separation.
-- Keep normal paragraphs, tables, forms, and data left aligned. Align numerical columns consistently to the right or decimal point.
-- Design responsive behaviour intentionally. Preserve content hierarchy and readable typography instead of shrinking desktop layouts until they become dense.
+- Light or Light soft background → use the corresponding `*-on-light.png` asset.
+- Dark or Dark soft background → use the corresponding `*-on-dark.png` asset.
+- On imagery, use a logo only when contrast remains clear; otherwise move it onto a suitable verified surface rather than adding an invented glow, outline or backing shape.
 
-For PowerPoint and slide-like artefacts, align text and graphic elements with the top-left edge of the headline. Action titles may occupy a maximum of two lines; use the same maximum for an optional subline.
+Do not recolor a light logo into a dark logo or vice versa in CSS/SVG filters. Select the correct supplied asset.
 
-## Elevation & Depth
+### 4.4 Integrity rules
 
-TKMS is a flat design system. Establish hierarchy through scale, position, whitespace, tonal surface layers, typography, and functional borders—not through visual effects.
+Always:
 
-- Use no drop shadows, inner shadows, glows, glossy surfaces, transparent overlays, gradients, bevels, or 3D effects.
-- Use `surface-base-1` for grouped content on light pages and `neutral-85` for grouped content on dark pages.
-- Use a 1 px border only when it communicates an editable boundary, an interactive state, a selected item, a required grouping, or data structure.
-- Avoid decorative outlines around cards, diagrams, illustrations, and images.
+- use the supplied artwork;
+- preserve the original aspect ratio;
+- preserve the transparent background;
+- scale uniformly;
+- keep the logo visually separated from adjacent navigation/content.
 
-## Shapes
+Never:
 
-The TKMS shape language is sharp, rectangular, and technically precise.
+- rebuild `iPPM` as live text;
+- change individual letter geometry;
+- stretch, skew, rotate or crop the artwork;
+- recolor it;
+- add shadows, glows, borders, gradients or other decorative effects;
+- place another product/corporate mark into the same lockup unless a specific approved layout requires it.
 
-- The only permitted corner token is `rounded.none: 0px`.
-- All containers, cards, buttons, fields, dialogs, chips, callouts, and process nodes have sharp 90-degree corners.
-- Do not use pills, rounded rectangles, circles as controls, soft containers, hexagons, speech bubbles, or organic decorative forms.
-- A circle may appear only when its analytical meaning is clear, such as a circular progress visualization. It must remain flat and functional.
+Exact minimum size and protection-zone values for the iPPM assets have **not** been provided. Do not invent them as TKMS rules. Choose a size that preserves legibility in the concrete layout and verify visually.
 
-## Components
+### 4.5 TKMS wordmark in iPPM
 
-Use component tokens from the YAML front matter rather than creating arbitrary variations. All components have square corners and no shadow.
+The TKMS wordmark is **not the default application/product logo** for this repository.
+
+Use the TKMS logo only when a separate requirement explicitly calls for corporate identity, legal attribution, a corporate template, or a sender/owner context. In such cases it must remain distinct from the iPPM product logo; do not create a new combined lockup without an approved reference.
+
+## 5. Color rules
+
+### 5.1 Four Foundations modes
+
+The supported Foundations modes are:
+
+- `Light`
+- `Light soft`
+- `Dark`
+- `Dark soft`
+
+Do not generate Dark or Soft modes by automatic inversion or opacity tricks. Use the concrete semantic values.
+
+### 5.2 Signal
+
+Signal is:
+
+- Light / Light soft: `#FDEE65`
+- Dark / Dark soft: `#FFFA94`
+
+Do **not** use `#FDEE66`.
+
+Signal yellow is not a general body-text color. Text on a signal surface is `#1A1A1A`.
+
+### 5.3 Focus
+
+Focus is blue:
+
+- Light / Light soft: `#3863E5`
+- Dark / Dark soft: `#6289FD`
+
+Do not introduce a generic signal-yellow keyboard focus rule.
+
+### 5.4 Semantic status colors
+
+Use status colors only for actual status semantics and pair them with text/icon/form so color is not the only carrier of meaning.
+
+Relevant verified primitives include:
+
+- error: `#C42B2B` light, `#FD8888` dark
+- information/highlight: `#3B6BFC`, with text/focus variants in the Cold Blue family
+- success: `#52843D` light, `#759D64` dark
+- warning: `#D87621` light, `#F9A800` dark
+
+## 6. Typography
+
+Use the **TKMS** font family and the existing Figma text styles.
+
+Verified family names include:
+
+- Tagline
+- Headline
+- Intro
+- Copy
+- Keyfacts
+- Navigation
+- Numbers
+- Quote
+
+Do not invent numeric font weights, font-file paths, webfont configuration, or an approved fallback font. Those were not verified.
+
+Important responsive values are defined in the YAML front matter.
+
+Notable verified behavior:
+
+- H1 Display: 96 desktop / 44 mobile
+- H1: 64 desktop / 48 mobile
+- H2: 56 desktop / 32 mobile
+- Copy Regular: 18
+- `copy/24`: 24 desktop / 22 mobile
+
+Do not “normalize” these values because they look unusual.
+
+Visual heading level and semantic HTML heading level may differ. Preserve a logical document outline.
+
+## 7. Grid and spacing
+
+Use the verified responsive grid:
+
+| | Desktop | Mobile |
+|---|---:|---:|
+| Columns | 12 | 6 |
+| Outer margin | 80 px | 24 px |
+| Gutter | 24 px | 16 px |
+| Verified reference | 1440 px | 360 px |
+
+Do not restore the previous 4-column mobile grid, 48 px desktop margin, or 16 px mobile margin.
+
+The verified spacing scale is:
+
+`4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 160`
+
+No fixed CSS breakpoint set, tablet rules, or global maximum content width were verified. Choose implementation breakpoints based on content and verify them visually rather than presenting them as TKMS source values.
+
+## 8. Geometry
+
+Do **not** use the former repository rule “all corners are 0 px”.
+
+Verified spacing tokens include:
+
+- `corner radius/small = 4px`
+- `corner radius/small-focusline = 5px`
+
+These are not universal radii.
+
+Buttons and tags visibly use pill-shaped geometries in the component library. Other controls/content areas use their own geometry.
+
+Rule: **copy geometry from the concrete component instead of applying a global shape rule.**
+
+## 9. Component behavior
+
+The verified component inventory contains:
+
+1. Back to top
+2. Button
+3. Dropdowns
+4. Images
+5. Inputs
+6. Links
+7. Lists
+8. Pagination
+9. Selects
+10. Slider controls
+11. Tabs
+12. Tags/Pills
+13. Video
+14. Headline + Copy
 
 ### Buttons
 
-- Use one clear primary action per page, panel, or decision area.
-- In light mode, primary buttons use TKMS Black with white text.
-- In dark mode, primary buttons use TKMS Signal Dark with TKMS Black text.
-- Primary button hover uses TKMS Steel Dark in light mode.
-- Secondary actions use a flat neutral surface with purposeful, high-contrast text; a thin functional border is permitted where necessary.
-- Use clear verb-first labels such as “Projektstatus öffnen”, “Freigabe prüfen”, or “Daten exportieren”.
-- Buttons must provide visible keyboard focus using a high-contrast signal-yellow outline.
+Primary button in Light / Light soft:
 
-### Forms and controls
+- default surface: signal `#FDEE65`
+- default text: `#1A1A1A`
+- hover/pressed surface: `#303030`
+- hover text: `#FFFFFF`
 
-- Inputs are rectangular with visible labels. Do not use placeholder text as the only label.
-- Use a 1 px functional border in the relevant foreground colour; use a 2 px signal-yellow outline for keyboard focus.
-- Provide explicit error text adjacent to the affected control. Do not communicate an error only through a red border.
-- Aim for a minimum target area of 44 × 44 px for touch controls.
-- Selection, hover, focus, disabled, loading, and error states must be visibly distinct.
+Primary button in Dark / Dark soft:
 
-### Cards and panels
+- default surface: `#FFFA94`
+- default text: `#1A1A1A`
+- hover/pressed surface: `#FFFFFF`
+- hover text: `#1A1A1A`
 
-- Use cards only to group separate tasks, data sets, decisions, or functional modules.
-- Use tonal contrast and spacing for grouping. Do not add shadows.
-- Do not frame every card with a border. Use a border only when its function is clear.
-- Use a vertical signal-yellow divider to structure deliberate comparisons or parallel workstreams.
+This replaces the old project rule that a light-mode primary button is black by default.
 
-### Navigation
+Use the concrete Regular/Small and Text/Text+icon/Icon variant shown in Figma. Do not invent fixed button heights or padding and call them TKMS values.
 
-- Keep navigation concise, text-led, and easy to scan.
-- Make the selected state explicit with a signal-yellow vertical marker, a signal surface, or a clearly contrasting tonal state; do not rely on a slight colour change alone.
-- Do not use icon-only primary navigation unless icons have accessible names and are already well understood by the intended users.
+### Inputs / dropdowns / selects
 
-### Tables
+Preserve the distinct states shown for each relevant component, such as:
 
-- Table headers use flat TKMS Steel Dark with white text.
-- Data rows are flat, clean, and left aligned. Never use alternating banded rows.
-- Use thin functional rules, whitespace, and alignment to support scanning.
-- Preserve readable type and hierarchy on narrow screens; reflow or transform complex tables rather than shrinking important information.
+- Default
+- Hover
+- Active/Open
+- Focused
+- Error
+- Disabled
+- Selected/Unselected
+- Filled/Unfilled
+- Indeterminate where explicitly shown
 
-### Status and alerts
+Do not collapse these into one generic state model.
 
-- Use Error, Information, Success, and Warning only for their literal semantic state.
-- Pair status colour with an unambiguous label such as “Critical”, “Attention”, “Information”, or “Complete”.
-- Use status colour as a purposeful marker, edge, or compact status field. Avoid decorative full-width colour blocks.
+### Tabs
 
-### Charts and KPI views
+Selected tabs use stronger underline/text emphasis. Focus remains a separate visible state.
 
-- Use flat two-dimensional charts only. Never use 3D charts, perspective, gradients, gloss, or ornamental texture.
-- Use TKMS neutral colours for baseline series. Use signal yellow for one strategic target, benchmark, selection, or key deviation.
-- Use status colours only when series or data points represent actual status semantics.
-- Prefer direct labels over legends when space permits.
-- Emphasize important KPIs with large TKMS bold values in TKMS Black or Steel Dark. State unit, period, baseline, and direction clearly.
+### Tags/Pills
 
-### Process flows
+Selected, Unselected and Read only are separate variants. Interactive tags additionally show state variations including Hover, Focused, Disabled and Error.
 
-- Build flows exclusively left-to-right or top-to-bottom.
-- Use sharp rectangular nodes and right-angle routing.
-- Use solid 1.5 pt signal-yellow connectors. A diamond end marker is permitted when it clearly conveys an endpoint, decision, or milestone.
-- Separate phases and system boundaries with vertical signal-yellow lines.
-- When an end state must be visually distinguished, render the final output node with a solid signal-yellow fill and TKMS Black text.
+Do not ban pills globally.
 
-### Imagery and iconography
+### Pagination
 
-- Prefer authentic technical, industrial, engineering, manufacturing, software, data, or operational imagery.
-- Images should be high contrast, precisely composed, and illuminated with cold white daylight where that suits the subject.
-- Leave intentional quiet space for overlaid content when an image functions as a hero or contextual surface.
-- Do not place semi-transparent shapes or decorative overlays on imagery.
-- Icons must be flat, geometric, and 2D. Use only icons that clarify an action, status, category, or data point.
-- Do not use emojis as interface icons.
+“Max. 6 lines” applies to **Line Pagination** for image/video. It is not a global limit for result pages or pagination items.
 
-### Presentation-specific elements
+### Headline + Copy
 
-- Use official TKMS slide layouts where available; apply Reset after assigning a layout.
-- Action title: TKMS Headline, 20 pt, regular, maximum two lines.
-- Subline: TKMS Headline, 18 pt, regular, maximum two lines.
-- Body text: 16 pt by default; normally no smaller than 12 pt for figures or tables.
-- Content headings: TKMS bold, 16 pt, left aligned.
-- Take-away box: use only where a single strategic conclusion requires emphasis; place it bottom left above the source area, filled with TKMS Signal and TKMS Black text.
-- Sources, legends, and footnotes belong in the master-defined bottom-left zone below the take-away space.
-- Footer format: `Date — Presentation title — Name`; apply through the master/header-footer process.
-- ISMS and VS classification treatment is mandatory when required by content and template. Use Efficient Elements where available.
+The visible “100 characters max.” example applies to that specific copy area only. Do not turn it into a global text-length rule.
 
-## Do's and Don'ts
+## 10. Modules and composition
 
-### Do
+The Modules copy contains 31 numbered module areas.
 
-- Do use approved logo assets without alteration, distortion, recolouring, crop, shadow, or effect.
-- Do choose the black or steel-dark logo on light surfaces and the white logo on dark surfaces.
-- Do use TKMS Black `#1A1A1A` instead of pure black.
-- Do make the primary task, insight, or decision visually dominant.
-- Do use whitespace, tonal layers, typography, and grid alignment to create hierarchy.
-- Do use Signal Yellow sparingly and deliberately for focal emphasis, a structural line, a selected item, a key benchmark, or a take-away.
-- Do meet WCAG AA contrast requirements for normal text and essential controls.
-- Do make keyboard focus, interaction state, status, and validation feedback explicit.
-- Do use sharp rectangles, flat surfaces, and exact alignment.
-- Do apply German notation in German UI: `1.000 Mio €`, `70,1 %`, `09. November 2025`, `(FTE)`, and `AS-IS/TO-BE`.
-- Do apply American English notation in English UI: `€1,000m`, `70.1%`, `Nov 09, 2025`, `(FTE)`, and `Input/Output`.
+Open/review-marked areas on 04.10.2026:
 
-### Don't
+- `Filter bar` — ❌
+- `Job Search Results (Filter, List, pagination)` — ❌
+- `Teaser: OU/TKMS` — ✅ with explicit `Review`
 
-- Don't use pure black `#000000`.
-- Don't use rounded corners, pills, shadows, gradients, transparency overlays, bevels, glossy surfaces, hexagons, or 3D effects.
-- Don't use decorative borders, decorative icons, arbitrary standard colours, or non-approved colour fills.
-- Don't use horizontal separator lines between content sections. Use whitespace, tonal grouping, or a vertical signal-yellow divider.
-- Don't use signal yellow as normal text highlighting.
-- Don't rely on colour alone to communicate status, priority, validation, or selection.
-- Don't use alternating table row fills.
-- Don't add visual elements that cannot be linked to content, navigation, interaction, grouping, or data meaning.
-- Don't use maritime motifs such as ships, submarines, anchors, waves, or shipyards in generic industrial, IT, process, dashboard, or documentation assets unless the user explicitly requests a maritime subject.
+Treat these as design-specification status, not as application test results.
 
-## Quality Check
+Verified/retained module-specific rules include:
 
-Before generating or delivering a screen, diagram, prototype, slide, or component, verify the following:
+- **Footer:** preserve its reference colors; do not freely recolor it into every mode.
+- **Keyfacts:** three or four keyfacts; download box optional.
+- **Image text:** side-by-side on desktop, vertical composition on mobile.
+- **Quicklinks:** sticky; active area is always underlined.
+- **Stage – Hero:** large image, white headline, dark gradient and thin yellow vertical line.
+- **Multiteaser:** headline max. two lines, then ellipsis; image hover enlargement is documented.
+- **Accordion:** Default, Hover, Focused, Disabled and Open states.
+- **Timeline:** active year is visually enlarged and tied to its copy/image.
 
-- [ ] Only approved front-matter colour tokens are used.
-- [ ] No pure black, rounded corners, shadows, gradients, transparent overlays, 3D effects, hexagons, or decorative outlines are present.
-- [ ] Typography follows the TKMS Headline/TKMS hierarchy with readable sizes.
-- [ ] The layout is grid-based, left aligned, spacious, and responsive.
-- [ ] Signal Yellow is limited to a specific functional emphasis or structural use.
-- [ ] All interactive controls provide clear labels and visible focus states.
-- [ ] Status has a text, icon, or pattern cue in addition to colour.
-- [ ] Text and component foreground/background combinations meet WCAG AA contrast.
-- [ ] Tables use flat Steel Dark headers, white header text, and no banded rows.
-- [ ] Charts remain flat, 2D, semantically coloured, and legible.
-- [ ] Presentation artefacts contain necessary classification, footer, source, and take-away treatments.
+Use existing modules and preserve their hierarchy instead of rebuilding them from arbitrary cards.
+
+## 11. Motion, shadows and gradients
+
+Do not use the old blanket bans.
+
+Verified references include:
+
+- effect style `Dropdown Shadow – Lightmode` — exact shadow parameters remain open;
+- Stage – Hero with a dark gradient;
+- Video with `.gradient`;
+- Multiteaser image hover example:
+  - scale `1.1×`
+  - `ease-out`
+  - `150 ms`
+
+The multiteaser values are a **component example**, not a global motion system.
+
+If reduced motion is implemented, preserve functionality without requiring hover animation.
+
+## 12. Images and icons
+
+Use the existing TKMS icon vectors where available.
+
+Do not claim a specific external icon library is TKMS-approved.
+
+Verified image themes include:
+
+- maritime products;
+- ships and submarines;
+- technical/manufacturing environments;
+- employees in realistic work/protective environments.
+
+For the iPPM Knowledge & Training Center, use imagery only when it supports the content. Do not add maritime motifs merely as decoration.
+
+Respect responsive crop/focus. Exact universal aspect ratios and hero heights remain open.
+
+## 13. Accessibility and interaction quality
+
+Preserve visible focus treatment and test it against the actual background.
+
+Use additional text/form/icon cues for state and validation; do not rely on color alone.
+
+For interactive implementation:
+
+- associate labels and errors programmatically with inputs;
+- provide accessible names for icon controls and meaningful images;
+- ensure Tabs, Dropdowns, Accordion and Forms are keyboard-operable;
+- test narrow layouts, long content and text enlargement;
+- validate contrast for the actual mode and state.
+
+The Figma Accessibility reference shows 7:1, 4.5:1, 3:1 and 2.99:1 / Fail examples. This does not itself prove that an implemented application passes an accessibility standard.
+
+## 14. iPPM project decisions
+
+The following may be defined for this repository when needed, but they must be documented as **project-specific**, not as verified TKMS source rules:
+
+- application breakpoints;
+- max-width/container behavior between verified reference widths;
+- fallback fonts;
+- exact component heights or touch targets not present in the verified source;
+- application-specific navigation information architecture;
+- Knowledge Center-specific cards/status labels;
+- process-diagram notation;
+- chart conventions;
+- documentation/presentation rules that are not part of the verified digital UI references.
+
+When adding such a rule, prefix or annotate it as `project:` or explain it under this section.
+
+## 15. Explicitly superseded rules from the previous repository file
+
+Do **not** reintroduce the following as general TKMS rules:
+
+- TKMS wordmark as the default iPPM application/product logo — use the supplied iPPM assets instead.
+- `#FDEE66` as the signal color — use `#FDEE65` in light modes.
+- 4-column mobile grid — verified value is 6.
+- desktop page margin 48 px — verified value is 80 px.
+- mobile page margin 16 px — verified value is 24 px.
+- all corners `0px`.
+- global prohibition of pills.
+- global prohibition of shadows.
+- global prohibition of gradients.
+- light-mode primary button = black by default.
+- signal-yellow focus outline.
+- Arial as an approved fallback font.
+- fixed button heights/paddings presented as verified TKMS values.
+- generic “vertical yellow divider instead of horizontal separators” as a universal brand rule.
+
+If one of these is deliberately wanted for iPPM, document it explicitly as an iPPM project decision and confirm that it does not conflict with the relevant Figma component/module.
+
+## 16. Open items
+
+Do not invent values for:
+
+- iPPM logo minimum size/protection zone and any approved combined iPPM/TKMS lockup rules;
+- exact font files, webfont paths, numeric weights and approved fallback;
+- fixed CSS breakpoints and tablet variants;
+- global max-width;
+- complete component dimensions and touch areas;
+- exact Dropdown Shadow parameters;
+- exhaustive prototype interactions;
+- global motion tokens;
+- exact image export sizes and universal aspect ratios;
+- meaning/binding of Width values `1.5`, `2.5`, `3`;
+- complete alias graph between the separate Figma copies.
+
+When implementation needs one of these, make a documented project decision or verify the concrete Figma binding first.
+
+## 17. Review checklist
+
+Before accepting a UI change:
+
+- [ ] Concrete Figma component/module was preferred over generic assumptions.
+- [ ] The iPPM logo is used as the standard product/application logo; the correct `on-light` / `on-dark` asset is selected.
+- [ ] TKMS wordmark is not used as a substitute for the iPPM product logo unless an explicit corporate/legal/template context requires it.
+- [ ] Signal uses `#FDEE65` in Light/Light soft and `#FFFA94` in Dark/Dark soft.
+- [ ] Blue focus treatment is preserved.
+- [ ] Responsive grid is based on 12/6 columns and 80/24 px outer margins.
+- [ ] Typography uses the verified desktop/mobile values.
+- [ ] No global 0-radius/pill/shadow/gradient rule was introduced.
+- [ ] Button and control states match the relevant component.
+- [ ] Dark/Soft modes use explicit values rather than automatic inversion.
+- [ ] Accessibility states are not color-only.
+- [ ] Unverified values are clearly marked as project decisions or remain open.
+- [ ] Module-specific exceptions such as Footer, Quicklinks, Keyfacts and Hero are preserved where used.

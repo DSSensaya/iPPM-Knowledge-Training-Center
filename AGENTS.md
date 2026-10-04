@@ -1,7 +1,7 @@
 # Projektregeln
 
 - `docs/ROADMAP.md` ist die verbindliche aktuelle Produktstrategie für Prioritäten und Ausbau bis v1.0.
-- `DESIGN.md` ist die verbindliche Design-Spezifikation. Nur ihre Farben und Schrift-Fallbacks verwenden; keine Rundungen, Schatten, Verläufe oder dekorativen Trennlinien.
+- `DESIGN.md` ist die verbindliche Implementierungsreferenz für das Design. Ihre belegten Farben, Typografie, Oberflächen und komponentenspezifischen Geometrien verwenden; blaue Fokuszustände und passende originale iPPM-Logoassets erhalten. Nicht belegte Werte ausdrücklich als iPPM-Projektentscheidungen dokumentieren (aktuelle Umsetzung: `docs/DESIGN_IMPLEMENTATION.md`). Keine pauschalen Verbote für Rundungen, Pills, Schatten oder Verläufe aus der alten Fassung übernehmen.
 - Vollständig lokaler Betrieb: keine CDNs, Cloud-APIs, Telemetrie oder externen Fonts. Server standardmäßig nur an `127.0.0.1` binden.
 - Deutsche, aufgabenorientierte Oberfläche; semantisches HTML, Tastaturbedienung, sichtbarer Fokus und responsive Darstellung erhalten.
 - Fachliche Demonstrationsinhalte eindeutig kennzeichnen. Keine erfundenen internen Freigaben, Kontakte oder verbindlichen Unternehmensprozesse behaupten.
