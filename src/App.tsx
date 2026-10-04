@@ -262,11 +262,19 @@ export default function App() {
         Zum Inhalt springen
       </a>
       <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
-        <a href="#/" className="brand" aria-label="iPPM Startseite">
-          <span className="brand-name">
-            iPPM
-            <span className="brand-marker" />
-          </span>
+        <a
+          href="#/"
+          className="brand"
+          aria-label="iPPM Startseite"
+          onClick={() => setMenuOpen(false)}
+        >
+          <img
+            className="brand-logo"
+            src={`${import.meta.env.BASE_URL}brand/ippm/ippm-logo-simple-on-dark.png`}
+            width={1224}
+            height={330}
+            alt=""
+          />
           <span>
             Knowledge &<br />
             Training Center
