@@ -1,11 +1,8 @@
+import type { Progress } from '../types/progress';
+
 export const STORAGE_KEY = 'ippm-learning-v1';
-export interface Progress {
-  version: 1;
-  bookmarks: string[];
-  read: string[];
-  passed: string[];
-}
 export const emptyProgress: Progress = { version: 1, bookmarks: [], read: [], passed: [] };
+
 export function validateProgress(value: unknown): value is Progress {
   if (!value || typeof value !== 'object') return false;
   const data = value as Partial<Progress>;
@@ -16,6 +13,7 @@ export function validateProgress(value: unknown): value is Progress {
     )
   );
 }
+
 export function loadProgress(): { progress: Progress; error: string } {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -30,6 +28,10 @@ export function loadProgress(): { progress: Progress; error: string } {
         'Ihr lokaler Speicher konnte nicht gelesen werden. Änderungen bleiben bis zur erfolgreichen Speicherung nur für diese Sitzung erhalten.',
     };
   }
+}
+
+export function saveProgress(progress: Progress): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
 }
 
 // Visibility is a presentation concern. Never discard archived or unknown v1 IDs.
