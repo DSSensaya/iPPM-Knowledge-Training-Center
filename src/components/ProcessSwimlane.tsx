@@ -35,46 +35,50 @@ function StepCard({
   const references = step.materials.filter((m) => m.kind === 'reference').length;
   return (
     <li style={style} className={`swimlane-item ${dismissed ? 'tooltip-dismissed' : ''}`}>
-      <a
-        className="process-card"
-        id={`process-card-${step.id}`}
-        data-step-id={step.id}
-        href={stepHref(step.id, process.id, 'karte')}
-        aria-describedby={tooltipId}
-        onFocus={showTooltip}
-        onMouseEnter={showTooltip}
-        onClick={(e) => {
-          if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-          rememberProcessPosition(
-            processHref(process.id, 'karte'),
-            `process-card-${step.id}`,
-            e.currentTarget.closest('.swimlane-scroll')?.scrollLeft,
-          );
-        }}
-      >
-        <span className="process-number">{step.number}</span>
-        <strong>{step.title}</strong>
-        <span className="process-role">
-          {step.roleIds.map((id) => roleLabel(id, store)).join(' · ') || 'Keine Rolle belegt'}
-        </span>
-        <span className="process-badges">
-          {guides > 0 && <span>Anleitungen: {guides}</span>}
-          {orientations > 0 && <span>Orientierungen: {orientations}</span>}
-          {references > 0 && <span>Referenzen: {references}</span>}
-          {step.releaseIds?.map((id) => (
-            <span key={id}>Release-Zuordnung: {store.releases.find((r) => r.id === id)?.code}</span>
-          ))}
-          {issues.length > 0 && (
-            <span className="process-issues">Offene Punkte: {issues.length}</span>
-          )}
-        </span>
-      </a>
-      <div className="process-tooltip" id={tooltipId} role="tooltip">
-        <p>{step.description || `${step.number} ${step.title}`}</p>
-        {step.input && <p>Eingang: {step.input}</p>}
-        {step.output && <p>Ergebnis: {step.output}</p>}
-        {issues.length > 0 && <p>Offene Punkte: {issues.join(' · ')}</p>}
-        <p>Schritt öffnen für Materialien, Geltung und Quellen.</p>
+      <div className="process-card-info">
+        <a
+          className="process-card"
+          id={`process-card-${step.id}`}
+          data-step-id={step.id}
+          href={stepHref(step.id, process.id, 'karte')}
+          aria-describedby={tooltipId}
+          onFocus={showTooltip}
+          onMouseEnter={showTooltip}
+          onClick={(e) => {
+            if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+            rememberProcessPosition(
+              processHref(process.id, 'karte'),
+              `process-card-${step.id}`,
+              e.currentTarget.closest('.swimlane-scroll')?.scrollLeft,
+            );
+          }}
+        >
+          <span className="process-number">{step.number}</span>
+          <strong>{step.title}</strong>
+          <span className="process-role">
+            {step.roleIds.map((id) => roleLabel(id, store)).join(' · ') || 'Keine Rolle belegt'}
+          </span>
+          <span className="process-badges">
+            {guides > 0 && <span>Anleitungen: {guides}</span>}
+            {orientations > 0 && <span>Orientierungen: {orientations}</span>}
+            {references > 0 && <span>Referenzen: {references}</span>}
+            {step.releaseIds?.map((id) => (
+              <span key={id}>
+                Release-Zuordnung: {store.releases.find((r) => r.id === id)?.code}
+              </span>
+            ))}
+            {issues.length > 0 && (
+              <span className="process-issues">Offene Punkte: {issues.length}</span>
+            )}
+          </span>
+        </a>
+        <div className="process-tooltip" id={tooltipId} role="tooltip">
+          <p>{step.description || `${step.number} ${step.title}`}</p>
+          {step.input && <p>Eingang: {step.input}</p>}
+          {step.output && <p>Ergebnis: {step.output}</p>}
+          {issues.length > 0 && <p>Offene Punkte: {issues.join(' · ')}</p>}
+          <p>Schritt öffnen für Materialien, Geltung und Quellen.</p>
+        </div>
       </div>
       {flows.length > 0 && (
         <details className="process-connections">

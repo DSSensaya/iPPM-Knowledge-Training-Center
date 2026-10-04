@@ -97,7 +97,10 @@ Textverbindungen bleiben erhalten. Keine Diagrammbibliothek, kein Drag-and-drop,
 kein Prozesseditor und keine externen Runtime-Dienste wurden hinzugefügt.
 
 Kurzinfos sind per Hover und Tastaturfokus erreichbar, mit Escape schließbar und
-mit dem Pointer erreichbar. Sie kopieren keine Inhalte in eine andere Sammlung.
+mit dem Pointer erreichbar. Ihre Position ist direkt an der Kartenkante
+verankert, unabhängig von der Höhe des Verbindungsbereichs oder der Grid-Zeile.
+Der Pointer erreicht sie ohne eine inaktive Lücke; dies wird bei geschlossenen
+und geöffneten Verbindungen auf Desktop und Mobilansicht geprüft. Sie kopieren keine Inhalte in eine andere Sammlung.
 Die Schrittansicht enthält dieselben Beschreibungen/Eingänge/Ergebnisse/offenen
 Punkte, auch für Touchbedienung. Rollen, Nummern, Badgebeschriftungen, Pfeilspitzen
 und Textziele tragen die Information unabhängig von Farben.
@@ -105,7 +108,7 @@ und Textziele tragen die Information unabhängig von Farben.
 ## Prüfung und Screenshots
 
 - `npm run verify`: erfolgreich; Reader-Build, Editor-Build,
-  `typecheck:tools` und **124 Playwright-Prüfungen bestanden** (Integrität,
+  `typecheck:tools` und **126 Playwright-Prüfungen bestanden** (Integrität,
   Reader/Editor auf Desktop und Mobilansicht, Chromium, ca. 2,5 Minuten).
 - `npm run format:check` und `git diff --check`: erfolgreich.
 - Neue Prüfungen: ungültige/cross-process Flow-Endpunkte, fehlende Belege,
@@ -115,7 +118,8 @@ und Textziele tragen die Information unabhängig von Farben.
   sichtbarer blauer Fokus, Browser-/Link-Rücknavigation mit Scroll-/Fokusrückkehr,
   66 orthogonale Linien ohne Kartenschnitt, Neumessung bei 1440/1800/390 px und
   beim Aufklappen von Verbindungen, kein horizontaler Dokumentüberlauf mobil,
-  Axe-Prüfung der Prozessseite.
+  Axe-Prüfung der Prozessseite, Pointer-Übergang zur Kurzinfo mit geschlossenen
+  und geöffneten Verbindungen.
 - Screenshots wurden in Chromium erzeugt und visuell geprüft: breite Karte
   (1800 × 1100), Definition mit Pfeilen (1800 × 1100), Kompaktansicht
   (390 × 844) und erhaltene Liste (1440 × 1100).
@@ -134,3 +138,5 @@ und Textziele tragen die Information unabhängig von Farben.
 ![Kompakte Prozesslandkarte](screenshots/process-mobile.png)
 
 ![Bestehende Listenansicht](screenshots/process-list.png)
+
+![Kurzinfo direkt an der Kartenkante](screenshots/process-tooltip-desktop.png)

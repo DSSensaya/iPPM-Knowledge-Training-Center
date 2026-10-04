@@ -486,7 +486,10 @@ test('process edges stay orthogonal, avoid cards and remeasure after resize and 
   await assertGeometry();
   const region = page.getByRole('region', { name: 'Prozesslandkarte Projektabwicklung' });
   await region.screenshot({ path: testInfo.outputPath('process-wide.png') });
-  const summary = page.locator('#process-card-step-2-2').locator('..').locator('summary');
+  const summary = page
+    .locator('.swimlane-item')
+    .filter({ has: page.locator('#process-card-step-2-2') })
+    .locator('summary');
   await summary.click();
   await expect(page.locator('.process-connections[open]')).toHaveCount(1);
   await expect.poll(() => paths.nth(0).getAttribute('d')).toBeTruthy();
@@ -523,4 +526,34 @@ test('process edges stay orthogonal, avoid cards and remeasure after resize and 
       }
     })
     .toBe(true);
+});
+
+test('hover tooltip remains reachable across the card edge with collapsed and expanded connections', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/#/prozesse/projektabwicklung?ansicht=karte');
+  const card = page.locator('#process-card-step-2-2');
+  const tooltip = card.locator('..').getByRole('tooltip');
+  const summary = page.locator('.swimlane-item').filter({ has: card }).locator('summary');
+  for (const expanded of [false, true]) {
+    if (expanded) await summary.click();
+    await card.scrollIntoViewIfNeeded();
+    await card.hover();
+    await expect(card).not.toBeFocused();
+    await expect(tooltip).toBeVisible();
+    const cardBounds = (await card.boundingBox())!;
+    const tooltipBounds = (await tooltip.boundingBox())!;
+    // The pointer must reach the tooltip without traversing an inactive summary/row gap.
+    expect(Math.abs(tooltipBounds.y - cardBounds.y - cardBounds.height)).toBeLessThanOrEqual(1);
+    await page.mouse.move(cardBounds.x + 20, cardBounds.y + cardBounds.height - 2);
+    await page.mouse.move(tooltipBounds.x + 20, tooltipBounds.y + 20, { steps: 24 });
+    await expect(tooltip).toBeVisible();
+    await expect(tooltip).toContainText('Offene Punkte:');
+    await page.screenshot({
+      path: testInfo.outputPath(`process-tooltip-${expanded ? 'expanded' : 'collapsed'}.png`),
+    });
+    await page.keyboard.press('Escape');
+    await expect(tooltip).toBeHidden();
+    await page.mouse.move(0, 0);
+  }
 });

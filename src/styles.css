@@ -792,6 +792,9 @@ footer {
 .process-badges > .process-issues {
   border-color: var(--warning);
 }
+.process-card-info {
+  position: relative;
+}
 .process-tooltip {
   display: none;
   position: absolute;
