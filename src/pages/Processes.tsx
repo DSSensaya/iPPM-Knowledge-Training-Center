@@ -1,8 +1,21 @@
+import { useEffect } from 'react';
+import { ProcessSwimlane } from '../components/ProcessSwimlane';
+import {
+  processHref,
+  stepHref,
+  rememberProcessPosition,
+  restoreProcessPosition,
+} from '../lib/process-navigation';
 import { content } from '../content';
 import { PageTitle } from '../components/ui';
 import { searchContent } from '../lib/search';
 import { roleLabel } from '../lib/queries';
 export default function Processes({ id, params }: { id?: string; params: URLSearchParams }) {
+  const view = params.get('ansicht') === 'liste' ? 'liste' : 'karte';
+  useEffect(() => {
+    const frame = requestAnimationFrame(restoreProcessPosition);
+    return () => cancelAnimationFrame(frame);
+  }, [id, view]);
   const q = params.get('q') ?? '';
   const results = q ? searchContent(q) : [];
   const processes = id ? content.processes.filter((p) => p.id === id) : content.processes;
@@ -36,28 +49,54 @@ export default function Processes({ id, params }: { id?: string; params: URLSear
               <a href={'#/prozesse/' + p.id}>{p.title}</a>
             </h2>
             <p>{p.description}</p>
-            {[...new Set(p.steps.map((s) => s.phase))].map((phase) => (
-              <section className="phase" key={phase}>
-                <h3>{phase}</h3>
-                <ol className="result-list">
-                  {p.steps
-                    .filter((s) => s.phase === phase)
-                    .map((s) => (
-                      <li key={s.id}>
-                        <a href={'#/schritt/' + s.id}>
-                          <strong>
-                            {s.number} {s.title}
-                          </strong>
-                        </a>
-                        <p>
-                          {s.roleIds.map((id) => roleLabel(id)).join(' · ') ||
-                            'Verantwortung nicht festgelegt'}
-                        </p>
-                      </li>
-                    ))}
-                </ol>
-              </section>
-            ))}
+            <div className="process-view-switch" role="group" aria-label={`Ansicht für ${p.title}`}>
+              {['karte', 'liste'].map((mode) => (
+                <button
+                  key={mode}
+                  aria-pressed={view === mode}
+                  onClick={() => {
+                    window.location.hash = processHref(p.id, mode).slice(1);
+                  }}
+                >
+                  {mode === 'karte' ? 'Prozesslandkarte' : 'Liste'}
+                </button>
+              ))}
+            </div>
+            {view === 'karte' ? (
+              <ProcessSwimlane process={p} store={content} />
+            ) : (
+              [...new Set(p.steps.map((s) => s.phase))].map((phase) => (
+                <section className="phase" key={phase}>
+                  <h3>{phase}</h3>
+                  <ol className="result-list">
+                    {p.steps
+                      .filter((s) => s.phase === phase)
+                      .map((s) => (
+                        <li key={s.id}>
+                          <a
+                            id={`process-list-${s.id}`}
+                            href={stepHref(s.id, p.id, 'liste')}
+                            onClick={() =>
+                              rememberProcessPosition(
+                                processHref(p.id, 'liste'),
+                                `process-list-${s.id}`,
+                              )
+                            }
+                          >
+                            <strong>
+                              {s.number} {s.title}
+                            </strong>
+                          </a>
+                          <p>
+                            {s.roleIds.map((id) => roleLabel(id)).join(' · ') ||
+                              'Keine Rolle belegt'}
+                          </p>
+                        </li>
+                      ))}
+                  </ol>
+                </section>
+              ))
+            )}
           </section>
         ))}
     </>

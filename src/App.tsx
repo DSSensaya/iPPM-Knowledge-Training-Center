@@ -206,7 +206,8 @@ export default function App() {
 
   let page;
   if (path === '/' || path === '/aufgaben') page = <Tasks />;
-  else if (path.startsWith('/schritt/')) page = <WorkPage id={path.split('/')[2]} kind="step" />;
+  else if (path.startsWith('/schritt/'))
+    page = <WorkPage id={path.split('/')[2]} kind="step" params={params} />;
   else if (path.startsWith('/aufgabe/')) page = <WorkPage id={path.split('/')[2]} kind="task" />;
   else if (path.startsWith('/thema/')) page = <WorkPage id={path.split('/')[2]} kind="topic" />;
   else if (path.startsWith('/bedienweg/')) page = <ProcedurePage id={path.split('/')[2]} />;

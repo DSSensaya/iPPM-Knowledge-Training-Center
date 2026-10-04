@@ -11,3 +11,16 @@
 - **project: Semantik und Bestand.** Vorhandene Fehler markieren weiterhin tatsächliche Speicher-/Validierungsfehler. Artikelstatus bleibt textuell; `approved` wird nicht als Unternehmensfreigabe oder allgemeiner Erfolgsstatus eingefärbt. Footer-Farben und bestehende funktionale Prozess-/Geltungsmarker bleiben erhalten. Bestehende Lucide-Symbole werden weiterverwendet, ohne sie als TKMS-geprüft zu bezeichnen.
 
 Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vollständigen Komponentenabmessungen, Logo-Mindestgrößen/Schutzzonen und Dropdown-Schattenparameter. Es werden dafür keine Markenfreigaben behauptet.
+
+- **project: Prozessnotation.** Rollen bilden Spalten, Phasen horizontale Bereiche;
+  kanonische Reihenfolge bestimmt ausschließlich die Platzierung innerhalb einer
+  Phase/Rollenspalte. Gemeinsame und unbelegte Rollen erhalten neutrale Spalten.
+  Nummer/Titel, Rollen und beschriftete Metadaten stehen in semantischen Karten.
+  48-px-Spaltengassen und 64-px-Zeilenabstände schaffen Platz für orthogonale
+  SVG-Linien. 1200 px Mindestbreite ermöglicht lesbare Spalten mit lokalem
+  horizontalem Scrollen. Bei höchstens 700 px verfügbarer Containerbreite wird
+  eine vertikale Kompaktansicht mit denselben Karten, Metadaten und aufklappbaren
+  Textverbindungen angezeigt. Diese Maße/Notation sind iPPM-Entscheidungen.
+  Steel-/Weiß-Oberflächen, Signal für den gewählten Ansichtsbutton und blaue
+  Fokuslinien verwenden vorhandene Tokens. Offene Punkte werden ausdrücklich
+  benannt; ihre Warnungsbegrenzung ist nur eine zusätzliche Kennzeichnung.

@@ -1,3 +1,4 @@
+import { visioPageXml } from './visio-source';
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -349,5 +350,108 @@ test('relationship resolver and validation share navigable target types and URLs
     object.relationships = [{ targetId: 'unknown', relation: 'related' }];
     expect(() => model.validateContent(store)).toThrow(/Beziehung ohne Ziel/);
     object.relationships = original;
+  }
+});
+
+test('process flows reject unknown or cross-process endpoints, missing evidence and duplicates', () => {
+  const store = structuredClone(model.content);
+  const process = store.processes[0];
+  expect(process.flows).toHaveLength(66);
+  for (const mutate of [
+    () => {
+      process.flows![0].from = 'missing';
+    },
+    () => {
+      process.flows![0].to = 'pm';
+    },
+    () => {
+      process.flows![0].sourceRefs = [];
+    },
+    () => {
+      process.flows!.push(structuredClone(process.flows![0]));
+    },
+    () => {
+      (process.flows![0] as unknown as { x: number }).x = 5;
+    },
+  ]) {
+    process.flows = structuredClone(model.content.processes[0].flows);
+    mutate();
+    expect(() => model.validateContent(store)).toThrow();
+  }
+  process.flows = structuredClone(model.content.processes[0].flows);
+  const otherStep = structuredClone(process.steps[0]);
+  otherStep.id = 'other-process-step';
+  store.processes.push({
+    id: 'other-process',
+    title: 'Test',
+    description: 'Test',
+    steps: [otherStep],
+  });
+  process.flows![0].to = otherStep.id;
+  expect(() => model.validateContent(store)).toThrow(/Flow-Endpunkt/);
+  delete process.flows;
+  expect(() => model.validateContent(store)).not.toThrow();
+});
+
+test('multiple roles stay together, empty roles stay unassigned and layout never invents flows', () => {
+  const store = structuredClone(model.content);
+  const p = store.processes[0];
+  p.steps[0].roleIds = ['tm', 'pm'];
+  delete p.flows;
+  model.validateContent(store);
+  const before = structuredClone(p);
+  const layout = model.getProcessLayout(p, store.roles);
+  expect(layout.placements).toHaveLength(p.steps.length);
+  expect(new Set(layout.placements.map((p) => p.step.id)).size).toBe(p.steps.length);
+  expect(layout.placements[0].laneId).toBe('__shared');
+  expect(layout.placements[0].step.roleIds).toEqual(['tm', 'pm']);
+  expect(layout.placements.find((p) => p.step.id === 'step-5-1')!.laneId).toBe('__unassigned');
+  expect(p).toEqual(before);
+  expect(model.getProcessLayout(p, store.roles)).toEqual(layout);
+  p.steps[0].roleIds.reverse();
+  expect(model.getProcessLayout(p, store.roles).placements[0].column).toBe(
+    layout.placements[0].column,
+  );
+  expect(model.stepHref('step-2-6', p.id, 'karte')).toBe(
+    '#/schritt/step-2-6?prozess=projektabwicklung&ansicht=karte',
+  );
+});
+
+test('every flow matches an explicit original Visio connector and mapped source titles', () => {
+  const xml = visioPageXml();
+  const process = model.content.processes[0];
+  const normalize = (s: string) => s.replace(/\s+/g, '').toLowerCase();
+  const shapes = new Map<string, string>();
+  for (const match of xml.matchAll(
+    /<Shape\s(?=[^>]*Master='4')([^>]+)>[\s\S]*?<Text>([\s\S]*?)<\/Text>/g,
+  )) {
+    if (!/Master='4'/.test(match[1])) continue;
+    const id = /ID='([^']+)'/.exec(match[1])![1];
+    const title = match[2].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
+    const step = process.steps.find((s) => normalize(s.title) === normalize(title));
+    expect(step, `Shape ${id}: ${title}`).toBeTruthy();
+    shapes.set(id, step!.id);
+  }
+  expect(shapes.size).toBe(52);
+  const connectors = new Map<string, Record<string, string>>();
+  for (const match of xml.matchAll(/<Connect\s([^>]+)\/>/g)) {
+    const attrs = Object.fromEntries(
+      [...match[1].matchAll(/(\w+)='([^']*)'/g)].map((m) => [m[1], m[2]]),
+    );
+    const connector = connectors.get(attrs.FromSheet) ?? {};
+    connector[attrs.FromCell] = attrs.ToSheet;
+    connectors.set(attrs.FromSheet, connector);
+  }
+  const mapped = [...connectors.entries()].filter(
+    ([, c]) => shapes.has(c.BeginX) && shapes.has(c.EndX),
+  );
+  expect(mapped).toHaveLength(66);
+  for (const [id, endpoints] of mapped) {
+    const flow = process.flows!.find((f) =>
+      f.sourceRefs?.some((ref) => ref.includes(`Verbinder ${id},`)),
+    );
+    expect(flow).toBeTruthy();
+    expect(flow!.from).toBe(shapes.get(endpoints.BeginX));
+    expect(flow!.to).toBe(shapes.get(endpoints.EndX));
   }
 });

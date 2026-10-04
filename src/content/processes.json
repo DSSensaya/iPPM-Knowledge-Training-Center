@@ -1521,6 +1521,338 @@
         "openPoints": [],
         "openPointIds": ["open-project-close-specification"]
       }
+    ],
+    "flows": [
+      {
+        "from": "step-2-2",
+        "to": "step-2-7",
+        "sourceRefs": ["P: Seite SB01, Verbinder 783, BeginX Shape 338 → EndX Shape 781"]
+      },
+      {
+        "from": "step-2-9",
+        "to": "step-2-11",
+        "sourceRefs": ["P: Seite SB01, Verbinder 778, BeginX Shape 369 → EndX Shape 381"]
+      },
+      {
+        "from": "step-2-9",
+        "to": "step-2-10",
+        "sourceRefs": ["P: Seite SB01, Verbinder 777, BeginX Shape 369 → EndX Shape 375"]
+      },
+      {
+        "from": "step-2-8",
+        "to": "step-2-9",
+        "sourceRefs": ["P: Seite SB01, Verbinder 776, BeginX Shape 364 → EndX Shape 369"]
+      },
+      {
+        "from": "step-3-21",
+        "to": "step-4-2",
+        "sourceRefs": ["P: Seite SB01, Verbinder 775, BeginX Shape 708 → EndX Shape 734"]
+      },
+      {
+        "from": "step-3-15",
+        "to": "step-4-1",
+        "sourceRefs": ["P: Seite SB01, Verbinder 774, BeginX Shape 693 → EndX Shape 732"]
+      },
+      {
+        "from": "step-3-11",
+        "to": "step-3-17",
+        "sourceRefs": ["P: Seite SB01, Verbinder 773, BeginX Shape 463 → EndX Shape 484"]
+      },
+      {
+        "from": "step-4-1",
+        "to": "step-3-11",
+        "sourceRefs": ["P: Seite SB01, Verbinder 772, BeginX Shape 732 → EndX Shape 463"]
+      },
+      {
+        "from": "step-4-2",
+        "to": "step-3-18",
+        "sourceRefs": ["P: Seite SB01, Verbinder 771, BeginX Shape 734 → EndX Shape 698"]
+      },
+      {
+        "from": "step-4-7",
+        "to": "step-4-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 770, BeginX Shape 736 → EndX Shape 730"]
+      },
+      {
+        "from": "step-4-5",
+        "to": "step-4-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 769, BeginX Shape 738 → EndX Shape 730"]
+      },
+      {
+        "from": "step-4-1",
+        "to": "step-4-3",
+        "sourceRefs": ["P: Seite SB01, Verbinder 768, BeginX Shape 732 → EndX Shape 740"]
+      },
+      {
+        "from": "step-4-1",
+        "to": "step-4-5",
+        "sourceRefs": ["P: Seite SB01, Verbinder 767, BeginX Shape 732 → EndX Shape 738"]
+      },
+      {
+        "from": "step-4-2",
+        "to": "step-4-5",
+        "sourceRefs": ["P: Seite SB01, Verbinder 766, BeginX Shape 734 → EndX Shape 738"]
+      },
+      {
+        "from": "step-4-2",
+        "to": "step-4-4",
+        "sourceRefs": ["P: Seite SB01, Verbinder 765, BeginX Shape 734 → EndX Shape 742"]
+      },
+      {
+        "from": "step-4-2",
+        "to": "step-4-8",
+        "sourceRefs": ["P: Seite SB01, Verbinder 764, BeginX Shape 734 → EndX Shape 746"]
+      },
+      {
+        "from": "step-4-6",
+        "to": "step-4-10",
+        "sourceRefs": ["P: Seite SB01, Verbinder 763, BeginX Shape 744 → EndX Shape 750"]
+      },
+      {
+        "from": "step-4-3",
+        "to": "step-4-6",
+        "sourceRefs": ["P: Seite SB01, Verbinder 762, BeginX Shape 740 → EndX Shape 744"]
+      },
+      {
+        "from": "step-4-3",
+        "to": "step-4-7",
+        "sourceRefs": ["P: Seite SB01, Verbinder 761, BeginX Shape 740 → EndX Shape 736"]
+      },
+      {
+        "from": "step-4-4",
+        "to": "step-4-7",
+        "sourceRefs": ["P: Seite SB01, Verbinder 760, BeginX Shape 742 → EndX Shape 736"]
+      },
+      {
+        "from": "step-4-4",
+        "to": "step-4-8",
+        "sourceRefs": ["P: Seite SB01, Verbinder 759, BeginX Shape 742 → EndX Shape 746"]
+      },
+      {
+        "from": "step-4-8",
+        "to": "step-4-11",
+        "sourceRefs": ["P: Seite SB01, Verbinder 758, BeginX Shape 746 → EndX Shape 748"]
+      },
+      {
+        "from": "step-4-11",
+        "to": "step-4-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 757, BeginX Shape 748 → EndX Shape 730"]
+      },
+      {
+        "from": "step-4-10",
+        "to": "step-4-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 756, BeginX Shape 750 → EndX Shape 730"]
+      },
+      {
+        "from": "step-4-9",
+        "to": "step-4-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 755, BeginX Shape 522 → EndX Shape 730"]
+      },
+      {
+        "from": "step-4-7",
+        "to": "step-4-9",
+        "sourceRefs": ["P: Seite SB01, Verbinder 754, BeginX Shape 736 → EndX Shape 522"]
+      },
+      {
+        "from": "step-4-5",
+        "to": "step-4-7",
+        "sourceRefs": ["P: Seite SB01, Verbinder 753, BeginX Shape 738 → EndX Shape 736"]
+      },
+      {
+        "from": "step-3-9",
+        "to": "step-4-5",
+        "sourceRefs": ["P: Seite SB01, Verbinder 752, BeginX Shape 500 → EndX Shape 738"]
+      },
+      {
+        "from": "step-3-8",
+        "to": "step-3-9",
+        "sourceRefs": ["P: Seite SB01, Verbinder 729, BeginX Shape 689 → EndX Shape 500"]
+      },
+      {
+        "from": "step-3-17",
+        "to": "step-3-18",
+        "sourceRefs": ["P: Seite SB01, Verbinder 714, BeginX Shape 484 → EndX Shape 698"]
+      },
+      {
+        "from": "step-3-18",
+        "to": "step-3-19",
+        "sourceRefs": ["P: Seite SB01, Verbinder 713, BeginX Shape 698 → EndX Shape 700"]
+      },
+      {
+        "from": "step-3-19",
+        "to": "step-3-20",
+        "sourceRefs": ["P: Seite SB01, Verbinder 712, BeginX Shape 700 → EndX Shape 706"]
+      },
+      {
+        "from": "step-3-20",
+        "to": "step-3-21",
+        "sourceRefs": ["P: Seite SB01, Verbinder 710, BeginX Shape 706 → EndX Shape 708"]
+      },
+      {
+        "from": "step-3-15",
+        "to": "step-3-8",
+        "sourceRefs": ["P: Seite SB01, Verbinder 697, BeginX Shape 693 → EndX Shape 689"]
+      },
+      {
+        "from": "step-3-14",
+        "to": "step-3-15",
+        "sourceRefs": ["P: Seite SB01, Verbinder 696, BeginX Shape 691 → EndX Shape 693"]
+      },
+      {
+        "from": "step-2-2",
+        "to": "step-2-3",
+        "sourceRefs": ["P: Seite SB01, Verbinder 565, BeginX Shape 338 → EndX Shape 343"]
+      },
+      {
+        "from": "step-2-2",
+        "to": "step-2-4",
+        "sourceRefs": ["P: Seite SB01, Verbinder 564, BeginX Shape 338 → EndX Shape 348"]
+      },
+      {
+        "from": "step-2-6",
+        "to": "step-2-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 562, BeginX Shape 359 → EndX Shape 389"]
+      },
+      {
+        "from": "step-1-1",
+        "to": "step-1-2",
+        "sourceRefs": ["P: Seite SB01, Verbinder 560, BeginX Shape 323 → EndX Shape 328"]
+      },
+      {
+        "from": "step-2-1",
+        "to": "step-2-2",
+        "sourceRefs": ["P: Seite SB01, Verbinder 566, BeginX Shape 333 → EndX Shape 338"]
+      },
+      {
+        "from": "step-1-2",
+        "to": "step-2-1",
+        "sourceRefs": ["P: Seite SB01, Verbinder 567, BeginX Shape 328 → EndX Shape 333"]
+      },
+      {
+        "from": "step-2-12",
+        "to": "step-2-13",
+        "sourceRefs": ["P: Seite SB01, Verbinder 568, BeginX Shape 389 → EndX Shape 394"]
+      },
+      {
+        "from": "step-2-13",
+        "to": "step-2-14",
+        "sourceRefs": ["P: Seite SB01, Verbinder 569, BeginX Shape 394 → EndX Shape 399"]
+      },
+      {
+        "from": "step-2-13",
+        "to": "step-2-15",
+        "sourceRefs": ["P: Seite SB01, Verbinder 570, BeginX Shape 394 → EndX Shape 406"]
+      },
+      {
+        "from": "step-2-13",
+        "to": "step-3-16",
+        "sourceRefs": ["P: Seite SB01, Verbinder 571, BeginX Shape 394 → EndX Shape 477"]
+      },
+      {
+        "from": "step-2-9",
+        "to": "step-3-10",
+        "sourceRefs": ["P: Seite SB01, Verbinder 572, BeginX Shape 369 → EndX Shape 457"]
+      },
+      {
+        "from": "step-3-10",
+        "to": "step-3-11",
+        "sourceRefs": ["P: Seite SB01, Verbinder 573, BeginX Shape 457 → EndX Shape 463"]
+      },
+      {
+        "from": "step-3-11",
+        "to": "step-3-12",
+        "sourceRefs": ["P: Seite SB01, Verbinder 574, BeginX Shape 463 → EndX Shape 469"]
+      },
+      {
+        "from": "step-3-16",
+        "to": "step-3-17",
+        "sourceRefs": ["P: Seite SB01, Verbinder 575, BeginX Shape 477 → EndX Shape 484"]
+      },
+      {
+        "from": "step-3-1",
+        "to": "step-3-2",
+        "sourceRefs": ["P: Seite SB01, Verbinder 578, BeginX Shape 414 → EndX Shape 421"]
+      },
+      {
+        "from": "step-3-1",
+        "to": "step-3-3",
+        "sourceRefs": ["P: Seite SB01, Verbinder 579, BeginX Shape 414 → EndX Shape 427"]
+      },
+      {
+        "from": "step-3-3",
+        "to": "step-3-4",
+        "sourceRefs": ["P: Seite SB01, Verbinder 580, BeginX Shape 427 → EndX Shape 684"]
+      },
+      {
+        "from": "step-3-5",
+        "to": "step-3-6",
+        "sourceRefs": ["P: Seite SB01, Verbinder 582, BeginX Shape 433 → EndX Shape 441"]
+      },
+      {
+        "from": "step-3-6",
+        "to": "step-3-7",
+        "sourceRefs": ["P: Seite SB01, Verbinder 583, BeginX Shape 441 → EndX Shape 449"]
+      },
+      {
+        "from": "step-3-7",
+        "to": "step-3-9",
+        "sourceRefs": ["P: Seite SB01, Verbinder 584, BeginX Shape 449 → EndX Shape 500"]
+      },
+      {
+        "from": "step-3-12",
+        "to": "step-3-13",
+        "sourceRefs": ["P: Seite SB01, Verbinder 585, BeginX Shape 469 → EndX Shape 682"]
+      },
+      {
+        "from": "step-4-12",
+        "to": "step-4-13",
+        "sourceRefs": ["P: Seite SB01, Verbinder 590, BeginX Shape 730 → EndX Shape 517"]
+      },
+      {
+        "from": "step-4-13",
+        "to": "step-5-1",
+        "sourceRefs": ["P: Seite SB01, Verbinder 595, BeginX Shape 517 → EndX Shape 551"]
+      },
+      {
+        "from": "step-2-2",
+        "to": "step-2-5",
+        "sourceRefs": ["P: Seite SB01, Verbinder 599, BeginX Shape 338 → EndX Shape 354"]
+      },
+      {
+        "from": "step-2-2",
+        "to": "step-2-6",
+        "sourceRefs": ["P: Seite SB01, Verbinder 600, BeginX Shape 338 → EndX Shape 359"]
+      },
+      {
+        "from": "step-2-2",
+        "to": "step-3-1",
+        "sourceRefs": ["P: Seite SB01, Verbinder 601, BeginX Shape 338 → EndX Shape 414"]
+      },
+      {
+        "from": "step-2-6",
+        "to": "step-2-8",
+        "sourceRefs": ["P: Seite SB01, Verbinder 603, BeginX Shape 359 → EndX Shape 364"]
+      },
+      {
+        "from": "step-3-3",
+        "to": "step-3-10",
+        "sourceRefs": ["P: Seite SB01, Verbinder 686, BeginX Shape 427 → EndX Shape 457"]
+      },
+      {
+        "from": "step-3-3",
+        "to": "step-3-16",
+        "sourceRefs": ["P: Seite SB01, Verbinder 687, BeginX Shape 427 → EndX Shape 477"]
+      },
+      {
+        "from": "step-3-4",
+        "to": "step-3-5",
+        "sourceRefs": ["P: Seite SB01, Verbinder 688, BeginX Shape 684 → EndX Shape 433"]
+      },
+      {
+        "from": "step-3-13",
+        "to": "step-3-14",
+        "sourceRefs": ["P: Seite SB01, Verbinder 695, BeginX Shape 682 → EndX Shape 691"]
+      }
     ]
   }
 ]
