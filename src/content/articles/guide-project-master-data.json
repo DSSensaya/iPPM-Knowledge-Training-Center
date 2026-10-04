@@ -1,0 +1,67 @@
+{
+  "id": "guide-project-master-data",
+  "title": "Projektstammdaten und Terminrahmen prüfen",
+  "summary": "Overview vervollständigen und PMO-Strukturfelder abgleichen. Die wechselseitige Start-Date-Synchronisation vom unabhängigen vertraglichen EDC unterscheiden.",
+  "roleIds": ["pm"],
+  "systemIds": ["pdp", "pwa"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Stammdaten und Start Date / EDC sind abgegrenzt. Zusätzliche EDC-Feldbereitstellung und Zielkonfiguration bleiben offen."
+    },
+    {
+      "title": "Start Date, Vertragstermine und EDC getrennt prüfen",
+      "body": "Bestätigt am 23.09.2026: Start Date auf Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. EDC bezeichnet ausschließlich den unabhängigen vertraglichen Starttermin; er steuert diese Synchronisation nicht. Nach Start-Date-Änderungen den resultierenden Plan kontrollieren. Das zusätzliche EDC-Feld auf Contract ist laut TTT-D-06 vorgesehen, aber noch nicht als bereitgestellt bestätigt."
+    },
+    {
+      "title": "Gespeicherten Stand kontrollieren",
+      "body": "B §3.6.1 enthält keine vollständige Speicher-/Publish-/Check-in-Sequenz für Overview. Redaktionelle Ergebnisprüfung: Vor einer Übung den tatsächlichen PDP-Speicherweg klären und die Angaben nach dem Speichern erneut öffnen. Übertragen Sie den Client-Weg aus der Querschnittsanleitung nicht pauschal auf Overview. Der Planstand ist ein eigener Prüfgegenstand."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Pflegen Sie Stammdaten auf Overview. Start Date und Projektplan sind wechselseitig synchronisiert. EDC ist unabhängig und nur der vertragliche Starttermin. Strukturabweichungen dem PMO melden; die Bereitstellung des zusätzlichen EDC-Felds auf Contract bleibt technisch zu bestätigen."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ausschließlich fiktive Daten und vorab geprüfte Übungskonten verwenden. Dieser Vorschlag ist kein durchgeführter Schulungsnachweis.",
+        "EPT, PDPs, Listen, Lookup-Werte, Bearbeitungsrechte und Speicher-/Abschlussweg in der konkreten Schulungsumgebung vorab prüfen. Abweichungen samt Quellen- und Inhaltsrevision protokollieren."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktives Prüfszenario: Der operative Projektbeginn soll der 01.10.2026 sein, EDC bleibt der 15.09.2026. Start Date in einem vorbereiteten Übungsprojekt ändern und den synchronisierten Projektplan prüfen; anschließend die Gegenrichtung prüfen. EDC bleibt unverändert.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Start Date ist in Overview und Plan konsistent. Der vertragliche EDC bleibt unabhängig. Die zusätzliche EDC-Feldbereitstellung ist ein eigener technischer Restpunkt.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag. Fachliche Freigabe, Nutzer-/Trainererprobung und Zielumgebungsnachweis fehlen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"],
+  "sourceRefs": [
+    "B: §3.6.1 Projektstammdaten anlegen",
+    "TTT: Zeilen 7–9, 14 und 21, A:G",
+    "C23: Punkte 1–4"
+  ],
+  "relatedArticleIds": [
+    "guide-project-handover",
+    "guide-project-objectives",
+    "guide-project-organization",
+    "guide-deliverables-milestones",
+    "guide-subproject-definition",
+    "guide-save-publish-checkin"
+  ],
+  "procedureIds": ["procedure-project-master-data"],
+  "releaseIds": ["release-1"]
+}

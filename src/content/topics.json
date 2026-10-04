@@ -1,0 +1,1169 @@
+[
+  {
+    "id": "R1-01",
+    "title": "Projektanlage und -definition mit Enterprise Custom Fields und Lookup Tables",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["Enterprise Custom Fields und LookUp Tables"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A2:L2"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Projektanlage und -definition mit Enterprise Custom Fields und Lookup Tables"
+      }
+    ]
+  },
+  {
+    "id": "R1-02",
+    "title": "Formularbasierte Projektanfrage über Service UHD",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["Service UHD - Projektanlage"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A3:L3"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Formularbasierte Projektanfrage über Service UHD"
+      }
+    ]
+  },
+  {
+    "id": "R1-03",
+    "title": "Projektinformationen, Scope und eingebettete Project-Site-Listen",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [
+      "Project Detail Pages / Project Sites: Overview, Scope, Objectives, Organization sowie System-/ILS- Teilprojektinformationen"
+    ],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A4:L4"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Projektinformationen, Scope und eingebettete Project-Site-Listen"
+      }
+    ]
+  },
+  {
+    "id": "R1-04",
+    "title": "Project Center – belegter Teilaspekt der Projektübersicht",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["Project Center - Portfoliosichten (Programme und Projekte)"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A5:L5"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Project Center – belegter Teilaspekt der Projektübersicht"
+      }
+    ]
+  },
+  {
+    "id": "R1-05",
+    "title": "Project Center mit Statussicht",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["Project Center - Portfolios inkl. Statusicht (Projektfortschritt)"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A6:L6"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Project Center mit Statussicht"
+      }
+    ]
+  },
+  {
+    "id": "R1-06",
+    "title": "Einzelberechtigungen (Project Permissions)",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A7:L7"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Einzelberechtigungen (Project Permissions)"
+      }
+    ]
+  },
+  {
+    "id": "R1-07",
+    "title": "Projektkernteam mit Projekt- und Prozessrolle in PDP hinterlegt",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A8:L8"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Projektkernteam mit Projekt- und Prozessrolle in PDP hinterlegt"
+      }
+    ]
+  },
+  {
+    "id": "R1-08",
+    "title": "Liefer-, Zahlungs- und weitere Meilensteine sowie Reviews",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [
+      "Liefermeilensteine, Zahlungsmeilensteine sowie Externe Projektmeilensteine und LCM-Reviews planen im MS Project Client"
+    ],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A9:L9"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Liefer-, Zahlungs- und weitere Meilensteine sowie Reviews"
+      }
+    ]
+  },
+  {
+    "id": "R1-09",
+    "title": "Zeitachse auf PWA (Schedule) und MS Project Client",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A10:L10"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-10",
+    "title": "Ansicht 10 Phasen- und Meilensteinplan im MS Project Client",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A11:L11"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Ansicht 10 Phasen- und Meilensteinplan im MS Project Client"
+      }
+    ]
+  },
+  {
+    "id": "R1-11",
+    "title": "Ansicht 11 Review Status im MS Project Client",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A12:L12"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-12",
+    "title": "Generischer Projektplan für Kundenprojekt, Generischer Projektplan für System-Teilprojekt, Generischer Projektplan für ILS-Teilprojekt",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A13:L13"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-13",
+    "title": "Teilprojektstruktur als Level 2 Projekte bzw. bei Bedarf Level 3 Projekte als Segment-Teilprojekte unter dem System-Projekt",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A14:L14"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-14",
+    "title": "Ansicht 20 Projektstrukturplan (PSP)",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A15:L15"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-15",
+    "title": "Tailoring über Deaktivieren und Dokumentieren",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["Tailoring über Deaktivieren und dokumentieren"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A16:L16"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Tailoring über Deaktivieren und Dokumentieren"
+      }
+    ]
+  },
+  {
+    "id": "R1-16",
+    "title": "Multi Level Scheduling und Verknüpfung über TPG Project Link Roll Ups/Roll Downs",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A17:L17"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-17",
+    "title": "Ansicht 30 Ablauf- und Terminplan",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A18:L18"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-18",
+    "title": "WBS Generator",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A19:L19"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": [],
+    "openPointIds": [
+      "open-wbs-correction-regression",
+      "open-wbs-complete-structure",
+      "open-wbs-center-path"
+    ]
+  },
+  {
+    "id": "R1-19",
+    "title": "Pop-Up Selection Window: Beim Öffnen des Zielprojekts (L0/L1/L2) kommt eine Meldung mit allen Terminänderungen, welche akzeptiert werden können.",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A20:L20"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-20",
+    "title": "Standard-Arbeitspaketbeschreibungen in generischen Projektplänen",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A21:L21"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-21",
+    "title": "Änderungen Leistungen und Termine in Project Plan",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A22:L22"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-22",
+    "title": "Enterprise Project Types für Contract Execution, System Delivery und ILS Delivery",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A23:L23"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "R1-23",
+    "title": "Rollenprofile und Berechtigungskonzept",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["Rollenprofile + Berechtigungskonzept"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A24:L24"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Rollenprofile und Berechtigungskonzept"
+      }
+    ]
+  },
+  {
+    "id": "R1-24",
+    "title": "Eskalationen über PDP Escalations",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["PDP Escalations"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A25:L25"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Eskalationen über PDP Escalations"
+      }
+    ]
+  },
+  {
+    "id": "R1-25",
+    "title": "Basisstatus über PDP Status",
+    "summary": "R1 · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": ["PDP Status"],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A26:L26"],
+    "relationships": [],
+    "openPoints": [],
+    "content": [
+      {
+        "title": "Quellenbezug R1",
+        "body": "Basisstatus über PDP Status"
+      }
+    ]
+  },
+  {
+    "id": "R1B-01",
+    "title": "Anbindung Extension Datenbank",
+    "summary": "R1B · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A27:L27"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-02",
+    "title": "Projekt Reporting PDP - Anbindung Power BI",
+    "summary": "R1B · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A28:L28"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-03",
+    "title": "Power BI - Project Reporting",
+    "summary": "R1B · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A29:L29"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-04",
+    "title": "Power BI - Project Portfolio Reporting",
+    "summary": "R1B · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A30:L30"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-05",
+    "title": "Zentrale Ablage für Projekte + Einheitliche Ablagestruktur über die Project Site",
+    "summary": "R1B · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A31:L31"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-06",
+    "title": "AddIn MTA",
+    "summary": "R1B · Umfang laut Scope-Katalog; Umsetzung und Freigabe dadurch nicht belegt.",
+    "aliases": [],
+    "sourceRefs": ["S: 02_SCOPE_ID_MASTER!A32:L32"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-01",
+    "title": "ECF-/Lookup-gestützte Projektdefinition und Projektanlage",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A5:J5"],
+    "relationships": [
+      {
+        "targetId": "R1-01",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-handover",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-project-master-data",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-02",
+    "title": "Formularbasierte Projektanfrage über Service UHD",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A6:J6"],
+    "relationships": [
+      {
+        "targetId": "R1-02",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-handover",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-03a",
+    "title": "PDP-Grundpflege: Overview, Scope, Objectives, Contract und Organization",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A7:J7"],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-master-data",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-deliverables-milestones",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-project-objectives",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-project-organization",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-subproject-definition",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-03b",
+    "title": "Project Site und eingebettete Listen",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A8:J8"],
+    "relationships": [
+      {
+        "targetId": "R1-03",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-deliverables-milestones",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-04",
+    "title": "Project Center – Portfolio-/Projektübersichten",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A9:J9"],
+    "relationships": [
+      {
+        "targetId": "R1-04",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-r1-reporting",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-05",
+    "title": "Project Center – Statussicht/Projektfortschritt",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A10:J10"],
+    "relationships": [
+      {
+        "targetId": "R1-05",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-r1-reporting",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-06",
+    "title": "Einzelberechtigungen über Project Permissions",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A11:J11"],
+    "relationships": [
+      {
+        "targetId": "R1-06",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-permissions",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-07",
+    "title": "Projektkernteam mit Projekt- und Prozessrollen in der PDP",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A12:J12"],
+    "relationships": [
+      {
+        "targetId": "R1-07",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-organization",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-08",
+    "title": "Owner-Wechsel mit Erhalt benötigter Zugriffe",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A13:J13"],
+    "relationships": [
+      {
+        "targetId": "R1-06",
+        "relation": "related"
+      },
+      {
+        "targetId": "R1-07",
+        "relation": "related"
+      },
+      {
+        "targetId": "R1-23",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-permissions",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-09",
+    "title": "Liefer-, Zahlungs-, externe Meilensteine und LCM-/Technical-/ILS-Reviews",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A14:J14"],
+    "relationships": [
+      {
+        "targetId": "R1-08",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-deliverables-milestones",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-external-milestones",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-phases-tailoring",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-10",
+    "title": "Zeitachse in PWA und MS Project Client",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A15:J15"],
+    "relationships": [
+      {
+        "targetId": "R1-09",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-11",
+    "title": "Ansicht 10 – Phasen- und Meilensteinplan",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A16:J16"],
+    "relationships": [
+      {
+        "targetId": "R1-10",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-deliverables-milestones",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-phases-tailoring",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-12",
+    "title": "Ansicht 11 – Review Status",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A17:J17"],
+    "relationships": [
+      {
+        "targetId": "R1-11",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-13",
+    "title": "Generische Projektpläne für Kunden-, System- und ILS-Projekte",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A18:J18"],
+    "relationships": [
+      {
+        "targetId": "R1-12",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-handover",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-phases-tailoring",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-14",
+    "title": "Projekt-/Teilprojektstruktur auf L1, L2 und optional L3",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A19:J19"],
+    "relationships": [
+      {
+        "targetId": "R1-13",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-handover",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-15",
+    "title": "Ansicht 20 – Projektstrukturplan",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A20:J20"],
+    "relationships": [
+      {
+        "targetId": "R1-14",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-16",
+    "title": "Tailoring durch Begründen, Deaktivieren und Dokumentieren",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A21:J21"],
+    "relationships": [
+      {
+        "targetId": "R1-15",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-phases-tailoring",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-17",
+    "title": "Multi-Level-Scheduling mit ProjectLink: Roll-down, Roll-up und Soft Links",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A22:J22"],
+    "relationships": [
+      {
+        "targetId": "R1-16",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-18",
+    "title": "Ansicht 30 – Ablauf- und Terminplan",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A23:J23"],
+    "relationships": [
+      {
+        "targetId": "R1-17",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-deliverables-milestones",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-19",
+    "title": "WBS-Generator aus SSO/SBS",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A24:J24"],
+    "relationships": [
+      {
+        "targetId": "R1-18",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": [],
+    "openPointIds": [
+      "open-wbs-correction-regression",
+      "open-wbs-complete-structure",
+      "open-wbs-center-path"
+    ]
+  },
+  {
+    "id": "FS-20",
+    "title": "Pop-up-Auswahl und Übernahme von Terminänderungen",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A25:J25"],
+    "relationships": [
+      {
+        "targetId": "R1-19",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-21",
+    "title": "Standard-Arbeitspaketbeschreibungen in generischen Plänen",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A26:J26"],
+    "relationships": [
+      {
+        "targetId": "R1-20",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-22",
+    "title": "Änderungsmanagement für Leistungen und Termine im Projektplan",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A27:J27"],
+    "relationships": [
+      {
+        "targetId": "R1-21",
+        "relation": "related"
+      }
+    ],
+    "materials": [],
+    "openPoints": []
+  },
+  {
+    "id": "FS-23",
+    "title": "EPTs und Basiskonfiguration für Contract Execution, System Delivery und ILS Delivery",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A28:J28"],
+    "relationships": [
+      {
+        "targetId": "R1-22",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-project-handover",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-24",
+    "title": "Rollenprofile und Berechtigungskonzept",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A29:J29"],
+    "relationships": [
+      {
+        "targetId": "R1-23",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "faq-role-vs-access",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      },
+      {
+        "articleId": "guide-project-permissions",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-25",
+    "title": "Eskalationen über PDP Escalations",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A30:J30"],
+    "relationships": [
+      {
+        "targetId": "R1-24",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-escalation-capture",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-26",
+    "title": "Basis-Statusermittlung über PDP Status",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A31:J31"],
+    "relationships": [
+      {
+        "targetId": "R1-25",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "guide-status-orientation",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-27",
+    "title": "Speichern, Einchecken und Publish als Übergang zwischen Bearbeitung und Austausch",
+    "summary": "R1 · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A32:J32"],
+    "relationships": [],
+    "materials": [
+      {
+        "articleId": "guide-save-publish-checkin",
+        "kind": "reference",
+        "releaseIds": ["release-1"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "FS-28",
+    "title": "Projektabschluss",
+    "summary": "später / ungeklärt · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A33:J33"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": [],
+    "openPointIds": ["open-project-close-specification"]
+  },
+  {
+    "id": "FS-29",
+    "title": "Einstufung und formale Freigabe der Informationsverarbeitung",
+    "summary": "später / ungeklärt · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1 Funktionsmatrix!A34:J34"],
+    "relationships": [],
+    "materials": [],
+    "openPoints": [
+      "Eine formale Freigabequelle für die Informationsverarbeitung fehlt. Eine Trainererklärung ersetzt sie nicht."
+    ]
+  },
+  {
+    "id": "R1B-FS-01",
+    "title": "Anbindung der Extension-Datenbank",
+    "summary": "R1B · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1B Abgrenzung!A5:J5"],
+    "relationships": [
+      {
+        "targetId": "R1B-01",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-FS-02",
+    "title": "Power-BI-Anbindung auf der Reporting-PDP",
+    "summary": "R1B · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1B Abgrenzung!A6:J6"],
+    "relationships": [
+      {
+        "targetId": "R1B-02",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-FS-03",
+    "title": "Power BI – Project Reporting",
+    "summary": "R1B · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1B Abgrenzung!A7:J7"],
+    "relationships": [
+      {
+        "targetId": "R1B-03",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-FS-04",
+    "title": "Power BI – Project Portfolio Reporting",
+    "summary": "R1B · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1B Abgrenzung!A8:J8"],
+    "relationships": [
+      {
+        "targetId": "R1B-04",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-FS-05",
+    "title": "Zentrale, einheitlich strukturierte Projektdokumentation über Project Site",
+    "summary": "R1B · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1B Abgrenzung!A9:J9"],
+    "relationships": [
+      {
+        "targetId": "R1B-05",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  },
+  {
+    "id": "R1B-FS-06",
+    "title": "Meilenstein-Trend-Analyse (MTA Add-in)",
+    "summary": "R1B · Quellenbewertung vom 18.09.2026; spätere Klärungen in verknüpften Beiträgen beachten.",
+    "aliases": [],
+    "sourceRefs": ["F: R1B Abgrenzung!A10:J10"],
+    "relationships": [
+      {
+        "targetId": "R1B-06",
+        "relation": "related"
+      }
+    ],
+    "materials": [
+      {
+        "articleId": "ippm-release-2-scope",
+        "kind": "orientation",
+        "releaseIds": ["R1B"]
+      }
+    ],
+    "openPoints": []
+  }
+]

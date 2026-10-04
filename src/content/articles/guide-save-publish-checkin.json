@@ -1,0 +1,82 @@
+{
+  "id": "guide-save-publish-checkin",
+  "title": "Speichern, Veröffentlichen und Einchecken im passenden Kontext",
+  "summary": "Nur der jeweils bearbeitete Kontext zählt: Lieferliste oder PDP Contract, Projektplan im MS Project Client oder Owner-Wechsel – mit Prüffragen statt behaupteter Systemabnahme.",
+  "roleIds": ["pm", "tm", "ilsm"],
+  "systemIds": ["pwa", "pdp", "project-client", "project-site"],
+  "status": "usable",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Getrennte Speicherwege für Liste, PDP, Projektplan und Owner-Wechsel mit Ergebnisprüfung. Keine formale Informationsfreigabe."
+    },
+    {
+      "title": "Publish-Schnellzugriff am Schulungsanfang",
+      "body": "Richten Sie die Publish-Funktion zu Beginn gemeinsam mit jedem Teilnehmer im Schnellzugriff des MS Project Clients ein. Nutzen Sie sie zum Veröffentlichen des gespeicherten Plans und prüfen Sie danach den veröffentlichten Stand. TTT-D-27 ist erledigt; dies ersetzt Speichern und Einchecken nicht."
+    },
+    {
+      "title": "Makro-Hinweis beim Client-Start",
+      "body": "Beim Start des MS Project Clients müssen die bereitgestellten Makros derzeit aktiviert werden (TTT-D-22). Dies zu Beginn der Schulung ansprechen. Endanwender beschaffen keine eigenen Makros und verändern nicht eigenständig globale Client-Vorgaben. Bei fehlender Bereitstellung oder blockierter Aktivierung Unterstützung einholen."
+    },
+    {
+      "title": "Hard Links nicht nutzen",
+      "body": "Hard Links werden nicht geschult und sollen nicht genutzt werden (TTT-D-46). Der funktionierende WWS-/WBS-Generator ist keine Freigabe dieser Planungsvariante. Automatische Vorgangsverknüpfungen und ProjectLink-Übernahmeregeln bleiben gesonderte technische Restpunkte."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Lieferliste oder PDP Contract: jeweils nur den bearbeiteten Kontext speichern und fachlich prüfen. MS Project Client: geprüften Plan speichern, veröffentlichen, einchecken und veröffentlichten Stand prüfen. Owner-Wechsel: zuerst PM-Leserechte sichern, dann Änderung speichern und einchecken; anschließend Owner und Zugriff prüfen."
+    },
+    {
+      "title": "Optionale Übung: Ziel",
+      "body": "Die alternativen Listen- und PDP-Wege, den Projektplan und den Owner-Wechsel nach Kontext unterscheiden.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Nur einen vorher geprüften Schulungskontext und fiktive Projektdaten verwenden.",
+        "Wirksame Rechte, Client-Stand und veröffentlichten Planstand vor einer praktischen Übung gesondert prüfen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Redaktioneller Gesprächsvorschlag: Für die bearbeitete Lieferliste oder PDP Contract, den Projektplan und den Owner-Wechsel jeweils die passenden Prüffragen auswählen. Ein praktischer Durchlauf ist nicht dokumentiert.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Die alternativen Kontextwege und ihre offenen Prüfungen werden getrennt erläutert.",
+      "steps": ["Quellenbasierter Entwurf ohne fachliche Freigabe oder durchgeführte Schulung."],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-f-r1-open-08",
+    "issue-payment-terms-context",
+    "issue-milestone-client",
+    "issue-f-r1-open-01",
+    "issue-f-r1-open-02",
+    "issue-f-r1-open-07",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "TTT: Abgestimmte Restpunkte vom 23.09.2026",
+    "C23: Bestätigte Klärungen vom 23.09.2026",
+    "B: §3.6.2 Projektumfang festlegen; §3.6.3 Vertragsdaten einpflegen",
+    "B: §4.5.6 Speichern, veröffentlichen und einchecken",
+    "B: §3.6.7 Teilprojektleiter einsetzen"
+  ],
+  "relatedArticleIds": ["guide-project-permissions", "guide-deliverables-milestones"],
+  "procedureIds": [
+    "procedure-save-deliverables-list",
+    "procedure-save-payment-terms-pdp",
+    "procedure-save-project-plan",
+    "procedure-save-owner-change"
+  ],
+  "releaseIds": ["release-1"]
+}

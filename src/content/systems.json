@@ -1,0 +1,219 @@
+[
+  {
+    "id": "pwa",
+    "title": "PWA",
+    "destinations": [
+      {
+        "id": "tool-pwa",
+        "title": "PWA",
+        "aliases": []
+      },
+      {
+        "id": "tool-project-center",
+        "title": "PWA > Project Center",
+        "aliases": ["Project Center"]
+      },
+      {
+        "id": "tool-project-permissions",
+        "title": "PWA > Project Center > Project Permissions",
+        "aliases": ["Project Permissions", "PWA / Project Center / Project Permissions"]
+      },
+      {
+        "id": "tool-build-team",
+        "title": "PWA > Project Center > Build Team",
+        "aliases": ["Build Team", "Build a Team"]
+      },
+      {
+        "id": "tool-pmo-status",
+        "title": "PWA > Project Center > PMO Status",
+        "aliases": ["PWA / Project Center / PMO Status"]
+      },
+      {
+        "id": "tool-project-programmes",
+        "title": "PWA > Project Center > View: Programme und Projekte",
+        "aliases": ["PWA > Project Center > Programme und Projekte"]
+      },
+      {
+        "id": "tool-project-subprojects",
+        "title": "PWA > Project Center > View: Projekte und Teilprojekte",
+        "aliases": ["PWA > Project Center > Projekte und Teilprojekte"]
+      },
+      {
+        "id": "tool-project-reporting",
+        "title": "PWA > Project Center > View: Projektfortschritt- und -status",
+        "aliases": [
+          "PWA / Project Center – Projektfortschritt- und -status",
+          "PWA > Project Center > Projektfortschritt- und -status"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pdp",
+    "title": "Project Detail Pages (PDP)",
+    "destinations": [
+      {
+        "id": "tool-pdp-overview",
+        "title": "PDP > Overview",
+        "aliases": ["PDP Overview", "PWA / Project Center / PDP Overview"]
+      },
+      {
+        "id": "tool-pdp-scope",
+        "title": "PDP > Scope",
+        "aliases": ["PDP Scope", "PWA / PDP Scope"]
+      },
+      {
+        "id": "tool-pdp-deliverables",
+        "title": "PDP > Scope > List of Deliverables",
+        "aliases": ["List of Deliverables", "PDP Scope / List of Deliverables"]
+      },
+      {
+        "id": "tool-pdp-contract",
+        "title": "PDP > Contract",
+        "aliases": ["PDP Contract", "PWA / PDP Contract"]
+      },
+      {
+        "id": "tool-pdp-payment",
+        "title": "PDP > Contract > Terms of Payment",
+        "aliases": ["PDP Contract / Terms of Payment"]
+      },
+      {
+        "id": "tool-pdp-objectives",
+        "title": "PDP > Objectives",
+        "aliases": ["PDP Objectives"]
+      },
+      {
+        "id": "tool-pdp-objectives-list",
+        "title": "PDP > Objectives > Objectives-Liste",
+        "aliases": ["PDP Objectives / Objectives-Liste", "PDP > Objectives / Objectives-Liste"]
+      },
+      {
+        "id": "tool-pdp-organisation",
+        "title": "PDP > Organisation",
+        "aliases": ["PDP Organisation"]
+      },
+      {
+        "id": "tool-pdp-subprojects",
+        "title": "PDP > Organisation > Subprojects",
+        "aliases": ["Organisation / Subprojects", "PDP Organisation / Subprojects"]
+      },
+      {
+        "id": "tool-pdp-status",
+        "title": "PDP > Status",
+        "aliases": ["PWA · PDP Status", "PDP Status"]
+      },
+      {
+        "id": "tool-pdp-escalations",
+        "title": "PDP > Escalations",
+        "aliases": ["PDP Escalations"]
+      },
+      {
+        "id": "tool-pdp-escalations-list",
+        "title": "PDP > Escalations > Liste Escalations",
+        "aliases": [
+          "PWA · PDP Escalations / Liste Escalations",
+          "PDP > Escalations / Liste Escalations"
+        ]
+      },
+      {
+        "id": "tool-pdp-system-overview",
+        "title": "PDP > System Overview",
+        "aliases": ["System Overview", "PDP System Overview"]
+      },
+      {
+        "id": "tool-pdp-system-scope",
+        "title": "PDP > System Scope",
+        "aliases": ["PDP System Scope"]
+      },
+      {
+        "id": "tool-pdp-system-organisation",
+        "title": "PDP > System Organisation",
+        "aliases": ["PDP System Organ.", "PDP System Organisation"]
+      },
+      {
+        "id": "tool-pdp-ils-overview",
+        "title": "PDP > ILS Overview",
+        "aliases": ["ILS Overview", "PDP ILS Overview"]
+      },
+      {
+        "id": "tool-pdp-ils-scope",
+        "title": "PDP > ILS Scope",
+        "aliases": ["PDP ILS Scope"]
+      },
+      {
+        "id": "tool-pdp-ils-organisation",
+        "title": "PDP > ILS Organisation",
+        "aliases": ["PDP ILS Organisation"]
+      }
+    ]
+  },
+  {
+    "id": "project-client",
+    "title": "MS Project Client",
+    "destinations": [
+      {
+        "id": "tool-project-client",
+        "title": "MS Project Client",
+        "aliases": []
+      },
+      {
+        "id": "tool-client-view-10",
+        "title": "MS Project Client > Ansicht 10 Phasen- und Meilensteinplan",
+        "aliases": [
+          "Ansicht 10",
+          "Ansicht 10 Phasen- und Meilensteinplan",
+          "MS Project Client / Ansicht 10",
+          "MS Project Client / Ansicht 10 Phasen- und Meilensteinplan",
+          "MS Project Client · 10 Phasen- und Meilensteinplan"
+        ]
+      },
+      {
+        "id": "tool-client-view-11",
+        "title": "MS Project Client > Ansicht 11 Review Status",
+        "aliases": ["Ansicht 11", "Ansicht 11 Review Status"]
+      },
+      {
+        "id": "tool-client-view-20",
+        "title": "MS Project Client > Ansicht 20 Projektstrukturplan",
+        "aliases": ["Ansicht 20", "Ansicht 20 Projektstrukturplan"]
+      },
+      {
+        "id": "tool-client-view-30",
+        "title": "MS Project Client > Ansicht 30 Ablauf- und Terminplan",
+        "aliases": ["Ansicht 30", "Ansicht 30 Ablauf- und Terminplan"]
+      },
+      {
+        "id": "tool-client-view-40",
+        "title": "MS Project Client > Ansicht 40 Projektfortschritt",
+        "aliases": ["Ansicht 40", "Ansicht 40 Projektfortschritt"]
+      },
+      {
+        "id": "tool-client-published-plan",
+        "title": "MS Project Client > veröffentlichter Projektplan",
+        "aliases": ["MS Project Client / veröffentlichter Projektplan"]
+      }
+    ]
+  },
+  {
+    "id": "project-site",
+    "title": "Project Site",
+    "destinations": [
+      {
+        "id": "tool-project-site",
+        "title": "Project Site",
+        "aliases": []
+      }
+    ]
+  },
+  {
+    "id": "service-portal",
+    "title": "Self Service Portal",
+    "destinations": [
+      {
+        "id": "tool-topdesk",
+        "title": "Self Service Portal",
+        "aliases": ["TopDesk", "TopDesk (Service UHD)", "TopDesk / Service UHD"]
+      }
+    ]
+  }
+]

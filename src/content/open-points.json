@@ -1,0 +1,184 @@
+[
+  {
+    "id": "issue-external-milestones-boundary",
+    "text": "3.3: Geltungsbereich und offene Prüfung: FS-09 und FS-11 sind nur teilweise verifiziert. Ausgangsplan, Client, verfügbare Ext-Subtypen und tatsächliche Terminrestriktionen vor Nutzung prüfen. Der Entwurfsvermerk „AUCH FAT“ liefert keine vollständige FAT-Regel.",
+    "sourceRefs": ["B: §4.5.4 Tabelle 18; §4.5.6", "F: R1 Funktionsmatrix!A14:J16"]
+  },
+  {
+    "id": "issue-phases-tailoring-boundary",
+    "text": "3.4: Geltungsbereich und offene Prüfung: R1-OPEN-06 ist geklärt: LCM-3 einmal pro Kalenderjahr. Noch offen bleiben weitere LCM-Terminansätze einschließlich LCM5, der konkrete Ausgangsplan, Verknüpfungen und Verschiebewirkungen. ProjectLink-Übernahme und Restriktionen sind in Bearbeitung (TTT-D-38). Der funktionierende WWS-/WBS-Generator erledigt diese Restpunkte nicht. Hard Links nicht nutzen und nicht schulen.",
+    "sourceRefs": [
+      "C23: Punkte 8–9 und 11",
+      "TTT: Zeilen 27, 31–32, 39 und 47, A:G",
+      "B: §4.5.5 Projektphasen und LCM-Review-Termine planen",
+      "T: Regeln & Entscheidungen!A7:D7",
+      "F: R1 Funktionsmatrix!A21:J21",
+      "F: Klärungsbedarf!A10:D10",
+      "K: Enterprise Custom Fields: Tailored; Lookup Table ATLAS Tailoring Status"
+    ]
+  },
+  {
+    "id": "issue-escalation-capture-boundary",
+    "text": "4.9: Geltungsbereich und offene Prüfung: T nennt 4.9 freigabefähig und begrenzt SB1 auf Erfassung. F FS-25 bewertet den Gesamtweg als noch nicht verbindlich dokumentierbar und nicht schulungsfähig: Empfängerzugriff und Resolution-Historie bleiben technisch offen (R1-OPEN-09 / TTT-D-36/-37). Der vollständige PPR-Prozess ist laut TTT-D-35 ein zukünftiges prozessuales Thema eher nach R1B. Keine automatische Benachrichtigung, Empfängersichtbarkeit oder Anzeige in der Projektliste garantiert. T verweist auf §5.5.4, im vorliegenden B steht Eskalation unter §5.5.3.",
+    "sourceRefs": [
+      "TTT: Zeilen 36–38, A:G",
+      "B: §5.5.3 Eskalation an Multi-Projektmanagement durchführen",
+      "T: Release1-Matrix!A49:Q49; PDP-Abdeckung!A16:H16",
+      "F: R1 Funktionsmatrix!A30:J30",
+      "F: Klärungsbedarf!A13:D13"
+    ]
+  },
+  {
+    "id": "issue-status-orientation-boundary",
+    "text": "4.12: Geltungsbereich und offene Prüfung: Nur der PM-Pflegeweg im R1-/SB1-Kontext ist beschrieben; PMO Status wird durch das PMO gepflegt. FIN-/SAP-Feldkorrektur ist bestätigt (TTT-D-39), ebenso die Projektstatusübersicht; das belegt keine Bearbeitungsrechte in der Zielumgebung. Bestands-Sites können abweichen, Änderungen werden nicht automatisch nachgezogen (TTT-D-40). Pflegezyklus und praktische Schulungserprobung bleiben offen (TTT-D-42). T verlangte vor Schulung die inzwischen bestätigte Feldkorrektur und verweist auf §5.5.3; im vorliegenden B steht Statuspflege unter §5.5.4. F bewertet den Gesamtstand weiter nur teilweise verifiziert.",
+    "sourceRefs": [
+      "C23: Punkte 5 und 7",
+      "TTT: Zeilen 40–43, A:G",
+      "B: §5.5.4 Projektstatus ermitteln",
+      "T: Release1-Matrix!A52:Q52; PDP-Abdeckung!A17:H17; Offene Punkte!A4:F4 und A10:F10",
+      "F: R1 Funktionsmatrix!A31:J31",
+      "F: Klärungsbedarf!A14:D15",
+      "K: PDP-Feldkatalog: Status, Recent Achievements; Q4 Contract Execution Z. 117"
+    ]
+  },
+  {
+    "id": "issue-r1-reporting-boundary",
+    "text": "4.13: Geltungsbereich und offene Prüfung: ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt. Keine offene Filterkorrektur mehr. Der Abgleich setzt gepflegte Eingangsdaten und geprüften Zugriff im konkreten Konto-/Projektkontext voraus; Bestands-Sites können abweichen. Keine universelle L1-Sichtbarkeit, Aktualisierungsregel oder automatische Ampel-/Trendberechnung ableiten. Reporting-PDP/Power BI bleiben außerhalb des R1-Schulungsumfangs (R1B-FS-02 bis -04). Pflegezyklus und vollständiger PPR-Prozess bleiben gesonderte Themen nach R1B. Praktische Center-Erprobung und fachliche Freigabe fehlen.",
+    "sourceRefs": [
+      "B: §5.5.4 Projektstatus ermitteln; §5.5.5 Projektreporting durchführen",
+      "C23: Punkte 5-7",
+      "TTT: Zeilen 40-43, A:G",
+      "T: Release1-Matrix!A52:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10",
+      "F: R1 Funktionsmatrix!A9:J10; A31:J31",
+      "S: 02_SCOPE_ID_MASTER!A5:L6",
+      "F: R1B Abgrenzung!A6:J8",
+      "S: 02_SCOPE_ID_MASTER!A28:L30"
+    ]
+  },
+  {
+    "id": "issue-project-request-scope",
+    "text": "Beantragung: Schulungszuordnung widerspricht fehlendem Gesamtnachweis: T ordnet 1.1 SB1 zu und nennt „Freigabefähig mit Hinweis“. F (FS-02) sieht den Antrag nicht im aktuellen Schulungsumfang, den vollständigen Ticketweg als nicht nachgewiesen und fordert: noch nicht verbindlich dokumentieren. B §3.1.1 beschreibt TopDesk einschließlich automatischer Owner- und Ticketzuordnung. Diese Beschreibung ist kein technischer Nachweis. Hier nur Vorbereitung und Orientierung; Erstzugang, Formular und tatsächliche Zuordnungen vor Verwendung klären.",
+    "sourceRefs": [
+      "T: Release1-Matrix!A3:Q3",
+      "F: R1 Funktionsmatrix!A6:J6",
+      "B: §3.1.1 Projekt beantragen"
+    ]
+  },
+  {
+    "id": "issue-project-provision-proof",
+    "text": "Vollständiger PMO-Bereitstellungsdurchlauf fehlt: B beschreibt Anlage, Site-/Planinitialisierung und Übergabe, einschließlich automatischer Veröffentlichung beim Speichern. F bewertet FS-01 nur teilweise verifiziert; T nennt keinen vollständigen Teilnehmerdurchlauf. EPT, ID-Erzeugung, manuelle Project-ID – PMO-Referenz, Site-/Planvorlagen, Verknüpfungen, Publish und Check-in müssen zusammen geprüft werden. Keine ausführbare PMO-Anleitung und keine garantierte Automatik.",
+    "sourceRefs": [
+      "B: §3.1.2–3.1.4",
+      "F: R1 Funktionsmatrix!A5:J5",
+      "T: PDP-Abdeckung!A4:H4; Offene Punkte!A9:F9"
+    ]
+  },
+  {
+    "id": "issue-definition-roles",
+    "text": "Rollenlisten und Organisationsbezeichnungen abgleichen: Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen.",
+    "sourceRefs": [
+      "TTT: Zeilen 14 und 41, A:G",
+      "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+      "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+      "F: Klärungsbedarf!A11:D11"
+    ]
+  },
+  {
+    "id": "issue-definition-configuration",
+    "text": "Feld- und Site-Konfiguration im Zielstand prüfen: Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen.",
+    "sourceRefs": [
+      "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+      "C23: Punkte 1, 4 und 5",
+      "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+      "F: Klärungsbedarf!A6:D6 und A14:D14",
+      "B: §3.6.4 Tabelle 12",
+      "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+    ]
+  },
+  {
+    "id": "issue-f-r1-open-07",
+    "text": "Gesamte Rollen- und Rechtematrix bleibt offen: Der geübte Owner-/Permissions-Weg belegt keine vollständige Rechtefreigabe. Die Rollenliste kann manuell ergänzt werden; Build-Team-Rechtewirkung und RBS bleiben im vorgesehenen Kontext zu prüfen.",
+    "sourceRefs": ["F: Klärungsbedarf!A11:D11", "TTT: Zeilen 6, 14–17, A:G"]
+  },
+  {
+    "id": "issue-build-sync",
+    "text": "Build-Team-Synchronisation ist widersprüchlich beschrieben: B behauptet aktivierte Synchronisation: PDP-Leserechte und Site-Lese-/Schreibrechte. K dokumentiert deaktiviertes „Sync User Permissions“. Ob dieselbe Option gemeint ist und welcher System-/Site-Stand gilt, ist ungeklärt. Automatische Rechtewirkung nicht als garantiertes Übungsergebnis behandeln.",
+    "sourceRefs": [
+      "B: §3.6.6 Zugriffsrechte festlegen; §3.8.4 / §3.9.4",
+      "K: security – Berechtigungen und Rollen; Q3 06.1_Security_Model, Z. 7–10",
+      "TTT: Zeile 16, A:G"
+    ]
+  },
+  {
+    "id": "issue-f-r1-open-01",
+    "text": "Konten und Erstzugang prüfen: Personenauswahl und Sichtbarkeit mit regulären Konten sind nicht ausreichend nachgewiesen. Vor einer Übung die vorgesehenen Konten prüfen.",
+    "sourceRefs": ["F: Klärungsbedarf!A5:D5", "TTT: Zeile 4, A:G"]
+  },
+  {
+    "id": "issue-f-r1-open-02",
+    "text": "Project-Site-Zugriff bei Bestandsprojekten prüfen: Eine bestätigte Template-Korrektur für neue Projekte ist kein Nachweis für Bestandsprojekte oder die Zielumgebung.",
+    "sourceRefs": ["F: Klärungsbedarf!A6:D6", "TTT: Zeilen 10–11 und 41, A:G"]
+  },
+  {
+    "id": "issue-f-r1-open-12",
+    "text": "Schulungsumgebung und Client-Voraussetzungen prüfen: Client-Anbindung ist behoben (TTT-D-01); dies ist keine Abnahme aller Schulungsvoraussetzungen. Lasttest und Speicher-/Antwortzeiten sind in Bearbeitung (TTT-D-02/-19); Übungskonten, Referenzplan und praktische Pilotierung bleiben vorzubereiten.",
+    "sourceRefs": ["F: Klärungsbedarf!A16:D16", "TTT: Zeilen 2–3, 20, 25 und 45, A:G"]
+  },
+  {
+    "id": "issue-f-r1-open-08",
+    "text": "Große Lieferlisten praktikabel darstellen: Führende Gesamtprojektliste im Contract Execution Project und spezifische Listen der Teilprojekte sind geklärt; die Liefermeilensteinverknüpfung ist umgesetzt (TTT-D-07/-08). Offen bleibt allein die praktikable Darstellung großer Lieferlisten. Keine darüber hinausgehende Synchronisierung aller Felder ableiten.",
+    "sourceRefs": [
+      "C23: Punkt 2",
+      "TTT: Zeilen 8–9, A:G",
+      "F: Klärungsbedarf!A12:D12",
+      "F: R1 Funktionsmatrix!A7:J8 und A14:J14",
+      "T: Release1-Matrix!A6:Q6",
+      "B: §3.6.2 Projektumfang festlegen; §4.5.2 Schritt-für-Schritt: Liefermeilensteine planen"
+    ]
+  },
+  {
+    "id": "issue-payment-terms-context",
+    "text": "Vertragsdaten im vorgesehenen Kontext prüfen: Der Handbuchentwurf beschreibt die Eingabe der Zahlungsbedingungen. Die Schulungsmatrix verlangt eine klare Abgrenzung einzelner Termin- und Vertragsfelder; das Center überprüft weder Vertragsinhalte noch wirksame Eingaberechte.",
+    "sourceRefs": [
+      "B: §3.6.3 Schritt-für-Schritt: Vertragsdaten einpflegen",
+      "T: Release1-Matrix!A9:Q9"
+    ]
+  },
+  {
+    "id": "issue-milestone-client",
+    "text": "Ausgangsplan und Client vor der Übung prüfen: Ansicht und Planvorlage waren laut Funktionsmatrix nur teilweise verifiziert. Der aktuelle Schulungs- oder Produktivstand des Clients ist hier nicht nachgewiesen. Einen geeigneten Schulungsplan und die Berechtigungen vor der Übung prüfen.",
+    "sourceRefs": ["F: R1 Funktionsmatrix!A14:J16", "C23: Punkt 2"]
+  },
+  {
+    "id": "open-start-date-sync",
+    "text": "Exakte Release-/Umgebungsreichweite und ausdrückliche Abdeckung der System-/ILS-Teilprojektvarianten."
+  },
+  {
+    "id": "open-edc-contract-start",
+    "text": "Exakte Release-/Umgebungsreichweite; keine vollständige Rollen- oder Projekttypmatrix belegt."
+  },
+  {
+    "id": "open-edc-field-provision",
+    "text": "Bereitstellung und tatsächlicher Zielstand des zusätzlichen Felds."
+  },
+  {
+    "id": "open-project-purpose-removal",
+    "text": "Release/Build und Zielumgebung unbekannt; Durchführung und Freigabe nicht datiert. Vollständiger PDP-/Teilprojekttypumfang einschließlich Bestandsprojekten. Prüfprotokoll mit Daten-/Formularvergleich, Datum und Prüfer."
+  },
+  {
+    "id": "open-wbs-correction-regression",
+    "text": "Release/Build und Zielumgebung unbekannt; Durchführung und Freigabe nicht datiert. Fehler-/Ticketbezug, Reproduktionsschritte und Zuordnung zum EXU.SRR-Befund. Korrekturversion und Regressionstestprotokoll mit Umfang, Ergebnissen, Datum und Prüfer."
+  },
+  {
+    "id": "open-wbs-complete-structure",
+    "text": "Release/Build und Zielumgebung unbekannt; Durchführung und Freigabe nicht datiert. Strukturartefakt und Sollvergleich einschließlich Segmentstruktur. Freigabedokument mit Gegenstand, Version, Datum und zuständiger freigebender Person."
+  },
+  {
+    "id": "open-wbs-center-path",
+    "text": "Die Generator-Korrektur ist durch C23 Punkt 9 bestätigt. Ein vollständiger Center-Bedienweg ist damit nicht belegt; die Meldung N28 ersetzt die fehlenden Unterlagen nicht."
+  },
+  {
+    "id": "open-project-close-specification",
+    "text": "Projektabschluss ist genannt, aber noch zu spezifizieren. Ablauf, Ergebnisprüfung und Release-Zuordnung fehlen."
+  }
+]

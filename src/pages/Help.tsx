@@ -1,6 +1,5 @@
-import EditorialObject from '../components/EditorialObject';
 import { ArrowRight } from 'lucide-react';
-import { faqs, visibleArticles } from '../data/content';
+import { content } from '../content';
 import { PageTitle } from '../components/ui';
 export default function Help() {
   return (
@@ -13,22 +12,21 @@ export default function Help() {
       <div className="help-layout">
         <section>
           <h2>Häufige Fragen</h2>
-          {visibleArticles
+          {content.articles
             .filter((a) => a.kind === 'FAQ')
             .map((a) => (
               <p key={a.id}>
-                <a href={`#/artikel/${a.id}`}>{a.title}</a> · Quellenbasierter Entwurf
+                <a href={`#/artikel/${a.id}`}>{a.title}</a>
               </p>
             ))}
           <div className="faq-list">
-            {faqs.map((faq) => (
+            {content.help.map((faq) => (
               <details key={faq.question}>
                 <summary>
                   {faq.question}
                   <span aria-hidden="true">+</span>
                 </summary>
                 <p>{faq.answer}</p>
-                <EditorialObject object={faq} label="Hilfe" />
               </details>
             ))}
           </div>

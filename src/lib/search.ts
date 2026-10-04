@@ -1,46 +1,60 @@
-import { visibleArticles } from '../data/content';
-import type { Role } from '../data/types';
-import { knowledgeSearchText } from './knowledge';
-export function normalize(value: string) {
-  return value
+import { content } from '../content';
+import type { ContentStore } from '../content/types';
+import { getInventory, roleLabel } from './queries';
+const normalize = (text: string) =>
+  text
     .toLocaleLowerCase('de')
-    .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o')
-    .replace(/ü/g, 'u')
-    .replace(/ß/g, 'ss')
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+    .replace(/[\u0300-\u036f]/g, '')
+    .replaceAll('ß', 'ss');
+function strings(value: unknown): string {
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) return value.map(strings).join(' ');
+  if (value && typeof value === 'object') return Object.values(value).map(strings).join(' ');
+  return '';
 }
-export function searchArticles(
+/** One index derived from canonical objects, used for tasks, roles and knowledge. */
+export function searchContent(
   query: string,
-  topic = 'Alle Themen',
-  role: Role = 'Alle Rollen',
-  kind = 'Alle Formate',
+  filters: { roleId?: string; systemId?: string; kind?: string } = {},
+  store: ContentStore = content,
 ) {
-  const words = normalize(query).trim().split(/\s+/).filter(Boolean);
-  return visibleArticles
+  const terms = normalize(query.trim()).split(/\s+/).filter(Boolean);
+  return getInventory(store)
     .filter(
-      (a) =>
-        (topic === 'Alle Themen' || a.topic === topic) &&
-        (role === 'Alle Rollen' || a.roles.includes(role)) &&
-        (kind === 'Alle Formate' || a.kind === kind),
+      (e) =>
+        (!filters.kind || e.kind === filters.kind) &&
+        (!filters.roleId || e.roleIds.includes(filters.roleId)) &&
+        (!filters.systemId || e.systemIds.includes(filters.systemId)),
     )
-    .map((article) => {
-      const title = normalize(article.title);
-      const summary = normalize(`${article.summary} ${article.topic}`);
+    .map((entry) => {
+      const article = store.articles.find((a) => a.id === entry.id);
+      const procedure = store.procedures.find((p) => p.id === entry.id);
+      const step = store.processes.flatMap((p) => p.steps).find((s) => s.id === entry.id);
+      const task = store.tasks.find((t) => t.id === entry.id);
+      const blocks = step?.trainingBlockIds ?? task?.trainingBlockIds ?? [];
+      const context = blocks.flatMap((id) => {
+        const b = store.trainingBlocks.find((b) => b.id === id)!;
+        return [b.code, store.releases.find((r) => r.id === b.releaseId)!.code];
+      });
       const full = normalize(
-        `${article.title} ${article.summary} ${article.topic} ${article.roles.join(' ')} ${article.sections.map((s) => `${s.title} ${s.body} ${(s.steps || []).join(' ')}`).join(' ')} ${article.takeaway} ${knowledgeSearchText(article)}`,
+        strings([
+          entry,
+          article,
+          procedure,
+          task,
+          context,
+          entry.roleIds.map((id) => roleLabel(id, store)),
+        ]),
       );
-      return {
-        article,
-        matches: words.every((word) => full.includes(word)),
-        score: words.reduce(
-          (sum, word) => sum + (title.includes(word) ? 4 : summary.includes(word) ? 2 : 1),
-          0,
-        ),
-      };
+      const title = normalize(entry.title),
+        summary = normalize(entry.summary);
+      const score = terms.every((t) => full.includes(t))
+        ? terms.reduce((n, t) => n + (title.includes(t) ? 4 : summary.includes(t) ? 2 : 1), 0)
+        : -1;
+      return { entry, score };
     })
-    .filter((result) => result.matches)
-    .sort((a, b) => b.score - a.score)
-    .map((result) => result.article);
+    .filter((r) => r.score >= 0)
+    .sort((a, b) => b.score - a.score || a.entry.title.localeCompare(b.entry.title, 'de'))
+    .map((r) => r.entry);
 }

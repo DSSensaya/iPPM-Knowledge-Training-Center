@@ -1,0 +1,85 @@
+{
+  "id": "guide-deliverables-milestones",
+  "title": "Liefergegenstände in Liefer- und Zahlungsmeilensteine überführen",
+  "summary": "Vom Eintrag in der List of Deliverables über Ext.Del bis zum begründeten Ext.Pay: der beschriebene SB1-Weg mit offenen Prüfpunkten.",
+  "roleIds": ["pm"],
+  "systemIds": ["pwa", "pdp", "project-client"],
+  "status": "usable",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Arbeitsweg von Liefergegenständen und Zahlungsbedingungen zu Liefer- und Zahlungsmeilensteinen. Große Listen und die Zielumgebung bleiben zu prüfen."
+    },
+    {
+      "title": "Fachliche Grundlage und technische Wirkung trennen",
+      "body": "Die führende Liefergegenstandsliste des Gesamtprojekts liegt im Contract Execution Project; Teilprojekte pflegen ihre spezifischen Liefergegenstände. Die Verknüpfung mit Liefermeilensteinen ist über die Funktion Lieferung umgesetzt. Einträge und Termine nach Änderungen fachlich abgleichen; keine weitergehende automatische Feldsynchronisierung voraussetzen."
+    },
+    {
+      "title": "Zahlungsbedingung entscheidet über die Variante",
+      "body": "Die PDP Contract liefert die Zahlungsfrist. Wenn eine Lieferung die Zahlung auslöst, wird der Zahlungsmeilenstein mit dem Liefermeilenstein verknüpft. Ohne auslösende Lieferung wird ein Zahlungstermin begründet direkt geplant; eine künstliche Verknüpfung wäre irreführend."
+    },
+    {
+      "title": "Planstand erst nach Veröffentlichung weitergeben",
+      "body": "Der beschriebene Weg unterscheidet Speichern, Veröffentlichen und Einchecken. Ein gespeicherter Plan allein ist laut Handbuchentwurf noch keine belastbare Übergabe der Planungsziele. Prüfen Sie den veröffentlichten Stand im konkreten Schulungssystem."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Lieferliste und Plan aktiv abgleichen; Stichtag und Anfang getrennt prüfen; Zahlungsmeilensteine nur bei auslösender Lieferung verknüpfen."
+    },
+    {
+      "title": "Optionale Übung: Ziel",
+      "body": "Lieferliste, Liefermeilenstein und zwei Zahlungsvarianten fachlich aufeinander beziehen; Stichtag und Plantermin unterscheiden.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ein freigegebenes Schulungsszenario mit fiktivem Liefergegenstand, vereinbarter Zahlungsfrist und einem separat begründeten Zahlungstermin bereitstellen.",
+        "Projektplan, Client-Ansichten, Kontorechte und Veröffentlichung im konkreten Schulungssystem vorher prüfen.",
+        "Keine vertraulichen Vertrags- oder Projektdaten im Center erfassen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Redaktioneller Übungsvorschlag: Einen Liefergegenstand mit Liefermeilenstein abgleichen, danach je einen lieferungsabhängigen und einen direkt terminierten Zahlungsmeilenstein erläutern und im geprüften Schulungskontext anlegen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Die beiden Zahlungslogiken, Termine und Klassifikationen sind im Schulungsplan nachvollziehbar; die veröffentlichte Fassung wird mit dem Listeneintrag verglichen.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag ohne durchgeführte Schulung oder fachliche Freigabe. Lesemarkierungen zählen nicht als Übungsnachweis."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-f-r1-open-08",
+    "issue-payment-terms-context",
+    "issue-milestone-client",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "TTT: Abgestimmte Restpunkte vom 23.09.2026",
+    "C23: Bestätigte Klärungen vom 23.09.2026",
+    "B: §3.6.2 Projektumfang festlegen; §3.6.3 Vertragsdaten einpflegen; §4.4 Fachlicher Soll-Ablauf; §4.5.2/4.5.3 Meilensteine planen",
+    "T: Release1-Matrix!A6:Q6 und A20:Q21"
+  ],
+  "relatedArticleIds": [
+    "faq-milestone-dates",
+    "guide-project-permissions",
+    "guide-save-publish-checkin"
+  ],
+  "procedureIds": [
+    "procedure-deliverables",
+    "procedure-payment-terms",
+    "procedure-delivery-milestones",
+    "procedure-payment-milestones"
+  ],
+  "releaseIds": ["release-1"]
+}

@@ -1,0 +1,1526 @@
+[
+  {
+    "id": "projektabwicklung",
+    "title": "Projektabwicklung",
+    "description": "Vorhandener Prozessbestand aus Schulungsmatrix und Prozessdiagramm. Ein katalogisierter Schritt ist kein vollständiger Bedienweg.",
+    "sourceRefs": ["B: §3.5 Fachlicher Soll-Ablauf; §3.6.6 / §3.6.7; §3.8.4 / §3.9.4"],
+    "steps": [
+      {
+        "id": "step-1-1",
+        "number": "1.1",
+        "title": "Projekt beantragen",
+        "phase": "Initialisierung · Orientierung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-request"],
+        "materials": [
+          {
+            "articleId": "guide-project-handover",
+            "kind": "orientation",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-01"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A3:Q3",
+          "B: §3.1.1 Projekt beantragen",
+          "T: Release1-Matrix!M3:Q3",
+          "F: R1 Funktionsmatrix!A6:J6",
+          "B: §3.1.1"
+        ],
+        "openPoints": [
+          "Quellenkonflikt: T ordnet 1.1 SB1 zu und bewertet den Weg mit Hinweis als freigabefähig. F (FS-02) sieht den Antrag nicht im aktuellen Schulungsumfang, den vollständigen Beantragungs-/Ticketweg als nicht nachgewiesen und fordert, ihn noch nicht verbindlich zu dokumentieren. Antragsweg und Erstzugang müssen geklärt werden."
+        ],
+        "input": "Projektentscheidung, Grobstruktur und vorgesehene Verantwortliche liegen vor; aktuellen Antragsweg klären.",
+        "output": "Benötigte Antragsinformationen und ungeprüfter Antragsweg sind unterschieden.",
+        "description": "Benötigte Antragsinformationen und ungeprüfter Antragsweg sind unterschieden. Vorbereitung, Zuständigkeiten und Übernahmeprüfung; kein ausführbarer Antrags- oder PMO-Gesamtweg.",
+        "openPointIds": ["issue-project-request-scope", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-1-2",
+        "number": "1.2",
+        "title": "Projekt anlegen",
+        "phase": "Initialisierung · Orientierung",
+        "roleIds": ["pmo"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-provision"],
+        "materials": [
+          {
+            "articleId": "guide-project-handover",
+            "kind": "orientation",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-02"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A4:Q4",
+          "B: §3.1.2–3.1.4 Projekt anlegen",
+          "T: Release1-Matrix!M4:Q4",
+          "T: PDP-Abdeckung!A4:H4",
+          "B: §3.1.2–3.1.4",
+          "F: R1 Funktionsmatrix!A5:J5",
+          "T: PDP-Abdeckung!A4:H4; Offene Punkte!A9:F9",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "B beschreibt Anlage, Site-/Planinitialisierung und Übergabe, einschließlich automatischer Veröffentlichung beim Speichern. F bewertet FS-01 nur teilweise verifiziert; T nennt keinen vollständigen Teilnehmerdurchlauf. EPT, ID-Erzeugung, manuelle Project-ID – PMO-Referenz, Site-/Planvorlagen, Verknüpfungen, Publish und Check-in müssen zusammen geprüft werden. Keine ausführbare PMO-Anleitung und keine garantierte Automatik. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projektentscheidung, Grobstruktur und vorgesehene Verantwortliche liegen vor; aktuellen Antragsweg klären.",
+        "output": "Bereitstellungs- und Übernahmekriterien sind bekannt; kein ausführbarer PMO-Gesamtweg.",
+        "description": "Bereitstellungs- und Übernahmekriterien sind bekannt; kein ausführbarer PMO-Gesamtweg. Vorbereitung, Zuständigkeiten und Übernahmeprüfung; kein ausführbarer Antrags- oder PMO-Gesamtweg.",
+        "openPointIds": [
+          "issue-project-provision-proof",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-1",
+        "number": "2.1",
+        "title": "Projektstammdaten anlegen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-master-data"],
+        "materials": [
+          {
+            "articleId": "guide-project-master-data",
+            "kind": "guide",
+            "procedureIds": ["procedure-project-master-data"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-03"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A5:Q5",
+          "B: §3.6.1 Projektstammdaten anlegen",
+          "T: Release1-Matrix!M5:Q5",
+          "B: §3.6.1",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "Start Date ist mit dem Projektplan synchronisiert; EDC bleibt der unabhängige vertragliche Starttermin.",
+        "description": "PDP Overview: Start Date ist mit dem Projektplan synchronisiert; EDC bleibt der unabhängige vertragliche Starttermin. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-2-2",
+        "number": "2.2",
+        "title": "Projektumfang festlegen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-deliverables"],
+        "materials": [
+          {
+            "articleId": "guide-deliverables-milestones",
+            "kind": "guide",
+            "procedureIds": ["procedure-deliverables"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-milestone-dates",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "guide-save-publish-checkin",
+            "kind": "guide",
+            "procedureIds": ["procedure-save-deliverables-list"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-03", "QG-01-04"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A6:Q6",
+          "B: §3.6.2 Projektumfang festlegen",
+          "T: Release1-Matrix!M6:Q6"
+        ],
+        "openPoints": [
+          "Führende Gesamtprojektliste im Contract Execution Project und Liefermeilensteinverknüpfung sind geklärt; praktikable Darstellung großer Lieferlisten bleibt offen."
+        ],
+        "input": "PMO hat das Kundenprojekt bereitgestellt; Leistungsumfang und Liefergegenstände sind fachlich geklärt.",
+        "output": "Scope und einzelne Liefergegenstände sind in der PDP Scope erfasst.",
+        "description": "PDP Scope und einzelne Einträge in der List of Deliverables als Grundlage der Lieferplanung.",
+        "openPointIds": ["issue-f-r1-open-08", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-2-3",
+        "number": "2.3",
+        "title": "Projektziele festlegen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-objectives"],
+        "materials": [
+          {
+            "articleId": "guide-project-objectives",
+            "kind": "guide",
+            "procedureIds": ["procedure-project-objectives"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A7:Q7",
+          "B: §3.6.4 Projektziele festlegen",
+          "T: Release1-Matrix!M7:Q7",
+          "B: §3.6.4",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "Überprüfbare Ziele, Assumptions und Constraints sind getrennt dokumentiert.",
+        "description": "PDP Objectives: Überprüfbare Ziele, Assumptions und Constraints sind getrennt dokumentiert. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-2-4",
+        "number": "2.4",
+        "title": "Projektorganisation festlegen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-organization"],
+        "materials": [
+          {
+            "articleId": "guide-project-organization",
+            "kind": "guide",
+            "procedureIds": ["procedure-project-organization"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-07"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A8:Q8",
+          "B: §3.6.5 Projektorganisation festlegen",
+          "T: Release1-Matrix!M8:Q8",
+          "T: PDP-Abdeckung!A9:H9",
+          "B: §3.6.5",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "Kernteam, Teilprojekte und Unteraufträge sind nachvollziehbar dokumentiert; Rechte separat prüfen.",
+        "description": "PDP Organisation: Kernteam, Teilprojekte und Unteraufträge sind nachvollziehbar dokumentiert; Rechte separat prüfen. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-5",
+        "number": "2.5",
+        "title": "Vertragsdaten einpflegen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-payment-terms"],
+        "materials": [
+          {
+            "articleId": "guide-deliverables-milestones",
+            "kind": "guide",
+            "procedureIds": ["procedure-payment-terms"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-milestone-dates",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "guide-save-publish-checkin",
+            "kind": "guide",
+            "procedureIds": ["procedure-save-payment-terms-pdp"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-03"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A9:Q9",
+          "B: §3.6.3 Vertragsdaten einpflegen",
+          "T: Release1-Matrix!M9:Q9"
+        ],
+        "openPoints": [
+          "Vertragsfelder, EDC-Abgrenzung und fachlich wirksame Eingaberechte im Zielkontext prüfen."
+        ],
+        "input": "Vereinbarte Zahlungsbedingungen und Vertragsangaben liegen vor.",
+        "output": "Zahlungsbedingungen und Fristen sind in der PDP Contract nachvollziehbar.",
+        "description": "Zahlungsbedingungen und Fristen in PDP Contract als Eingang für Zahlungsmeilensteine.",
+        "openPointIds": ["issue-payment-terms-context", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-2-6",
+        "number": "2.6",
+        "title": "Teilprojektleiter einsetzen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-owner-change"],
+        "materials": [
+          {
+            "articleId": "guide-project-permissions",
+            "kind": "guide",
+            "procedureIds": ["procedure-owner-change"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-role-vs-access",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "guide-save-publish-checkin",
+            "kind": "guide",
+            "procedureIds": ["procedure-save-owner-change"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A10:Q10",
+          "B: §3.6.7 Teilprojektleiter einsetzen",
+          "T: Release1-Matrix!M10:Q10"
+        ],
+        "openPoints": [
+          "Effektive Rechte, Konten, Bestands-Sites und Schulungsumgebung bleiben offen; der Trainerentwurf ist kein praktischer Nachweis."
+        ],
+        "input": "Teilprojekte sind vom PMO bereitgestellt; vorgesehene TM/ILSM stehen fest.",
+        "output": "Owner ist übergeben; PM behält lesenden Zugriff; Subprojects ist gepflegt.",
+        "description": "Owner-Wechsel für System- oder ILS-Teilprojekt mit vorher gesichertem PM-Lesezugriff und Subprojects-Abgleich.",
+        "openPointIds": [
+          "issue-f-r1-open-07",
+          "issue-f-r1-open-01",
+          "issue-f-r1-open-02",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-7",
+        "number": "2.7",
+        "title": "Zugriffsrechte festlegen",
+        "phase": "Definition",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-permissions", "fn-build-team"],
+        "materials": [
+          {
+            "articleId": "guide-project-permissions",
+            "kind": "guide",
+            "procedureIds": ["procedure-permissions"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-role-vs-access",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-01-08"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A11:Q11",
+          "B: §3.6.6 Zugriffsrechte festlegen",
+          "T: Release1-Matrix!M11:Q11"
+        ],
+        "openPoints": [
+          "Die ältere SB1-Beschränkung auf Project Permissions ist aufgehoben. Synchronisierung und effektive Rechte sind weiterhin technisch offen (TTT-D-15)."
+        ],
+        "input": "Projekt ist bereitgestellt; verantwortliche Rolle hat Zugriff; betreffende Personen sind als PWA-User verfügbar.",
+        "output": "Teamzuordnung und Stakeholder-Rechte sind unterschieden; benötigte Zugriffe sind geprüft.",
+        "description": "Project Permissions für zusätzliche Stakeholder; Build Team gehört bestätigt zu SB1.",
+        "openPointIds": [
+          "issue-build-sync",
+          "issue-f-r1-open-07",
+          "issue-f-r1-open-01",
+          "issue-f-r1-open-02",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-8",
+        "number": "2.8",
+        "title": "Stammdaten für System-TP anlegen",
+        "phase": "Definition",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-system-definition"],
+        "materials": [
+          {
+            "articleId": "guide-subproject-definition",
+            "kind": "guide",
+            "procedureIds": ["procedure-system-master-data"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A12:Q12",
+          "B: §3.8.1 Stammdaten für System-TP anlegen",
+          "T: Release1-Matrix!M12:Q12",
+          "T: PDP-Abdeckung!A10:H10",
+          "B: §3.8.1",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "System-Stammdaten sind mit dem Kundenprojekt vereinbar.",
+        "description": "PDP System Overview: System-Stammdaten sind mit dem Kundenprojekt vereinbar. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-9",
+        "number": "2.9",
+        "title": "Projektumfang für System-TP festlegen",
+        "phase": "Definition",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-system-definition"],
+        "materials": [
+          {
+            "articleId": "guide-subproject-definition",
+            "kind": "guide",
+            "procedureIds": ["procedure-system-scope"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A13:Q13",
+          "B: §3.8.2 Projektumfang für System-TP festlegen",
+          "T: Release1-Matrix!M13:Q13",
+          "T: PDP-Abdeckung!A11:H11",
+          "B: §3.8.2",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "Systemumfang ist gegenüber Kundenprojekt und angrenzenden Teilprojekten abgegrenzt.",
+        "description": "PDP System Scope: Systemumfang ist gegenüber Kundenprojekt und angrenzenden Teilprojekten abgegrenzt. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-10",
+        "number": "2.10",
+        "title": "Projektorganisation für System-TP festlegen",
+        "phase": "Definition",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-system-definition"],
+        "materials": [
+          {
+            "articleId": "guide-subproject-definition",
+            "kind": "guide",
+            "procedureIds": ["procedure-system-organization"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A14:Q14",
+          "B: §3.8.3 Projektorganisation für System-TP festlegen",
+          "T: Release1-Matrix!M14:Q14",
+          "T: PDP-Abdeckung!A12:H12",
+          "B: §3.8.3",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "Mitarbeiter, Projektrolle und Prozessrolle des System-Teams sind dokumentiert.",
+        "description": "PDP System Organ.: Mitarbeiter, Projektrolle und Prozessrolle des System-Teams sind dokumentiert. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-11",
+        "number": "2.11",
+        "title": "Zugriffsrechte für System-TP festlegen",
+        "phase": "Definition",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-permissions", "fn-build-team"],
+        "materials": [
+          {
+            "articleId": "guide-project-permissions",
+            "kind": "guide",
+            "procedureIds": ["procedure-permissions"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-role-vs-access",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A15:Q15",
+          "B: §3.8.4 Zugriffsrechte für System-TP festlegen",
+          "T: Release1-Matrix!M15:Q15"
+        ],
+        "openPoints": [
+          "T verneint eine Build-Team-Pflicht für SB1, B beschreibt sie; effektive Rechte und Site-Zugriff prüfen."
+        ],
+        "input": "Projekt ist bereitgestellt; verantwortliche Rolle hat Zugriff; betreffende Personen sind als PWA-User verfügbar.",
+        "output": "Teamzuordnung und Stakeholder-Rechte sind unterschieden; benötigte Zugriffe sind geprüft.",
+        "description": "Project Permissions im System-Teilprojekt; Abgrenzung zur operativen Teamzuordnung.",
+        "openPointIds": [
+          "issue-build-sync",
+          "issue-f-r1-open-07",
+          "issue-f-r1-open-02",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-12",
+        "number": "2.12",
+        "title": "Stammdaten für ILS-TP anlegen",
+        "phase": "Definition",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-ils-definition"],
+        "materials": [
+          {
+            "articleId": "guide-subproject-definition",
+            "kind": "guide",
+            "procedureIds": ["procedure-ils-master-data"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A16:Q16",
+          "B: §3.9.1 Stammdaten für ILS-TP anlegen",
+          "T: Release1-Matrix!M16:Q16",
+          "T: PDP-Abdeckung!A13:H13",
+          "B: §3.9.1",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "ILS-Stammdaten sind mit dem Kundenprojekt vereinbar.",
+        "description": "PDP ILS Overview: ILS-Stammdaten sind mit dem Kundenprojekt vereinbar. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-13",
+        "number": "2.13",
+        "title": "Projektumfang für ILS-TP festlegen",
+        "phase": "Definition",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-ils-definition"],
+        "materials": [
+          {
+            "articleId": "guide-subproject-definition",
+            "kind": "guide",
+            "procedureIds": ["procedure-ils-scope"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A17:Q17",
+          "B: §3.9.2 Projektumfang für ILS-TP festlegen",
+          "T: Release1-Matrix!M17:Q17",
+          "T: PDP-Abdeckung!A14:H14",
+          "B: §3.9.2",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "ILS-Leistungen sind gegenüber Kundenprojekt, Systementwicklung und Unterauftragnehmern abgegrenzt.",
+        "description": "PDP ILS Scope: ILS-Leistungen sind gegenüber Kundenprojekt, Systementwicklung und Unterauftragnehmern abgegrenzt. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-14",
+        "number": "2.14",
+        "title": "Projektorganisation für ILS-TP festlegen",
+        "phase": "Definition",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-ils-definition"],
+        "materials": [
+          {
+            "articleId": "guide-subproject-definition",
+            "kind": "guide",
+            "procedureIds": ["procedure-ils-organization"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A18:Q18",
+          "B: §3.9.3 Projektorganisation für ILS-TP festlegen",
+          "T: Release1-Matrix!M18:Q18",
+          "T: PDP-Abdeckung!A15:H15",
+          "B: §3.9.3",
+          "TTT: Zeilen 14 und 41, A:G",
+          "B: §3.6.5 Tabelle 13; §3.8.3; §3.9.3",
+          "T: Release1-Matrix!A8:Q8, A14:Q14 und A18:Q18; Offene Punkte!A8:F8",
+          "F: Klärungsbedarf!A11:D11",
+          "TTT: Zeilen 7, 11, 21 und 40–41, A:G",
+          "C23: Punkte 1, 4 und 5",
+          "N28: Punkt 1 (gemeldete Entfernung und Prüfung)",
+          "F: Klärungsbedarf!A6:D6 und A14:D14",
+          "B: §3.6.4 Tabelle 12",
+          "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
+        ],
+        "openPoints": [
+          "Rollenlisten: TTT-D-13 ist erledigt; das Dropdown ist nicht geschützt, fehlende Rollen können manuell eingetragen werden. People-Picker und wirksame Rechte bleiben separat zu prüfen. B nennt Subcontracts, T Subcontractors; bei Bestandsprojekten werden Site-Änderungen nicht automatisch nachgezogen. Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+        ],
+        "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
+        "output": "Mitarbeiter, Projektrolle und Prozessrolle des ILS-Teams sind dokumentiert.",
+        "description": "PDP ILS Organisation: Mitarbeiter, Projektrolle und Prozessrolle des ILS-Teams sind dokumentiert. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
+        "openPointIds": [
+          "issue-definition-roles",
+          "issue-definition-configuration",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-2-15",
+        "number": "2.15",
+        "title": "Zugriffsrechte für ILS-TP festlegen",
+        "phase": "Definition",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-project-permissions", "fn-build-team"],
+        "materials": [
+          {
+            "articleId": "guide-project-permissions",
+            "kind": "guide",
+            "procedureIds": ["procedure-permissions"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-role-vs-access",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A19:Q19",
+          "B: §3.9.4 Zugriffsrechte für ILS-TP festlegen",
+          "T: Release1-Matrix!M19:Q19"
+        ],
+        "openPoints": [
+          "T verneint eine Build-Team-Pflicht für SB1, B beschreibt sie; effektive Rechte und Site-Zugriff prüfen."
+        ],
+        "input": "Projekt ist bereitgestellt; verantwortliche Rolle hat Zugriff; betreffende Personen sind als PWA-User verfügbar.",
+        "output": "Teamzuordnung und Stakeholder-Rechte sind unterschieden; benötigte Zugriffe sind geprüft.",
+        "description": "Project Permissions im ILS-Teilprojekt; Abgrenzung zur operativen Teamzuordnung.",
+        "openPointIds": [
+          "issue-build-sync",
+          "issue-f-r1-open-07",
+          "issue-f-r1-open-02",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-3-1",
+        "number": "3.1",
+        "title": "Liefermeilensteine planen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-delivery-milestones"],
+        "materials": [
+          {
+            "articleId": "guide-deliverables-milestones",
+            "kind": "guide",
+            "procedureIds": ["procedure-delivery-milestones"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-milestone-dates",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "guide-save-publish-checkin",
+            "kind": "guide",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-02-04"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A20:Q20",
+          "B: §4.5.2 Liefermeilensteine planen",
+          "T: Release1-Matrix!M20:Q20"
+        ],
+        "openPoints": [
+          "Liefermeilensteinverknüpfung ist umgesetzt; Ausgangsplan, Client-Stand und Darstellung großer Listen bleiben gesondert zu prüfen."
+        ],
+        "input": "Liefergegenstände sind in der List of Deliverables erfasst; Termine sind abgestimmt.",
+        "output": "Liefermeilensteine sind zugeordnet, terminiert und klassifiziert.",
+        "description": "Liefergegenstand, Ext.Del, Stichtag und Plantermin im MS Project Client abgleichen.",
+        "openPointIds": ["issue-f-r1-open-08", "issue-milestone-client", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-3-2",
+        "number": "3.2",
+        "title": "Zahlungsmeilensteine planen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-payment-milestones"],
+        "materials": [
+          {
+            "articleId": "guide-deliverables-milestones",
+            "kind": "guide",
+            "procedureIds": ["procedure-payment-milestones"],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "faq-milestone-dates",
+            "kind": "reference",
+            "procedureIds": [],
+            "releaseIds": ["release-1"]
+          },
+          {
+            "articleId": "guide-save-publish-checkin",
+            "kind": "guide",
+            "procedureIds": ["procedure-save-project-plan"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-02-04"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A21:Q21",
+          "B: §4.5.3 Zahlungsmeilensteine planen",
+          "T: Release1-Matrix!M21:Q21"
+        ],
+        "openPoints": [
+          "Beide Varianten, Vertragsbezug und veröffentlichter Planstand sind im Zielsystem nicht separat belegt."
+        ],
+        "input": "Zahlungsbedingungen und Fristen liegen vor; begründende Liefermeilensteine sind geplant, soweit zutreffend.",
+        "output": "Zahlungsmeilensteine sind verknüpft oder begründet direkt terminiert.",
+        "description": "Ext.Pay mit lieferungsabhängiger Frist oder begründeter direkter Terminierung.",
+        "openPointIds": [
+          "issue-payment-terms-context",
+          "issue-milestone-client",
+          "issue-f-r1-open-12"
+        ]
+      },
+      {
+        "id": "step-3-3",
+        "number": "3.3",
+        "title": "Weitere Projektmeilensteine planen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-external-milestones"],
+        "materials": [
+          {
+            "articleId": "guide-external-milestones",
+            "kind": "guide",
+            "procedureIds": ["procedure-external-milestones"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-02-04"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A22:Q22",
+          "B: §4.5.4 Tabelle 18; §4.5.6",
+          "F: R1 Funktionsmatrix!A14:J16",
+          "T: Release1-Matrix!M22:Q22"
+        ],
+        "openPoints": [
+          "FS-09 und FS-11 sind nur teilweise verifiziert. Ausgangsplan, Client, verfügbare Ext-Subtypen und tatsächliche Terminrestriktionen vor Nutzung prüfen. Der Entwurfsvermerk „AUCH FAT“ liefert keine vollständige FAT-Regel. Fachliche Freigabe und praktische Erprobung fehlen."
+        ],
+        "input": "Bereitgestelltes Kundenprojekt und fachliche Ausgangsinformationen; Zielumgebung und Rechte vor praktischer Verwendung prüfen.",
+        "output": "Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt.",
+        "description": "Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt.",
+        "openPointIds": ["issue-external-milestones-boundary", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-3-4",
+        "number": "3.4",
+        "title": "Projektphasen und LCM Review-Termine planen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-phases-tailoring"],
+        "materials": [
+          {
+            "articleId": "guide-phases-tailoring",
+            "kind": "guide",
+            "procedureIds": ["procedure-phases-tailoring"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": ["QG-02-05"],
+        "sourceRefs": [
+          "T: Release1-Matrix!A23:Q23",
+          "C23: Punkte 8–9 und 11",
+          "TTT: Zeilen 27, 31–32, 39 und 47, A:G",
+          "B: §4.5.5 Projektphasen und LCM-Review-Termine planen",
+          "T: Regeln & Entscheidungen!A7:D7",
+          "F: R1 Funktionsmatrix!A21:J21",
+          "F: Klärungsbedarf!A10:D10",
+          "K: Enterprise Custom Fields: Tailored; Lookup Table ATLAS Tailoring Status",
+          "T: Release1-Matrix!M23:Q23",
+          "F: R1 Funktionsmatrix!A14:J14"
+        ],
+        "openPoints": [
+          "R1-OPEN-06 ist geklärt: LCM-3 einmal pro Kalenderjahr. Noch offen bleiben weitere LCM-Terminansätze einschließlich LCM5, der konkrete Ausgangsplan, Verknüpfungen und Verschiebewirkungen. ProjectLink-Übernahme und Restriktionen sind in Bearbeitung (TTT-D-38). Der funktionierende WWS-/WBS-Generator erledigt diese Restpunkte nicht. Hard Links nicht nutzen und nicht schulen. Fachliche Freigabe und praktische Erprobung fehlen."
+        ],
+        "input": "Bereitgestelltes Kundenprojekt und fachliche Ausgangsinformationen; Zielumgebung und Rechte vor praktischer Verwendung prüfen.",
+        "output": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen.",
+        "description": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen.",
+        "openPointIds": ["issue-phases-tailoring-boundary", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-3-5",
+        "number": "3.5",
+        "title": "PM-Arbeitspakete definieren",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A24:Q24"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-6",
+        "number": "3.6",
+        "title": "Abläufe für PM-Teilaufgabe planen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A25:Q25"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-7",
+        "number": "3.7",
+        "title": "Termine für die PM-Teilaufgabe planen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A26:Q26"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-8",
+        "number": "3.8",
+        "title": "Teilprojektphasen und -meilensteine der TP übernehmen",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A27:Q27"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-9",
+        "number": "3.9",
+        "title": "Teilprojekte gegen Zieltermine verlinken",
+        "phase": "Planung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A28:Q28"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-10",
+        "number": "3.10",
+        "title": "Zieltermine des Projekts für System-TP übernehmen",
+        "phase": "Planung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A29:Q29"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-11",
+        "number": "3.11",
+        "title": "Teilprojektphasen und Techn. Review-Termine planen",
+        "phase": "Planung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A30:Q30"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-12",
+        "number": "3.12",
+        "title": "Projektstrukturplan des System-TP anlegen",
+        "phase": "Planung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A31:Q31"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-13",
+        "number": "3.13",
+        "title": "SE-Arbeitspakete definieren",
+        "phase": "Planung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A32:Q32"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-14",
+        "number": "3.14",
+        "title": "Abläufe für System-TP planen",
+        "phase": "Planung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A33:Q33"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-15",
+        "number": "3.15",
+        "title": "Termine für System-TP planen",
+        "phase": "Planung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A34:Q34"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-16",
+        "number": "3.16",
+        "title": "Zieltermine des Projekts für ILS-TP übernehmen",
+        "phase": "Planung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A35:Q35"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-17",
+        "number": "3.17",
+        "title": "Zuliefertermine System-TP für ILS-TP übernehmen",
+        "phase": "Planung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A36:Q36"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-18",
+        "number": "3.18",
+        "title": "Teilprojektphasen und ILS Review-Termine planen",
+        "phase": "Planung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A37:Q37"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-19",
+        "number": "3.19",
+        "title": "ILS-Arbeitspakete definieren",
+        "phase": "Planung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A38:Q38"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-20",
+        "number": "3.20",
+        "title": "Abläufe für ILS-TP planen",
+        "phase": "Planung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A39:Q39"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-3-21",
+        "number": "3.21",
+        "title": "Termine für ILS-TP planen",
+        "phase": "Planung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A40:Q40"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-1",
+        "number": "4.1",
+        "title": "System-TP-Terminplangegen Zieltermine abgleichen",
+        "phase": "Steuerung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A41:Q41"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-2",
+        "number": "4.2",
+        "title": "ILS-TP-Terminplan gegen Zieltermine abgleichen",
+        "phase": "Steuerung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A42:Q42"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-3",
+        "number": "4.3",
+        "title": "Eskalation von System-TP an Projekt durchführen",
+        "phase": "Steuerung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A43:Q43"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-4",
+        "number": "4.4",
+        "title": "Eskalation von ILS-TP an Projekt durchführen",
+        "phase": "Steuerung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A44:Q44"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-5",
+        "number": "4.5",
+        "title": "Projektterminplan gegen Zieltermine abgleichen",
+        "phase": "Steuerung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A45:Q45"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-6",
+        "number": "4.6",
+        "title": "Projektstatus für System-TP ermitteln",
+        "phase": "Steuerung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A46:Q46"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-7",
+        "number": "4.7",
+        "title": "Eskalation aus Teilprojekt bearbeiten",
+        "phase": "Steuerung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A47:Q47"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-8",
+        "number": "4.8",
+        "title": "Projektstatus für ILS-TP ermitteln",
+        "phase": "Steuerung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A48:Q48"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-9",
+        "number": "4.9",
+        "title": "Eskalation an Multi-Projektmanagement durchführen",
+        "phase": "Steuerung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-escalation-capture"],
+        "materials": [
+          {
+            "articleId": "guide-escalation-capture",
+            "kind": "guide",
+            "procedureIds": ["procedure-escalation-capture"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A49:Q49",
+          "TTT: Zeilen 36–38, A:G",
+          "B: §5.5.3 Eskalation an Multi-Projektmanagement durchführen",
+          "T: Release1-Matrix!A49:Q49; PDP-Abdeckung!A16:H16",
+          "F: R1 Funktionsmatrix!A30:J30",
+          "F: Klärungsbedarf!A13:D13",
+          "T: Release1-Matrix!M49:Q49",
+          "T: PDP-Abdeckung!A16:H16"
+        ],
+        "openPoints": [
+          "T nennt 4.9 freigabefähig und begrenzt SB1 auf Erfassung. F FS-25 bewertet den Gesamtweg als noch nicht verbindlich dokumentierbar und nicht schulungsfähig: Empfängerzugriff und Resolution-Historie bleiben technisch offen (R1-OPEN-09 / TTT-D-36/-37). Der vollständige PPR-Prozess ist laut TTT-D-35 ein zukünftiges prozessuales Thema eher nach R1B. Keine automatische Benachrichtigung, Empfängersichtbarkeit oder Anzeige in der Projektliste garantiert. T verweist auf §5.5.4, im vorliegenden B steht Eskalation unter §5.5.3. Fachliche Freigabe und praktische Erprobung fehlen."
+        ],
+        "input": "Bereitgestelltes Kundenprojekt und fachliche Ausgangsinformationen; Zielumgebung und Rechte vor praktischer Verwendung prüfen.",
+        "output": "Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen.",
+        "description": "Entscheidungsbedarf, Adressat und Termin erfassen. Dieser Quellenentwurf deckt nur die Anlage ab; Empfängerbearbeitung und Entscheidung sind nicht nachgewiesen.",
+        "openPointIds": ["issue-escalation-capture-boundary", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-4-10",
+        "number": "4.10",
+        "title": "Projektreporting für System-TP durchführen",
+        "phase": "Steuerung",
+        "roleIds": ["tm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A50:Q50"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-11",
+        "number": "4.11",
+        "title": "Projektreporting für ILS-TP durchführen",
+        "phase": "Steuerung",
+        "roleIds": ["ilsm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb2"],
+        "releaseIds": ["release-1"],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["T: Release1-Matrix!A51:Q51"],
+        "openPoints": [
+          "Aufgabe und Rolle sind katalogisiert. Ein zusammenhängender Bedienweg mit Voraussetzungen und Ergebnisprüfung für diesen Schritt fehlt im Center. SB2-Zuordnung ist kein Nachweis der Schulungsreife."
+        ]
+      },
+      {
+        "id": "step-4-12",
+        "number": "4.12",
+        "title": "Projektstatus ermitteln",
+        "phase": "Steuerung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-status-orientation"],
+        "materials": [
+          {
+            "articleId": "guide-status-orientation",
+            "kind": "guide",
+            "procedureIds": ["procedure-status-orientation"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A52:Q52",
+          "C23: Punkte 5 und 7",
+          "TTT: Zeilen 40–43, A:G",
+          "B: §5.5.4 Projektstatus ermitteln",
+          "T: Release1-Matrix!A52:Q52; PDP-Abdeckung!A17:H17; Offene Punkte!A4:F4 und A10:F10",
+          "F: R1 Funktionsmatrix!A31:J31",
+          "F: Klärungsbedarf!A14:D15",
+          "K: PDP-Feldkatalog: Status, Recent Achievements; Q4 Contract Execution Z. 117",
+          "T: Release1-Matrix!M52:Q52",
+          "T: PDP-Abdeckung!A17:H17"
+        ],
+        "openPoints": [
+          "Nur der PM-Pflegeweg im R1-/SB1-Kontext ist beschrieben; PMO Status wird durch das PMO gepflegt. FIN-/SAP-Feldkorrektur ist bestätigt (TTT-D-39), ebenso die Projektstatusübersicht; das belegt keine Bearbeitungsrechte in der Zielumgebung. Bestands-Sites können abweichen, Änderungen werden nicht automatisch nachgezogen (TTT-D-40). Pflegezyklus und praktische Schulungserprobung bleiben offen (TTT-D-42). T verlangte vor Schulung die inzwischen bestätigte Feldkorrektur und verweist auf §5.5.3; im vorliegenden B steht Statuspflege unter §5.5.4. F bewertet den Gesamtstand weiter nur teilweise verifiziert. Fachliche Freigabe und praktische Erprobung fehlen."
+        ],
+        "input": "Bereitgestelltes Kundenprojekt und fachliche Ausgangsinformationen; Zielumgebung und Rechte vor praktischer Verwendung prüfen.",
+        "output": "PM und Projektkernteam ermitteln den Basisstatus; der PM pflegt die ihm zugänglichen Dimensionen mit Ampel, Trend, Kommentar und Recent Achievements auf PDP Status. PMO Status bleibt beim PMO. Der gespeicherte Stand ist mit Plan, Reviewstatus und Projektstatusübersicht abzugleichen.",
+        "description": "PM und Projektkernteam ermitteln den Basisstatus; der PM pflegt die ihm zugänglichen Dimensionen mit Ampel, Trend, Kommentar und Recent Achievements auf PDP Status. PMO Status bleibt beim PMO. Der gespeicherte Stand ist mit Plan, Reviewstatus und Projektstatusübersicht abzugleichen.",
+        "openPointIds": ["issue-status-orientation-boundary", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-4-13",
+        "number": "4.13",
+        "title": "Projektreporting durchführen",
+        "phase": "Steuerung",
+        "roleIds": ["pm"],
+        "systemIds": [],
+        "trainingBlockIds": ["sb1"],
+        "releaseIds": ["release-1"],
+        "taskIds": ["fn-r1-reporting"],
+        "materials": [
+          {
+            "articleId": "guide-r1-reporting",
+            "kind": "guide",
+            "procedureIds": ["procedure-r1-reporting"],
+            "releaseIds": ["release-1"]
+          }
+        ],
+        "aliases": [],
+        "sourceRefs": [
+          "T: Release1-Matrix!A53:Q53",
+          "B: §5.5.4 Projektstatus ermitteln; §5.5.5 Projektreporting durchführen",
+          "C23: Punkte 5-7",
+          "TTT: Zeilen 40-43, A:G",
+          "T: Release1-Matrix!A52:Q53; PDP-Abdeckung!A18:H18; Offene Punkte!A5:F6 und A10:F10",
+          "F: R1 Funktionsmatrix!A9:J10; A31:J31",
+          "S: 02_SCOPE_ID_MASTER!A5:L6",
+          "F: R1B Abgrenzung!A6:J8",
+          "S: 02_SCOPE_ID_MASTER!A28:L30",
+          "T: Release1-Matrix!M53:Q53",
+          "T: PDP-Abdeckung!A18:H18"
+        ],
+        "openPoints": [
+          "ML-Filter und Projektstatusübersicht mit erwarteten Projekten und Daten sind bestätigt. Keine offene Filterkorrektur mehr. Der Abgleich setzt gepflegte Eingangsdaten und geprüften Zugriff im konkreten Konto-/Projektkontext voraus; Bestands-Sites können abweichen. Keine universelle L1-Sichtbarkeit, Aktualisierungsregel oder automatische Ampel-/Trendberechnung ableiten. Reporting-PDP/Power BI bleiben außerhalb des R1-Schulungsumfangs (R1B-FS-02 bis -04). Pflegezyklus und vollständiger PPR-Prozess bleiben gesonderte Themen nach R1B. Praktische Center-Erprobung und fachliche Freigabe fehlen. Fachliche Freigabe und praktische Erprobung fehlen."
+        ],
+        "input": "Bereitgestelltes Kundenprojekt und fachliche Ausgangsinformationen; Zielumgebung und Rechte vor praktischer Verwendung prüfen.",
+        "output": "Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest.",
+        "description": "Vergleichen Sie die erwarteten Kundenprojekte und angezeigten Fortschritts-, Ampel- und Trendwerte in der R1-Projektstatusübersicht mit dem veröffentlichten Plan und dem gespeicherten PDP Status. ML-Filter ist neben PSPV.org und WW umgesetzt. Halten Sie Übereinstimmungen, Abweichungen und fehlende Nachweise getrennt fest.",
+        "openPointIds": ["issue-r1-reporting-boundary", "issue-f-r1-open-12"]
+      },
+      {
+        "id": "step-5-1",
+        "number": "5.1",
+        "title": "Projekt abschließen",
+        "phase": "Abschluss",
+        "roleIds": [],
+        "systemIds": [],
+        "trainingBlockIds": [],
+        "releaseIds": [],
+        "taskIds": [],
+        "materials": [],
+        "aliases": [],
+        "sourceRefs": ["P: Seite 1 · Phase 5: Abschluss · 5.1 Projekt abschließen"],
+        "openPoints": [],
+        "openPointIds": ["open-project-close-specification"]
+      }
+    ]
+  }
+]

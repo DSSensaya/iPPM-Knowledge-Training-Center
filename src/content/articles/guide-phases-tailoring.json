@@ -1,0 +1,63 @@
+{
+  "id": "guide-phases-tailoring",
+  "title": "Projektphasen und LCM Review-Termine planen",
+  "summary": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen.",
+  "roleIds": ["pm"],
+  "systemIds": ["project-client"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Begrenztes Tailoring ist beschrieben. Weitere Review-Terminwirkungen und der vollständige Planungsweg bleiben offen."
+    },
+    {
+      "title": "Phasenplanung und bestätigte LCM-3-Regel",
+      "body": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Ein rollierender 12-Monats-Rhythmus, etwa ab Projektstart, wird nur als Verbesserung diskutiert und ist noch nicht beschlossen. B beschreibt Reviewtermine als Steuerung verknüpfter Phasen über Anfang und Stichtag. Weitere Reviewtypen, LCM5 und tatsächliche Verschiebewirkungen bleiben gesondert zu prüfen."
+    },
+    {
+      "title": "Tailoring ist keine Frequenzentscheidung",
+      "body": "F FS-16 bewertet das Tailoring-Bedienprinzip als verifiziert. Die inzwischen bestätigte Kalenderjahrregel für LCM-3 darf damit nicht umgangen werden: LCM-3 nicht pauschal entfernen. Der folgende Teilweg setzt eine gesonderte fachliche Entscheidung voraus und bestimmt selbst keinen entfallenden Review."
+    },
+    {
+      "title": "Merksatz",
+      "body": "LCM-3 ist wegen Auditierung einmal pro Kalenderjahr erforderlich. Phasen und Reviews entsprechend einordnen; Tailoring nur nach separat vorgegebener fachlicher Entscheidung üben. Ein rollierender 12-Monats-Rhythmus ist nicht beschlossen."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Fiktive Daten, geeignete Konten und tatsächlichen Systemstand vorbereiten. Offene fachliche Entscheidungen nicht durch Übungsannahmen ersetzen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktiver, vorab fachlich zu bestimmender Übungsfall: Ein konkret benannter Review soll entfallen. Ohne solche Vorgabe nur B, T und F vergleichen. Mit Vorgabe den Teilweg im Übungsplan ausführen und erhaltenen Datensatz, Inaktivität und Begründung prüfen. Keine erfundene interne Freigabe annehmen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Ist die fachliche Entscheidung separat vorgegeben, ohne aus Jahresabständen abgeleitet zu werden? Bleibt der Meilenstein erhalten und ist er tatsächlich deaktiviert, mit Tailored = T und nachvollziehbaren Notizen? Sind unerwartete Phasen-/Terminänderungen dokumentiert und vor Weiterverwendung geklärt?",
+      "steps": [
+        "Quellenentwurf; keine fachliche Freigabe, praktische Erprobung oder Schulungsreife nachgewiesen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": ["issue-phases-tailoring-boundary", "issue-f-r1-open-12"],
+  "sourceRefs": [
+    "C23: Punkte 8–9 und 11",
+    "TTT: Zeilen 27, 31–32, 39 und 47, A:G",
+    "B: §4.5.5 Projektphasen und LCM-Review-Termine planen",
+    "T: Regeln & Entscheidungen!A7:D7",
+    "F: R1 Funktionsmatrix!A21:J21",
+    "F: Klärungsbedarf!A10:D10",
+    "K: Enterprise Custom Fields: Tailored; Lookup Table ATLAS Tailoring Status"
+  ],
+  "relatedArticleIds": ["guide-save-publish-checkin", "guide-deliverables-milestones"],
+  "procedureIds": ["procedure-phases-tailoring"],
+  "releaseIds": ["release-1"]
+}

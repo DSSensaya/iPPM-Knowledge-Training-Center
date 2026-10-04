@@ -1,0 +1,61 @@
+{
+  "id": "guide-project-objectives",
+  "title": "Projektziele von Annahmen und Randbedingungen trennen",
+  "summary": "Überprüfbare Ziele mit Stakeholder und Zielklasse in Objectives dokumentieren; Assumptions und Constraints getrennt führen.",
+  "roleIds": ["pm"],
+  "systemIds": ["pdp"],
+  "status": "usable",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Ziele, Annahmen und Randbedingungen sind mit Eingaben und Ergebnisprüfung zusammenhängend beschrieben."
+    },
+    {
+      "title": "Kurze Eingabeübung mit fiktiven Aussagen",
+      "body": "Nur Übung, kein internes Projektziel: „Der vereinbarte Prüfbericht ist bis 30.11.2026 vollständig abgenommen“ ist ein Ziel. „Die Testumgebung steht ab 01.11.2026 bereit“ ist eine Annahme, solange unbestätigt. „Tests dürfen ausschließlich in der freigegebenen Testumgebung stattfinden“ ist in diesem fiktiven Szenario eine feste Randbedingung. Eine Tätigkeit wie „Bericht schreiben“ allein beschreibt noch keinen überprüfbaren Sollzustand."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Ein Ziel beschreibt einen überprüfbaren Sollzustand. Eine Annahme ist noch zu bestätigen; eine Randbedingung steht fest und begrenzt den Spielraum. Erfassen Sie diese Aussagen getrennt, speichern Sie sie und prüfen Sie die Konsistenz mit Scope und Planung."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ausschließlich fiktive Daten und vorab geprüfte Übungskonten verwenden. Dieser Vorschlag ist kein durchgeführter Schulungsnachweis.",
+        "EPT, PDPs, Listen, Lookup-Werte, Bearbeitungsrechte und Speicher-/Abschlussweg in der konkreten Schulungsumgebung vorab prüfen. Abweichungen samt Quellen- und Inhaltsrevision protokollieren."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "In einer vorab geprüften Schulungsumgebung die drei ausdrücklich fiktiven Aussagen aus dem Beitrag als Ziel, Assumption und Constraint erfassen. Einen verfügbaren Übungs-Stakeholder und eine tatsächlich vorhandene Zielklasse wählen; keine Produktivdaten verwenden. Speichern, erneut öffnen und die Zuordnung erklären.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Genau ein Ziel mit Sollzustand, Stakeholder, Lookup-Zielklasse und geprüftem Initialstatus; Annahme und feste Randbedingung sind getrennt gespeichert und wieder auffindbar.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag. Fachliche Freigabe, Nutzer-/Trainererprobung und Zielumgebungsnachweis fehlen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"],
+  "sourceRefs": [
+    "B: §3.6.4 Projektziele festlegen",
+    "TTT: Zeilen 7–9, 14 und 21, A:G",
+    "C23: Punkte 1–4"
+  ],
+  "relatedArticleIds": [
+    "guide-project-master-data",
+    "guide-project-organization",
+    "guide-deliverables-milestones",
+    "guide-save-publish-checkin"
+  ],
+  "procedureIds": ["procedure-project-objectives"],
+  "releaseIds": ["release-1"]
+}

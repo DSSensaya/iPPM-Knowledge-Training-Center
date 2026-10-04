@@ -1,0 +1,73 @@
+{
+  "id": "guide-status-orientation",
+  "title": "Projektstatus ermitteln",
+  "summary": "PM und Projektkernteam ermitteln den Basisstatus; der PM pflegt die ihm zugänglichen Dimensionen mit Ampel, Trend, Kommentar und Recent Achievements auf PDP Status. PMO Status bleibt beim PMO. Der gespeicherte Stand ist mit Plan, Reviewstatus und Projektstatusübersicht abzugleichen.",
+  "roleIds": ["pm"],
+  "systemIds": ["pdp", "pwa"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "PM-Pflegeweg ist beschrieben. Pflegezyklus, Rechte und Bestands-Sites bleiben zu prüfen; PMO Status bleibt beim PMO."
+    },
+    {
+      "title": "Dimensionen und Zuständigkeit",
+      "body": "B §5.5.4 nennt Customer Satisfaction, Contract under control, Schedule, Performance, Cost under control, Financials, Resources, SAP PS Quality, PMO Status, Process Quality und Product Quality. PMO Status wird durch das PMO gepflegt; die PM-Anleitung umfasst diesen Eintrag nicht. C23 Punkt 5 bestätigt die Korrektur der FIN-/SAP-Zuordnung. Ein allgemeiner Pflegezyklus oder eine automatische Ampelberechnung sind damit nicht belegt."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Planfortschritt und Reviewstatus mit dem Projektkernteam abgleichen, dann die eigenen Statusdimensionen auf PDP Status bewerten, begründen, speichern und erneut prüfen. PMO Status pflegt das PMO. Bearbeitungsrechte und mögliche Abweichungen bei Bestands-Sites vor der Anwendung prüfen."
+    },
+    {
+      "title": "Optionale Übung: Ziel",
+      "body": "PM und Projektkernteam ermitteln den Basisstatus; der PM pflegt die ihm zugänglichen Dimensionen mit Ampel, Trend, Kommentar und Recent Achievements auf PDP Status. PMO Status bleibt beim PMO. Der gespeicherte Stand ist mit Plan, Reviewstatus und Projektstatusübersicht abzugleichen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Fiktive Daten, geeignete Konten und tatsächlichen Systemstand vorbereiten. Offene fachliche Entscheidungen nicht durch Übungsannahmen ersetzen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Didaktischer Vorschlag mit fiktiven Daten: Eine Genehmigung verzögert den Termin. Zuerst im Gespräch die betroffene Dimension, Ampel, Trend und Begründung aus vorbereitetem Plan- und Reviewstand ableiten. Nur in einem vorgeprüften Schulungsprojekt mit bestätigten PM-Rechten die eigene Bewertung auf PDP Status speichern und gegen die Projektstatusübersicht prüfen. PMO Status nicht ändern; eine Leseübung ist kein praktischer Systemnachweis.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Lässt sich jede vom PM gepflegte Bewertung auf Fortschritt, Reviewstatus und die gemeinsame fachliche Einschätzung zurückführen? Sind Amber und Red kommentiert und sind Status, Trend sowie Recent Achievements nach dem Speichern wieder auffindbar? Stimmt die Projektstatusübersicht mit den gespeicherten Angaben überein, ohne PMO Status als PM-Eingabe zu behandeln?",
+      "steps": [
+        "Quellenentwurf; keine fachliche Freigabe, praktische Erprobung oder Schulungsreife nachgewiesen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Status & Reporting",
+  "kind": "Anleitung",
+  "openPoints": [
+    "PMO Status bleibt beim PMO.",
+    "PM-Bearbeitungsrechte und Bestands-Sites in der Zielumgebung prüfen.",
+    "Der Pflegezyklus ist offen.",
+    "Die praktische Erprobung des Center-Wegs steht aus."
+  ],
+  "openPointIds": ["issue-status-orientation-boundary", "issue-f-r1-open-12"],
+  "sourceRefs": [
+    "C23: Punkte 5 und 7",
+    "TTT: Zeilen 40–43, A:G",
+    "B: §5.5.4 Projektstatus ermitteln",
+    "T: Release1-Matrix!A52:Q52; PDP-Abdeckung!A17:H17; Offene Punkte!A4:F4 und A10:F10",
+    "F: R1 Funktionsmatrix!A31:J31",
+    "F: Klärungsbedarf!A14:D15",
+    "K: PDP-Feldkatalog: Status, Recent Achievements; Q4 Contract Execution Z. 117"
+  ],
+  "relatedArticleIds": [
+    "guide-save-publish-checkin",
+    "guide-escalation-capture",
+    "guide-r1-reporting"
+  ],
+  "procedureIds": ["procedure-status-orientation"],
+  "releaseIds": ["release-1"]
+}

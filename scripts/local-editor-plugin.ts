@@ -1,314 +1,194 @@
 import { createHash, randomBytes } from 'node:crypto';
-import { readFile, readdir, lstat, realpath, open, rename, unlink } from 'node:fs/promises';
-import { resolve, join } from 'node:path';
-import { loadEditorialModel } from './editor-model';
+import { readFile, open, rename, unlink } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
-import {
-  applyJournal,
-  editableArticleId,
-  textOf,
-  validateNote,
-  validateText,
-  validateConfirmedBy,
-  changedFields,
-  centerFinalNote,
-} from '../src/lib/editorial';
-import type { EditorialJournal } from '../src/lib/editorial';
-import type { Article } from '../src/data/types';
-import { migrateJournal } from '../src/lib/editorial-registry';
-import type { RepositoryJournal } from '../src/lib/editorial-registry';
+import { collectionFiles, contentFiles, loadContent } from './content-model';
+import { validateContent } from '../src/content/validation';
 
-const maxBody = 256 * 1024;
-
-// Execute the canonical data model during builds, before shipping a static reader.
-export function editorialValidationPlugin(root: string): Plugin {
+export function contentValidationPlugin(root: string): Plugin {
   return {
-    name: 'ippm-editorial-validation',
-    apply: 'build',
+    name: 'ippm-content-validation',
     async buildStart() {
-      await loadEditorialModel(root);
+      await loadContent(root);
     },
   };
 }
-
 export function localEditorPlugin(root: string): Plugin {
-  const token = randomBytes(32).toString('hex');
-  const file = resolve(root, 'src/data/local-editorial.json');
-  const lock = `${file}.lock`;
-  let server: ViteDevServer;
-  async function safePaths() {
-    const canonicalRoot = await realpath(root);
-    const data = resolve(root, 'src/data');
-    if (
-      (await realpath(data)) !== join(canonicalRoot, 'src', 'data') ||
-      (await lstat(file)).isSymbolicLink() ||
-      (await realpath(file)) !== join(canonicalRoot, 'src', 'data', 'local-editorial.json')
-    )
-      throw new Error(
-        'Der feste Speicherpfad darf keine umgeleiteten Verzeichnisse oder Dateien enthalten.',
-      );
-  }
+  const token = randomBytes(32).toString('hex'),
+    lock = resolve(root, 'src/content/.editor.lock');
   async function fingerprint() {
-    // Includes journal and every data/model dependency, not only the current text.
     const hash = createHash('sha256');
-    async function visit(dir: string) {
-      for (const name of (await readdir(dir)).sort()) {
-        if (name.endsWith('.lock') || name.endsWith('.tmp')) continue;
-        const path = join(dir, name);
-        const stat = await lstat(path);
-        if (stat.isDirectory()) await visit(path);
-        else if (stat.isFile()) {
-          hash.update(path);
-          hash.update(await readFile(path));
-        } else throw new Error('Umgeleitete Datenpfade werden nicht unterstützt.');
-      }
+    for (const [key, path] of await contentFiles(root)) {
+      hash.update(key);
+      hash.update(await readFile(path));
     }
-    await visit(resolve(root, 'src/data'));
     return hash.digest('hex');
   }
-  async function snapshot(id?: string) {
-    await safePaths();
-    const version = await fingerprint();
-    const data = await loadEditorialModel(root);
-    const repository = migrateJournal(JSON.parse(await readFile(file, 'utf8')));
-    const objects = data.editorialObjects as Map<
-      string,
-      { baseline: Article; article: Article; fields?: string[]; source: string }
-    >;
-    const object = objects.get(id ?? editableArticleId);
-    if (!object)
-      throw Object.assign(new Error('Dieses Objekt ist nicht zur Bearbeitung zugelassen.'), {
-        status: 404,
-      });
-    const baseline = object.baseline;
-    const journal = repository.journals[baseline.id] ?? {
-      version: 1 as const,
-      articleId: baseline.id,
-      baseline: null,
-      changes: [],
-    };
-    const article = applyJournal(baseline, journal);
+  async function snapshot() {
+    const version = await fingerprint(),
+      content = await loadContent(root);
     if (version !== (await fingerprint()))
-      throw Object.assign(new Error('Repository während des Ladens geändert. Erneut laden.'), {
+      throw Object.assign(new Error('Inhalte während des Ladens geändert. Erneut laden.'), {
         status: 409,
       });
-    return { version, baseline, journal, article, repository, objects, object };
+    return { version, content };
   }
   return {
     name: 'ippm-local-editor',
     apply: 'serve',
-    configureServer(instance) {
-      server = instance;
+    configureServer(server: ViteDevServer) {
       if (server.config.server.host !== '127.0.0.1')
         throw new Error('Bearbeitung ist ausschließlich an 127.0.0.1 zulässig.');
       server.middlewares.use(async (req, res, next) => {
         if (!req.url?.startsWith('/__local-editor')) {
           if (!['GET', 'HEAD'].includes(req.method ?? '')) {
             res.statusCode = 405;
-            res.setHeader('Content-Type', 'application/json; charset=utf-8');
-            res.end(
-              JSON.stringify({
-                error: 'Schreibmethoden sind nur für den zugelassenen Beitrag erlaubt.',
-              }),
-            );
+            res.end('Methode nicht zulässig');
             return;
           }
           return next();
         }
         res.setHeader('Cache-Control', 'no-store');
         res.setHeader('Content-Type', 'application/json; charset=utf-8');
-        const reply = (status: number, body: unknown) => {
+        const reply = (status: number, value: unknown) => {
           res.statusCode = status;
-          res.end(JSON.stringify(body));
+          res.end(JSON.stringify(value));
         };
-        const address = server.httpServer?.address();
-        const host = typeof address === 'object' && address ? `127.0.0.1:${address.port}` : '';
-        const origin = req.headers.origin;
+        const addr = server.httpServer?.address(),
+          host = typeof addr === 'object' && addr ? `127.0.0.1:${addr.port}` : '';
         if (
           req.socket.remoteAddress !== '127.0.0.1' ||
           req.headers.host !== host ||
-          (origin && origin !== `http://${host}`) ||
+          (req.headers.origin && req.headers.origin !== `http://${host}`) ||
           req.headers['sec-fetch-site'] === 'cross-site'
         )
-          return reply(403, {
-            error: 'Nur direkte Zugriffe aus dem lokalen Bearbeitungsbetrieb sind zulässig.',
-          });
+          return reply(403, { error: 'Nur direkte lokale Zugriffe sind zulässig.' });
         if (req.url === '/__local-editor/session' && req.method === 'GET')
-          return reply(200, { token, articleId: editableArticleId });
-        const objectId = /^\/__local-editor\/articles\/([a-zA-Z0-9:._-]+)$/.exec(
-          req.url ?? '',
-        )?.[1];
-        if (!objectId && req.url !== '/__local-editor/content')
-          return reply(404, { error: 'Dieses Objekt ist nicht zur Bearbeitung zugelassen.' });
+          return reply(200, { token });
         if (req.headers['x-local-editor-token'] !== token)
-          return reply(403, {
-            error: 'Bearbeitungssitzung fehlt oder ist abgelaufen. Erneut laden.',
-          });
+          return reply(403, { error: 'Lokale Bearbeitungssitzung fehlt. Erneut laden.' });
         if (!['GET', 'PUT'].includes(req.method ?? ''))
           return reply(405, { error: 'Methode nicht zugelassen.' });
-        let handle;
-        let temporary: string | undefined;
+        let handle: Awaited<ReturnType<typeof open>> | undefined, temporary: string | undefined;
         try {
-          if (req.url === '/__local-editor/content') {
-            if (req.method !== 'GET') return reply(405, { error: 'Methode nicht zugelassen.' });
-            const state = await snapshot();
-            return reply(
-              200,
-              [...state.objects].map(([id, object]) => ({
-                id,
-                article: object.article,
-                source: object.source,
-                fields: object.fields,
-              })),
-            );
-          }
+          if (req.url === '/__local-editor/content' && req.method === 'GET')
+            return reply(200, await snapshot());
+          const key = /^\/__local-editor\/files\/([a-zA-Z0-9._~-]+)$/.exec(req.url ?? '')?.[1];
+          const files = await contentFiles(root),
+            file = key ? files.get(key) : undefined;
+          if (!key || !file) return reply(404, { error: 'Kein zugelassener Inhaltspfad.' });
           if (req.method === 'GET') {
-            const state = await snapshot(objectId);
-            return reply(200, {
-              version: state.version,
-              article: state.article,
-              changes: state.journal.changes,
-            });
+            const state = await snapshot();
+            const value = key.startsWith('article~')
+              ? state.content.articles.find((a) => a.id === key.substring(8))
+              : state.content[collectionFiles[key]];
+            return reply(200, { version: state.version, value });
           }
-          if (req.headers['content-type'] !== 'application/json')
-            return reply(415, { error: 'JSON erforderlich.' });
-          if (Number(req.headers['content-length']) > maxBody) {
-            req.resume();
-            return reply(413, { error: 'Änderung ist zu groß.' });
-          }
+          if (!req.headers['content-type']?.startsWith('application/json'))
+            return reply(415, { error: 'JSON erwartet.' });
           const chunks: Buffer[] = [];
           let size = 0;
           for await (const chunk of req) {
-            size += Buffer.byteLength(chunk);
-            if (size > maxBody) {
-              reply(413, { error: 'Änderung ist zu groß.' });
-              return;
-            }
+            size += chunk.length;
+            if (size > 1024 * 1024)
+              return reply(413, { error: 'Inhalt ist zu groß (maximal 1 MB).' });
             chunks.push(Buffer.from(chunk));
           }
-          let request;
+          const body = JSON.parse(Buffer.concat(chunks).toString('utf8')) as {
+            version: unknown;
+            value: unknown;
+          };
+          if (typeof body.version !== 'string' || !body.version || body.value === undefined)
+            return reply(400, { error: 'Version und Inhalt fehlen.' });
           try {
-            request = JSON.parse(Buffer.concat(chunks).toString('utf8'));
-          } catch {
-            return reply(400, { error: 'Ungültiges JSON.' });
-          }
-          if (
-            !request ||
-            typeof request !== 'object' ||
-            !['after|note|version', 'after|confirmation|note|version'].includes(
-              Object.keys(request).sort().join('|'),
-            )
-          )
-            return reply(400, { error: 'Unzulässige Felder im Speicherauftrag.' });
-          await safePaths();
-          try {
-            handle = await open(lock, 'wx');
+            handle = await open(lock, 'wx', 0o600);
           } catch (error) {
             if ((error as NodeJS.ErrnoException).code === 'EEXIST')
-              return reply(409, {
-                error:
-                  'Ein anderer Speichervorgang oder eine verbliebene Sperre blockiert. Erneut laden; Sperre nach Absturz prüfen.',
-              });
+              return reply(409, { error: 'Eine Speicherung läuft bereits. Erneut laden.' });
             throw error;
           }
-          const state = await snapshot(objectId);
-          if (request.version !== state.version)
+          const state = await snapshot();
+          if (body.version !== state.version)
             return reply(409, {
               error:
-                'Konflikt: Der Repository-Stand wurde geändert. Ihr Entwurf bleibt erhalten. Aktuellen Stand neu laden und Änderungen abgleichen.',
+                'Inhalte wurden seit dem Laden geändert. Ihre Eingaben bleiben erhalten. Aktuellen Stand laden und vergleichen.',
             });
-          validateText(request.after, state.article, true);
-          if (state.object.fields) {
-            const { extra: _before, ...before } = textOf(state.article);
-            const { extra: _after, ...after } = textOf(request.after);
-            if (JSON.stringify(before) !== JSON.stringify(after))
-              throw new Error('Nur zugelassene Objektfelder dürfen geändert werden.');
+          const candidate = structuredClone(state.content);
+          if (key.startsWith('article~')) {
+            const id = key.substring(8);
+            if ((body.value as { id?: string })?.id !== id)
+              return reply(400, { error: 'Die Artikel-ID darf nicht geändert werden.' });
+            candidate.articles = candidate.articles.map((a) =>
+              a.id === id ? (body.value as typeof a) : a,
+            );
+          } else Object.assign(candidate, { [collectionFiles[key]]: body.value });
+          validateContent(candidate);
+          // Existing IDs are protected; adding references requires editing the corresponding collections.
+          const before = JSON.parse(await readFile(file, 'utf8'));
+          if (Array.isArray(before) && Array.isArray(body.value) && key !== 'help') {
+            const afterIds = new Set(body.value.map((v: { id: string }) => v.id));
+            if (before.some((v: { id: string }) => !afterIds.has(v.id)))
+              return reply(400, {
+                error:
+                  'Bestehende IDs dürfen im lokalen Editor nicht entfernt oder umbenannt werden.',
+              });
           }
-          if ('confirmation' in request) {
+          if (key === 'systems') {
+            const afterIds = new Set(
+              candidate.systems.flatMap((s) => s.destinations?.map((d) => d.id) ?? []),
+            );
             if (
-              !request.confirmation ||
-              typeof request.confirmation !== 'object' ||
-              Array.isArray(request.confirmation) ||
-              !['confirmedBy', 'confirmedBy|kind'].includes(
-                Object.keys(request.confirmation).sort().join('|'),
-              ) ||
-              ('kind' in request.confirmation && request.confirmation.kind !== 'center-final')
+              state.content.systems
+                .flatMap((s) => s.destinations ?? [])
+                .some((d) => !afterIds.has(d.id))
             )
               return reply(400, {
-                error: 'Nur Name und vorgesehene Freigabeart sind zulässig.',
+                error: 'Bestehende Bedienziel-IDs dürfen nicht entfernt werden.',
               });
-            validateConfirmedBy(request.confirmation.confirmedBy);
           }
-          const centerFinal = request.confirmation?.kind === 'center-final';
-          // No user comment for a final Center approval; keep a server-defined audit event.
-          if (centerFinal) {
-            if (request.note !== '')
+          if (key === 'processes') {
+            const afterIds = new Set(candidate.processes.flatMap((p) => p.steps.map((s) => s.id)));
+            if (state.content.processes.flatMap((p) => p.steps).some((s) => !afterIds.has(s.id)))
               return reply(400, {
-                error: 'Center-Freigabe wird ohne Änderungsanmerkung gespeichert.',
+                error: 'Bestehende ProcessStep-IDs dürfen nicht entfernt werden.',
               });
-          } else validateNote(request.note);
-          if (JSON.stringify(textOf(state.article)) === JSON.stringify(textOf(request.after)))
-            return reply(400, { error: 'Keine Änderung vorhanden.' });
-          const journal: EditorialJournal = {
-            ...state.journal,
-            baseline: state.journal.baseline ?? state.baseline,
-            changes: [
-              ...state.journal.changes,
-              {
-                revision: state.article.revisions!.at(-1)!.number + 1,
-                date: new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' }),
-                note: centerFinal ? centerFinalNote : request.note.trim(),
-                before: textOf(state.article),
-                after: textOf(request.after),
-                ...('confirmation' in request
-                  ? {
-                      confirmation: {
-                        confirmedBy: request.confirmation.confirmedBy.trim(),
-                        fields: changedFields(textOf(state.article), textOf(request.after)),
-                        ...(centerFinal ? { kind: 'center-final' as const } : {}),
-                      },
-                    }
-                  : {}),
-              },
-            ],
-          };
-          applyJournal(state.baseline, journal);
-          temporary = `${file}.${randomBytes(8).toString('hex')}.tmp`;
-          const out = await open(temporary, 'wx');
-          try {
-            const repository: RepositoryJournal = {
-              version: 2,
-              journals: { ...state.repository.journals, [state.baseline.id]: journal },
-            };
-            await out.writeFile(JSON.stringify(repository, null, 2) + '\n', 'utf8');
-            await out.sync();
-          } finally {
-            await out.close();
           }
-          await safePaths();
           if (state.version !== (await fingerprint()))
-            return reply(409, {
-              error:
-                'Konflikt: Repository während des Speicherns geändert. Es wurde nichts übernommen.',
-            });
+            return reply(409, { error: 'Inhalte während der Prüfung geändert. Erneut laden.' });
+          await contentFiles(root);
+          temporary = file + '.' + randomBytes(8).toString('hex') + '.tmp';
+          const output = await open(temporary, 'wx', 0o600);
+          try {
+            await output.writeFile(JSON.stringify(body.value, null, 2) + '\n');
+            await output.sync();
+          } finally {
+            await output.close();
+          }
+          // Recheck optimistic version immediately before atomic replacement.
+          if (state.version !== (await fingerprint()))
+            return reply(409, { error: 'Inhalte vor dem Speichern geändert. Erneut laden.' });
+          await contentFiles(root);
           await rename(temporary, file);
           temporary = undefined;
-          return reply(200, { revision: journal.changes.at(-1)!.revision });
+          // Directory fsync is supported on Unix; Windows still uses fsynced file + atomic rename.
+          if (process.platform !== 'win32') {
+            const dir = await open(resolve(file, '..'), 'r');
+            try {
+              await dir.sync();
+            } finally {
+              await dir.close();
+            }
+          }
+          return reply(200, await snapshot());
         } catch (error) {
-          const status =
-            (error as { status?: number }).status ??
-            ((error as NodeJS.ErrnoException).code ? 500 : 400);
-          return reply(status, {
-            error:
-              status === 500
-                ? 'Repository konnte nicht gespeichert oder gelesen werden. Dateirechte und Pfad prüfen.'
-                : (error as Error).message,
+          return reply((error as { status?: number }).status ?? 400, {
+            error: (error as Error).message,
           });
         } finally {
           if (temporary) await unlink(temporary).catch(() => {});
           if (handle) {
             await handle.close();
-            await unlink(lock).catch(() => {});
+            await unlink(lock);
           }
         }
       });

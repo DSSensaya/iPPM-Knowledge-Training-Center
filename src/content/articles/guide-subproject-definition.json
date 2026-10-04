@@ -1,0 +1,88 @@
+{
+  "id": "guide-subproject-definition",
+  "title": "System- und ILS-Teilprojekte definieren",
+  "summary": "Nach der Owner-Übergabe Stammdaten, Leistungsumfang und Organisation im richtigen Teilprojektkontext pflegen und mit dem Kundenprojekt abgleichen.",
+  "roleIds": ["tm", "ilsm", "pm"],
+  "systemIds": ["pdp"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "System- und ILS-Definition sind beschrieben. Belege und Reichweite der gemeldeten Project-Purpose-Entfernung bleiben offen."
+    },
+    {
+      "title": "Gemeinsamer Ablauf, unterschiedliche Verantwortung",
+      "body": "Wählen Sie den passenden Variantenweg: TM pflegt die Systemleistungen, ILSM die ILS-Leistungen und jeweils die spezifischen Liefergegenstände des Teilprojekts. Die Gesamtprojektliste liegt führend im Contract Execution Project. Scope, not in scope und Base Products bleiben relevant. Laut Auftraggebermeldung N28 (Eingang 28.09.2026) wurde Project Purpose aus allen betroffenen Teilprojekt-PDPs entfernt und ohne Beeinträchtigung bestehender Daten oder Formulare geprüft. Umsetzung und Prüfung sind gemeldet; Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen. SSO ist der zentrale Begriff. Inhalte der System-Specifics und die SSO-Ausgestaltung sind noch festzulegen und gehören nicht zu Release 1 (TTT-D-21/-28)."
+    },
+    {
+      "title": "Speichern und Ergebnis prüfen",
+      "body": "Die Detailabschnitte B §3.8.1–3.8.3 und §3.9.1–3.9.3 beschreiben keine vollständige gemeinsame Speicher-/Publish-/Check-in-Sequenz. Redaktionelle Ergebnisprüfung: Kontrollieren Sie die Persistenz im tatsächlich bearbeiteten PDP-/Listenkontext durch erneutes Öffnen. Nutzen Sie die Querschnittsanleitung zur Unterscheidung der Speicherwege; übertragen Sie den MS-Project-Client-Weg nicht pauschal auf PDPs. Die konkreten Bedienelemente und erforderlichen Abschlussaktionen sind vor einer praktischen Übung im Zielstand zu prüfen."
+    },
+    {
+      "title": "Handbuchverweise und Rechte bleiben begrenzt",
+      "body": "Die Einleitung B §3.9 verweist auf §3.5.6 und §3.8.4, während der eigene ILS-Zugriffsabschnitt §3.9.4 lautet. Diese redaktionelle Unstimmigkeit wird nicht als anderer ILS-Bedienweg interpretiert. Die bestehende Zugriffsanleitung stellt die Aussagen zu Build Team, Project Permissions und Synchronisation mit ihren Konflikten dar."
+    },
+    {
+      "title": "Merksatz",
+      "body": "TM arbeitet in System Overview, System Scope und System Organ.; ILSM in ILS Overview, ILS Scope und ILS Organisation. System Delivery umfasst L2 und gegebenenfalls Segment L3 unter System L2; ILS Delivery gilt für L2. Beide Varianten benötigen eine geprüfte Übergabe und eine klare Leistungsabgrenzung."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ausschließlich fiktive Daten und vorab geprüfte Übungskonten verwenden. Dieser Vorschlag ist kein durchgeführter Schulungsnachweis.",
+        "EPT, PDPs, Listen, Lookup-Werte, Bearbeitungsrechte und Speicher-/Abschlussweg in der konkreten Schulungsumgebung vorab prüfen. Abweichungen samt Quellen- und Inhaltsrevision protokollieren."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktives Vergleichsszenario: Ein System-Teilprojekt verantwortet ein Testsystem; ein ILS-Teilprojekt verantwortet die zugehörige Wartungsunterlage. In getrennten, vorab geprüften Übungsprojekten Beschreibung, Scope/Ausschlüsse/Basisprodukt und eine Teamrolle erfassen. Gegenseitige Schnittstelle und Zugehörigkeit zum Kundenprojekt prüfen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Zwei getrennte Leistungskontexte ohne Doppelzuordnung; die richtigen PDPs und Rollen sind gewählt. Erneutes Öffnen bestätigt die gespeicherten Angaben. Start Date und Projektplan werden synchronisiert; Organisationspflege allein vergibt keine Rechte.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag. Fachliche Freigabe, Nutzer-/Trainererprobung und Zielumgebungsnachweis fehlen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-definition-roles",
+    "issue-definition-configuration",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "B: §3.8.1 Stammdaten für System-TP anlegen",
+    "B: §3.8.2 Projektumfang für System-TP festlegen",
+    "B: §3.8.3 Projektorganisation für System-TP festlegen",
+    "B: §3.9.1 Stammdaten für ILS-TP anlegen",
+    "B: §3.9.2 Projektumfang für ILS-TP festlegen",
+    "B: §3.9.3 Projektorganisation für ILS-TP festlegen",
+    "TTT: Zeilen 7–9, 14 und 21, A:G",
+    "C23: Punkte 1–4",
+    "N28: Punkt 1 (gemeldete Entfernung und Prüfung)"
+  ],
+  "relatedArticleIds": [
+    "guide-project-handover",
+    "guide-project-master-data",
+    "guide-project-organization",
+    "guide-project-permissions",
+    "guide-deliverables-milestones",
+    "guide-save-publish-checkin"
+  ],
+  "procedureIds": [
+    "procedure-system-master-data",
+    "procedure-system-scope",
+    "procedure-system-organization",
+    "procedure-ils-master-data",
+    "procedure-ils-scope",
+    "procedure-ils-organization"
+  ],
+  "releaseIds": ["release-1"]
+}

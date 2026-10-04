@@ -1,175 +1,65 @@
-import ArticlePencil from '../components/ArticlePencil';
-import EditorialObject from '../components/EditorialObject';
-import { visibleArticles } from '../data/content';
+import { content } from '../content';
 import { PageTitle } from '../components/ui';
-import { issues, processSteps, processViews, roleLabel, roleCatalog } from '../data/catalog';
-import { sb1AdditionalHandbookTopics, sb1Coverage } from '../data/sb1-coverage';
-import { sources } from '../data/sources';
-import Inventory from '../components/Inventory';
-
-const sourceLabel = (id: string) => sources.find((source) => source.id === id)?.title ?? id;
-
-export default function Processes() {
+import { searchContent } from '../lib/search';
+import { roleLabel } from '../lib/queries';
+export default function Processes({ id, params }: { id?: string; params: URLSearchParams }) {
+  const q = params.get('q') ?? '';
+  const results = q ? searchContent(q) : [];
+  const processes = id ? content.processes.filter((p) => p.id === id) : content.processes;
   return (
     <>
       <PageTitle
-        eyebrow="Das Zusammenspiel verstehen"
-        title="Prozesse im Überblick"
-        description="Wer macht was – und welches Ergebnis wird weitergegeben? SB1 mit abgegrenzten Bedienentwürfen und Orientierung; offene Fachregeln und Systemnachweise bleiben sichtbar."
+        eyebrow="Zusammenhänge verstehen"
+        title="Prozesse"
+        description="Der vollständige vorhandene Prozessbestand. Material zu einzelnen Schritten bedeutet keine vollständige Prozessabdeckung."
       />
-      <Inventory key={window.location.hash} />
-      {processViews.map((view) => (
-        <section className="process-section" aria-label={view.title} key={view.id}>
-          <h2>{view.title}</h2>
-          {['access', 'milestones'].includes(view.id) ? (
-            <EditorialObject object={view} label="Prozessansicht" />
-          ) : (
-            <ArticlePencil
-              article={visibleArticles.find((a) => a.id === view.articleId)!}
-              path={['title']}
-              label="Prozesstitel am Ursprungsbeitrag"
-            />
-          )}
-          <p>{view.description}</p>
-          {!['access', 'milestones'].includes(view.id) && (
-            <ArticlePencil
-              article={visibleArticles.find((a) => a.id === view.articleId)!}
-              path={['summary']}
-              label="Prozessbeschreibung am Ursprungsbeitrag"
-            />
-          )}
-          <ul className="knowledge-step-list">
-            {view.stepIds.map((id) => {
-              const s = processSteps.find((step) => step.id === id)!;
-              return (
-                <li key={s.id}>
-                  <h3>
-                    {s.number} {s.title}
-                  </h3>
-                  <p>
-                    <strong>{roleLabel(s.roleId)}</strong>
-                  </p>
-                  <EditorialObject
-                    object={roleCatalog.find((role) => role.id === s.roleId)}
-                    field="label"
-                    label="Rolle"
-                  />
-                  <EditorialObject object={s} label="Prozessschritt" />
-                  <p>Voraussetzung: {s.input}</p>
-                  <p>Erwartetes Ergebnis: {s.output}</p>
-                  <a href={`#/artikel/${view.articleId}`}>
-                    {sb1Coverage
-                      .find((item) => item.number === s.number)
-                      ?.materialStatus.startsWith('Orientierung')
-                      ? 'Orientierung'
-                      : 'Bedienweg'}
-                    , Quellen und Einschränkungen zu {s.number} öffnen
-                  </a>
-                </li>
-              );
-            })}
+      {q && (
+        <section aria-label="Prozesssuche">
+          <h2>Treffer für „{q}“</h2>
+          <ul className="result-list">
+            {results.map((r) => (
+              <li key={r.id}>
+                <a href={r.href}>{r.title}</a>
+                <p>{r.summary}</p>
+              </li>
+            ))}
           </ul>
+          {!results.length && <p role="status">Keine passenden Prozesse oder Aufgaben gefunden.</p>}
+          <a href="#/prozesse">Alle Prozesse anzeigen</a>
         </section>
-      ))}
-      <section className="process-section" aria-labelledby="sb1-coverage-heading">
-        <h2 id="sb1-coverage-heading">SB1-Schulungsmatrix: 24 Schritte</h2>
-        <p>
-          Die Liste zeigt den Stand der Center-Materialien je Matrixschritt. „Material vorhanden“
-          bedeutet weder geschult noch praktisch geprüft oder freigegeben. Quellenhinweise und
-          offene Punkte ersetzen keinen Bedienweg.
-        </p>
-        <p>
-          {
-            sb1Coverage.filter((item) => item.materialStatus === 'Reales Teilmaterial vorhanden')
-              .length
-          }{' '}
-          Schritte mit realem Teilmaterial,{' '}
-          {sb1Coverage.filter((item) => item.materialStatus.startsWith('Orientierung')).length}{' '}
-          Schritte mit Orientierung ohne Gesamtbedienweg,{' '}
-          {sb1Coverage.filter((item) => item.materialStatus === 'Nur Quellenhinweis').length}{' '}
-          Schritte nur mit Quellenhinweisen. Alle Materialien bleiben Quellenentwürfe.
-        </p>
-        <ol className="sb1-coverage-list">
-          {sb1Coverage.map((item) => (
-            <li key={item.number} data-matrix-number={item.number}>
-              <details>
-                <summary>
-                  <strong>
-                    {item.number} {item.originalTitle}
-                  </strong>
-                  <span>{item.materialStatus}</span>
-                </summary>
-                <div className="sb1-coverage-details">
-                  <EditorialObject object={item} label="Matrixkommentar" />
-                  <p>
-                    <strong>Fundstelle in T:</strong> {sourceLabel(item.matrixEvidence.sourceId)} ·{' '}
-                    {item.matrixEvidence.locator}
-                  </p>
-                  <div>
-                    <strong>Vorhandene reale Materialien:</strong>{' '}
-                    {item.realMaterials.length ? (
-                      <ul className="sb1-material-list">
-                        {item.realMaterials.map((material) => (
-                          <li key={material.articleId}>
-                            <a href={`#/artikel/${material.articleId}`}>
-                              {
-                                visibleArticles.find((article) => article.id === material.articleId)
-                                  ?.title
-                              }
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      'Keine realen Center-Materialien angebunden.'
-                    )}
-                  </div>
-                  <p>
-                    <strong>Behandelter Teilumfang:</strong> {item.treatedScope}
-                  </p>
-                  <p>
-                    <strong>Konkrete Lücke:</strong> {item.gap}
-                  </p>
-                  <p>
-                    <strong>Relevante Issues:</strong>{' '}
-                    {item.issueIds.length
-                      ? item.issueIds
-                          .map((id) => {
-                            const issue = issues.find((candidate) => candidate.id === id);
-                            return `${issue?.title ?? id} (${id})`;
-                          })
-                          .join('; ')
-                      : 'Kein eigenes Issue im Center zugeordnet; die Lücke bleibt offen.'}
-                  </p>
-                  <p>
-                    <strong>Ergänzende Belege:</strong>{' '}
-                    {item.supplementaryEvidence
-                      .map((ref) => `${sourceLabel(ref.sourceId)} · ${ref.locator}`)
-                      .join('; ')}
-                  </p>
-                </div>
-              </details>
-            </li>
-          ))}
-        </ol>
-      </section>
-      <section className="process-section" aria-labelledby="sb1-additional-heading">
-        <h2 id="sb1-additional-heading">Weitere Handbuchthemen außerhalb der 24er-Zählung</h2>
-        <ul className="sb1-additional-topics">
-          {sb1AdditionalHandbookTopics.map((topic) => (
-            <li key={topic.title}>
-              <EditorialObject object={topic} label="Handbuchthema" />
-              <strong>{topic.title}</strong> · {topic.note}{' '}
-              <span>
-                Beleg:{' '}
-                {topic.evidence
-                  .map((ref) => `${sourceLabel(ref.sourceId)} · ${ref.locator}`)
-                  .join('; ')}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      )}
+      {!processes.length && <p>Prozess nicht gefunden.</p>}
+      {!q &&
+        processes.map((p) => (
+          <section key={p.id}>
+            <h2>
+              <a href={'#/prozesse/' + p.id}>{p.title}</a>
+            </h2>
+            <p>{p.description}</p>
+            {[...new Set(p.steps.map((s) => s.phase))].map((phase) => (
+              <section className="phase" key={phase}>
+                <h3>{phase}</h3>
+                <ol className="result-list">
+                  {p.steps
+                    .filter((s) => s.phase === phase)
+                    .map((s) => (
+                      <li key={s.id}>
+                        <a href={'#/schritt/' + s.id}>
+                          <strong>
+                            {s.number} {s.title}
+                          </strong>
+                        </a>
+                        <p>
+                          {s.roleIds.map((id) => roleLabel(id)).join(' · ') ||
+                            'Verantwortung nicht festgelegt'}
+                        </p>
+                      </li>
+                    ))}
+                </ol>
+              </section>
+            ))}
+          </section>
+        ))}
     </>
   );
 }

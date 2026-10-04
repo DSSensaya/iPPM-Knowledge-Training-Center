@@ -1,0 +1,80 @@
+{
+  "id": "faq-milestone-dates",
+  "title": "Stichtag, Anfang und Zahlungsfrist unterscheiden",
+  "summary": "Kurze Antworten zur Terminlogik und zu den zwei Zahlungsvarianten des SB1-Handbuchentwurfs.",
+  "roleIds": ["pm"],
+  "systemIds": ["pwa", "pdp", "project-client"],
+  "status": "usable",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Belegte Unterscheidung von Stichtag, Plantermin und Zahlungsfrist im beschriebenen R1-Kontext."
+    },
+    {
+      "title": "Was bedeutet Stichtag?",
+      "body": "Im Handbuchentwurf hält Stichtag den vertraglich vereinbarten oder aktuell verhandelten Zieltermin fest. Anfang ist der aktuelle Plantermin. Beim Setzen von Anfang entsteht die Einschränkung „Anfang nicht früher als“, die fachlich geprüft werden muss."
+    },
+    {
+      "title": "Wann braucht ein Zahlungsmeilenstein einen Vorgänger?",
+      "body": "Wenn die Zahlung durch eine Lieferung ausgelöst wird, ist der passende Liefermeilenstein Vorgänger; die Zahlungsfrist wird als Zeitabstand gepflegt. Fehlt dieser Lieferbezug fachlich, ist direkte Terminierung ohne künstliche Vorgänger-Verknüpfung vorgesehen."
+    },
+    {
+      "title": "Wird die Lieferliste automatisch mit dem Projektplan abgeglichen?",
+      "body": "Die Verknüpfung der SharePoint-Liste mit der Funktion Lieferung und damit zu Liefermeilensteinen ist umgesetzt. Führend für das Gesamtprojekt ist die Liste im Contract Execution Project. Das bestätigt keine automatische Synchronisierung aller Listen- und Planfelder. Die praktische Darstellung großer Listen bleibt offen."
+    },
+    {
+      "title": "Gilt der beschriebene Weg als getestet?",
+      "body": "Die Funktionsmatrix bewertet die Meilensteinplanung als teilweise verifiziert und mit Hinweis schulungsfähig. Der aktuelle Handbuchentwurf ergänzt eine konkrete Beschreibung, liefert aber keinen neuen protokollierten Test der beiden Zahlungsvarianten im Zielsystem."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Vertragsziel, aktueller Plan und Zahlungsfrist beantworten verschiedene Fragen."
+    },
+    {
+      "title": "Optionale Übung: Ziel",
+      "body": "Lieferliste, Liefermeilenstein und zwei Zahlungsvarianten fachlich aufeinander beziehen; Stichtag und Plantermin unterscheiden.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ein freigegebenes Schulungsszenario mit fiktivem Liefergegenstand, vereinbarter Zahlungsfrist und einem separat begründeten Zahlungstermin bereitstellen.",
+        "Projektplan, Client-Ansichten, Kontorechte und Veröffentlichung im konkreten Schulungssystem vorher prüfen.",
+        "Keine vertraulichen Vertrags- oder Projektdaten im Center erfassen."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Redaktioneller Übungsvorschlag: Einen Liefergegenstand mit Liefermeilenstein abgleichen, danach je einen lieferungsabhängigen und einen direkt terminierten Zahlungsmeilenstein erläutern und im geprüften Schulungskontext anlegen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Die beiden Zahlungslogiken, Termine und Klassifikationen sind im Schulungsplan nachvollziehbar; die veröffentlichte Fassung wird mit dem Listeneintrag verglichen.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag ohne durchgeführte Schulung oder fachliche Freigabe. Lesemarkierungen zählen nicht als Übungsnachweis."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "FAQ",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-f-r1-open-08",
+    "issue-payment-terms-context",
+    "issue-milestone-client",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "TTT: Abgestimmte Restpunkte vom 23.09.2026",
+    "C23: Bestätigte Klärungen vom 23.09.2026",
+    "B: §3.6.2 Projektumfang festlegen; §3.6.3 Vertragsdaten einpflegen; §4.4 Fachlicher Soll-Ablauf; §4.5.2/4.5.3 Meilensteine planen",
+    "T: Release1-Matrix!A6:Q6 und A20:Q21"
+  ],
+  "relatedArticleIds": ["guide-deliverables-milestones"],
+  "procedureIds": [],
+  "releaseIds": ["release-1"]
+}

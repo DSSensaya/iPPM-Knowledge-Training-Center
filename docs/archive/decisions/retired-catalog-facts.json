@@ -1,0 +1,325 @@
+{
+  "groupings": [
+    {
+      "id": "CAP-01",
+      "title": "Projektbeantragung & -anlage",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-01",
+        "R1-02",
+        "R1-22"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A2:N2",
+          "sourceKey": "CAP-01",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-02",
+      "title": "Projektinformationen, Scope & Projektdokumentation",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-03",
+        "R1B-05"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A3:N3",
+          "sourceKey": "CAP-02",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-03",
+      "title": "Projektorganisation, Rollen & Berechtigungen",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-06",
+        "R1-07",
+        "R1-23"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A4:N4",
+          "sourceKey": "CAP-03",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-04",
+      "title": "Phasen-, Meilenstein- & Reviewplanung",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-08",
+        "R1-09",
+        "R1-10",
+        "R1-11"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A5:N5",
+          "sourceKey": "CAP-04",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-05",
+      "title": "Projektstruktur, Templates, Tailoring & Arbeitspakete",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-12",
+        "R1-13",
+        "R1-14",
+        "R1-15",
+        "R1-18",
+        "R1-20"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A6:N6",
+          "sourceKey": "CAP-05",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-06",
+      "title": "Multi-Level Scheduling, Terminplanung & MTA",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-16",
+        "R1-17",
+        "R1-19",
+        "R1B-06"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A7:N7",
+          "sourceKey": "CAP-06",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-07",
+      "title": "Änderungsmanagement für Leistungen & Termine",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-21"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A8:N8",
+          "sourceKey": "CAP-07",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "CAP-08",
+      "title": "Status, Reporting, Analytics & Eskalationsmanagement",
+      "kind": "Scope-Gruppe",
+      "aliases": [],
+      "context": "Abgeleitete Gruppierung; keine zusätzliche offizielle Scope-ID.",
+      "relatedIds": [
+        "R1-04",
+        "R1-05",
+        "R1-24",
+        "R1-25",
+        "R1B-01",
+        "R1B-02",
+        "R1B-03",
+        "R1B-04"
+      ],
+      "evidence": [
+        {
+          "sourceId": "S",
+          "locator": "01_SCOPE_CAPABILITIES!A9:N9",
+          "sourceKey": "CAP-08",
+          "derivation": "direct"
+        }
+      ]
+    }
+  ],
+  "resolvedIssues": [
+    {
+      "id": "issue-f-r1-open-05",
+      "title": "Startdatum und EDC: Synchronisation und Abgrenzung geklärt",
+      "status": "GEKLÄRT",
+      "subjects": [
+        {
+          "kind": "function",
+          "id": "fn-project-provision"
+        },
+        {
+          "kind": "function",
+          "id": "fn-project-master-data"
+        },
+        {
+          "kind": "function",
+          "id": "fn-system-definition"
+        },
+        {
+          "kind": "function",
+          "id": "fn-ils-definition"
+        }
+      ],
+      "limitation": "Bestätigt am 23.09.2026: Start Date auf Overview und Projektplan sind wechselseitig synchronisiert. EDC ist davon unabhängig und ausschließlich der vertragliche Starttermin. R1-OPEN-05 ist in diesem Umfang geschlossen; die zusätzliche EDC-Feldbereitstellung ist gesondert technisch offen.",
+      "evidence": [
+        {
+          "sourceId": "C23",
+          "locator": "Punkt 1",
+          "sourceKey": "TTT-D-06",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "TTT",
+          "locator": "Zeile 7, A:G",
+          "sourceKey": "TTT-D-06",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "F",
+          "locator": "Klärungsbedarf!A9:D9",
+          "sourceKey": "R1-OPEN-05",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "T",
+          "locator": "Release1-Matrix!A5:Q5 und A9:Q9; Offene Punkte!A7:F7",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "B",
+          "locator": "§3.1.2; §3.6.1; §3.6.3; §3.8.1; §3.9.1",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "K",
+          "locator": "PDP-Feldkatalog: Q4 Contract Execution, Z. 22–23 und 50–51",
+          "derivation": "direct"
+        }
+      ]
+    },
+    {
+      "id": "issue-f-r1-open-06",
+      "title": "LCM-3: einmal pro Kalenderjahr bestätigt",
+      "status": "GEKLÄRT",
+      "subjects": [
+        {
+          "kind": "function",
+          "id": "fn-phases-tailoring"
+        },
+        {
+          "kind": "scope",
+          "id": "R1-08"
+        },
+        {
+          "kind": "scope",
+          "id": "R1-10"
+        }
+      ],
+      "limitation": "LCM-3 ist wegen Auditierung erforderlich und einmal pro Kalenderjahr durchzuführen. R1-OPEN-06 ist damit geklärt. Ein rollierender 12-Monats-Rhythmus ist eine zukünftige Verbesserung ohne Beschluss; daraus keine aktuelle Terminregel ableiten.",
+      "evidence": [
+        {
+          "sourceId": "C23",
+          "locator": "Punkt 8",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "TTT",
+          "locator": "Zeile 27, A:G",
+          "sourceKey": "TTT-D-26",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "T",
+          "locator": "Release1-Matrix!A23:Q23",
+          "sourceKey": "3.4",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "F",
+          "locator": "Klärungsbedarf!A10:D10",
+          "sourceKey": "R1-OPEN-06",
+          "derivation": "direct"
+        },
+        {
+          "sourceId": "B",
+          "locator": "§4.5.5 Projektphasen und LCM-Review-Termine planen",
+          "derivation": "direct"
+        }
+      ]
+    }
+  ],
+  "procedureSourceAssessments": [],
+  "editorialNotes": [
+    {
+      "id": "knowledgecontext-0",
+      "text": "Geprüfte Zielumgebung: nicht angegeben. Die technischen Bewertungen beziehen sich auf die jeweils begrenzten Quellenkontexte."
+    },
+    {
+      "id": "knowledgecontext-1",
+      "text": "Vor praktischer Nutzung müssen die unten genannten fachlichen und technischen Voraussetzungen nachgewiesen sein. Dieser Beitrag bietet Orientierung."
+    },
+    {
+      "id": "knowledgecontext-2",
+      "text": "Für diesen Schritt liegt hier kein ausführbarer Bedienweg vor. Die Orientierung und Prüffragen im fachlichen Kontext benennen die Vorbereitung und die offenen Nachweise."
+    },
+    {
+      "id": "knowledgecontext-3",
+      "text": "Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren Konten."
+    },
+    {
+      "id": "knowledgecontext-4",
+      "text": "Alle Projekt- und Kontobezeichnungen sind fiktiv. Prüfen Sie den tatsächlichen Ausgangszustand im geeigneten Schulungssystem. Einträge hier werden nicht gespeichert; ein praktischer Durchlauf ist nicht belegt."
+    },
+    {
+      "id": "knowledgecontext-5",
+      "text": "Auch eine bestätigte Beobachtung erledigt keine offenen Issues. Build Team, effektive Rechte, Bestands-Sites und Schulungsumgebung bleiben gesondert zu prüfen."
+    },
+    {
+      "id": "knowledgecontext-6",
+      "text": "Die Aussagen bleiben nach Quelle und Reichweite getrennt. Ein beschriebener oder geübter Einzelweg gibt diesen Center-Inhalt nicht fachlich frei."
+    },
+    {
+      "id": "knowledgecontext-7",
+      "text": "Die Fundstellen beziehen sich auf die lokal analysierten Dateien. Originaldateien werden hier nicht geladen; referenzierte TTT-Originale und Quick Guides sind nicht als verfügbare Downloads hinterlegt."
+    },
+    {
+      "id": "ownerchangearticle-8",
+      "text": "Diese Ergebnisse sind zu prüfen; ihre Beschreibung ist kein erfolgreicher Test mit Ihren Konten."
+    },
+    {
+      "id": "milestoneplanningarticle-9",
+      "text": "Beschriebenes Ergebnis laut Entwurf; kein erfolgreicher Test mit Ihren Konten."
+    }
+  ]
+}

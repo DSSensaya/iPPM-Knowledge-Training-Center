@@ -1,0 +1,66 @@
+{
+  "id": "guide-project-organization",
+  "title": "Projektorganisation nachvollziehbar dokumentieren",
+  "summary": "Project Core Team, Subprojects und Unteraufträge pflegen; dokumentierte Verantwortung von Owner, Teamzuordnung und Rechten unterscheiden.",
+  "roleIds": ["pm"],
+  "systemIds": ["pdp"],
+  "status": "draft",
+  "content": [
+    {
+      "title": "Geltungsbereich dieses Beitrags",
+      "body": "Organisationseinträge sind beschrieben. Finale Rollenlisten und Berechtigungswirkung bleiben gesondert zu prüfen."
+    },
+    {
+      "title": "Organisation, Übergabe und Zugriff verbinden",
+      "body": "Ein Eintrag unter Subprojects legt kein Teilprojekt an. Ein Teilprojektleiter in der Liste ersetzt keinen Owner-Wechsel. Eine dokumentierte Kernteamrolle ersetzt weder Teamzuordnung noch Project Permissions. Für diese Aufgaben bleiben die vorhandene Zugriffsanleitung und der abgegrenzte Owner-Wechsel maßgeblich; deren offene Synchronisations- und Rechtefragen gelten weiter."
+    },
+    {
+      "title": "Merksatz",
+      "body": "Organisation dokumentiert Verantwortung. Pflegen Sie Mitarbeiter, Projekt- und Prozessrollen, Teilprojektbezug und Unteraufträge; prüfen Sie Rechte unabhängig davon. B nennt Subcontracts, T Subcontractors: Die tatsächliche Liste und finale Rollenwerte müssen im Zielstand bestätigt werden."
+    },
+    {
+      "title": "Übung vorbereiten",
+      "body": "",
+      "steps": [
+        "Ausschließlich fiktive Daten und vorab geprüfte Übungskonten verwenden. Dieser Vorschlag ist kein durchgeführter Schulungsnachweis.",
+        "EPT, PDPs, Listen, Lookup-Werte, Bearbeitungsrechte und Speicher-/Abschlussweg in der konkreten Schulungsumgebung vorab prüfen. Abweichungen samt Quellen- und Inhaltsrevision protokollieren."
+      ],
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung durchführen",
+      "body": "Fiktiver Redaktionsvorschlag: Für ein Übungsprojekt eine Kernteamrolle, ein bereits bereitgestelltes System-Teilprojekt und einen fiktiven Unterauftrag abbilden. Nur bestätigte Übungskonten und verfügbare Rollen verwenden; anschließend Subprojects mit der separat geprüften Owner-Zuordnung vergleichen.",
+      "purpose": "exercise"
+    },
+    {
+      "title": "Übung: erwartetes Ergebnis und Grenze",
+      "body": "Mitarbeiter/Projektrolle/Prozessrolle, Name/Scope/Teilprojektleiter und UAN/Scope/POC/Order Value sind nachvollziehbar. Kein Listeneintrag wird als Rechtevergabe oder Projektanlage gewertet.",
+      "steps": [
+        "Quellenbasierter Übungsvorschlag. Fachliche Freigabe, Nutzer-/Trainererprobung und Zielumgebungsnachweis fehlen."
+      ],
+      "purpose": "exercise"
+    }
+  ],
+  "topic": "Projektplanung",
+  "kind": "Anleitung",
+  "openPoints": [],
+  "openPointIds": [
+    "issue-definition-roles",
+    "issue-definition-configuration",
+    "issue-f-r1-open-12"
+  ],
+  "sourceRefs": [
+    "B: §3.6.5 Projektorganisation festlegen",
+    "TTT: Zeilen 7–9, 14 und 21, A:G",
+    "C23: Punkte 1–4"
+  ],
+  "relatedArticleIds": [
+    "guide-project-permissions",
+    "faq-role-vs-access",
+    "guide-subproject-definition",
+    "guide-project-objectives",
+    "guide-save-publish-checkin"
+  ],
+  "procedureIds": ["procedure-project-organization"],
+  "releaseIds": ["release-1"]
+}

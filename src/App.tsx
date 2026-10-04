@@ -1,57 +1,164 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   BookOpen,
   ChevronRight,
   HelpCircle,
-  LayoutDashboard,
+  ListTodo,
   Menu,
   Monitor,
   Network,
   UserRound,
   X,
 } from 'lucide-react';
-import { visibleArticles } from './data/content';
+import { content } from './content';
 import { loadProgress, mergeProgress, STORAGE_KEY } from './lib/storage';
 import type { Progress } from './lib/storage';
-import Home from './pages/Home';
+import Tasks, { WorkPage, ProcedurePage } from './pages/Tasks';
+import Roles from './pages/Roles';
+import Releases, { TrainingBlockPage } from './pages/Releases';
+import Editor from './editor/Editor';
+import EditorialInventory from './editor/Inventory';
 import { ArticlePage, Knowledge } from './pages/Knowledge';
 import Processes from './pages/Processes';
 import Personal from './pages/Personal';
 import Help from './pages/Help';
 
 const navigation = [
-  { path: '/', label: 'Übersicht', icon: LayoutDashboard },
-  { path: '/wissen', label: 'Wissensbasis', icon: BookOpen },
+  { path: '/aufgaben', label: 'Aufgaben', icon: ListTodo },
   { path: '/prozesse', label: 'Prozesse', icon: Network },
-  { path: '/mein-bereich', label: 'Mein Lernbereich', icon: UserRound },
+  { path: '/rollen', label: 'Rollen', icon: UserRound },
+  { path: '/wissen', label: 'Wissen', icon: BookOpen },
 ];
 
 export default function App() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
+  const navigationGuard = useRef<(() => Promise<boolean>) | null>(null);
+  const routeRef = useRef(route);
+  routeRef.current = route;
+  const registerNavigationGuard = useCallback((guard: (() => Promise<boolean>) | null) => {
+    navigationGuard.current = guard;
+  }, []);
   const [initial] = useState(loadProgress);
   const [progress, setProgress] = useState(initial.progress);
   const [storageError, setStorageError] = useState(initial.error);
   const [notice, setNotice] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [, setContentVersion] = useState(0);
   const main = useRef<HTMLElement>(null);
+  const previousPath = useRef(window.location.hash.slice(1).split('?')[0] || '/');
   const [path, search = ''] = route.split('?');
   const params = new URLSearchParams(search);
-  const active = path.startsWith('/artikel') ? '/wissen' : path;
+  const active =
+    path === '/' || path.startsWith('/aufgabe') || path.startsWith('/schritt')
+      ? '/aufgaben'
+      : path.startsWith('/artikel') || path.startsWith('/thema') || path.startsWith('/bedienweg')
+        ? '/wissen'
+        : path.startsWith('/rollen')
+          ? '/rollen'
+          : path.startsWith('/prozesse')
+            ? '/prozesse'
+            : path;
   const current =
     navigation.find((n) => n.path === active)?.label ||
-    (path === '/hilfe' ? 'Hilfe & FAQ' : 'Seite');
+    (path === '/hilfe'
+      ? 'Hilfe & FAQ'
+      : path === '/mein-bereich'
+        ? 'Mein Lernbereich'
+        : path.startsWith('/releases') || path.startsWith('/schulungen')
+          ? 'Releases & Schulungen'
+          : 'Redaktion');
   useEffect(() => {
-    const changed = () => {
-      setRoute(window.location.hash.slice(1) || '/');
+    // Track browser entries only to undo a refused hash/history navigation without rewriting it.
+    const entryIndex = () =>
+      typeof history.state?.ippmRouteIndex === 'number'
+        ? (history.state.ippmRouteIndex as number)
+        : undefined;
+    let currentIndex = entryIndex() ?? 0;
+    history.replaceState({ ...history.state, ippmRouteIndex: currentIndex }, '');
+    let restoring: { index: number; done: () => void } | undefined;
+    let checking = false;
+    const travel = (index: number) =>
+      new Promise<void>((done) => {
+        const delta = index - (entryIndex() ?? currentIndex);
+        if (!delta) {
+          done();
+          return;
+        }
+        restoring = { index, done };
+        history.go(delta);
+      });
+    const commit = (next: string) => {
+      routeRef.current = next;
+      setRoute(next);
       setMenuOpen(false);
     };
+    const changed = async () => {
+      if (restoring && entryIndex() === restoring.index) {
+        const { done } = restoring;
+        restoring = undefined;
+        done();
+        return;
+      }
+      const next = window.location.hash.slice(1) || '/';
+      let targetIndex = entryIndex();
+      if (targetIndex === undefined) {
+        targetIndex = currentIndex + 1;
+        history.replaceState({ ...history.state, ippmRouteIndex: targetIndex }, '');
+      }
+      if (next === routeRef.current) {
+        currentIndex = targetIndex;
+        return;
+      }
+      setMenuOpen(false);
+      if (navigationGuard.current) {
+        await travel(currentIndex);
+        if (checking) return;
+        checking = true;
+        const allowed = await navigationGuard.current();
+        checking = false;
+        if (!allowed) return;
+        await travel(targetIndex);
+      }
+      currentIndex = targetIndex;
+      commit(next);
+    };
+    const clicked = async (event: MouseEvent) => {
+      if (
+        !navigationGuard.current ||
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link = event.target instanceof Element ? event.target.closest('a') : null;
+      const href = link?.getAttribute('href');
+      if (!href?.startsWith('#/') || link?.target === '_blank') return;
+      event.preventDefault();
+      const next = href.slice(1);
+      if (next === routeRef.current || checking) return;
+      setMenuOpen(false);
+      checking = true;
+      const allowed = await navigationGuard.current();
+      checking = false;
+      if (!allowed) return;
+      history.pushState({ ...history.state, ippmRouteIndex: ++currentIndex }, '', '#' + next);
+      commit(next);
+    };
     window.addEventListener('hashchange', changed);
-    return () => window.removeEventListener('hashchange', changed);
+    document.addEventListener('click', clicked);
+    return () => {
+      window.removeEventListener('hashchange', changed);
+      document.removeEventListener('click', clicked);
+    };
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-    main.current?.focus({ preventScroll: true });
+    if (previousPath.current !== path) main.current?.focus({ preventScroll: true });
+    previousPath.current = path;
     document.title = `${current} · iPPM Knowledge & Training Center`;
   }, [path, current]);
   useEffect(() => {
@@ -98,7 +205,22 @@ export default function App() {
   }
 
   let page;
-  if (path === '/') page = <Home progress={progress} toggleSave={toggleSave} />;
+  if (path === '/' || path === '/aufgaben') page = <Tasks />;
+  else if (path.startsWith('/schritt/')) page = <WorkPage id={path.split('/')[2]} kind="step" />;
+  else if (path.startsWith('/aufgabe/')) page = <WorkPage id={path.split('/')[2]} kind="task" />;
+  else if (path.startsWith('/thema/')) page = <WorkPage id={path.split('/')[2]} kind="topic" />;
+  else if (path.startsWith('/bedienweg/')) page = <ProcedurePage id={path.split('/')[2]} />;
+  else if (path.startsWith('/rollen')) page = <Roles id={path.split('/')[2]} />;
+  else if (path.startsWith('/releases')) page = <Releases id={path.split('/')[2]} />;
+  else if (path.startsWith('/schulungen/')) page = <TrainingBlockPage id={path.split('/')[2]} />;
+  else if (__LOCAL_EDITOR__ && path === '/redaktion')
+    page = (
+      <Editor
+        onSaved={() => setContentVersion((v) => v + 1)}
+        registerNavigationGuard={registerNavigationGuard}
+      />
+    );
+  else if (__LOCAL_EDITOR__ && path === '/redaktion/inventory') page = <EditorialInventory />;
   else if (path === '/wissen')
     page = <Knowledge params={params} progress={progress} toggleSave={toggleSave} />;
   else if (path.startsWith('/artikel/'))
@@ -111,7 +233,8 @@ export default function App() {
         toggleRead={toggleRead}
       />
     );
-  else if (path === '/prozesse') page = <Processes />;
+  else if (path.startsWith('/prozesse'))
+    page = <Processes id={path.split('/')[2]} params={params} />;
   else if (path === '/mein-bereich')
     page = <Personal progress={progress} toggleSave={toggleSave} importProgress={importProgress} />;
   else if (path === '/hilfe') page = <Help />;
@@ -161,10 +284,10 @@ export default function App() {
               <Icon size={20} aria-hidden="true" />
               <span>{label}</span>
               {href === '/mein-bereich' &&
-                progress.bookmarks.some((id) => visibleArticles.some((a) => a.id === id)) && (
+                progress.bookmarks.some((id) => content.articles.some((a) => a.id === id)) && (
                   <span className="nav-count">
                     {
-                      progress.bookmarks.filter((id) => visibleArticles.some((a) => a.id === id))
+                      progress.bookmarks.filter((id) => content.articles.some((a) => a.id === id))
                         .length
                     }
                   </span>
@@ -173,6 +296,23 @@ export default function App() {
           ))}
         </nav>
         <div className="sidebar-bottom">
+          <a className="help-link" href="#/releases">
+            Releases & Schulungen
+          </a>
+          <a className="help-link" href="#/mein-bereich">
+            Mein Lernbereich
+          </a>
+          {__LOCAL_EDITOR__ && (
+            <>
+              <a className="help-link" href="#/redaktion">
+                Inhalte pflegen
+              </a>
+              <a className="help-link" href="#/redaktion/inventory">
+                Redaktion: Bestand
+              </a>
+            </>
+          )}
+
           <a
             className={`help-link ${path === '/hilfe' ? 'active' : ''}`}
             href="#/hilfe"
@@ -221,7 +361,7 @@ export default function App() {
         </main>
         <footer>
           <span>iPPM Knowledge & Training Center</span>
-          <span>Quellenentwürfe · Keine freigegebenen Arbeitsanweisungen</span>
+          <span>Geltungsbereich und offene Punkte vor Anwendung beachten</span>
           <a href="#/hilfe">
             Über diese Plattform
             <ArrowRight size={14} />
