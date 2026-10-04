@@ -105,3 +105,23 @@ npm run typecheck:tools
 ```
 
 Nach erfolgreicher Prüfung Änderungen mit dem üblichen Git-Workflow versionieren. Der Editor committet nicht automatisch. Der gebaute Reader benötigt einen neuen Build, um geänderte Repository-Inhalte auszuliefern.
+
+## Belegte Prozessverbindungen
+
+`Process.flows` ist optional und liegt ausschließlich am kanonischen Prozess in
+`processes.json`. Eine Beziehung enthält `from` und `to` als Schritt-IDs desselben
+Prozesses, optional `kind` und `label` sowie einen konkreten Quellenbeleg in
+`sourceRefs` oder `sourceNote`. Unbekannte Endpunkte, identische Duplikate und
+Beziehungen ohne Quellenbeleg werden abgewiesen. Fehlende `flows` bedeuten keine
+belegte Verbindung; Nummern und Arraypositionen erzeugen niemals Pfeile.
+
+Schrittrollen sind die vorhandenen Verantwortungszuordnungen. Bei mehreren
+`roleIds` führt die Karte den Schritt einmal in „Gemeinsam zugeordnet“ und nennt
+alle Rollen; sie bestimmt keine führende Rolle. Leere Rollen bleiben ohne
+Rollenzuordnung. Die Karte verändert keine fachlichen Rollen oder Metadaten.
+
+Die Platzierung berechnet `src/lib/process-layout.ts` getrennt aus Rollen,
+Phasen und kanonischer Darstellungsreihenfolge. Es gibt keine Layoutfelder im
+Fachbestand und keinen zweiten Schrittbestand. Fachliche Reihenfolge wird nur
+durch belegte Flow-Beziehungen ausgedrückt. Quellenprüfung und offene Fragen zu
+Projektabwicklung stehen in `docs/PROCESS_SWIMLANE.md`.

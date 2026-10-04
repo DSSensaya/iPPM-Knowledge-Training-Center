@@ -1,3 +1,4 @@
+import { processHref } from '../lib/process-navigation';
 import { content } from '../content';
 import {
   getProcessSteps,
@@ -73,7 +74,15 @@ export default function Tasks() {
     </>
   );
 }
-export function WorkPage({ id, kind }: { id: string; kind: 'step' | 'task' | 'topic' }) {
+export function WorkPage({
+  id,
+  kind,
+  params,
+}: {
+  id: string;
+  kind: 'step' | 'task' | 'topic';
+  params?: URLSearchParams;
+}) {
   const entity =
     kind === 'step'
       ? getStep(id)
@@ -87,10 +96,18 @@ export function WorkPage({ id, kind }: { id: string; kind: 'step' | 'task' | 'to
         <a href="#/aufgaben">Aufgaben öffnen</a>
       </>
     );
+  const process =
+    kind === 'step' ? content.processes.find((p) => p.steps.some((s) => s.id === id)) : undefined;
+  const processView = params?.get('ansicht') === 'liste' ? 'liste' : 'karte';
   const tasks =
     'taskIds' in entity ? content.tasks.filter((t) => entity.taskIds?.includes(t.id)) : [];
   return (
     <>
+      {process ? (
+        <a className="text-link" href={processHref(process.id, processView)}>
+          ← Zurück zur {processView === 'liste' ? 'Prozessliste' : 'Prozesslandkarte'}
+        </a>
+      ) : null}
       <a className="text-link" href="#/aufgaben">
         ← Aufgaben
       </a>

@@ -681,3 +681,193 @@ footer {
 .editor-confirmation::backdrop {
   background: var(--base);
 }
+
+/* project: process notation, lane sizing and compact breakpoint; verified color tokens. */
+.process-view-switch {
+  display: flex;
+  gap: 8px;
+  margin: 24px 0;
+}
+.process-view-switch button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  padding: 12px 16px;
+}
+.process-view-switch button[aria-pressed='true'] {
+  background: var(--signal);
+}
+.process-view-switch button:hover {
+  background: var(--dark);
+  color: var(--white);
+}
+.process-swimlane {
+  container-type: inline-size;
+}
+.swimlane-scroll {
+  overflow: auto;
+  padding: 8px;
+}
+.swimlane-scroll:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.swimlane-board {
+  position: relative;
+  min-width: 1200px;
+  padding-right: 48px;
+}
+.swimlane-roles,
+.swimlane-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--lane-count), minmax(0, 1fr));
+  column-gap: 48px;
+}
+.swimlane-roles {
+  padding: 16px 0;
+  border-top: 4px solid var(--ink);
+  font-size: 16px;
+}
+.swimlane-roles > div {
+  padding: 8px;
+  background: var(--base);
+}
+.swimlane-phase {
+  margin: 0;
+}
+.swimlane-phase h3 {
+  position: relative;
+  z-index: 1;
+  padding: 16px;
+  background: var(--dark);
+  color: var(--white);
+  margin: 0 0 24px;
+}
+.swimlane-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  row-gap: 64px;
+  padding-bottom: 64px;
+}
+.swimlane-item {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  background: var(--white);
+  z-index: 1;
+}
+.process-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  text-decoration: none;
+  background: var(--white);
+  font-size: 16px;
+}
+.process-card:hover {
+  background: var(--base);
+}
+.process-number {
+  font-weight: 700;
+}
+.process-role {
+  font-size: 14px;
+  color: var(--muted-soft);
+}
+.process-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 12px;
+}
+.process-badges > span {
+  background: var(--base);
+  border: 1px solid var(--steel-light);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+.process-badges > .process-issues {
+  border-color: var(--warning);
+}
+.process-card-info {
+  position: relative;
+}
+.process-tooltip {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  min-width: 240px;
+  z-index: 4;
+  padding: 16px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  font-size: 14px;
+}
+.swimlane-item:has(.process-card:hover),
+.swimlane-item:has(.process-card:focus),
+.swimlane-item:has(.process-tooltip:hover) {
+  z-index: 3;
+}
+.swimlane-item:not(.tooltip-dismissed):has(.process-card:hover) .process-tooltip,
+.swimlane-item:not(.tooltip-dismissed):has(.process-card:focus) .process-tooltip,
+.swimlane-item:not(.tooltip-dismissed) .process-tooltip:hover {
+  display: block;
+}
+.process-connections {
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+.process-connections summary {
+  padding: 8px;
+  cursor: pointer;
+  background: var(--base);
+}
+.process-connections ul {
+  padding: 0 8px 0 20px;
+}
+.process-connections small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted-soft);
+}
+.swimlane-flows {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--muted-soft);
+}
+.swimlane-flows > path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.swimlane-flows marker path {
+  fill: currentColor;
+}
+@container (max-width: 700px) {
+  .swimlane-board {
+    min-width: 0;
+    padding-right: 0;
+  }
+  .swimlane-roles,
+  .swimlane-flows {
+    display: none;
+  }
+  .swimlane-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 32px;
+  }
+  .process-tooltip {
+    min-width: 0;
+  }
+  .process-role {
+    font-size: 16px;
+  }
+}
