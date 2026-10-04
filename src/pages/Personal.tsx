@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { ArrowRight, Download, Upload } from 'lucide-react';
 import { content } from '../content';
-import type { Progress } from '../lib/storage';
-import { validateProgress } from '../lib/storage';
+import type { Progress } from '../types/progress';
+import { validateProgress } from '../services/progressStorage';
 import { ArticleCard, PageTitle } from '../components/ui';
 
 export default function Personal({

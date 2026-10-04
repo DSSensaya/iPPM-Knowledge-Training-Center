@@ -12,8 +12,7 @@ import {
   X,
 } from 'lucide-react';
 import { content } from './content';
-import { loadProgress, mergeProgress, STORAGE_KEY } from './lib/storage';
-import type { Progress } from './lib/storage';
+import useLearningProgress from './hooks/useLearningProgress';
 import Tasks, { WorkPage, ProcedurePage } from './pages/Tasks';
 import Roles from './pages/Roles';
 import Releases, { TrainingBlockPage } from './pages/Releases';
@@ -39,10 +38,8 @@ export default function App() {
   const registerNavigationGuard = useCallback((guard: (() => Promise<boolean>) | null) => {
     navigationGuard.current = guard;
   }, []);
-  const [initial] = useState(loadProgress);
-  const [progress, setProgress] = useState(initial.progress);
-  const [storageError, setStorageError] = useState(initial.error);
-  const [notice, setNotice] = useState('');
+  const { progress, storageError, notice, toggleSave, toggleRead, importProgress } =
+    useLearningProgress();
   const [menuOpen, setMenuOpen] = useState(false);
   const [, setContentVersion] = useState(0);
   const main = useRef<HTMLElement>(null);
@@ -161,49 +158,6 @@ export default function App() {
     previousPath.current = path;
     document.title = `${current} · iPPM Knowledge & Training Center`;
   }, [path, current]);
-  useEffect(() => {
-    if (!notice) return;
-    const timer = window.setTimeout(() => setNotice(''), 3500);
-    return () => window.clearTimeout(timer);
-  }, [notice]);
-  function update(next: Progress, message: string) {
-    setProgress(next);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      setStorageError('');
-    } catch {
-      setStorageError(
-        'Speicherung nicht möglich. Ihre Änderungen bleiben nur in dieser Sitzung erhalten. Exportieren Sie eine Sicherung unter „Mein Lernbereich“.',
-      );
-    }
-    setNotice(message);
-  }
-  function toggleSave(id: string) {
-    const saved = progress.bookmarks.includes(id);
-    update(
-      {
-        ...progress,
-        bookmarks: saved ? progress.bookmarks.filter((x) => x !== id) : [...progress.bookmarks, id],
-      },
-      saved ? 'Beitrag aus der Merkliste entfernt.' : 'Beitrag zur Merkliste hinzugefügt.',
-    );
-  }
-  function toggleRead(id: string) {
-    const read = progress.read.includes(id);
-    update(
-      {
-        ...progress,
-        read: read ? progress.read.filter((x) => x !== id) : [...progress.read, id],
-      },
-      read
-        ? 'Lesemarkierung entfernt.'
-        : 'Als gelesen markiert. Ihr Lernfortschritt wurde aktualisiert.',
-    );
-  }
-  function importProgress(data: Progress) {
-    update(mergeProgress(progress, data), 'Sicherung importiert.');
-  }
-
   let page;
   if (path === '/' || path === '/aufgaben') page = <Tasks />;
   else if (path.startsWith('/schritt/')) page = <WorkPage id={path.split('/')[2]} kind="step" />;

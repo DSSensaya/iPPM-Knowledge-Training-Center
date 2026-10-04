@@ -10,7 +10,7 @@ import {
 import { searchContent } from '../lib/search';
 import { ArticleCard, PageTitle, SearchForm } from '../components/ui';
 import { OpenPoints, ProcedureView, Sections, Sources } from '../components/Content';
-import type { Progress } from '../lib/storage';
+import type { Progress } from '../types/progress';
 export function Knowledge({
   params,
   progress,
