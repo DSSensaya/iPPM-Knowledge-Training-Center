@@ -37,7 +37,9 @@ flowchart TD
 
 Die offiziellen Scope- und Funktionsreferenzen haben teilweise einen breiteren Umfang als ein Arbeitsweg. Sie werden deshalb als generische Wissensthemen erhalten und können über `whole`, `partial` oder `prerequisite` verbunden werden. Diese Beziehungen sind keine Identitätszuordnung. Die acht früheren CAP-Gruppierungen sind archiviert. `Inventory` pflegt keine weiteren Titel, Zustände oder Materialien.
 
-`src/content/types.ts` definiert die Typen. `validation.ts` prüft JSON-Form, erlaubte Felder, global eindeutige IDs, gültige Rollen/Systeme/Beziehungen, Material-/Procedure-Zuordnung und Releasegültigkeit. Die Validierung gilt für Build, Reader-Initialisierung und Editor-Speicherung. `index.ts` lädt Artikel automatisch über Vites JSON-Glob; der Editor lädt aktuelle Dateien direkt über `scripts/content-model.ts`.
+`src/content/types.ts` definiert die Typen. `validation.ts` prüft JSON-Form, erlaubte Felder, global eindeutige IDs, gültige Rollen/Systeme/Beziehungen, Material-/Procedure-Zuordnung und Releasegültigkeit. `relationships.ts` löst navigierbare fachliche Relationship-Ziele gemeinsam für Validierung und Renderer auf: Artikel, Tasks, ProcessSteps, Topics und Procedures mit Titel und passender Route. Andere existierende IDs werden in diesen Kontexten zurückgewiesen. Procedure-Materialzuordnungen prüfen zusätzlich die kanonische fachliche Aufgabe: `Procedure.taskId` muss zum Task bzw. zu den `taskIds` des Schritts passen. Bewusste Wiederverwendung erfolgt über diese expliziten Beziehungen, ohne zusätzliche Mappingtabelle.
+
+Die Validierung gilt für Build, Reader-Initialisierung und Editor-Speicherung. `index.ts` lädt Artikel automatisch über Vites JSON-Glob; der Editor lädt aktuelle Dateien direkt über `scripts/content-model.ts`.
 
 ## Prozesse und Schulungen
 
@@ -73,11 +75,13 @@ Quellenangaben sind optional: freie `sourceRefs` oder `sourceNote` genügen. Nü
 
 Der lokale Editor arbeitet auf kanonischen JSON-Dateien. Zulässige Collection-Namen und Artikelpfade werden serverseitig bestimmt; beliebige Client-Dateipfade werden nicht akzeptiert. Loopback-Bindung, Host-/Origin-/Token-Prüfung, Größenlimit, Schema-/Referenzvalidierung, Schutz bestehender IDs, exklusive Schreibsperre, vollständiger JSON-Bestandsfingerprint und atomare Dateiersetzung schützen die Speicherung. Unter Windows bleibt die Speicherung bei synchronisierter Datei und atomarem Rename; Unix synchronisiert zusätzlich das Verzeichnis.
 
-Bei Konflikten bleiben Eingaben im Formular erhalten. Aktueller Dateistand kann separat verglichen werden. Es gibt kein Journal, Replay, Overlay, künstliches Article-Objekt, Registry oder `Object.defineProperty`-Spiegelung. Ein Save erzeugt keinen Git-Commit. Ungespeicherte/noch nicht committete Änderungen sind noch keine Git-Historie.
+Strukturell ungültige Entwürfe bleiben vollständig in der JSON-Ansicht erhalten; Formulare setzen passende Feldtypen voraus. Eine sitzungslokale Dirty-Prüfung schützt Hauptnavigation, interne Routenwechsel, Objektwechsel und erneutes Laden mit Speichern/Verwerfen/Abbrechen. `beforeunload` schützt Reload und Schließen im Rahmen der Browsermöglichkeiten. Es gibt keine zusätzliche Entwurfspersistenz. Bei Konflikten bleiben Eingaben im Formular erhalten. Aktueller Dateistand kann separat verglichen werden. Es gibt kein Journal, Replay, Overlay, künstliches Article-Objekt, Registry oder `Object.defineProperty`-Spiegelung. Ein Save erzeugt keinen Git-Commit. Ungespeicherte/noch nicht committete Änderungen sind noch keine Git-Historie.
 
 Der Reader wird lokal gebaut und ausgeliefert. Der gebaute Editor nutzt die aktuellen Repository-JSON-Dateien beim Start und nach Save; nach Änderungen muss der Reader neu gebaut werden. Vite-Editor und gebauter Editor verwenden denselben Speicherhandler.
 
-Browserdaten bleiben in `ippm-learning-v1`, Version 1: Merkliste, Lesemarkierungen und opaque historische `passed`-Werte. Unbekannte IDs bleiben erhalten, obwohl die neun Demoartikel, drei Lernpfade und zwei Demo-Prozesse nicht mehr im Runtime-Bestand sind. Die bisherigen 16 Artikel-URLs, 52 Schritt-IDs, 25 Procedure-IDs und vier fachlichen Role-IDs bleiben stabil.
+Browserdaten bleiben in `ippm-learning-v1`, Version 1: Merkliste, Lesemarkierungen und opaque historische `passed`-Werte. Unbekannte IDs bleiben erhalten, obwohl die neun Demoartikel, drei Lernpfade und zwei Demo-Prozesse nicht mehr im Runtime-Bestand sind. Reale Altlinks bleiben wirksam: `/prozesse?q=...` verwendet die gemeinsame Suche, `/wissen?rolle=...` den kanonischen Rollenfilter; die alten Themen-/Formatparameter `thema` und `format` filtern weiterhin die Artikelmetadaten. Kanonisches `role` hat Vorrang; beim Ändern des Rollenfilters wird `rolle` entfernt.
+
+Die bisherigen 16 Artikel-URLs, 52 Schritt-IDs, 25 Procedure-IDs und vier fachlichen Role-IDs bleiben stabil.
 
 ## Repository und Verifikation
 

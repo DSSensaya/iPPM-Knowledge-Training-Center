@@ -21,13 +21,26 @@ export function Knowledge({
   toggleSave: (id: string) => void;
 }) {
   const q = params.get('q') ?? '',
-    roleId = params.get('role') ?? '',
+    roleId =
+      params.get('role') ??
+      (params.get('rolle') === 'Alle Rollen' ? '' : params.get('rolle')) ??
+      '',
     systemId = params.get('system') ?? '';
   const results = searchContent(q, { roleId, systemId });
-  const articles = results.filter((e) => e.kind === 'article'),
+  const topic = params.get('thema') ?? 'Alle Themen',
+    kind = params.get('format') ?? 'Alle Formate';
+  const articles = results.filter((e) => {
+      const article = getArticle(e.id);
+      return (
+        e.kind === 'article' &&
+        (topic === 'Alle Themen' || article?.topic === topic) &&
+        (kind === 'Alle Formate' || article?.kind === kind)
+      );
+    }),
     others = q ? results.filter((e) => e.kind !== 'article') : [];
   function filter(key: string, value: string) {
-    const next = new URLSearchParams(params);
+    const next = new URLSearchParams(window.location.hash.split('?')[1] || '');
+    if (key === 'role') next.delete('rolle');
     if (value) next.set(key, value);
     else next.delete(key);
     window.location.hash = '/wissen?' + next;
@@ -63,6 +76,35 @@ export function Knowledge({
             ))}
           </select>
         </label>
+        {(params.has('thema') || params.has('format')) && (
+          <>
+            <label>
+              Thema
+              <select value={topic} onChange={(e) => filter('thema', e.target.value)}>
+                {[
+                  'Alle Themen',
+                  ...new Set(content.articles.map((a) => a.topic).filter((t): t is string => !!t)),
+                ].map((t) => (
+                  <option key={t}>{t}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Format
+              <select value={kind} onChange={(e) => filter('format', e.target.value)}>
+                {[
+                  'Alle Formate',
+                  ...new Set(content.articles.map((a) => a.kind).filter((t): t is string => !!t)),
+                ].map((t) => (
+                  <option key={t}>{t}</option>
+                ))}
+              </select>
+            </label>
+            <a href="#/wissen" className="button secondary">
+              Filter zurücksetzen
+            </a>
+          </>
+        )}
       </div>
       <h2>{articles.length} Beiträge</h2>
       <div className="cards three">
@@ -78,7 +120,7 @@ export function Knowledge({
           );
         })}
       </div>
-      {!results.length && (
+      {!articles.length && !others.length && (
         <p role="status">Keine passenden Inhalte. Versuchen Sie einen anderen Suchbegriff.</p>
       )}
       {others.length > 0 && (

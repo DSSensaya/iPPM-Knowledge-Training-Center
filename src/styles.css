@@ -564,3 +564,21 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+
+.editor-form {
+  border: 0;
+  padding: 0;
+}
+.editor-confirmation {
+  width: min(640px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 24px;
+  border: 1px solid var(--steel-light);
+  border-radius: 0;
+  background: var(--white);
+  color: var(--ink);
+}
+.editor-confirmation::backdrop {
+  background: var(--base);
+}

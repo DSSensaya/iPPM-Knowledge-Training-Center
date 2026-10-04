@@ -57,3 +57,270 @@ test('editor has accessible responsive fields', async ({ page, editor: { base } 
       .violations,
   ).toEqual([]);
 });
+
+async function openArticle(page: import('@playwright/test').Page, base: string) {
+  await page.goto(base + '/#/redaktion');
+  await page.getByLabel('Inhalt auswählen').selectOption('article~guide-project-objectives');
+  await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
+  await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toBeVisible();
+}
+async function openJson(page: import('@playwright/test').Page) {
+  const details = page.locator('details').filter({ has: page.locator('#editor-json') });
+  if (!((await details.getAttribute('open')) !== null)) await details.locator('summary').click();
+  return page.getByLabel('Kanonischer JSON-Inhalt');
+}
+
+test('malformed JSON shapes never crash the editor or replace the raw draft', async ({
+  page,
+  editor: { root, base },
+}) => {
+  const crashes: string[] = [];
+  page.on('pageerror', (e) => crashes.push(e.message));
+  await openArticle(page, base);
+  const input = await openJson(page);
+  const original = await input.inputValue(),
+    article = JSON.parse(original);
+  const disk = await readFile(
+    join(root, 'src/content/articles/guide-project-objectives.json'),
+    'utf8',
+  );
+  for (const invalid of [
+    null,
+    42,
+    true,
+    'Text',
+    [],
+    { ...article, content: {} },
+    { ...article, roleIds: {} },
+    { ...article, systemIds: false },
+    { ...article, procedureIds: {} },
+    { ...article, content: [null] },
+    { ...article, content: [{ title: 'Test', body: 'Text', steps: {} }] },
+    { ...article, openPoints: {} },
+    { ...article, sourceRefs: 9 },
+    { ...article, title: {} },
+  ]) {
+    const raw = '  ' + JSON.stringify(invalid, null, 2) + '\n';
+    await input.fill(raw);
+    await expect(page.getByRole('alert').filter({ hasText: 'JSON-Entwurf prüfen' })).toBeVisible();
+    await expect(input).toHaveValue(raw);
+    await expect(
+      page.getByRole('heading', { name: 'Artikel bearbeiten', exact: true }),
+    ).toHaveCount(0);
+    await page.getByRole('button', { name: 'Änderungen speichern', exact: true }).click();
+    await expect(
+      page.getByRole('button', { name: 'Änderungen speichern', exact: true }),
+    ).toBeEnabled();
+    await expect(input).toHaveValue(raw);
+    expect(
+      await readFile(join(root, 'src/content/articles/guide-project-objectives.json'), 'utf8'),
+    ).toBe(disk);
+    await input.fill(original);
+    await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toHaveValue(
+      article.title,
+    );
+  }
+  expect(crashes).toEqual([]);
+  for (const collection of ['procedures', 'roles', 'processes']) {
+    await page.getByLabel('Inhalt auswählen').selectOption(collection);
+    await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
+    const json = await openJson(page),
+      valid = await json.inputValue();
+    await json.fill('{"wrong":true}');
+    await expect(page.getByRole('alert').filter({ hasText: 'Liste erwartet' })).toBeVisible();
+    await expect(json).toHaveValue('{"wrong":true}');
+    const malformed = JSON.parse(valid);
+    const field =
+      collection === 'procedures' ? 'actions' : collection === 'processes' ? 'steps' : 'aliases';
+    malformed[0][field] = {};
+    const raw = JSON.stringify(malformed, null, 2);
+    await json.fill(raw);
+    await expect(page.getByRole('alert').filter({ hasText: 'Liste erwartet' })).toBeVisible();
+    await expect(json).toHaveValue(raw);
+    await json.fill(valid);
+  }
+  expect(crashes).toEqual([]);
+});
+
+test('dirty draft protects main navigation, internal routes, object changes and reload actions', async ({
+  page,
+  editor: { base, root },
+}) => {
+  await page.goto(base + '/#/wissen');
+  await expect(page.locator('main h1')).toHaveText('Wissen');
+  await openArticle(page, base);
+  const title = page.getByRole('textbox', { name: 'Titel', exact: true });
+  await title.fill('Ungespeicherter Entwurf');
+  const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
+  if (!(await nav.isVisible())) await page.getByRole('button', { name: 'Menü öffnen' }).click();
+  await nav.getByRole('link', { name: 'Wissen', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: 'Ungespeicherter Entwurf' });
+  await expect(dialog).toBeVisible();
+  expect(
+    (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze())
+      .violations,
+  ).toEqual([]);
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(page).toHaveURL(/#\/redaktion$/);
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await page.evaluate(() => {
+    location.hash = '/redaktion/inventory';
+  });
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await expect(page).toHaveURL(/#\/redaktion$/);
+  await page.evaluate(() => history.back());
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(page).toHaveURL(/#\/redaktion$/);
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await page.evaluate(() => history.back());
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await page.getByLabel('Inhalt auswählen').selectOption('roles');
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(page.getByLabel('Inhalt auswählen')).toHaveValue('article~guide-project-objectives');
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await page.evaluate(() => history.back());
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(title).toHaveValue('Ungespeicherter Entwurf');
+  await page.getByLabel('Inhalt auswählen').selectOption('roles');
+  await dialog.getByRole('button', { name: 'Speichern und fortfahren' }).click();
+  await expect(page.getByLabel('Inhalt auswählen')).toHaveValue('roles');
+  expect(
+    JSON.parse(
+      await readFile(join(root, 'src/content/articles/guide-project-objectives.json'), 'utf8'),
+    ).title,
+  ).toBe('Ungespeicherter Entwurf');
+  await page.getByLabel('Inhalt auswählen').selectOption('article~guide-project-objectives');
+  await page.getByRole('button', { name: 'Inhalt laden', exact: true }).click();
+  await title.fill('Bewusst verwerfen');
+  await page.evaluate(() => {
+    location.hash = '/wissen';
+  });
+  await dialog.getByRole('button', { name: 'Entwurf verwerfen' }).click();
+  await expect(page).toHaveURL(/#\/wissen$/);
+  expect(
+    JSON.parse(
+      await readFile(join(root, 'src/content/articles/guide-project-objectives.json'), 'utf8'),
+    ).title,
+  ).toBe('Ungespeicherter Entwurf');
+});
+
+test('reload and tab closing warn for dirty drafts and cancellation preserves them', async ({
+  page,
+  editor: { base },
+}) => {
+  await openArticle(page, base);
+  const title = page.getByRole('textbox', { name: 'Titel', exact: true });
+  await title.fill('Entwurf vor Reload');
+  const reloadDialog = page.waitForEvent('dialog');
+  await page.evaluate(() => {
+    window.setTimeout(() => location.reload(), 0);
+  });
+  const warning = await reloadDialog;
+  expect(warning.type()).toBe('beforeunload');
+  await warning.dismiss();
+  await expect(title).toHaveValue('Entwurf vor Reload');
+  const closeDialog = page.waitForEvent('dialog');
+  await page.close({ runBeforeUnload: true });
+  const closeWarning = await closeDialog;
+  expect(closeWarning.type()).toBe('beforeunload');
+  await closeWarning.dismiss();
+  expect(page.isClosed()).toBeFalsy();
+  await expect(title).toHaveValue('Entwurf vor Reload');
+  await page.getByRole('button', { name: 'Änderungen speichern', exact: true }).click();
+  await expect(
+    page
+      .getByRole('status')
+      .filter({ hasText: 'Direkt in der kanonischen JSON-Datei gespeichert' }),
+  ).toBeVisible();
+  const warnings: string[] = [];
+  page.on('dialog', (d) => {
+    warnings.push(d.type());
+    void d.dismiss();
+  });
+  await page.reload();
+  expect(warnings).toEqual([]);
+});
+
+test('failed save in navigation dialog retains dirty input and blocks leaving', async ({
+  page,
+  editor: { root, base },
+}) => {
+  await openArticle(page, base);
+  await page.getByRole('textbox', { name: 'Titel', exact: true }).fill('Mein Konfliktentwurf');
+  const path = join(root, 'src/content/articles/guide-project-objectives.json');
+  const article = JSON.parse(await readFile(path, 'utf8'));
+  article.summary = 'Anderer Dateistand';
+  await writeFile(path, JSON.stringify(article, null, 2));
+  await page.evaluate(() => {
+    location.hash = '/wissen';
+  });
+  const dialog = page.getByRole('dialog');
+  await dialog.getByRole('button', { name: 'Speichern und fortfahren' }).click();
+  await expect(dialog.getByRole('alert')).toContainText('seit dem Laden geändert');
+  await expect(page).toHaveURL(/#\/redaktion$/);
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(page.getByRole('textbox', { name: 'Titel', exact: true })).toHaveValue(
+    'Mein Konfliktentwurf',
+  );
+  const json = await openJson(page);
+  await json.fill('{"content":{}}');
+  await page.evaluate(() => {
+    location.hash = '/wissen';
+  });
+  await dialog.getByRole('button', { name: 'Speichern und fortfahren' }).click();
+  await expect(dialog.getByRole('alert')).toBeVisible();
+  await dialog.getByRole('button', { name: 'Navigation abbrechen' }).click();
+  await expect(json).toHaveValue('{"content":{}}');
+});
+
+test('task and procedure relationships render article and process step titles with working links', async ({
+  page,
+  editor: { root, base },
+}) => {
+  for (const [collection, id] of [
+    ['tasks', 'fn-system-definition'],
+    ['procedures', 'procedure-system-master-data'],
+  ]) {
+    const path = join(root, 'src/content/' + collection + '.json');
+    const objects = JSON.parse(await readFile(path, 'utf8'));
+    objects.find((o: { id: string }) => o.id === id).relationships = [
+      { targetId: 'guide-project-objectives', relation: 'related' },
+      { targetId: 'step-2-8', relation: 'related' },
+      { targetId: 'fn-ils-definition', relation: 'related' },
+    ];
+    await writeFile(path, JSON.stringify(objects, null, 2));
+  }
+  const article = JSON.parse(
+    await readFile(join(root, 'src/content/articles/guide-project-objectives.json'), 'utf8'),
+  );
+  for (const route of [
+    '/aufgabe/fn-system-definition',
+    '/bedienweg/procedure-system-master-data',
+  ]) {
+    await page.goto(base + '/#' + route);
+    await page.reload();
+    const relationships = page
+      .locator('section')
+      .filter({ has: page.getByRole('heading', { name: 'Zusammenhänge', exact: true }) })
+      .last();
+    const link = relationships.locator('a[href="#/artikel/guide-project-objectives"]');
+    await expect(link).toHaveText(article.title);
+    await expect(relationships.locator('a[href="#/schritt/step-2-8"]')).toContainText('2.8');
+    await expect(relationships.locator('a[href="#/aufgabe/fn-ils-definition"]')).not.toHaveText('');
+    await link.click();
+    await expect(page.locator('main h1')).toHaveText(article.title);
+  }
+});

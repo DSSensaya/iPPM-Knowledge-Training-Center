@@ -1,4 +1,5 @@
 import type { ContentStore } from './types';
+import { resolveRelationshipTarget } from './relationships';
 
 /** Fail closed for malformed JSON, unknown fields and orphan references. Also used by the editor. */
 export function validateContent(value: unknown): asserts value is ContentStore {
@@ -354,4 +355,27 @@ export function validateContent(value: unknown): asserts value is ContentStore {
         str(o.answer, p);
       }
     }
+  // Resolve only after structural validation, so malformed drafts never reach typed selectors.
+  const canonical = value as ContentStore;
+  for (const [context, objects] of [
+    ['task', canonical.tasks],
+    ['topic', canonical.topics],
+    ['procedure', canonical.procedures],
+  ] as const)
+    for (const object of objects)
+      for (const relationship of object.relationships ?? [])
+        if (!resolveRelationshipTarget(relationship.targetId, context, canonical))
+          fail(object.id + '.relationships', 'Beziehungsziel in diesem Kontext nicht unterstützt');
+
+  for (const owner of [...canonical.tasks, ...canonical.processes.flatMap((p) => p.steps)])
+    for (const material of owner.materials)
+      for (const id of material.procedureIds ?? []) {
+        const procedure = canonical.procedures.find((p) => p.id === id)!;
+        const taskIds = 'number' in owner ? (owner.taskIds ?? []) : [owner.id];
+        if (procedure.taskId && !taskIds.includes(procedure.taskId))
+          fail(
+            owner.id + '.materials',
+            'Bedienweg passt nicht zur zugeordneten fachlichen Aufgabe',
+          );
+      }
 }

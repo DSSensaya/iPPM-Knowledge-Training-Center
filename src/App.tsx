@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   BookOpen,
@@ -33,6 +33,12 @@ const navigation = [
 
 export default function App() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
+  const navigationGuard = useRef<(() => Promise<boolean>) | null>(null);
+  const routeRef = useRef(route);
+  routeRef.current = route;
+  const registerNavigationGuard = useCallback((guard: (() => Promise<boolean>) | null) => {
+    navigationGuard.current = guard;
+  }, []);
   const [initial] = useState(loadProgress);
   const [progress, setProgress] = useState(initial.progress);
   const [storageError, setStorageError] = useState(initial.error);
@@ -63,12 +69,91 @@ export default function App() {
           ? 'Releases & Schulungen'
           : 'Redaktion');
   useEffect(() => {
-    const changed = () => {
-      setRoute(window.location.hash.slice(1) || '/');
+    // Track browser entries only to undo a refused hash/history navigation without rewriting it.
+    const entryIndex = () =>
+      typeof history.state?.ippmRouteIndex === 'number'
+        ? (history.state.ippmRouteIndex as number)
+        : undefined;
+    let currentIndex = entryIndex() ?? 0;
+    history.replaceState({ ...history.state, ippmRouteIndex: currentIndex }, '');
+    let restoring: { index: number; done: () => void } | undefined;
+    let checking = false;
+    const travel = (index: number) =>
+      new Promise<void>((done) => {
+        const delta = index - (entryIndex() ?? currentIndex);
+        if (!delta) {
+          done();
+          return;
+        }
+        restoring = { index, done };
+        history.go(delta);
+      });
+    const commit = (next: string) => {
+      routeRef.current = next;
+      setRoute(next);
       setMenuOpen(false);
     };
+    const changed = async () => {
+      if (restoring && entryIndex() === restoring.index) {
+        const { done } = restoring;
+        restoring = undefined;
+        done();
+        return;
+      }
+      const next = window.location.hash.slice(1) || '/';
+      let targetIndex = entryIndex();
+      if (targetIndex === undefined) {
+        targetIndex = currentIndex + 1;
+        history.replaceState({ ...history.state, ippmRouteIndex: targetIndex }, '');
+      }
+      if (next === routeRef.current) {
+        currentIndex = targetIndex;
+        return;
+      }
+      setMenuOpen(false);
+      if (navigationGuard.current) {
+        await travel(currentIndex);
+        if (checking) return;
+        checking = true;
+        const allowed = await navigationGuard.current();
+        checking = false;
+        if (!allowed) return;
+        await travel(targetIndex);
+      }
+      currentIndex = targetIndex;
+      commit(next);
+    };
+    const clicked = async (event: MouseEvent) => {
+      if (
+        !navigationGuard.current ||
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link = event.target instanceof Element ? event.target.closest('a') : null;
+      const href = link?.getAttribute('href');
+      if (!href?.startsWith('#/') || link?.target === '_blank') return;
+      event.preventDefault();
+      const next = href.slice(1);
+      if (next === routeRef.current || checking) return;
+      setMenuOpen(false);
+      checking = true;
+      const allowed = await navigationGuard.current();
+      checking = false;
+      if (!allowed) return;
+      history.pushState({ ...history.state, ippmRouteIndex: ++currentIndex }, '', '#' + next);
+      commit(next);
+    };
     window.addEventListener('hashchange', changed);
-    return () => window.removeEventListener('hashchange', changed);
+    document.addEventListener('click', clicked);
+    return () => {
+      window.removeEventListener('hashchange', changed);
+      document.removeEventListener('click', clicked);
+    };
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -129,7 +214,12 @@ export default function App() {
   else if (path.startsWith('/releases')) page = <Releases id={path.split('/')[2]} />;
   else if (path.startsWith('/schulungen/')) page = <TrainingBlockPage id={path.split('/')[2]} />;
   else if (__LOCAL_EDITOR__ && path === '/redaktion')
-    page = <Editor onSaved={() => setContentVersion((v) => v + 1)} />;
+    page = (
+      <Editor
+        onSaved={() => setContentVersion((v) => v + 1)}
+        registerNavigationGuard={registerNavigationGuard}
+      />
+    );
   else if (__LOCAL_EDITOR__ && path === '/redaktion/inventory') page = <EditorialInventory />;
   else if (path === '/wissen')
     page = <Knowledge params={params} progress={progress} toggleSave={toggleSave} />;
@@ -143,7 +233,8 @@ export default function App() {
         toggleRead={toggleRead}
       />
     );
-  else if (path.startsWith('/prozesse')) page = <Processes id={path.split('/')[2]} />;
+  else if (path.startsWith('/prozesse'))
+    page = <Processes id={path.split('/')[2]} params={params} />;
   else if (path === '/mein-bereich')
     page = <Personal progress={progress} toggleSave={toggleSave} importProgress={importProgress} />;
   else if (path === '/hilfe') page = <Help />;

@@ -1,5 +1,6 @@
 import { content } from '../content';
-import type { Material, Procedure, Section, Open } from '../content/types';
+import { resolveRelationshipTarget, type RelationshipContext } from '../content/relationships';
+import type { Material, Procedure, Section, Open, Relationship } from '../content/types';
 import { getOpenPoints, resolveMaterials, materialLabels, statusLabels } from '../lib/queries';
 export function Sections({ sections }: { sections: Section[] }) {
   const render = (items: Section[]) =>
@@ -154,27 +155,7 @@ export function ProcedureView({ procedure }: { procedure: Procedure }) {
         Beschriebene Ergebnisse sind mit Ihren Konten zu prüfen; ihre Beschreibung ist kein
         erfolgreicher Test.
       </p>
-      {procedure.relationships?.length ? (
-        <ul>
-          {procedure.relationships.map((r, i) => (
-            <li key={i}>
-              {r.condition && <strong>{r.condition}: </strong>}
-              {r.note}
-              <p>
-                <a
-                  href={
-                    content.procedures.some((p) => p.id === r.targetId)
-                      ? '#/bedienweg/' + r.targetId
-                      : '#/aufgabe/' + r.targetId
-                  }
-                >
-                  Verknüpften Bedienweg / Aufgabe öffnen
-                </a>
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <Relationships relationships={procedure.relationships} context="procedure" />
       {procedure.relatedArticleId && (
         <p>
           <a href={'#/artikel/' + procedure.relatedArticleId}>Ergänzenden Beitrag öffnen</a>
@@ -200,4 +181,43 @@ export function Sources({ refs, note }: { refs?: string[]; note?: string }) {
       </p>
     </details>
   ) : null;
+}
+
+export function Relationships({
+  relationships,
+  context,
+}: {
+  relationships?: Relationship[];
+  context: RelationshipContext;
+}) {
+  if (!relationships?.length) return null;
+  return (
+    <section>
+      <h2>Zusammenhänge</h2>
+      <ul>
+        {relationships.map((r, i) => {
+          const target = resolveRelationshipTarget(r.targetId, context, content);
+          return (
+            <li key={i}>
+              {r.condition && <strong>{r.condition}: </strong>}
+              {r.note && <p>{r.note}</p>}
+              {target ? (
+                <a href={target.href}>{target.title}</a>
+              ) : (
+                <span>Beziehungsziel nicht verfügbar</span>
+              )}
+              {' · '}
+              {r.relation === 'partial'
+                ? 'Teilaspekt'
+                : r.relation === 'prerequisite'
+                  ? 'Voraussetzung'
+                  : r.relation === 'whole'
+                    ? 'Fachlicher Bezug'
+                    : r.relation}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
 }

@@ -283,3 +283,71 @@ test('broader reference titles and bounded article scope notes are retained', ()
   for (const [id, note] of Object.entries(baseline.articleScopeNotes))
     expect(model.getArticle(id)!.content.some((section) => section.body === note)).toBeTruthy();
 });
+
+test('material procedures must match the canonical task of the process step', () => {
+  const store = structuredClone(model.content);
+  const step = store.processes[0].steps.find((s) => s.id === 'step-2-8')!;
+  expect(step.taskIds).toEqual(['fn-system-definition']);
+  expect(() => model.validateContent(store)).not.toThrow();
+  const material = step.materials[0];
+  expect(model.getArticle(material.articleId)!.procedureIds).toContain('procedure-ils-master-data');
+  material.procedureIds = ['procedure-ils-master-data'];
+  expect(() => model.validateContent(store)).toThrow(/fachlichen Aufgabe/);
+  material.procedureIds = ['procedure-system-master-data'];
+  model.validateContent(store);
+  // Explicit reuse: the same permissions task and procedure are linked to three distinct steps.
+  for (const id of ['step-2-7', 'step-2-11', 'step-2-15']) {
+    const shared = store.processes[0].steps.find((s) => s.id === id)!;
+    expect(shared.taskIds).toContain('fn-project-permissions');
+    expect(
+      shared.materials.some((m) => m.procedureIds?.includes('procedure-permissions')),
+    ).toBeTruthy();
+  }
+  const task = store.tasks.find((t) => t.id === 'fn-system-definition')!;
+  task.materials = [{ ...material, procedureIds: ['procedure-ils-master-data'] }];
+  expect(() => model.validateContent(store)).toThrow(/fachlichen Aufgabe/);
+});
+
+test('relationship resolver and validation share navigable target types and URLs', () => {
+  const store = structuredClone(model.content);
+  for (const context of ['task', 'topic', 'procedure'] as const) {
+    for (const [id, kind, title, href] of [
+      [
+        'guide-project-objectives',
+        'article',
+        model.getArticle('guide-project-objectives')!.title,
+        '#/artikel/guide-project-objectives',
+      ],
+      [
+        'fn-system-definition',
+        'task',
+        model.getTask('fn-system-definition')!.title,
+        '#/aufgabe/fn-system-definition',
+      ],
+      ['step-2-8', 'step', '2.8 ' + model.getStep('step-2-8')!.title, '#/schritt/step-2-8'],
+      [
+        'procedure-system-master-data',
+        'procedure',
+        model.getProcedure('procedure-system-master-data')!.title,
+        '#/bedienweg/procedure-system-master-data',
+      ],
+      ['R1B-06', 'topic', store.topics.find((t) => t.id === 'R1B-06')!.title, '#/thema/R1B-06'],
+    ])
+      expect(model.resolveRelationshipTarget(id, context, store)).toEqual({ kind, title, href });
+    expect(model.resolveRelationshipTarget('unknown', context, store)).toBeUndefined();
+    expect(model.resolveRelationshipTarget('tm', context, store)).toBeUndefined();
+  }
+  for (const objects of [store.tasks, store.topics, store.procedures]) {
+    const object = objects[0];
+    const original = object.relationships;
+    for (const targetId of ['guide-project-objectives', 'fn-system-definition', 'step-2-8']) {
+      object.relationships = [{ targetId, relation: 'related' }];
+      expect(() => model.validateContent(store)).not.toThrow();
+    }
+    object.relationships = [{ targetId: 'tm', relation: 'related' }];
+    expect(() => model.validateContent(store)).toThrow(/Kontext nicht unterstützt/);
+    object.relationships = [{ targetId: 'unknown', relation: 'related' }];
+    expect(() => model.validateContent(store)).toThrow(/Beziehung ohne Ziel/);
+    object.relationships = original;
+  }
+});

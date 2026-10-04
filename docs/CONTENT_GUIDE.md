@@ -52,7 +52,9 @@ Keiner dieser Werte behauptet vollständige Prozessabdeckung, erfolgreiche Syste
 
 Konkrete Bedienwege gehören nach `procedures.json`. Ein Artikel referenziert sie über `procedureIds`. Andere Materialien verwenden dieselbe stabile Procedure-ID. Niemals Aktionen über Arraypositionen, `slice()` oder `actions[n]` wiederverwenden.
 
-Ein Bedienweg umfasst ID, Titel, Auslöser, Voraussetzungen, Handlungsschritte und erwartete Ergebnisse. Rechte, Prüffragen, Geltung, Quellen und Beziehungen sind optional. Tool-Texte können frei verständlich geschrieben werden; falls eine strukturierte Werkzeugauswahl nützt, verweist `toolSelection.toolIds` auf `systems.json`. `all` und `alternative` dürfen nicht verwechselt werden.
+Wenn ein Bedienweg eine `taskId` hat, muss diese bei einer Schritt-Materialzuordnung in dessen `taskIds` enthalten sein; bei einem Task-Material muss sie zur Task-ID passen. Gemeinsam verwendete Bedienwege werden explizit über dieselbe fachliche Aufgabe an den passenden Schritten verbunden. Die Zugehörigkeit zum selben Artikel allein reicht nicht.
+
+Ein Bedienweg umfasst ID, Titel, Auslöser, Voraussetzungen, Handlungsschritte und erwartete Ergebnisse. Rechte, Prüffragen, Geltung, Quellen und Beziehungen sind optional. `relationships.targetId` kann auf Artikel, Aufgaben, Prozessschritte, Wissensthemen oder Bedienwege zeigen. Rollen, Systeme, Quellen und andere Katalogobjekte sind keine Ziele dieser fachlichen Beziehungen. Tool-Texte können frei verständlich geschrieben werden; falls eine strukturierte Werkzeugauswahl nützt, verweist `toolSelection.toolIds` auf `systems.json`. `all` und `alternative` dürfen nicht verwechselt werden.
 
 Übungsbeispiele sind optionale normale Inhaltsabschnitte mit `purpose: "exercise"`; es gibt kein verpflichtendes Trainer-Datenmodell. Zusätzlicher Quellenkontext kann als `purpose: "context"` gekennzeichnet werden. Kritische Grenzen gehören weiter in den früh sichtbaren Geltungsbereich, nicht nur in eingeklappte Details.
 
@@ -90,6 +92,10 @@ Quellenwidersprüche benennen und Fundstellen erhalten; keine fachliche Entschei
 ## Sicher speichern und prüfen
 
 Der lokale Editor prüft den gesamten Bestand. Ein fehlerhafter Status, ungültige Beziehung oder ein fremder Bedienweg wird nicht gespeichert. Bestehende IDs können im Editor nicht umbenannt oder gelöscht werden. Inhalte und Beziehungen lassen sich ändern, neue Katalogobjekte ergänzen.
+
+Bei strukturell falschem JSON bleibt der rohe Entwurf vollständig erhalten. Das Artikelformular erscheint nur für passende Feldtypen und wird nach Korrektur wieder verfügbar. Validierungsfehler sind direkt sichtbar; ungültige Eingaben werden nicht gespeichert.
+
+Bei Navigation, Objektwechsel und erneutem Laden eines ungespeicherten Entwurfs **Speichern und fortfahren**, **Entwurf verwerfen** oder **Navigation abbrechen** wählen. Fehlgeschlagene Speicherung hält den Entwurf und die aktuelle Ansicht fest. Reload und Schließen lösen die Browserwarnung aus, soweit der Browser dies erlaubt; deren Wortlaut und Optionen bestimmt der Browser.
 
 Bei einem Konflikt die Eingaben sichern, **Aktuellen Stand vergleichen** nutzen, die Unterschiede prüfen und anschließend den neuen Stand laden und die fachlich gewünschte Änderung darin übernehmen. Ein alter Stand wird nicht still überschrieben. Nach einem abgebrochenen Serverprozess kann eine `.editor.lock` zurückbleiben: erst sicherstellen, dass kein Editor mehr schreibt, dann diese technische Sperre entfernen und neu laden.
 

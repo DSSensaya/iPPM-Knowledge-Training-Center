@@ -11,7 +11,14 @@ import {
 } from '../lib/queries';
 import { searchContent } from '../lib/search';
 import { PageTitle, SearchForm } from '../components/ui';
-import { Materials, OpenPoints, ProcedureView, Sections, Sources } from '../components/Content';
+import {
+  Materials,
+  OpenPoints,
+  ProcedureView,
+  Sections,
+  Sources,
+  Relationships,
+} from '../components/Content';
 import { useState } from 'react';
 export default function Tasks() {
   const [q, setQ] = useState(''),
@@ -124,40 +131,12 @@ export function WorkPage({ id, kind }: { id: string; kind: 'step' | 'task' | 'to
           </ul>
         </section>
       )}
-      {'relationships' in entity && entity.relationships?.length ? (
-        <section>
-          <h2>Zusammenhänge</h2>
-          <ul>
-            {entity.relationships.map((r, i) => (
-              <li key={i}>
-                {r.condition && <strong>{r.condition}: </strong>}
-                {r.note}
-                <a
-                  href={
-                    content.tasks.some((t) => t.id === r.targetId)
-                      ? '#/aufgabe/' + r.targetId
-                      : content.procedures.some((p) => p.id === r.targetId)
-                        ? '#/bedienweg/' + r.targetId
-                        : '#/thema/' + r.targetId
-                  }
-                >
-                  {content.tasks.find((t) => t.id === r.targetId)?.title ??
-                    content.topics.find((t) => t.id === r.targetId)?.title ??
-                    content.procedures.find((p) => p.id === r.targetId)?.title}
-                </a>{' '}
-                ·{' '}
-                {r.relation === 'partial'
-                  ? 'Teilaspekt'
-                  : r.relation === 'prerequisite'
-                    ? 'Voraussetzung'
-                    : r.relation === 'whole'
-                      ? 'Fachlicher Bezug'
-                      : r.relation}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
+      {'relationships' in entity && (
+        <Relationships
+          relationships={entity.relationships}
+          context={kind === 'topic' ? 'topic' : 'task'}
+        />
+      )}
     </>
   );
 }

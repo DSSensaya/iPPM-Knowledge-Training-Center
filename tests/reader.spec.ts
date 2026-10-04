@@ -171,3 +171,41 @@ test('keyboard skip link moves focus into main', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.locator('main')).toBeFocused();
 });
+
+test('real legacy process searches and knowledge filters retain their meaning', async ({
+  page,
+}) => {
+  await page.goto('/#/prozesse?q=R1B-06');
+  await expect(page.getByRole('heading', { name: 'Treffer für „R1B-06“' })).toBeVisible();
+  await page.locator('main a[href="#/thema/R1B-06"]').click();
+  await expect(page.locator('main h1')).toHaveText('AddIn MTA');
+  await page.goto('/#/wissen?rolle=tm');
+  await expect(page.getByRole('combobox', { name: 'Rolle', exact: true })).toHaveValue('tm');
+  const { loadModel } = await import('./model');
+  const model = await loadModel();
+  const expected = model.content.articles.filter((a) => a.roleIds.includes('tm'));
+  await expect(page.locator('.article-card')).toHaveCount(expected.length);
+  for (const a of expected)
+    await expect(
+      page.locator('.article-card').getByRole('link', { name: a.title, exact: true }),
+    ).toBeVisible();
+  await page.getByRole('combobox', { name: 'Rolle', exact: true }).selectOption('pm');
+  await expect(page).toHaveURL(/role=pm/);
+  expect(new URLSearchParams(new URL(page.url()).hash.split('?')[1]).has('rolle')).toBeFalsy();
+  const article = model.content.articles.find((a) => a.topic && a.kind)!;
+  await page.goto(
+    '/#/wissen?thema=' +
+      encodeURIComponent(article.topic!) +
+      '&format=' +
+      encodeURIComponent(article.kind!),
+  );
+  await expect(page.locator('.article-card')).toHaveCount(
+    model.content.articles.filter((a) => a.topic === article.topic && a.kind === article.kind)
+      .length,
+  );
+  await expect(page.getByRole('combobox', { name: 'Thema', exact: true })).toHaveValue(
+    article.topic!,
+  );
+  await page.goto('/#/wissen?rolle=Alle%20Rollen&thema=Alle%20Themen&format=Alle%20Formate');
+  await expect(page.locator('.article-card')).toHaveCount(16);
+});
