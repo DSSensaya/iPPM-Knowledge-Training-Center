@@ -38,6 +38,14 @@ Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vo
   Hover-/Fokusvorschauen zeigen höchstens 160 Zeichen der Beschreibung und einen
   Hinweis zur Detailansicht. Sie verwenden maximal 280 px Breite, 12 px Padding
   und 14 px Schrift bei 1,35 Zeilenhöhe. Eingang, Ergebnis und vollständige
-  offene Punkte stehen in der Schrittdetailansicht. Benachbarte Schritte werden
+  offene Punkte stehen in der Schrittdetailansicht. Die Mausvorschau folgt dem
+  Zeiger mit 12 px Abstand bevorzugt rechts und oberhalb; am Bildschirmrand
+  wechselt sie nach links bzw. bleibt innerhalb eines 8-px-Randes. Bei
+  Tastaturfokus dient die obere Kartenkante als Anker. Ein Portal verhindert
+  Abschneiden im horizontalen Scrollbereich. Die Vorschau bleibt selbst
+  hoverbar; 150 ms Schließverzögerung überbrücken den Abstand zur Karte.
+  Scrollen/Größenänderungen schließen die Mausvorschau und positionieren eine
+  weiterhin fokussierte Vorschau neu. Escape schließt beide Varianten.
+  Benachbarte Schritte werden
   über gegenüberliegende Seiten direkt verbunden; längere Verbindungen wählen
   kurze, kollisionsfreie orthogonale Wege durch die bestehenden Gassen.

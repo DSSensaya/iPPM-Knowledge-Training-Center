@@ -793,15 +793,9 @@ footer {
 .process-badges > .process-issues {
   border-color: var(--warning);
 }
-.process-card-info {
-  position: relative;
-}
 .process-tooltip {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: min(280px, calc(100% + 48px));
+  position: fixed;
+  width: min(280px, calc(100vw - 16px));
   z-index: 4;
   padding: 12px;
   border: 1px solid var(--ink);
@@ -815,16 +809,6 @@ footer {
 .process-tooltip .process-tooltip-hint {
   margin-top: 8px;
   color: var(--muted-soft);
-}
-.swimlane-item:has(.process-card:hover),
-.swimlane-item:has(.process-card:focus),
-.swimlane-item:has(.process-tooltip:hover) {
-  z-index: 3;
-}
-.swimlane-item:not(.tooltip-dismissed):has(.process-card:hover) .process-tooltip,
-.swimlane-item:not(.tooltip-dismissed):has(.process-card:focus) .process-tooltip,
-.swimlane-item:not(.tooltip-dismissed) .process-tooltip:hover {
-  display: block;
 }
 .process-connections {
   font-size: 12px;
@@ -871,10 +855,6 @@ footer {
     flex-direction: column;
     gap: 24px;
     padding-bottom: 32px;
-  }
-  .process-tooltip {
-    width: 100%;
-    max-width: 280px;
   }
   .process-role {
     font-size: 16px;

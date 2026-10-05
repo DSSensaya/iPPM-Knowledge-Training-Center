@@ -1,5 +1,6 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
+import { createPortal } from 'react-dom';
 import type { ContentStore, Process, ProcessStep } from '../content/types';
 import { getOpenPoints, roleLabel } from '../lib/queries';
 import { getProcessFlowPath, getProcessLayout } from '../lib/process-layout';
@@ -21,6 +22,56 @@ function StepCard({
   showTooltip: () => void;
 }) {
   const tooltipId = useId();
+  const card = useRef<HTMLAnchorElement>(null);
+  const tooltip = useRef<HTMLDivElement>(null);
+  const pointer = useRef<{ x: number; y: number } | null>(null);
+  const hideTimer = useRef<number | undefined>(undefined);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const tooltipVisible = !dismissed && (hovered || focused);
+
+  function positionTooltip() {
+    if (!card.current || !tooltip.current) return;
+    const bounds = card.current.getBoundingClientRect();
+    const { width, height } = tooltip.current.getBoundingClientRect();
+    const margin = 8;
+    const gap = 12;
+    const anchor = pointer.current ?? { x: bounds.left, y: bounds.top };
+    let left = anchor.x + (pointer.current ? gap : 0);
+    if (left + width > document.documentElement.clientWidth - margin) {
+      left = anchor.x - width - gap;
+    }
+    tooltip.current.style.left = `${Math.max(margin, Math.min(left, document.documentElement.clientWidth - width - margin))}px`;
+    tooltip.current.style.top = `${Math.max(margin, Math.min(anchor.y - height - gap, window.innerHeight - height - margin))}px`;
+  }
+
+  function keepTooltipOpen() {
+    window.clearTimeout(hideTimer.current);
+    setHovered(true);
+  }
+
+  function leaveTooltip() {
+    // Keep the preview reachable across the small gap between card and tooltip.
+    hideTimer.current = window.setTimeout(() => setHovered(false), 150);
+  }
+
+  useLayoutEffect(() => {
+    if (!tooltipVisible) return;
+    positionTooltip();
+    const viewportChanged = () => {
+      pointer.current = null;
+      setHovered(false);
+      positionTooltip();
+    };
+    window.addEventListener('scroll', viewportChanged, true);
+    window.addEventListener('resize', viewportChanged);
+    return () => {
+      window.removeEventListener('scroll', viewportChanged, true);
+      window.removeEventListener('resize', viewportChanged);
+    };
+  }, [tooltipVisible]);
+  useEffect(() => () => window.clearTimeout(hideTimer.current), []);
+
   const flows = process.flows?.filter((f) => f.from === step.id) ?? [];
   const issues = [
     ...new Set([
@@ -42,16 +93,33 @@ function StepCard({
           .trimEnd()}…`
       : description;
   return (
-    <li style={style} className={`swimlane-item ${dismissed ? 'tooltip-dismissed' : ''}`}>
+    <li style={style} className="swimlane-item">
       <div className="process-card-info">
         <a
+          ref={card}
           className="process-card"
           id={`process-card-${step.id}`}
           data-step-id={step.id}
           href={stepHref(step.id, process.id, 'karte')}
           aria-describedby={tooltipId}
-          onFocus={showTooltip}
-          onMouseEnter={showTooltip}
+          onFocus={() => {
+            pointer.current = null;
+            setFocused(true);
+            showTooltip();
+            positionTooltip();
+          }}
+          onBlur={() => setFocused(false)}
+          onMouseEnter={(event) => {
+            pointer.current = { x: event.clientX, y: event.clientY };
+            keepTooltipOpen();
+            showTooltip();
+            positionTooltip();
+          }}
+          onMouseMove={(event) => {
+            pointer.current = { x: event.clientX, y: event.clientY };
+            positionTooltip();
+          }}
+          onMouseLeave={leaveTooltip}
           onClick={(e) => {
             if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
             rememberProcessPosition(
@@ -80,10 +148,21 @@ function StepCard({
             )}
           </span>
         </a>
-        <div className="process-tooltip" id={tooltipId} role="tooltip">
-          <p>{preview}</p>
-          <p className="process-tooltip-hint">Details im Schritt öffnen.</p>
-        </div>
+        {createPortal(
+          <div
+            ref={tooltip}
+            className="process-tooltip"
+            id={tooltipId}
+            role="tooltip"
+            hidden={!tooltipVisible}
+            onMouseEnter={keepTooltipOpen}
+            onMouseLeave={leaveTooltip}
+          >
+            <p>{preview}</p>
+            <p className="process-tooltip-hint">Details im Schritt öffnen.</p>
+          </div>,
+          document.body,
+        )}
       </div>
       {flows.length > 0 && (
         <details className="process-connections">

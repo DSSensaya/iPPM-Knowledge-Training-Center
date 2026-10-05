@@ -510,10 +510,11 @@ test('keyboard tooltips, visible focus and both return paths restore the process
 }) => {
   await page.goto('/#/prozesse');
   const initial = page.locator('#process-card-step-1-1');
+  const initialTooltip = page.locator(`[id="${await initial.getAttribute('aria-describedby')}"]`);
   await initial.hover();
-  await expect(initial.locator('..').getByRole('tooltip')).toBeVisible();
+  await expect(initialTooltip).toBeVisible();
   await page.keyboard.press('Escape');
-  await expect(initial.locator('..').getByRole('tooltip')).toBeHidden();
+  await expect(initialTooltip).toBeHidden();
   const card = page.locator('#process-card-step-3-7');
   await card.scrollIntoViewIfNeeded();
   await card.focus();
@@ -674,25 +675,39 @@ test('process edges stay orthogonal, avoid cards and remeasure after resize and 
     .toBe(true);
 });
 
-test('hover tooltip remains reachable across the card edge with collapsed and expanded connections', async ({
+test('hover tooltip follows the pointer, stays reachable and leaves connections uncovered', async ({
   page,
 }, testInfo) => {
   await page.goto('/#/prozesse/projektabwicklung?ansicht=karte');
   const card = page.locator('#process-card-step-2-2');
-  const tooltip = card.locator('..').getByRole('tooltip');
+  const tooltip = page.locator(`[id="${await card.getAttribute('aria-describedby')}"]`);
   const summary = page.locator('.swimlane-item').filter({ has: card }).locator('summary');
   for (const expanded of [false, true]) {
     if (expanded) await summary.click();
     await card.scrollIntoViewIfNeeded();
-    await card.hover();
+    const cardBounds = (await card.boundingBox())!;
+    await card.hover({ position: { x: 20, y: cardBounds.height / 2 } });
     await expect(card).not.toBeFocused();
     await expect(tooltip).toBeVisible();
-    const cardBounds = (await card.boundingBox())!;
-    const tooltipBounds = (await tooltip.boundingBox())!;
-    // The pointer must reach the tooltip without traversing an inactive summary/row gap.
-    expect(Math.abs(tooltipBounds.y - cardBounds.y - cardBounds.height)).toBeLessThanOrEqual(1);
+    const initialBounds = (await tooltip.boundingBox())!;
+    await page.mouse.move(cardBounds.x + 40, cardBounds.y + cardBounds.height / 2 + 20);
+    const movedBounds = (await tooltip.boundingBox())!;
+    // Mouse coordinates are rounded to CSS pixels by the browser.
+    expect(Math.abs(movedBounds.y - initialBounds.y - 20)).toBeLessThanOrEqual(1);
+    expect(Math.abs(movedBounds.x - initialBounds.x - 20)).toBeLessThanOrEqual(1);
     await page.mouse.move(cardBounds.x + 20, cardBounds.y + cardBounds.height - 2);
-    await page.mouse.move(tooltipBounds.x + 20, tooltipBounds.y + 20, { steps: 24 });
+    const tooltipBounds = (await tooltip.boundingBox())!;
+    const summaryBounds = (await summary.boundingBox())!;
+    expect(tooltipBounds.y + tooltipBounds.height).toBeLessThan(summaryBounds.y);
+    const viewport = page.viewportSize()!;
+    expect(tooltipBounds.x).toBeGreaterThanOrEqual(0);
+    expect(tooltipBounds.y).toBeGreaterThanOrEqual(0);
+    expect(tooltipBounds.x + tooltipBounds.width).toBeLessThanOrEqual(viewport.width);
+    expect(tooltipBounds.y + tooltipBounds.height).toBeLessThanOrEqual(viewport.height);
+    // The preview can still be hovered across the gap without disappearing.
+    await page.mouse.move(tooltipBounds.x + 20, tooltipBounds.y + tooltipBounds.height - 4, {
+      steps: 4,
+    });
     await expect(tooltip).toBeVisible();
     await expect(tooltip).toContainText('Details im Schritt öffnen.');
     await expect(tooltip).not.toContainText(/Eingang:|Ergebnis:|Offene Punkte:/);
@@ -703,14 +718,23 @@ test('hover tooltip remains reachable across the card edge with collapsed and ex
     });
     await page.keyboard.press('Escape');
     await expect(tooltip).toBeHidden();
+    await summary.hover();
+    await expect(tooltip).toBeHidden();
     await page.mouse.move(0, 0);
   }
   const longCard = page.locator('#process-card-step-1-1');
   await longCard.hover();
-  const longTooltip = longCard.locator('..').getByRole('tooltip');
+  const longTooltip = page.locator(`[id="${await longCard.getAttribute('aria-describedby')}"]`);
   await expect(longTooltip).toBeVisible();
   const preview = await longTooltip.locator('p').first().textContent();
   expect(preview!.length).toBeLessThanOrEqual(160);
   expect(preview).toMatch(/…$/);
   expect((await longTooltip.boundingBox())!.height).toBeLessThanOrEqual(180);
+  const bounds = (await longCard.boundingBox())!;
+  await longCard.hover({ position: { x: bounds.width - 2, y: 2 } });
+  const edgeBounds = (await longTooltip.boundingBox())!;
+  expect(edgeBounds.x).toBeGreaterThanOrEqual(0);
+  expect(edgeBounds.y).toBeGreaterThanOrEqual(0);
+  expect(edgeBounds.x + edgeBounds.width).toBeLessThanOrEqual(page.viewportSize()!.width);
+  expect(edgeBounds.y + edgeBounds.height).toBeLessThanOrEqual(page.viewportSize()!.height);
 });
