@@ -23,6 +23,40 @@
 
 Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vollständigen Komponentenabmessungen, Logo-Mindestgrößen/Schutzzonen und Dropdown-Schattenparameter. Es werden dafür keine Markenfreigaben behauptet.
 
+- **project: Aufgaben.** Die Übersicht zeigt Prozessschritte einmal in der
+  kanonischen Prozess-/Phasenreihenfolge mit unveränderten Schrittnummern in
+  einer eigenen Spalte. Native Details gliedern die Phasen; zunächst ist die
+  erste Phase offen, bei Suche oder Rollenfilter alle Trefferphasen.
+  Zugeordnete Fachaufgaben bilden keine zusätzliche Navigationsebene:
+  Beschreibungen, Inhalte, offene Punkte, Quellen und Zusammenhänge stehen
+  direkt in der Schrittdetailansicht. Identische Einträge erscheinen einmal;
+  unterschiedliche Geltungsgrenzen und Quellenkontexte bleiben erhalten.
+  Nur Aufgaben ohne Schrittzuordnung stehen im ergänzenden Bereich. Eine Suche
+  findet auch die fachlichen Details, der Rollenfilter verwendet die
+  Schrittverantwortung. Die Darstellung fasst keine kanonischen Fachobjekte zusammen.
+  Listen und Phasenköpfe verwenden 16 px Padding, 12 px Abstand, rechteckige
+  neutrale Begrenzungen und bestehende Farb-/Fokustokens. Die Nummernspalte
+  verwendet 3,25 em, Links 16 px, Metadaten 14 px. Diese Maße und Gliederung
+  sind lokale Projektentscheidungen. Die Suche filtert unmittelbar auf der Seite.
+
+- **project: Inhaltsabgrenzung.** Artikelansichten zeigen fachliche Abschnitte
+  vor den offenen Klärungen in neutral begrenzten Rechtecken mit 24 px Padding
+  (mobil 16 px). Arbeitsdetailseiten priorisieren vorhandene Bedienwege mit
+  Voraussetzungen, Rechten, Aktionen und Ergebnisprüfung auf der Steel-Fläche.
+  Status und explizite Geltung stehen direkt über dem Bedienweg. Ergänzende
+  Informationen stehen rechts in einer Steel-Spalte mit zunächst geschlossenen
+  nativen Details für offene Punkte, Fachkontexte, Beiträge und Quellen.
+  Ohne Bedienweg bleiben vorhandene Fachtexte und Materialhinweise im Hauptbereich.
+  Das Raster verwendet 2:1 Spalten, mindestens 280 px für die Ergänzungen und
+  32 px Abstand; unter 1100 px stehen die Bereiche untereinander. Die ergänzende
+  Spalte verwendet 24 px Padding (mobil 16 px), 20-px-Überschriften und 16-px-Text.
+  Mobile Arbeitsdetailtitel verwenden 32 px bei 1,2 Zeilenhöhe;
+  Rücklinks stehen mit 24 px Abstand nebeneinander bzw. umbrechend.
+  Beitragsinhalte, Quellenkontexte und Übungen bleiben einzeln aufklappbar.
+  Diese Geometrie und Gliederung sind iPPM-Projektentscheidungen; bestehende
+  Farb-/Fokustokens bleiben erhalten. Es entstehen weder neue Freigabestufen
+  noch zusätzliche fachliche Datenbestände.
+
 - **project: Startseite.** Die Root-Route zeigt einen eigenständigen Einstieg mit
   der bestehenden gemeinsamen Suche. Aufgaben, Prozesse und Wissen stehen als
   drei gleichwertige rechteckige Linkkarten nebeneinander; Rollen, Releases &

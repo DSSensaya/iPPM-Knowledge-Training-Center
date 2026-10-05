@@ -151,19 +151,19 @@
   },
   {
     "id": "open-start-date-sync",
-    "text": "Exakte Release-/Umgebungsreichweite und ausdrückliche Abdeckung der System-/ILS-Teilprojektvarianten."
+    "text": "Start Date: Exakte Release-/Umgebungsreichweite und ausdrückliche Abdeckung der System-/ILS-Teilprojektvarianten. Die wechselseitige Synchronisation ist durch C23 Punkt 1 bestätigt; offen ist ihre Reichweite."
   },
   {
     "id": "open-edc-contract-start",
-    "text": "Exakte Release-/Umgebungsreichweite; keine vollständige Rollen- oder Projekttypmatrix belegt."
+    "text": "EDC als vertraglicher Starttermin: Exakte Release-/Umgebungsreichweite; keine vollständige Rollen- oder Projekttypmatrix belegt. Die Unabhängigkeit von Start Date ist durch C23 Punkt 1 bestätigt."
   },
   {
     "id": "open-edc-field-provision",
-    "text": "Bereitstellung und tatsächlicher Zielstand des zusätzlichen Felds."
+    "text": "Zusätzliches EDC-Feld auf Contract (TTT-D-06): Bereitstellung und tatsächlicher Zielstand des zusätzlichen Felds. Die Feldbedeutung ist geklärt; die technische Bereitstellung ist noch nicht bestätigt."
   },
   {
     "id": "open-project-purpose-removal",
-    "text": "Release/Build und Zielumgebung unbekannt; Durchführung und Freigabe nicht datiert. Vollständiger PDP-/Teilprojekttypumfang einschließlich Bestandsprojekten. Prüfprotokoll mit Daten-/Formularvergleich, Datum und Prüfer."
+    "text": "Project Purpose (N28 / TTT-D-20): Release/Build und Zielumgebung unbekannt; Durchführung und Freigabe nicht datiert. Vollständiger PDP-/Teilprojekttypumfang einschließlich Bestandsprojekten. Prüfprotokoll mit Daten-/Formularvergleich, Datum und Prüfer. Die Entfernung und Prüfung sind gemeldet; diese Nachweise fehlen hier."
   },
   {
     "id": "open-wbs-correction-regression",

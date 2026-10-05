@@ -108,7 +108,7 @@ test('orientation reuses changing Center statements, open points and source meta
   const master = store.articles.find((a) => a.id === 'guide-project-master-data')!;
   master.summary = 'Neue führende Zusammenfassung';
   master.content[1].body = 'Geänderte führende Aussage zu Start Date/EDC';
-  store.openPoints.find((p) => p.id === 'issue-definition-configuration')!.text =
+  store.openPoints.find((p) => p.id === 'open-edc-field-provision')!.text =
     'Geänderte Konfigurationsgrenze';
   store.sources.find((s) => s.id === 'B')!.title = 'Zentral geänderter Dokumenttitel';
   const n = store.orientation.find((n) => n.sourceKey === 'P.1.2')!;
@@ -534,6 +534,40 @@ test('linked task and scope readings derive from leading process materials witho
   expect(model.getInventory(store).find((e) => e.id === task.id)?.articleIds).toEqual([]);
 });
 
+test('inline work details retain task facts and direct readings without broadening step procedures', () => {
+  const store = structuredClone(model.content);
+  const task = store.tasks.find((t) => t.id === 'fn-system-definition')!;
+  const context = task.content!.find((section) => section.purpose === 'context')!;
+  task.content!.push(
+    { ...context },
+    { ...context, body: 'Abweichender Quellenstand bleibt sichtbar.' },
+  );
+  const before = JSON.stringify(store);
+  const step = model.getStep('step-2-8', store)!;
+  const details = model.getWorkDetails(step, store);
+  expect(details.summaries).toContain(task.summary);
+  expect(details.sections.filter((section) => section.body === context.body)).toHaveLength(1);
+  expect(
+    details.sections.some(
+      (section) => section.body === 'Abweichender Quellenstand bleibt sichtbar.',
+    ),
+  ).toBeTruthy();
+  expect(details.sourceRefs).toEqual(expect.arrayContaining(task.sourceRefs!));
+  expect(details.relationships).toEqual(expect.arrayContaining(task.relationships!));
+  expect(details.materials.flatMap((material) => material.procedureIds ?? [])).toEqual([
+    'procedure-system-master-data',
+  ]);
+  expect(model.getWorkDetails(model.getStep('step-3-3', store)!, store).summaries).toEqual([]);
+  const permissions = model.getWorkDetails(model.getStep('step-2-11', store)!, store);
+  expect(permissions.materials).toContainEqual(
+    store.tasks.find((t) => t.id === 'fn-project-permissions')!.materials[0],
+  );
+  expect(permissions.materials.flatMap((material) => material.procedureIds ?? [])).toEqual([
+    'procedure-permissions',
+  ]);
+  expect(JSON.stringify(store)).toBe(before);
+});
+
 test('training ownership and prerequisite scope relationships never create duplicate coverage', () => {
   const store = structuredClone(model.content),
     task = store.tasks.find((t) => t.id === 'fn-project-objectives')!;
@@ -548,6 +582,27 @@ test('training ownership and prerequisite scope relationships never create dupli
   task.relationships!.push({ targetId: 'scope-prerequisite-fixture', relation: 'prerequisite' });
   model.validateContent(store);
   expect(model.getTopicMaterials(store.topics.at(-1)!, store)).toEqual([]);
+});
+
+test('work details include current material boundaries without importing other article contexts', () => {
+  const store = structuredClone(model.content);
+  const article = store.articles.find((a) => a.id === 'guide-project-master-data')!;
+  article.openPoints = ['Aktuelle Grenze des führenden Beitrags.'];
+  article.sourceRefs = ['Aktuelle Fundstelle des führenden Beitrags.'];
+  article.sourceNote = 'Aktueller Herkunftshinweis des Beitrags.';
+  const otherStep = model.getStep('step-2-8', store)!;
+  otherStep.materials.push({ articleId: article.id, kind: 'reference', releaseIds: ['release-1'] });
+  otherStep.openPoints = ['Grenze eines anderen Schritts mit demselben Beitrag.'];
+  const before = JSON.stringify(store);
+  const details = model.getWorkDetails(model.getStep('step-2-1', store)!, store);
+  expect(details.openPoints).toContain(article.openPoints[0]);
+  expect(details.openPoints).not.toContain(otherStep.openPoints[0]);
+  expect(details.sourceRefs).toContain(article.sourceRefs[0]);
+  expect(details.sourceNote).toContain(article.sourceNote);
+  expect(details.materials.flatMap((material) => material.procedureIds ?? [])).toEqual([
+    'procedure-project-master-data',
+  ]);
+  expect(JSON.stringify(store)).toBe(before);
 });
 
 test('leading material relationships and distinct task facts match the baseline', () => {

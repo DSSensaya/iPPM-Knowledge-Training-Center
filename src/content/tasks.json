@@ -321,18 +321,31 @@
     "releaseIds": ["release-1"],
     "trainingBlockIds": [],
     "materials": [],
-    "sourceRefs": ["B: §3.6.1 Projektstammdaten anlegen", "F: R1 Funktionsmatrix!A7:J7"],
+    "sourceRefs": [
+      "B: §3.6.1 Projektstammdaten anlegen",
+      "F: R1 Funktionsmatrix!A7:J7",
+      "C23: Punkt 1 (Bestätigung vom 23.09.2026)",
+      "N28: Punkt 1 (gemeldete Entfernung und Prüfung)"
+    ],
     "openPointIds": [
-      "issue-definition-configuration",
-      "issue-f-r1-open-12",
       "open-start-date-sync",
       "open-edc-contract-start",
-      "open-edc-field-provision"
+      "open-edc-field-provision",
+      "open-project-purpose-removal",
+      "issue-f-r1-open-12"
     ],
     "content": [
       {
         "title": "Geltungsbereich",
-        "body": "Contract Execution; L1; PDP Overview"
+        "body": "Contract Execution; L1; PDP Overview. Beschrieben ist das Kundenprojekt im R1-Kontext. System- und ILS-Teilprojekte haben eigene Stammdatenschritte (2.8 und 2.12). Objectives-Zielklassen gehören zu 2.3, FIN-/SAP-Statusfelder zur Statuspflege; sie sind keine offenen Stammdatenfragen dieses Schritts. Der Bedienweg ist ein quellenbasierter Entwurf, keine Freigabe der Zielumgebung."
+      },
+      {
+        "title": "Bestätigter Stand: Start Date und EDC",
+        "body": "C23, Punkt 1, bestätigt am 23.09.2026: Start Date auf PDP Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. EDC ist unabhängig davon und ausschließlich der vertragliche Starttermin. Diese Kopplungsfrage ist geklärt. Die zusätzliche Bereitstellung eines EDC-Felds auf Contract und die Reichweite in anderen Umgebungen oder Projekttypen sind damit nicht bestätigt."
+      },
+      {
+        "title": "Gemeldete Änderung: Project Purpose",
+        "body": "N28, Eingang 28.09.2026: Der Auftraggeber meldet die Entfernung aus allen betroffenen Teilprojekt-PDPs und eine Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare. Die Prüfunterlagen liegen hier nicht vor. Release, Umgebung und genauer PDP-Umfang sind unbekannt. Das ist eine gemeldete Umsetzung, kein im Center geprüfter Nachweis; daraus folgt keine Änderung an sämtlichen Projekttypen."
       },
       {
         "title": "Begrenzter Quellenstand: technical",

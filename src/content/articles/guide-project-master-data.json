@@ -8,19 +8,19 @@
   "content": [
     {
       "title": "Geltungsbereich dieses Beitrags",
-      "body": "Stammdaten und Start Date / EDC sind abgegrenzt. Zusätzliche EDC-Feldbereitstellung und Zielkonfiguration bleiben offen."
+      "body": "Kundenprojekt vom Typ Contract Execution auf L1, PDP Overview, R1-Kontext. Dieser Beitrag beschreibt die Stammdatenpflege und die Trennung von Start Date und EDC. Er bestätigt keine vollständige Rollen-, Projekttyp- oder Umgebungsmatrix. System- und ILS-Teilprojekte sind gesondert zu prüfen. Der Beitrag bleibt ein Entwurf; fachliche Freigabe und praktische Erprobung fehlen."
     },
     {
-      "title": "Start Date, Vertragstermine und EDC getrennt prüfen",
-      "body": "Bestätigt am 23.09.2026: Start Date auf Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. EDC bezeichnet ausschließlich den unabhängigen vertraglichen Starttermin; er steuert diese Synchronisation nicht. Nach Start-Date-Änderungen den resultierenden Plan kontrollieren. Das zusätzliche EDC-Feld auf Contract ist laut TTT-D-06 vorgesehen, aber noch nicht als bereitgestellt bestätigt."
+      "title": "Bestätigter Stand: Start Date und EDC",
+      "body": "Bestätigt am 23.09.2026 (C23, Punkt 1): Start Date auf Overview und im Projektplan sind synchronisiert und wirken gegenseitig aufeinander. EDC bezeichnet ausschließlich den unabhängigen vertraglichen Starttermin; er steuert diese Synchronisation nicht. Nach Start-Date-Änderungen den resultierenden Plan kontrollieren."
     },
     {
-      "title": "Gespeicherten Stand kontrollieren",
-      "body": "B §3.6.1 enthält keine vollständige Speicher-/Publish-/Check-in-Sequenz für Overview. Redaktionelle Ergebnisprüfung: Vor einer Übung den tatsächlichen PDP-Speicherweg klären und die Angaben nach dem Speichern erneut öffnen. Übertragen Sie den Client-Weg aus der Querschnittsanleitung nicht pauschal auf Overview. Der Planstand ist ein eigener Prüfgegenstand."
+      "title": "Gemeldete Änderung: Project Purpose",
+      "body": "Laut Auftraggebermeldung N28 (Eingang 28.09.2026) wurde Project Purpose aus allen betroffenen Teilprojekt-PDPs entfernt und ohne Beeinträchtigung bestehender Daten oder Formulare geprüft. Die Prüfunterlagen liegen hier nicht vor; Release, Zielumgebung und genauer PDP-Umfang sind unbekannt. Die Meldung ist kein im Center geprüfter Nachweis und gilt nicht pauschal für sämtliche Projekttypen."
     },
     {
-      "title": "Merksatz",
-      "body": "Pflegen Sie Stammdaten auf Overview. Start Date und Projektplan sind wechselseitig synchronisiert. EDC ist unabhängig und nur der vertragliche Starttermin. Strukturabweichungen dem PMO melden; die Bereitstellung des zusätzlichen EDC-Felds auf Contract bleibt technisch zu bestätigen."
+      "title": "Ergebnisprüfung nach dem Speichern",
+      "body": "Redaktionelle Ergebnisprüfung: Die Angaben nach dem Speichern erneut öffnen. Den resultierenden Projektplan nach Start-Date-Änderungen gesondert prüfen. Strukturabweichungen dem PMO melden. Die noch zu klärende Speicherfolge steht unter den offenen Klärungen; der Client-Weg darf nicht pauschal auf Overview übertragen werden."
     },
     {
       "title": "Übung vorbereiten",
@@ -48,11 +48,18 @@
   "topic": "Projektplanung",
   "kind": "Anleitung",
   "openPoints": [],
-  "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"],
+  "openPointIds": [
+    "open-start-date-sync",
+    "open-edc-contract-start",
+    "open-edc-field-provision",
+    "open-project-purpose-removal",
+    "issue-f-r1-open-12"
+  ],
   "sourceRefs": [
     "B: §3.6.1 Projektstammdaten anlegen",
     "TTT: Zeilen 7–9, 14 und 21, A:G",
-    "C23: Punkte 1–4"
+    "C23: Punkte 1–4",
+    "N28: Punkt 1 (gemeldete Entfernung und Prüfung)"
   ],
   "relatedArticleIds": [
     "guide-project-handover",

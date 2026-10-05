@@ -117,12 +117,20 @@
           "K: Objectives und Organisationslisten: Felder der Objectives-Liste"
         ],
         "openPoints": [
-          "Project Purpose: Entfernung aus allen betroffenen Teilprojekt-PDPs und Prüfung ohne Beeinträchtigung bestehender Daten oder Formulare laut Auftraggebermeldung N28 (Eingang 28.09.2026; TTT-D-20). Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen; Belegabgleich offen. Technisch offen: zusätzliches EDC-Feld auf Contract bereitstellen bzw. Umsetzung nachweisen (TTT-D-06). Site-Änderungen werden bei Bestandsprojekten nicht automatisch nachgezogen (TTT-D-10/-40). FIN-/SAP-Felder sind bereits korrigiert. Verfügbare Objectives-Zielklassen und Initialstatus vor einer Übung prüfen. Fachliche Freigabe und praktische Zielumgebungs-/Schulungserprobung fehlen."
+          "Speichern auf Overview: B §3.6.1 beschreibt keine vollständige Speicher-/Publish-/Check-in-Sequenz. Den tatsächlichen PDP-Speicherweg klären und die Angaben nach dem Speichern erneut öffnen; den Client-Weg nicht pauschal übertragen.",
+          "Bestandsprojekte: Site-Änderungen werden nicht automatisch nachgezogen (TTT-D-10/-40). Den konkreten Feld- und Site-Stand des vorhandenen Projekts prüfen.",
+          "Freigabe und Erprobung: Fachliche Freigabe dieses Bedienentwurfs sowie praktische Zielumgebungs- und Schulungserprobung fehlen."
         ],
         "input": "Projekt ist bereitgestellt und übergeben; fachliche Angaben und wirksame Bearbeitungsrechte liegen vor.",
         "output": "Start Date ist mit dem Projektplan synchronisiert; EDC bleibt der unabhängige vertragliche Starttermin.",
-        "description": "PDP Overview: Start Date ist mit dem Projektplan synchronisiert; EDC bleibt der unabhängige vertragliche Starttermin. Quellenbasierter Bedienentwurf mit Ergebnisprüfung.",
-        "openPointIds": ["issue-definition-configuration", "issue-f-r1-open-12"]
+        "description": "Erfassen und prüfen Sie die Stammdaten Ihres Kundenprojekts auf der Seite Overview: Kurzbeschreibung, Klassifikationen, Referenzen und Projektbeginn.",
+        "openPointIds": [
+          "open-start-date-sync",
+          "open-edc-contract-start",
+          "open-edc-field-provision",
+          "open-project-purpose-removal",
+          "issue-f-r1-open-12"
+        ]
       },
       {
         "id": "step-2-2",

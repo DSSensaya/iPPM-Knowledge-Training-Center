@@ -9,6 +9,8 @@ import type {
   Open,
   Procedure,
   Topic,
+  Section,
+  Relationship,
 } from '../content/types';
 
 export const statusLabels = {
@@ -88,6 +90,65 @@ export function getWorkMaterials(
   if (store.topics.some((t) => t.id === entity.id))
     return getTopicMaterials(entity as Topic, store);
   return (entity as ProcessStep).materials;
+}
+/** Inline linked task details without importing procedures from other steps using the same task. */
+export function getWorkDetails(entity: ProcessStep | Task | Topic, store: ContentStore = content) {
+  const tasks =
+    'taskIds' in entity ? store.tasks.filter((task) => entity.taskIds?.includes(task.id)) : [];
+  const objects = [entity, ...tasks];
+  const materials = mergeMaterials([
+    ...getWorkMaterials(entity, store),
+    ...tasks.flatMap((task) => task.materials),
+  ]);
+  const materialArticles = materials.map((material) => getArticle(material.articleId, store)!);
+  const description = 'summary' in entity ? entity.summary : (entity.description ?? '');
+  const sections = new Map<string, Section>();
+  const relationships = new Map<string, Relationship>();
+  for (const object of objects) {
+    if ('content' in object)
+      for (const section of object.content ?? []) {
+        const key = JSON.stringify([
+          section.title,
+          section.body,
+          section.steps ?? [],
+          section.purpose,
+        ]);
+        sections.set(key, section);
+      }
+    if ('relationships' in object)
+      for (const relationship of object.relationships ?? []) {
+        const key = JSON.stringify([
+          relationship.targetId,
+          relationship.relation,
+          relationship.note,
+          relationship.condition,
+        ]);
+        relationships.set(key, relationship);
+      }
+  }
+  return {
+    summaries: [...new Set(tasks.map((task) => task.summary))].filter(
+      (summary) => summary.trim() && !description.includes(summary),
+    ),
+    sections: [...sections.values()],
+    openPoints: [
+      ...new Set(
+        [...objects, ...materialArticles].flatMap((object) => getOpenPoints(object, store)),
+      ),
+    ],
+    sourceRefs: [
+      ...new Set([...objects, ...materialArticles].flatMap((object) => object.sourceRefs ?? [])),
+    ],
+    sourceNote: [
+      ...new Set(
+        [...objects, ...materialArticles].flatMap((object) =>
+          object.sourceNote ? [object.sourceNote] : [],
+        ),
+      ),
+    ].join('\n\n'),
+    relationships: [...relationships.values()],
+    materials,
+  };
 }
 export function getArticleContext(id: string, store: ContentStore = content) {
   const steps = getProcessSteps(store).filter((s) => s.materials.some((m) => m.articleId === id));

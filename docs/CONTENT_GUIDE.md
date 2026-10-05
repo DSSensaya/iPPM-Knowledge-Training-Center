@@ -149,7 +149,7 @@ Im Editor **Inhalte pflegen**, Beitrag auswählen und **Inhalt laden** verwenden
 | `usable`   | Der begrenzte beschriebene Arbeitsweg ist für den angegebenen Zweck nutzbar |
 | `approved` | Beitrag ist für das Knowledge Center freigegeben                            |
 
-Keiner dieser Werte behauptet vollständige Prozessabdeckung, erfolgreiche Systemtests oder Unternehmensfreigabe. Pflichtprüfungen und Grenzen müssen vor Anwendung sichtbar bleiben. `approved` nur aufgrund einer tatsächlich vorliegenden Center-Freigabe verwenden. Bei wesentlichen fachlichen Änderungen Status bewusst erneut prüfen.
+Keiner dieser Werte behauptet vollständige Prozessabdeckung, erfolgreiche Systemtests oder Unternehmensfreigabe. Handlungsrelevante Pflichtprüfungen und Grenzen in den Voraussetzungen und Aktionen des Bedienwegs benennen. Arbeitsdetailseiten zeigen den Status direkt; ergänzende offene Punkte und Fachkontexte sind aufklappbar. `approved` nur aufgrund einer tatsächlich vorliegenden Center-Freigabe verwenden. Bei wesentlichen fachlichen Änderungen Status bewusst erneut prüfen.
 
 ## Bedienwege nur einmal schreiben
 
@@ -189,6 +189,18 @@ Materialgültigkeit wird explizit angegeben. R1-Material nicht aufgrund einer ne
 ## Grenzen und Quellen
 
 Einfache offene Punkte direkt am passenden Objekt pflegen. Tatsächlich gemeinsam geltende Fragen einmal in `open-points.json` halten und mit `openPointIds` referenzieren. Historische, erledigte Unsicherheiten gehören bei Bedarf in die Entscheidungsdokumentation, nicht automatisch in die Runtime.
+
+Geltungsbereich, bestätigte Aussagen und bloß gemeldete Änderungen in getrennten
+normalen Inhaltsabschnitten benennen. Bei Bestätigungen Datum und konkreten
+Gegenstand angeben; eine Meldung ohne vorliegende Prüfunterlagen ausdrücklich
+so kennzeichnen. Offene Punkte jeweils mit ihrem Gegenstand beginnen und nur
+die verbleibende Frage oder benötigte Prüfung beschreiben. Breite gemeinsame
+Konfigurationshinweise nicht zusätzlich übernehmen, wenn passende einzelne
+offene Punkte bereits referenziert sind. Artikel zeigen diese Abgrenzung vor den
+offenen Klärungen. Arbeitsdetailseiten priorisieren Voraussetzungen, Bedienweg
+und Ergebnis; ergänzende Fachhinweise, offene Punkte, Beiträge und Quellen stehen
+aufklappbar daneben bzw. mobil darunter. Übungen und weitere Quellenkontexte
+bleiben separat aufklappbar. Beispiel: `fn-project-master-data` / Schritt 2.1.
 
 Quellenwidersprüche benennen und Fundstellen erhalten; keine fachliche Entscheidung aus technischen Gründen treffen. Originaldateien in `sources/` erhalten. Bestehende kurze IDs wie `B: §3.6.7` können weiter genutzt werden. Ein technischer Hash ist keine Autorenpflicht.
 

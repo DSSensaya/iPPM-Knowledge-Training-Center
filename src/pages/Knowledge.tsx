@@ -204,11 +204,14 @@ export function ArticlePage({
           </a>
         )}
       </div>
-      <OpenPoints points={getArticleOpenPoints(article)} />
-      <Sections sections={article.content} />
+      <div className="work-details">
+        <Sections sections={article.content.filter((section) => !section.purpose)} />
+      </div>
+      <OpenPoints points={getArticleOpenPoints(article)} title="Offene Klärungen vor Anwendung" />
       {article.procedureIds?.map((pid) => (
         <ProcedureView key={pid} procedure={getProcedure(pid)!} />
       ))}
+      <Sections sections={article.content.filter((section) => section.purpose)} />
       {context.steps.length > 0 && (
         <section>
           <h2>Im Prozess</h2>

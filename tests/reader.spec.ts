@@ -127,6 +127,7 @@ test('orientation bridges to canonical work and the common search, with no inven
   );
   await page.getByRole('link', { name: '1.2 Projekt anlegen', exact: true }).click();
   await expect(page.locator('main h1')).toContainText('Projekt anlegen');
+  await page.getByText('Fachliche Hinweise und Kontext', { exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Einordnung in der Landkarte' })).toBeVisible();
   await page
     .getByRole('link', { name: 'Projektumgebung vorbereiten und übernehmen', exact: true })
@@ -322,6 +323,369 @@ test('four user entries expose tasks, processes, roles and knowledge', async ({ 
     /Inventory|Evidence|Assessments|CareCases|SHA-256/,
   );
 });
+test('tasks group every step once with canonical numbers and keep supplementary work separate', async ({
+  page,
+}, testInfo) => {
+  const { loadModel } = await import('./model');
+  const model = await loadModel();
+  const steps = model.getProcessSteps();
+  await page.goto('/#/aufgaben');
+  await expect(page.getByRole('searchbox')).toHaveCount(1);
+  await expect(page.getByRole('status')).toHaveText('52 Prozessschritte · 2 ergänzende Aufgaben');
+  await expect(page.locator('.task-phase[open]')).toHaveCount(1);
+  const links = page.locator('.task-step-link');
+  expect(await links.evaluateAll((items) => items.map((a) => a.getAttribute('href')))).toEqual(
+    steps.map((step) => '#/schritt/' + step.id),
+  );
+  expect(await links.locator('.task-number').allTextContents()).toEqual(
+    steps.map((step) => step.number),
+  );
+  await expect(page.locator('.task-independent-link')).toHaveCount(2);
+  await expect(page.locator('.task-phase a[href^="#/aufgabe/"]')).toHaveCount(0);
+  await expect(page.locator('.task-phase details')).toHaveCount(0);
+  await expect(page.locator('.task-independent-link .task-number')).toHaveCount(0);
+  await expect(page.locator('.task-independent-link')).toContainText([
+    'Reviewstatus pflegen',
+    'Projektfortschritt pflegen',
+  ]);
+  await page.screenshot({ path: testInfo.outputPath('tasks-overview.png'), fullPage: true });
+
+  for (const phase of await page.locator('.task-phase').all()) {
+    if ((await phase.getAttribute('open')) === null) {
+      await phase.locator(':scope > summary').focus();
+      await page.keyboard.press('Enter');
+    }
+    for (const link of await phase.locator('.task-step-link').all())
+      await expect(link).toBeVisible();
+  }
+  const owner = page.locator('.task-step-link[href="#/schritt/step-2-6"]');
+  await owner.focus();
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Shift+Tab');
+  await expect(owner).toBeFocused();
+  await expect(owner).toHaveCSS('outline-color', 'rgb(56, 99, 229)');
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/schritt\/step-2-6$/);
+  await expect(page.locator('main h1')).toHaveText('2.6 Teilprojektleiter einsetzen');
+  await expect(page.getByRole('heading', { name: 'Fachliche Aufgaben' })).toHaveCount(0);
+  await expect(page.locator('main')).toContainText(
+    'TM oder ILSM übernimmt das Teilprojekt; der PM behält lesenden Zugriff.',
+  );
+  await page.getByText('Fachliche Hinweise und Kontext', { exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Geltungsbereich', exact: true })).toBeVisible();
+  await page.getByText('Beiträge und weitere Informationen', { exact: true }).click();
+  await expect(page.locator('main a[href="#/bedienweg/procedure-owner-change"]')).toBeVisible();
+  await page.locator('.work-aside').getByText('Weitere Quellenkontexte', { exact: true }).click();
+  await expect(page.locator('main')).toContainText(
+    'Nur der geübte Ablauf: benötigten Eigenzugriff sichern, dann Owner wechseln.',
+  );
+  await page.locator('.source-notes summary').click();
+  for (const ref of model.getTask('fn-owner-change')!.sourceRefs ?? [])
+    await expect(page.locator('.source-notes')).toContainText(ref);
+  await expect(page.locator('main a[href="#/thema/R1-23"]')).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath('task-step-details.png'), fullPage: true });
+  const axe = await new AxeBuilder({ page }).analyze();
+  expect(axe.violations).toEqual([]);
+});
+
+test('same-named task details appear inline and shared tasks keep each step procedure separate', async ({
+  page,
+}) => {
+  await page.goto('/#/schritt/step-3-3');
+  await expect(page.locator('main h1')).toHaveText('3.3 Weitere Projektmeilensteine planen');
+  await expect(page.locator('main a[href="#/aufgabe/fn-external-milestones"]')).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Fachliche Aufgaben' })).toHaveCount(0);
+  await expect(
+    page
+      .locator('.page-title')
+      .getByText(
+        'Beistellungen und Genehmigungen als externe Meilensteine mit getrenntem Stichtag und Plantermin abbilden. Quellenbasierter Bedienentwurf für das Kundenprojekt.',
+        { exact: true },
+      ),
+  ).toHaveCount(1);
+  await expect(page.getByRole('heading', { name: 'Fachliche Hinweise', exact: true })).toHaveCount(
+    0,
+  );
+  await page.getByText('Fachliche Hinweise und Kontext', { exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Geltungsbereich', exact: true })).toBeVisible();
+  await expect(page.locator('main a[href="#/thema/R1-08"]')).toBeVisible();
+
+  await page.goto('/#/schritt/step-2-8');
+  await page.getByText('Beiträge und weitere Informationen', { exact: true }).click();
+  await expect(page.locator('main a[href^="#/bedienweg/"]')).toHaveCount(1);
+  await expect(
+    page.locator('main a[href="#/bedienweg/procedure-system-master-data"]'),
+  ).toBeVisible();
+  await expect(page.locator('.materials .procedure')).toHaveCount(1);
+  await expect(page.locator('.materials .procedure')).toHaveAttribute(
+    'id',
+    'procedure-system-master-data',
+  );
+  await expect(page.locator('#procedure-ils-master-data')).toHaveCount(0);
+  await expect(page.locator('#procedure-system-scope')).toHaveCount(0);
+  await expect(page.locator('main')).toContainText(
+    'System-Stammdaten sind mit dem Kundenprojekt vereinbar. Systemumfang ist gegenüber Kundenprojekt und angrenzenden Teilprojekten abgegrenzt.',
+  );
+  await page.goto('/#/schritt/step-2-11');
+  await expect(page.locator('.materials .procedure')).toHaveCount(1);
+  await expect(page.locator('.materials .procedure')).toHaveAttribute(
+    'id',
+    'procedure-permissions',
+  );
+  await expect(page.locator('#procedure-owner-change')).toHaveCount(0);
+  await expect(page.locator('main')).toContainText(
+    'Stakeholder erhalten die für ihre Aufgabe erforderlichen Einzelrechte.',
+  );
+  await expect(page.locator('main')).toContainText(
+    'Arbeitsressourcen werden dem Projektteam zugeordnet; effektive Zugriffe sind gesondert zu prüfen.',
+  );
+  await page.getByText('Fachliche Hinweise und Kontext', { exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Quellenbezug R1', exact: true })).toBeVisible();
+  await page.getByText('Beiträge und weitere Informationen', { exact: true }).click();
+  await expect(
+    page.locator('.materials a[href="#/artikel/guide-save-publish-checkin"]'),
+  ).toBeVisible();
+  await expect(page.locator('.limitations')).toContainText('Build');
+  await page.goto('/#/aufgabe/fn-owner-change');
+  await expect(page.locator('main h1')).toHaveText('Owner wechseln und Eigenzugriff erhalten');
+  await page.getByText('Beiträge und weitere Informationen', { exact: true }).click();
+  await expect(page.locator('main a[href="#/bedienweg/procedure-owner-change"]')).toBeVisible();
+  await expect(page.locator('#procedure-owner-change .steps li').first()).toBeVisible();
+});
+
+test('master data prioritizes the procedure and keeps supplementary information collapsed', async ({
+  page,
+}, testInfo) => {
+  if (testInfo.project.name === 'mobile') await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/#/aufgaben');
+  await page.locator('.task-phase').filter({ hasText: 'Definition' }).locator('summary').click();
+  await page.getByRole('link', { name: '2.1 Projektstammdaten anlegen' }).click();
+  await expect(page.locator('.work-page > .page-title > p')).toHaveText(
+    'Erfassen und prüfen Sie die Stammdaten Ihres Kundenprojekts auf der Seite Overview: Kurzbeschreibung, Klassifikationen, Referenzen und Projektbeginn.',
+  );
+  const primary = page.locator('.work-main');
+  const supplementary = page.getByRole('complementary', { name: 'Ergänzende Informationen' });
+  await expect(
+    primary.getByRole('heading', { name: 'Voraussetzungen', exact: true }),
+  ).toBeVisible();
+  await expect(primary.getByRole('heading', { name: 'Bedienweg', exact: true })).toBeVisible();
+  await expect(primary.getByRole('heading', { name: 'Ergebnis', exact: true })).toBeVisible();
+  await expect(primary).toContainText('Entwurf · Geltung: Release 1');
+  await expect(primary).toContainText('Contract Execution / L1');
+  await expect(primary).not.toContainText('Project Purpose');
+  await expect(primary).not.toContainText('Bestätigter Stand:');
+  await expect(primary).not.toContainText('N28');
+  await expect(supplementary.locator(':scope > details[open]')).toHaveCount(0);
+  const contextToggle = supplementary.getByText('Fachliche Hinweise und Kontext', { exact: true });
+  const questionsToggle = supplementary.locator('.work-open-points > summary');
+  await expect(questionsToggle).toHaveText('Offene Punkte (8)');
+  await expect(
+    page.getByRole('heading', { name: 'Gemeldete Änderung: Project Purpose' }),
+  ).toBeHidden();
+  await expect(page.locator('.limitations')).toBeHidden();
+  const primaryBox = (await primary.boundingBox())!;
+  const supplementaryBox = (await supplementary.boundingBox())!;
+  if (testInfo.project.name === 'desktop') {
+    expect(supplementaryBox.x).toBeGreaterThanOrEqual(primaryBox.x + primaryBox.width);
+    expect(supplementaryBox.y).toBe(primaryBox.y);
+  } else {
+    expect(supplementaryBox.y).toBeGreaterThanOrEqual(primaryBox.y + primaryBox.height);
+  }
+  await page.screenshot({ path: testInfo.outputPath('master-data-step.png'), fullPage: true });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await contextToggle.focus();
+  await page.keyboard.press('Enter');
+  const scope = page.locator('.work-details .content-section').filter({
+    has: page.getByRole('heading', { name: 'Geltungsbereich', exact: true }),
+  });
+  const confirmed = page.locator('.work-details .content-section').filter({
+    has: page.getByRole('heading', { name: 'Bestätigter Stand: Start Date und EDC' }),
+  });
+  const reported = page.locator('.work-details .content-section').filter({
+    has: page.getByRole('heading', { name: 'Gemeldete Änderung: Project Purpose' }),
+  });
+  await expect(scope).toContainText('Contract Execution; L1; PDP Overview');
+  await expect(scope).toContainText('quellenbasierter Entwurf');
+  await expect(confirmed).toContainText('23.09.2026');
+  await expect(confirmed).toContainText('Diese Kopplungsfrage ist geklärt');
+  await expect(confirmed).not.toContainText('FIN-/SAP');
+  await expect(reported).toContainText('28.09.2026');
+  await expect(reported).toContainText('Prüfunterlagen liegen hier nicht vor');
+  await expect(reported).toBeVisible();
+  await questionsToggle.focus();
+  await expect(questionsToggle).toHaveCSS('outline-color', 'rgb(56, 99, 229)');
+  await page.keyboard.press('Enter');
+  const questions = page.locator('.limitations');
+  await expect(questions).toBeVisible();
+  await expect(questions.getByRole('heading')).toHaveText('Offene Klärungen vor Anwendung');
+  for (const subject of [
+    'Speichern auf Overview:',
+    'Bestandsprojekte:',
+    'Freigabe und Erprobung:',
+    'Start Date:',
+    'EDC als vertraglicher Starttermin:',
+    'Zusätzliches EDC-Feld auf Contract',
+    'Project Purpose (N28 / TTT-D-20):',
+    'Schulungsumgebung und Client-Voraussetzungen prüfen:',
+  ])
+    await expect(questions.locator('li').filter({ hasText: subject })).toHaveCount(1);
+  await expect(questions).not.toContainText('FIN-/SAP-Felder sind bereits korrigiert');
+  await expect(questions).not.toContainText('Objectives-Zielklassen');
+  await expect(scope).toBeVisible();
+  await expect(confirmed).toBeVisible();
+  const sourceContext = page
+    .locator('.work-aside')
+    .getByText('Weitere Quellenkontexte', { exact: true });
+  await expect(sourceContext.locator('..')).not.toHaveAttribute('open');
+  await sourceContext.focus();
+  await page.keyboard.press('Enter');
+  await expect(
+    page.getByRole('heading', { name: 'Begrenzter Quellenstand: technical' }),
+  ).toBeVisible();
+  await page.keyboard.press('Enter');
+  const { loadModel } = await import('./model');
+  const model = await loadModel();
+  const procedure = model.getProcedure('procedure-project-master-data')!;
+  const inlineProcedure = page.locator('.materials #procedure-project-master-data');
+  await expect(inlineProcedure).toBeVisible();
+  await expect(
+    inlineProcedure.getByText('PWA / Project Center / PDP Overview', { exact: true }),
+  ).toHaveCount(1);
+  await expect(page.locator('.materials .procedure')).toHaveCount(1);
+  await expect(
+    inlineProcedure.getByRole('heading', { name: 'Voraussetzungen', exact: true }),
+  ).toBeVisible();
+  await expect(
+    inlineProcedure.getByRole('heading', { name: 'Bedienweg', exact: true }),
+  ).toBeVisible();
+  await expect(
+    inlineProcedure.getByRole('heading', { name: 'Ergebnis', exact: true }),
+  ).toBeVisible();
+  expect(await inlineProcedure.locator('.steps li > p:first-child').allTextContents()).toEqual(
+    procedure.actions.map((action) => action.text),
+  );
+  for (const expected of [
+    ...procedure.prerequisites,
+    ...procedure.expectedResults,
+    ...procedure.checkQuestions!,
+  ])
+    await expect(inlineProcedure).toContainText(expected);
+  expect(
+    await inlineProcedure.locator(':scope > ul').last().locator('li').allTextContents(),
+  ).toEqual([...new Set([...procedure.expectedResults, ...procedure.checkQuestions!])]);
+  await supplementary.getByText('Beiträge und weitere Informationen', { exact: true }).click();
+  const mirroredArticle = page.locator('.material-content');
+  await expect(mirroredArticle).not.toHaveAttribute('open');
+  await mirroredArticle.locator(':scope > summary').focus();
+  await page.keyboard.press('Enter');
+  await expect(
+    mirroredArticle.getByRole('heading', { name: 'Ergebnisprüfung nach dem Speichern' }),
+  ).toBeVisible();
+  await expect(page).toHaveURL(/#\/schritt\/step-2-1$/);
+  await page.keyboard.press('Enter');
+  await expect(mirroredArticle).not.toHaveAttribute('open');
+  await contextToggle.click();
+  await questionsToggle.click();
+  await expect(questions).toBeHidden();
+  await expect(
+    inlineProcedure.getByRole('heading', { name: 'Bedienweg', exact: true }),
+  ).toBeVisible();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+
+  await page.locator('.materials a[href="#/artikel/guide-project-master-data"]').click();
+  await expect(page.locator('main .status')).toHaveText('Entwurf');
+  await expect(
+    page.getByRole('heading', { name: 'Geltungsbereich dieses Beitrags' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Bestätigter Stand: Start Date und EDC' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Gemeldete Änderung: Project Purpose' }),
+  ).toBeVisible();
+  await expect(
+    page.locator('.limitations li').filter({ hasText: 'Zusätzliches EDC-Feld auf Contract' }),
+  ).toHaveCount(1);
+  await expect(page.locator('.limitations')).toContainText('Speichern auf Overview:');
+  await expect(page.locator('.limitations')).not.toContainText('Objectives-Zielklassen');
+  expect(
+    await page
+      .locator('.limitations')
+      .evaluate((element) =>
+        Boolean(
+          element.compareDocumentPosition(document.querySelector('.procedure')!) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+        ),
+      ),
+  ).toBeTruthy();
+  await expect(
+    page.getByText('Optionales Übungsbeispiel', { exact: true }).locator('..'),
+  ).not.toHaveAttribute('open');
+  await page.screenshot({ path: testInfo.outputPath('master-data-article.png'), fullPage: true });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+});
+
+test('task search finds linked work across role contexts and resets empty results', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/#/aufgaben');
+  const search = page.getByRole('searchbox', { name: 'Aufgaben durchsuchen' });
+  await search.fill('Operative Teammitglieder zuordnen');
+  await expect(page).toHaveURL(/#\/aufgaben$/);
+  const links = page.locator('.task-step-link');
+  expect(await links.evaluateAll((items) => items.map((a) => a.getAttribute('href')))).toEqual([
+    '#/schritt/step-2-7',
+    '#/schritt/step-2-11',
+    '#/schritt/step-2-15',
+  ]);
+  for (const link of await links.all()) await expect(link).toBeVisible();
+  await page.getByRole('combobox', { name: 'Verantwortliche Rolle' }).selectOption('tm');
+  await expect(links).toHaveCount(1);
+  await expect(links).toHaveAttribute('href', '#/schritt/step-2-11');
+  await expect(page.getByRole('status')).toHaveText('1 Prozessschritt');
+  await page.screenshot({ path: testInfo.outputPath('tasks-filtered.png'), fullPage: true });
+  await search.fill('KeinTreffer12345');
+  await expect(links).toHaveCount(0);
+  await expect(page.locator('main')).toContainText('Keine passende Aufgabe gefunden.');
+  await page.getByRole('button', { name: 'Filter zurücksetzen' }).click();
+  await expect(search).toHaveValue('');
+  await expect(page.getByRole('combobox', { name: 'Verantwortliche Rolle' })).toHaveValue('');
+  await expect(links).toHaveCount(52);
+  await expect(page.locator('.task-independent-link')).toHaveCount(2);
+  await search.fill('2.10');
+  await expect(page.locator('a[href="#/schritt/step-2-10"]')).toBeVisible();
+  await page.getByRole('button', { name: 'Filter zurücksetzen' }).click();
+  await search.fill('Reviewstatus pflegen');
+  await expect(
+    page.locator('a.task-independent-link[href="#/aufgabe/task-review-status"]'),
+  ).toBeVisible();
+});
+
+test('task overview and expanded results remain accessible at 360px and with enlarged text', async ({
+  page,
+}) => {
+  await page.goto('/#/aufgaben');
+  const axe = await new AxeBuilder({ page }).analyze();
+  expect(axe.violations).toEqual([]);
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.getByRole('combobox', { name: 'Verantwortliche Rolle' }).selectOption('pm');
+  await page.addStyleTag({
+    content:
+      '.tasks-page { font-size: 36px; } .task-step-link, .task-independent-link { font-size: 32px; } .task-meta { font-size: 28px; }',
+  });
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+  const secondAxe = await new AxeBuilder({ page }).analyze();
+  expect(secondAxe.violations).toEqual([]);
+});
+
 test('common search finds procedures and articles with German spelling and role filters', async ({
   page,
 }) => {

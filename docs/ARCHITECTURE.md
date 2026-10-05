@@ -107,6 +107,29 @@ Ein Artikel kann für unterschiedliche Aufgaben unterschiedliche Zwecke erfülle
 
 ## Status, offene Punkte und Quellen
 
+Die Aufgabenübersicht zeigt verknüpfte Tasks nicht als zusätzliche Einträge.
+`getWorkDetails()` liest ihre Beschreibungen, Abschnitte, offenen Punkte,
+Quellen und Beziehungen direkt für die Schrittdetailansicht. Identische Einträge
+werden in dieser Projektion einmal dargestellt; unterschiedliche Aussagen
+bleiben erhalten. Bereits in der Schrittbeschreibung enthaltene vollständige
+Task-Zusammenfassungen werden nicht wiederholt. Materialien umfassen die
+Zuordnungen des aktuellen Schritts und direkte zusätzliche Task-Bezüge, niemals
+die Bedienwege anderer Schritte mit derselben Task-ID. Eigenständige Aufgaben
+und vorhandene Task-URLs bleiben verfügbar. JSON-Objekte und IDs bleiben getrennt.
+Arbeitsdetailseiten zeigen ausdrücklich zugeordnete, gültige Guide-Bedienwege
+im Hauptbereich: Voraussetzungen, benötigte Rechte, Aktionen und Ergebnisprüfung.
+Artikelstatus und explizite Releasegeltung bleiben sichtbar. Gleiche Bedienweg-IDs
+und identische Ergebnis-/Prüffragen erscheinen einmal. Identische Tooltexte stehen
+einmal über den Voraussetzungen, unterschiedliche Tooltexte weiter am jeweiligen
+Schritt. Der allgemeine Auslöser entfällt in dieser kompakten Darstellung;
+strukturierte Werkzeugalternativen bleiben erhalten. Ohne Bedienweg stehen vorhandene Fachtexte
+und der Hinweis auf fehlendes Material weiterhin im Hauptbereich.
+Eine ergänzende Spalte enthält zunächst eingeklappte offene Punkte, Fachkontexte,
+vollständige Beiträge und Quellen. Unter 1100 px folgt sie dem Hauptbereich.
+Die vollständigen Artikel- und Bedienwegseiten bleiben erreichbar. Offene Punkte
+anderer Schritte werden nicht allein wegen desselben Artikels übernommen.
+Release- und Schulungsübersichten behalten die kompakte Materialdarstellung.
+
 Es gibt ausschließlich `draft`, `usable`, `approved` als Artikelstatus. Die fünf zuvor als begrenzt nutzbar beschriebenen Beiträge sind `usable`; die elf anderen sichtbaren Beiträge bleiben `draft`. Keine alte Feldbestätigung wird als vollständige Artikel-Freigabe interpretiert. `approved` bezeichnet ausschließlich eine Freigabe im Knowledge Center.
 
 Normale Grenzen stehen als `openPoints: string[]` am betroffenen Fachobjekt. Gemeinsam geltende tatsächliche offene Fragen können einmal in `open-points.json` gepflegt und mit `openPointIds` referenziert werden. Es gibt keine Issue-Zustände, Pflegefälle, parallele Readiness-Einträge oder Assessment-Objekte. Noch relevante Unsicherheiten aus den CareCases sind hier übernommen; die ursprünglichen Entscheidungen sind archiviert.

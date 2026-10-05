@@ -37,11 +37,19 @@ export function Sections({ sections }: { sections: Section[] }) {
     </>
   );
 }
-export function OpenPoints({ object, points }: { object?: Open; points?: string[] }) {
+export function OpenPoints({
+  object,
+  points,
+  title = 'Geltungsbereich und offene Punkte',
+}: {
+  object?: Open;
+  points?: string[];
+  title?: string;
+}) {
   const list = points ?? (object ? getOpenPoints(object) : []);
   return list.length ? (
     <section className="limitations">
-      <h2>Geltungsbereich und offene Punkte</h2>
+      <h2>{title}</h2>
       <ul>
         {list.map((p, i) => (
           <li key={i}>{p}</li>
@@ -50,7 +58,15 @@ export function OpenPoints({ object, points }: { object?: Open; points?: string[
     </section>
   ) : null;
 }
-export function Materials({ materials, releaseId }: { materials: Material[]; releaseId?: string }) {
+export function Materials({
+  materials,
+  releaseId,
+  includeContent = false,
+}: {
+  materials: Material[];
+  releaseId?: string;
+  includeContent?: boolean;
+}) {
   const resolved = resolveMaterials(materials, releaseId);
   return (
     <section className="materials">
@@ -86,16 +102,36 @@ export function Materials({ materials, releaseId }: { materials: Material[]; rel
               ))}
             </ul>
           )}
+          {includeContent && (
+            <details className="material-content">
+              <summary>Beitragsinhalt: {m.article.title}</summary>
+              <Sections sections={m.article.content} />
+            </details>
+          )}
         </div>
       ))}
     </section>
   );
 }
-export function ProcedureView({ procedure }: { procedure: Procedure }) {
+export function ProcedureView({
+  procedure,
+  compact = false,
+  outcome,
+}: {
+  procedure: Procedure;
+  compact?: boolean;
+  outcome?: string;
+}) {
+  const results = compact
+    ? [...new Set([...procedure.expectedResults, ...(procedure.checkQuestions ?? [])])]
+    : procedure.expectedResults;
+  const tools = new Set(procedure.actions.map((action) => action.tool));
+  const sharedTool = compact && tools.size === 1 ? [...tools].at(0) : undefined;
   return (
     <section className="procedure" id={procedure.id}>
       <h2>{procedure.title}</h2>
-      <p>{procedure.trigger}</p>
+      {!compact && <p>{procedure.trigger}</p>}
+      {sharedTool && <p className="small muted">{sharedTool}</p>}
       <h3>Voraussetzungen</h3>
       <ul>
         {procedure.prerequisites.map((s, i) => (
@@ -117,7 +153,7 @@ export function ProcedureView({ procedure }: { procedure: Procedure }) {
         {procedure.actions.map((a, i) => (
           <li key={i}>
             <p>{a.text}</p>
-            {a.tool && <p className="small muted">{a.tool}</p>}
+            {!sharedTool && a.tool && <p className="small muted">{a.tool}</p>}
             {a.toolSelection && (
               <p className="small muted">
                 {a.toolSelection.relation === 'all' ? 'Gemeinsam' : 'Alternativen'}:{' '}
@@ -135,13 +171,14 @@ export function ProcedureView({ procedure }: { procedure: Procedure }) {
           </li>
         ))}
       </ol>
-      <h3>Ergebnisse prüfen</h3>
+      <h3>{compact ? 'Ergebnis' : 'Ergebnisse prüfen'}</h3>
+      {outcome && <p>{outcome}</p>}
       <ul>
-        {procedure.expectedResults.map((s, i) => (
+        {results.map((s, i) => (
           <li key={i}>{s}</li>
         ))}
       </ul>
-      {procedure.checkQuestions?.length ? (
+      {!compact && procedure.checkQuestions?.length ? (
         <>
           <h3>Prüffragen</h3>
           <ul>
@@ -151,10 +188,12 @@ export function ProcedureView({ procedure }: { procedure: Procedure }) {
           </ul>
         </>
       ) : null}
-      <p className="small muted">
-        Beschriebene Ergebnisse sind mit Ihren Konten zu prüfen; ihre Beschreibung ist kein
-        erfolgreicher Test.
-      </p>
+      {!compact && (
+        <p className="small muted">
+          Beschriebene Ergebnisse sind mit Ihren Konten zu prüfen; ihre Beschreibung ist kein
+          erfolgreicher Test.
+        </p>
+      )}
       <Relationships relationships={procedure.relationships} context="procedure" />
       {procedure.relatedArticleId && (
         <p>
