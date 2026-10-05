@@ -175,9 +175,6 @@ function StepCard({
                   Zu {target.number} {target.title}
                   {f.kind && ` (${f.kind})`}
                   {f.label && ` – ${f.label}`}
-                  <small>
-                    {f.sourceRefs?.join(' · ')} {f.sourceNote}
-                  </small>
                 </li>
               );
             })}

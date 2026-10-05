@@ -89,7 +89,9 @@ SVG-Linien sind orthogonal und liegen in Spaltengassen/Zeilenzwischenräumen.
 `ResizeObserver` aktualisiert die Geometrie auch beim Aufklappen von Verbindungen;
 Viewportänderungen werden zusätzlich beobachtet. Das SVG blockiert keine
 Interaktionen. In dichten Bereichen können Linien sich überlagern oder kreuzen;
-die aufklappbare Textdarstellung nennt dieselben eindeutigen Ziele und Belege.
+die aufklappbare Textdarstellung nennt dieselben eindeutigen Ziele und vorhandene
+fachliche Beschriftungen. Technische Quellenbelege werden dort nicht angezeigt;
+sie bleiben für die Quellenprüfung im kanonischen Datenbestand erhalten.
 
 Unter 700 px verfügbarer Containerbreite ersetzt eine kompakte vertikale
 Darstellung die breite Rollenansicht. Alle Karten, Rollen, Badges, Kurzinfos und

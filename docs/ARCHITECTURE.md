@@ -160,8 +160,10 @@ Benachbarte Schritte werden direkt über gegenüberliegende Seiten verbunden.
 Für längere Verbindungen wählt `getProcessFlowPath()` einen kurzen orthogonalen
 Weg ohne Kartenüberschneidung durch Zeilenabstände und Spaltengassen.
 SVG ist dekorativ, nicht fokussierbar und blockiert keine Pointer-Ereignisse.
-Aufklappbare Textverbindungen enthalten dieselben Ziele und Quellen, auch in der
-kompakten Mobilansicht. Karten bleiben semantische Links innerhalb von Listen.
+Aufklappbare Textverbindungen enthalten dieselben Ziele und vorhandene fachliche
+Beschriftungen, auch in der kompakten Mobilansicht. Technische Quellenbelege bleiben
+im kanonischen Datenbestand und werden dort nicht angezeigt. Karten bleiben
+semantische Links innerhalb von Listen.
 
 Die bestehende Hash-Route `/schritt/<id>` bleibt gültig. Optionale Parameter
 `prozess` und `ansicht=karte|liste` erhalten den Herkunftskontext. Die Rückroute

@@ -822,11 +822,6 @@ footer {
 .process-connections ul {
   padding: 0 8px 0 20px;
 }
-.process-connections small {
-  display: block;
-  margin-top: 4px;
-  color: var(--muted-soft);
-}
 .swimlane-flows {
   position: absolute;
   inset: 0;
