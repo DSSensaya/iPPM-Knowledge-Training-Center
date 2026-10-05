@@ -316,6 +316,7 @@ test('four user entries expose tasks, processes, roles and knowledge', async ({ 
     .locator('main')
     .getByRole('link', { name: 'Technical Manager (TM)', exact: true })
     .click();
+  await page.locator('.role-phase summary').filter({ hasText: 'Planung' }).click();
   await expect(page.locator('main a[href="#/schritt/step-3-12"]')).toBeVisible();
   await navigate(page, 'Wissen');
   await expect(page.locator('.article-card')).toHaveCount(16);
@@ -686,6 +687,109 @@ test('task overview and expanded results remain accessible at 360px and with enl
   expect(secondAxe.violations).toEqual([]);
 });
 
+test('role overview stays compact and opens a distinct profile with keyboard navigation', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/#/rollen');
+  const cards = page.locator('.role-card');
+  await expect(cards).toHaveCount(4);
+  await expect(page.locator('main a[href^="#/schritt/"]')).toHaveCount(0);
+  await expect(page.locator('main a[href^="#/artikel/"]')).toHaveCount(0);
+  await expect(cards.first()).toBeInViewport();
+  if (testInfo.project.name === 'desktop') await expect(cards.last()).toBeInViewport();
+  await page.screenshot({ path: testInfo.outputPath('roles-overview.png'), fullPage: true });
+
+  const pm = page.getByRole('link', { name: 'Projektmanager (PM)', exact: true });
+  await pm.focus();
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Shift+Tab');
+  await expect(pm).toBeFocused();
+  await expect(pm).toHaveCSS('outline-color', 'rgb(56, 99, 229)');
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/rollen\/pm$/);
+  await expect(page.locator('main h1')).toHaveText('Projektmanager (PM)');
+  await expect(page.locator('main')).toBeFocused();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+  await expect(page).toHaveTitle('Projektmanager (PM) · iPPM Knowledge & Training Center');
+  await expect(
+    page.getByRole('navigation', { name: 'Rolle wechseln' }).locator('[aria-current="page"]'),
+  ).toHaveAccessibleName('Projektmanager (PM)');
+  if (testInfo.project.name === 'mobile') {
+    for (const width of [360, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      const buttons = page.locator('.role-content-switch button');
+      const stepsBounds = (await buttons.nth(0).boundingBox())!;
+      const knowledgeBounds = (await buttons.nth(1).boundingBox())!;
+      expect(Math.abs(stepsBounds.y - knowledgeBounds.y)).toBeLessThan(1);
+    }
+  }
+  await page.screenshot({ path: testInfo.outputPath('role-pm.png'), fullPage: true });
+
+  await page
+    .getByRole('navigation', { name: 'Rolle wechseln' })
+    .getByRole('link', { name: 'Project Management Office (PMO)', exact: true })
+    .click();
+  await expect(page.locator('main h1')).toHaveText('Project Management Office (PMO)');
+  await page.goBack();
+  await expect(page.locator('main h1')).toHaveText('Projektmanager (PM)');
+  await page.getByRole('link', { name: 'Alle Rollen', exact: true }).click();
+  await expect(page.locator('main h1')).toHaveText('Rollen');
+  await expect(cards).toHaveCount(4);
+});
+
+test('role content retains every canonical assignment and the selected knowledge view', async ({
+  page,
+}) => {
+  const { loadModel } = await import('./model');
+  const model = await loadModel();
+  for (const role of model.content.roles) {
+    const view = model.getRoleView(role.id);
+    await page.goto('/#/rollen/' + role.id);
+    await expect(page.locator('main h1')).toHaveText(role.label);
+    const stepLinks = page.locator('main a[href^="#/schritt/"]');
+    expect(
+      await stepLinks.evaluateAll((links) => links.map((a) => a.getAttribute('href')).sort()),
+    ).toEqual(view.steps.map((s) => '#/schritt/' + s.id).sort());
+    await expect(page.locator('.role-phase[open]')).toHaveCount(1);
+    for (const phase of await page.locator('.role-phase').all()) {
+      const summary = phase.locator('summary');
+      if ((await phase.getAttribute('open')) === null) {
+        await summary.focus();
+        await page.keyboard.press('Enter');
+      }
+      for (const link of await phase.getByRole('link').all()) await expect(link).toBeVisible();
+    }
+
+    const knowledge = page.getByRole('button', { name: `Wissen (${view.articles.length})` });
+    await knowledge.focus();
+    await page.keyboard.press('Space');
+    await expect(knowledge).toHaveAttribute('aria-pressed', 'true');
+    await expect(page).toHaveURL(/bereich=wissen/);
+    const articles = page.locator('main a[href^="#/artikel/"]');
+    expect(
+      await articles.evaluateAll((links) => links.map((a) => a.getAttribute('href')).sort()),
+    ).toEqual(view.articles.map((a) => '#/artikel/' + a.id).sort());
+    for (const article of view.articles)
+      await expect(page.locator(`main a[href="#/artikel/${article.id}"]`)).toContainText(
+        model.statusLabels[article.status],
+      );
+    await expect(stepLinks).toHaveCount(0);
+    await page.reload();
+    await expect(knowledge).toHaveAttribute('aria-pressed', 'true');
+    await expect(articles).toHaveCount(view.articles.length);
+    await page.getByRole('button', { name: `Prozessschritte (${view.steps.length})` }).click();
+    await expect(page).not.toHaveURL(/bereich=/);
+    await expect(stepLinks).toHaveCount(view.steps.length);
+  }
+});
+
+test('unknown role offers a clear return to the role overview', async ({ page }) => {
+  await page.goto('/#/rollen/unbekannt');
+  await expect(page.locator('main h1')).toHaveText('Rolle nicht gefunden');
+  await page.getByRole('link', { name: 'Alle Rollen', exact: true }).click();
+  await expect(page.locator('.role-card')).toHaveCount(4);
+});
+
 test('common search finds procedures and articles with German spelling and role filters', async ({
   page,
 }) => {
@@ -812,6 +916,11 @@ for (const route of [
   '/#/wissen',
   '/#/prozesse',
   '/#/rollen',
+  '/#/rollen/pm',
+  '/#/rollen/pmo',
+  '/#/rollen/tm',
+  '/#/rollen/ilsm',
+  '/#/rollen/pm?bereich=wissen',
   '/#/artikel/guide-project-permissions',
   '/#/schulungen/sb2',
 ])

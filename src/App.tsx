@@ -69,6 +69,10 @@ export default function App() {
         : path.startsWith('/releases') || path.startsWith('/schulungen')
           ? 'Releases & Schulungen'
           : 'Redaktion');
+  const roleTitle = path.startsWith('/rollen/')
+    ? (content.roles.find((role) => role.id === path.split('/')[2])?.label ??
+      'Rolle nicht gefunden')
+    : undefined;
   useEffect(() => {
     // Track browser entries only to undo a refused hash/history navigation without rewriting it.
     const entryIndex = () =>
@@ -160,8 +164,8 @@ export default function App() {
     window.scrollTo(0, 0);
     if (previousPath.current !== path) main.current?.focus({ preventScroll: true });
     previousPath.current = path;
-    document.title = `${current} · iPPM Knowledge & Training Center`;
-  }, [path, current]);
+    document.title = `${roleTitle ?? current} · iPPM Knowledge & Training Center`;
+  }, [path, current, roleTitle]);
   let page;
   if (path === '/') page = <Home />;
   else if (path === '/aufgaben') page = <Tasks />;
@@ -170,7 +174,7 @@ export default function App() {
   else if (path.startsWith('/aufgabe/')) page = <WorkPage id={path.split('/')[2]} kind="task" />;
   else if (path.startsWith('/thema/')) page = <WorkPage id={path.split('/')[2]} kind="topic" />;
   else if (path.startsWith('/bedienweg/')) page = <ProcedurePage id={path.split('/')[2]} />;
-  else if (path.startsWith('/rollen')) page = <Roles id={path.split('/')[2]} />;
+  else if (path.startsWith('/rollen')) page = <Roles id={path.split('/')[2]} params={params} />;
   else if (path.startsWith('/releases')) page = <Releases id={path.split('/')[2]} />;
   else if (path.startsWith('/schulungen/')) page = <TrainingBlockPage id={path.split('/')[2]} />;
   else if (__LOCAL_EDITOR__ && path === '/redaktion')

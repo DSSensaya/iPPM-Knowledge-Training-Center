@@ -23,6 +23,24 @@
 
 Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vollständigen Komponentenabmessungen, Logo-Mindestgrößen/Schutzzonen und Dropdown-Schattenparameter. Es werden dafür keine Markenfreigaben behauptet.
 
+- **project: Rollen.** Die Übersicht zeigt vier rechteckige Rollenkarten in zwei
+  Spalten, unter 800 px in einer Spalte. Ganze Karten sind benannte Links und
+  verwenden das bestehende Startseiten-Kartenmuster. Details tragen den
+  kanonischen Rollennamen als H1 und Browsertitel. Rücklink und kompakte
+  Rollenlinks mit `aria-current` machen die Navigation sichtbar. Prozessschritte
+  und Wissen werden über die vorhandene Pill-Button-Geometrie umgeschaltet;
+  Signal und `aria-pressed` kennzeichnen die Auswahl. Der URL-Parameter
+  `bereich=wissen` erhält die Wissensansicht auch nach Reload. Native Details
+  gliedern Schritte nach Prozess und Phase; die erste Phase ist zunächst offen.
+  Listen verwenden 16 px Padding, neutrale Begrenzungen und blaue Fokuslinien.
+  Mobile Rollenprofile verwenden 32 px für den langen H1-Rollennamen und 14 px
+  mit 12/8 px Padding für die Inhaltsbuttons, um Wortumbrüche und zusätzliche
+  Steuerungszeilen zu reduzieren. Titel-/Buttonabstände verwenden mobil 16/24 px;
+  dies sind lokale Typografie- und Layoutzuordnungen.
+  Rollentexte, Artikelstatus und Anzahlen kommen ausschließlich aus dem Bestand
+  und den bestehenden Queries. Die Darstellung ergänzt keine Verantwortungen
+  oder Aussage zur vollständigen Prozessabdeckung.
+
 - **project: Aufgaben.** Die Übersicht zeigt Prozessschritte einmal in der
   kanonischen Prozess-/Phasenreihenfolge mit unveränderten Schrittnummern in
   einer eigenen Spalte. Native Details gliedern die Phasen; zunächst ist die
@@ -50,7 +68,7 @@ Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vo
   Das Raster verwendet 2:1 Spalten, mindestens 280 px für die Ergänzungen und
   32 px Abstand; unter 1100 px stehen die Bereiche untereinander. Die ergänzende
   Spalte verwendet 24 px Padding (mobil 16 px), 20-px-Überschriften und 16-px-Text.
-  Mobile Arbeitsdetailtitel verwenden 32 px bei 1,2 Zeilenhöhe;
+  Mobile Arbeitsdetailtitel verwenden wie Rollenprofile 32 px bei 1,2 Zeilenhöhe;
   Rücklinks stehen mit 24 px Abstand nebeneinander bzw. umbrechend.
   Beitragsinhalte, Quellenkontexte und Übungen bleiben einzeln aufklappbar.
   Diese Geometrie und Gliederung sind iPPM-Projektentscheidungen; bestehende
