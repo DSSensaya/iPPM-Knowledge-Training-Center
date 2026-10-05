@@ -212,6 +212,7 @@ div {
 .topbar {
   min-height: 72px;
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   align-items: center;
   justify-content: space-between;
@@ -219,10 +220,17 @@ div {
   background: var(--base);
 }
 .breadcrumb,
-.local-status {
+.local-status-summary {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 14px;
+}
+.local-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
   font-size: 14px;
 }
 .prototype-label {
@@ -927,7 +935,7 @@ footer {
   .sidebar {
     display: none;
     z-index: 10;
-    top: 72px;
+    top: 128px;
     width: min(320px, 100vw);
   }
   .sidebar.open {
@@ -940,11 +948,16 @@ footer {
     display: inline-flex !important;
   }
   .topbar {
+    min-height: 128px;
+    row-gap: 8px;
     padding: 12px 24px;
   }
-  .breadcrumb > span,
-  .local-status {
+  .breadcrumb > span {
     display: none;
+  }
+  .local-status {
+    flex-basis: 100%;
+    align-items: flex-start;
   }
   main {
     padding: 32px 24px;

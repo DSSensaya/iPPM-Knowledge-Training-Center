@@ -2,11 +2,42 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import baseline from './fixtures/migration-baseline.json' with { type: 'json' };
 import { createHash } from 'node:crypto';
+import packageInfo from '../package.json' with { type: 'json' };
 async function navigate(page: import('@playwright/test').Page, name: string) {
   const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
   if (!(await nav.isVisible())) await page.getByRole('button', { name: 'Menü öffnen' }).click();
   await nav.getByRole('link', { name, exact: true }).click();
 }
+
+test('application stand remains visible and identifies the build across reloads', async ({
+  page,
+}, testInfo) => {
+  if (testInfo.project.name === 'mobile') await page.setViewportSize({ width: 360, height: 800 });
+  await page.clock.setFixedTime(new Date('2040-01-01T12:00:00Z'));
+  await page.goto('/');
+  const status = page.locator('.local-status');
+  const time = status.locator('time');
+  await expect(status).toBeVisible();
+  await expect(status).toContainText('Lokal verfügbar');
+  await expect(status.locator('.prototype-label')).toHaveText(`v${packageInfo.version}`);
+  await expect(time).toBeVisible();
+  await expect(time).toHaveText(/^\d{2}\.\d{2}\.\d{4}, \d{2}:\d{2} (MEZ|MESZ)$/);
+  const buildTime = await time.getAttribute('datetime');
+  expect(buildTime).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
+  expect(new Date(buildTime!).getTime()).toBeLessThanOrEqual(Date.now());
+  const label = await time.textContent();
+  await page.clock.setFixedTime(new Date('2050-01-01T12:00:00Z'));
+  await page.reload();
+  await expect(time).toHaveAttribute('datetime', buildTime!);
+  await expect(time).toHaveText(label!);
+  await navigate(page, 'Wissen');
+  await expect(time).toBeVisible();
+  await expect(time).toHaveText(label!);
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+  await page.screenshot({ path: testInfo.outputPath('application-stand.png') });
+});
 
 test('release lens keeps all cards, supports keyboard and preserves release context in details', async ({
   page,

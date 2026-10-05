@@ -34,6 +34,16 @@ const navigation = [
   { path: '/wissen', label: 'Wissen', icon: BookOpen },
 ];
 
+const applicationStand = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: 'Europe/Berlin',
+  timeZoneName: 'short',
+}).format(new Date(__APP_BUILD_TIME__));
+
 export default function App() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
   const navigationGuard = useRef<(() => Promise<boolean>) | null>(null);
@@ -323,9 +333,14 @@ export default function App() {
             <strong>{current}</strong>
           </div>
           <div className="local-status">
-            <Monitor size={16} aria-hidden="true" />
-            <span>Lokal verfügbar</span>
-            <span className="prototype-label">v0.8.0</span>
+            <div className="local-status-summary">
+              <Monitor size={16} aria-hidden="true" />
+              <span>Lokal verfügbar</span>
+              <span className="prototype-label">v{__APP_VERSION__}</span>
+            </div>
+            <span title="Zeitpunkt der Erstellung dieses Anwendungsstands">
+              Stand: <time dateTime={__APP_BUILD_TIME__}>{applicationStand}</time>
+            </span>
           </div>
         </header>
         <main id="main" ref={main} tabIndex={-1}>
