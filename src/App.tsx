@@ -4,6 +4,7 @@ import {
   BookOpen,
   ChevronRight,
   HelpCircle,
+  House,
   ListTodo,
   Menu,
   Monitor,
@@ -23,8 +24,10 @@ import Processes from './pages/Processes';
 import ReleaseOverview from './pages/ReleaseOverview';
 import Personal from './pages/Personal';
 import Help from './pages/Help';
+import Home from './pages/Home';
 
 const navigation = [
+  { path: '/', label: 'Startseite', icon: House },
   { path: '/aufgaben', label: 'Aufgaben', icon: ListTodo },
   { path: '/prozesse', label: 'Prozesse', icon: Network },
   { path: '/rollen', label: 'Rollen', icon: UserRound },
@@ -48,7 +51,7 @@ export default function App() {
   const [path, search = ''] = route.split('?');
   const params = new URLSearchParams(search);
   const active =
-    path === '/' || path.startsWith('/aufgabe') || path.startsWith('/schritt')
+    path.startsWith('/aufgabe') || path.startsWith('/schritt')
       ? '/aufgaben'
       : path.startsWith('/artikel') || path.startsWith('/thema') || path.startsWith('/bedienweg')
         ? '/wissen'
@@ -160,7 +163,8 @@ export default function App() {
     document.title = `${current} · iPPM Knowledge & Training Center`;
   }, [path, current]);
   let page;
-  if (path === '/' || path === '/aufgaben') page = <Tasks />;
+  if (path === '/') page = <Home />;
+  else if (path === '/aufgaben') page = <Tasks />;
   else if (path.startsWith('/schritt/'))
     page = <WorkPage id={path.split('/')[2]} kind="step" params={params} />;
   else if (path.startsWith('/aufgabe/')) page = <WorkPage id={path.split('/')[2]} kind="task" />;

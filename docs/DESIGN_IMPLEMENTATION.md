@@ -23,6 +23,17 @@
 
 Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vollständigen Komponentenabmessungen, Logo-Mindestgrößen/Schutzzonen und Dropdown-Schattenparameter. Es werden dafür keine Markenfreigaben behauptet.
 
+- **project: Startseite.** Die Root-Route zeigt einen eigenständigen Einstieg mit
+  der bestehenden gemeinsamen Suche. Aufgaben, Prozesse und Wissen stehen als
+  drei gleichwertige rechteckige Linkkarten nebeneinander; Rollen, Releases &
+  Schulungen und der Lernbereich folgen als kompakte Steel-Karten. Unter
+  1100 px werden die Karten untereinander dargestellt. Suchfläche und Karten
+  verwenden 24 px Padding (mobil 16 px), Bereiche 40 px Abstand. Bestehende
+  Typografie, Farb- und Fokustokens sowie Lucide-Symbole bleiben maßgeblich.
+  Signalflächen hinter den primären Bereichssymbolen kennzeichnen die Einstiege.
+  Ganze Karten sind benannte Tastaturlinks mit blauem Fokus. Die Startseite
+  ergänzt keine fachlichen Inhalte, Statuskennzahlen oder zweite Inhaltsquelle.
+
 - **project: Prozessnotation.** Rollen bilden Spalten, Phasen horizontale Bereiche;
   kanonische Reihenfolge bestimmt ausschließlich die Platzierung innerhalb einer
   Phase/Rollenspalte. Gemeinsame und unbelegte Rollen erhalten neutrale Spalten.

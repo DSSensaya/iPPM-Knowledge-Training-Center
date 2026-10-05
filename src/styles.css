@@ -373,6 +373,98 @@ button:disabled,
   grid-template-columns: repeat(12, minmax(0, 1fr));
   margin: 24px 0;
 }
+.home-search {
+  padding: 24px;
+  background: var(--base);
+}
+.home-search .search-form {
+  margin: 0;
+  max-width: none;
+}
+.home-search label {
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.home section {
+  margin: 40px 0;
+}
+.home-entries {
+  list-style: none;
+  padding: 0;
+}
+.home-entries > li {
+  grid-column: span 4;
+  margin: 0;
+}
+.home-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--steel-light);
+  text-decoration: none;
+}
+.home-card:hover {
+  background: var(--base);
+  border-color: var(--ink);
+}
+.home-card h3,
+.home-card p {
+  margin: 0;
+}
+.home-card h3 {
+  font-weight: 700;
+}
+.home-card p {
+  color: var(--muted-soft);
+  font-size: 16px;
+  flex: 1;
+}
+.home-card-icon {
+  box-sizing: content-box;
+  padding: 12px;
+  background: var(--signal);
+}
+.home-card-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.home-card-compact {
+  background: var(--base);
+  border-color: transparent;
+}
+.home-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.home-card-heading h3 {
+  flex: 1;
+}
+.home-card svg {
+  flex-shrink: 0;
+}
+.home-help {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--steel-light);
+}
+.home-help p {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted-soft);
+  flex: 1 1 320px;
+}
 .article-card {
   --muted: var(--muted-soft);
   grid-column: span 4;
@@ -565,6 +657,9 @@ footer {
   clip-path: inset(50%);
 }
 @media (max-width: 1100px) {
+  .home-entries > li {
+    grid-column: span 12;
+  }
   .article-card {
     grid-column: span 6;
   }
@@ -617,6 +712,13 @@ footer {
   }
   .article-card {
     grid-column: span 6;
+  }
+  .home-entries > li {
+    grid-column: span 6;
+  }
+  .home-card,
+  .home-search {
+    padding: 16px;
   }
   .page-title,
   .procedure,

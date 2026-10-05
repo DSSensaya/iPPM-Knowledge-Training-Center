@@ -184,7 +184,7 @@ test('original transparent logo assets load and the sidebar uses the simple dark
   await expect(page.locator('.sidebar :focus')).toHaveCSS('outline-color', 'rgb(98, 137, 253)');
   await page.screenshot({ path: testInfo.outputPath('branding.png') });
   await brand.click();
-  await expect(page.locator('main h1')).toHaveText('Aufgaben');
+  await expect(page.locator('main h1')).toHaveText('Ihr Einstieg in iPPM');
   if (testInfo.project.name === 'mobile') {
     await expect(page.locator('.sidebar')).toBeHidden();
     await expect(page.getByRole('button', { name: 'Menü öffnen' })).toHaveAttribute(
@@ -258,8 +258,53 @@ test('360px reference and enlarged text preserve navigation and long content wit
     await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
   ).toBeTruthy();
 });
-test('four user entries expose tasks, processes, roles and knowledge', async ({ page }) => {
+test('home offers keyboard-accessible entries and navigation back to the overview', async ({
+  page,
+}, testInfo) => {
   await page.goto('/');
+  await expect(page.locator('main h1')).toHaveText('Ihr Einstieg in iPPM');
+  await expect(page).toHaveTitle('Startseite · iPPM Knowledge & Training Center');
+  await expect(
+    page.getByRole('searchbox', { name: 'Wissen und Aufgaben durchsuchen' }),
+  ).toBeVisible();
+  await expect(page.getByRole('searchbox', { name: 'Aufgaben filtern' })).toHaveCount(0);
+  const nav = page.getByRole('navigation', { name: 'Hauptnavigation', includeHidden: true });
+  await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
+  await expect(
+    nav.getByRole('link', { name: 'Startseite', exact: true, includeHidden: true }),
+  ).toHaveAttribute('aria-current', 'page');
+  await page.screenshot({ path: testInfo.outputPath('home.png'), fullPage: true });
+
+  for (const [path, title] of [
+    ['/aufgaben', 'Aufgaben'],
+    ['/prozesse', 'Prozesse'],
+    ['/wissen', 'Wissen'],
+    ['/rollen', 'Rollen'],
+    ['/releases', 'Releases & Schulungen'],
+    ['/mein-bereich', 'Mein Lernbereich'],
+    ['/hilfe', 'Wie können wir helfen?'],
+  ]) {
+    const entry = page.locator(`main a[href="#${path}"]`);
+    await expect(entry).toHaveCount(1);
+    await entry.focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Shift+Tab');
+    await expect(entry).toBeFocused();
+    await expect(entry).toHaveCSS('outline-color', 'rgb(56, 99, 229)');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('main h1')).toHaveText(title);
+    await expect(page.locator('main')).toBeFocused();
+    await navigate(page, 'Startseite');
+    await expect(page).toHaveURL(/#\/$/);
+    await expect(page.locator('main h1')).toHaveText('Ihr Einstieg in iPPM');
+    await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
+  }
+  await page.reload();
+  await expect(page.locator('main h1')).toHaveText('Ihr Einstieg in iPPM');
+});
+
+test('four user entries expose tasks, processes, roles and knowledge', async ({ page }) => {
+  await page.goto('/#/aufgaben');
   await expect(page.getByRole('heading', { name: 'Aufgaben', exact: true })).toBeVisible();
   await navigate(page, 'Prozesse');
   await expect(page.getByRole('heading', { name: 'Prozesse', exact: true })).toBeVisible();
@@ -399,6 +444,7 @@ test('core boundaries remain visible before applying owner and reporting procedu
 });
 for (const route of [
   '/',
+  '/#/aufgaben',
   '/#/wissen',
   '/#/prozesse',
   '/#/rollen',

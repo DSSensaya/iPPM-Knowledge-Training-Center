@@ -134,7 +134,7 @@ src/hooks/         React-Zustand und Aktionen für den Lernfortschritt
 src/services/      versioniertes Laden, Speichern und Zusammenführen des Lernfortschritts
 src/types/         gemeinsamer Progress-Vertrag für Hook, Speicherung und Darstellung
 src/components/    gemeinsame Inhalts- und UI-Bausteine
-src/pages/         Aufgaben, Prozesse, Rollen, Wissen, Schulungen, Persönliches, Hilfe
+src/pages/         Startseite, Aufgaben, Prozesse, Rollen, Wissen, Schulungen, Persönliches, Hilfe
 src/editor/        direkter JSON-Editor und abgeleiteter Bestand
 scripts/           Content-Loader, Speicherhandler, Editor-Build/-Server, Windows-Start
 sources/           unveränderte Originalquellen
