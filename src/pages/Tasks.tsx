@@ -21,6 +21,7 @@ import {
   Relationships,
 } from '../components/Content';
 import { useState } from 'react';
+import { getOrientationBacklinks, orientationHref, orientationTitle } from '../lib/orientation';
 export default function Tasks() {
   const [q, setQ] = useState(''),
     [role, setRole] = useState('');
@@ -134,6 +135,19 @@ export function WorkPage({
         points={[...new Set([...getOpenPoints(entity), ...tasks.flatMap((t) => getOpenPoints(t))])]}
       />
       <Materials materials={getWorkMaterials(entity)} />
+      {getOrientationBacklinks(entity.id).length > 0 && (
+        <section>
+          <h2>Einordnung in der Landkarte</h2>
+          <ul>
+            {getOrientationBacklinks(entity.id).map(({ node, basis }, i) => (
+              <li key={i}>
+                <a href={orientationHref(node.id)}>{orientationTitle(node)}</a>
+                <p className="small muted">{basis}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {'content' in entity && entity.content && <Sections sections={entity.content} />}
       <Sources refs={entity.sourceRefs} note={entity.sourceNote} />
       {tasks.length > 0 && (

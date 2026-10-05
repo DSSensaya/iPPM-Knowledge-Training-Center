@@ -20,6 +20,7 @@ import Editor from './editor/Editor';
 import EditorialInventory from './editor/Inventory';
 import { ArticlePage, Knowledge } from './pages/Knowledge';
 import Processes from './pages/Processes';
+import ReleaseOverview from './pages/ReleaseOverview';
 import Personal from './pages/Personal';
 import Help from './pages/Help';
 
@@ -188,6 +189,11 @@ export default function App() {
         toggleRead={toggleRead}
       />
     );
+  else if (
+    path === '/prozesse/releaseueberblick' ||
+    path.startsWith('/prozesse/releaseueberblick/')
+  )
+    page = <ReleaseOverview id={path.split('/')[3]} params={params} />;
   else if (path.startsWith('/prozesse'))
     page = <Processes id={path.split('/')[2]} params={params} />;
   else if (path === '/mein-bereich')

@@ -26,6 +26,11 @@ export default function Processes({ id, params }: { id?: string; params: URLSear
         title="Prozesse"
         description="Der vollständige vorhandene Prozessbestand. Material zu einzelnen Schritten bedeutet keine vollständige Prozessabdeckung."
       />
+      <p>
+        <a className="button secondary" href="#/prozesse/releaseueberblick">
+          Releaseüberblick: Funktionen, Prozesse und Systeme
+        </a>
+      </p>
       {q && (
         <section aria-label="Prozesssuche">
           <h2>Treffer für „{q}“</h2>

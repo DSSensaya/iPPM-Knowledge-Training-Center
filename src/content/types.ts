@@ -57,7 +57,9 @@ export interface TrainingBlock {
 export interface Source {
   id: string;
   title: string;
-  path: string;
+  path?: string;
+  /** Required instead of a local path for indirectly known import sources. */
+  sourceNote?: string;
   date?: string;
 }
 export interface SharedOpenPoint extends Sourced {
@@ -144,7 +146,29 @@ export interface Topic extends Sourced, Open {
   materials?: Material[];
   relationships?: Relationship[];
 }
+/** Orientation is neither an executable process nor a release availability claim. */
+export interface Orientation extends Sourced {
+  id: string;
+  sourceKey: string;
+  kind: string;
+  parentId?: string;
+  referenceId?: string;
+  title?: string;
+  summary?: string;
+  content: (Section | { referenceId: string })[];
+  sourceStatus: string;
+  planningReleaseIds: string[];
+  audienceRoleIds: string[];
+  audienceNotes?: string[];
+  journeyIds?: string[];
+  links: {
+    targetId: string;
+    label: string;
+    basis: string;
+  }[];
+}
 export interface ContentStore {
+  orientation: Orientation[];
   articles: Article[];
   processes: Process[];
   tasks: Task[];

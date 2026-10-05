@@ -1,5 +1,16 @@
 # iPPM-Design: Projektentscheidungen
 
+- **project: Releaseüberblick.** Drei ruhige, nach Kataloggruppen gegliederte
+  Spalten zeigen Prozesse, Funktionen und Systembausteine. Unter 1100 px stehen
+  sie untereinander. Release-Buttons verwenden die bestehenden Farb-/Fokustokens
+  und einen 4-px-Radius als lokale Variantenentscheidung. Explizite Planungsbezüge
+  erhalten eine gelbe linke Begrenzung und Textkennzeichnung; verbundener Kontext
+  eine gestrichelte Begrenzung. Inhalte ohne Zuordnung verwenden Steel-Flächen
+  und `--muted-soft` ohne Opazitätsabsenkung oder deaktivierte Links. Reihenfolge
+  und Kartenmaße bleiben bei der Auswahl gleich. Technische Ebenen sind mit
+  nativen Details-Elementen aufklappbar; fachliche Grenzen stehen früh sichtbar.
+  Diese Notation ist keine Aussage über Produktivverfügbarkeit oder Freigaben.
+
 `DESIGN.md` bleibt die unveränderte, vollständig übernommene Eingabefassung vom 04.10.2026. Die folgenden Ergänzungen sind **iPPM-Projektentscheidungen**, keine zusätzlichen TKMS-Vorgaben. Konkrete Figma-Geometrien wurden für diesen Auftrag nicht separat abgerufen.
 
 - **project: Schriftbetrieb.** Keine Schriftdateien wurden geliefert. Die vorhandenen lokalen Familien `TKMS` / `TKMS Headline` mit `Arial, sans-serif` als lokalem Fallback bleiben erhalten. Arial ist kein verifizierter TKMS-Fallback. Regular 400 und Hervorhebung 700 sind bestehende Projektwerte.

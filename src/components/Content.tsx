@@ -176,8 +176,8 @@ export function Sources({ refs, note }: { refs?: string[]; note?: string }) {
         ))}
       </ul>
       <p className="small muted">
-        Fundstellen beziehen sich auf lokale Originaldateien. Eine Quellenreferenz ist keine
-        technische Freigabe.
+        Quellenreferenzen sind keine technische Freigabe. Verfügbarkeit und Prüfstand ergeben sich
+        aus den jeweiligen Herkunftshinweisen.
       </p>
     </details>
   ) : null;

@@ -4,6 +4,7 @@ import type { Article } from '../content/types';
 import { content, replaceContent } from '../content';
 import { PageTitle } from '../components/ui';
 const collections = [
+  'orientation',
   'processes',
   'tasks',
   'topics',

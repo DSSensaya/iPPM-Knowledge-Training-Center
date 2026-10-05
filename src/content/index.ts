@@ -11,8 +11,10 @@ import sources from './sources.json';
 import procedures from './procedures.json';
 import openPoints from './open-points.json';
 import help from './help.json';
+import orientation from './orientation.json';
 const articleFiles = import.meta.glob('./articles/*.json', { eager: true, import: 'default' });
 const initial: unknown = {
+  orientation,
   roles,
   systems,
   releases,

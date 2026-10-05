@@ -2,6 +2,7 @@ import { visioPageXml } from './visio-source';
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { gunzipSync } from 'node:zlib';
 import { loadModel } from './model';
 import baseline from './fixtures/migration-baseline.json' with { type: 'json' };
 import type { ContentStore, Article } from '../src/content/types';
@@ -17,6 +18,294 @@ const flatten = (v: unknown): string =>
       : v && typeof v === 'object'
         ? Object.values(v).map(flatten).join('\n')
         : '';
+
+function readOrientationImport() {
+  const html = readFileSync('iPPM-Landkarte-TKMS-ATLAS-2.html', 'utf8');
+  expect(createHash('sha256').update(html).digest('hex')).toBe(
+    '0fbf5ac522bc531f850d72c769ecc62f5aff6e594490a1689b5b3f1369d84cfb',
+  );
+  return JSON.parse(
+    gunzipSync(
+      Buffer.from(
+        html.match(/<script[^>]*id="lm-payload"[^>]*>([\s\S]*?)<\/script>/)![1].trim(),
+        'base64',
+      ),
+    ).toString('utf8'),
+  ) as {
+    nodes: {
+      key: string;
+      parent?: string;
+      releases: string[];
+      path?: string[];
+      sections: { title: string; text: string }[];
+      source: { id: string; page?: number; endPage?: number; locator?: string }[];
+    }[];
+    edges: { a: string; b: string; label: string; origin: string }[];
+    journeys: string[];
+    sources: { id: string; title: string }[];
+    modelSourceRefs: { id: string; filename: string; sha256: string }[];
+  };
+}
+
+test('all 2860 import relationships reconcile with canonical links, hierarchy, releases and journeys', () => {
+  const payload = readOrientationImport();
+  const nodes = new Map(model.content.orientation.map((n) => [n.sourceKey, n]));
+  const releaseId = (id: string) => (id === 'R1' ? 'release-1' : id);
+  expect(payload.nodes).toHaveLength(973);
+  expect(payload.edges).toHaveLength(2860);
+  expect(payload.journeys).toHaveLength(14);
+  expect(new Set(payload.edges.map((e) => JSON.stringify(e))).size).toBe(2860);
+  const counts = { hierarchy: 0, journey: 0, release: 0, link: 0 };
+  const importedLinks: string[] = [];
+  for (const original of payload.nodes) {
+    const node = nodes.get(original.key)!;
+    expect(node, original.key).toBeDefined();
+    expect(node.parentId).toBe(original.parent ? nodes.get(original.parent)!.id : undefined);
+    expect(node.planningReleaseIds).toEqual(original.releases.map(releaseId));
+    expect(node.journeyIds).toEqual(original.path?.map((key) => nodes.get(key)!.id));
+  }
+  for (const edge of payload.edges) {
+    const a = nodes.get(edge.a)!;
+    const b = nodes.get(edge.b)!;
+    expect(a, edge.a).toBeDefined();
+    expect(b, edge.b).toBeDefined();
+    if (edge.origin === 'Hierarchie') {
+      counts.hierarchy++;
+      expect(b.parentId).toBe(a.id);
+    } else if (edge.origin.startsWith('Didaktische Reihenfolge')) {
+      counts.journey++;
+      const position = Number(edge.label.match(/\d+$/)![0]) - 1;
+      expect(a.journeyIds![position]).toBe(b.id);
+    } else if (edge.origin === 'Releaseattribut; keine Aktivierung') {
+      counts.release++;
+      expect(b.planningReleaseIds).toContain(releaseId(edge.a));
+    } else {
+      counts.link++;
+      importedLinks.push(JSON.stringify([a.id, b.id, edge.label, edge.origin]));
+    }
+  }
+  expect(counts).toEqual({ hierarchy: 972, journey: 62, release: 377, link: 1449 });
+  const storedLinks = model.content.orientation.flatMap((n) =>
+    n.links.map((l) => JSON.stringify([n.id, l.targetId, l.label, l.basis])),
+  );
+  expect(storedLinks.filter((l) => importedLinks.includes(l)).sort()).toEqual(importedLinks.sort());
+  const added = model.content.orientation.flatMap((n) =>
+    n.links
+      .filter((l) => !importedLinks.includes(JSON.stringify([n.id, l.targetId, l.label, l.basis])))
+      .map((l) => [n.id, l.targetId]),
+  );
+  expect(added).toEqual([
+    ['lm-P.1.1', 'step-1-1'],
+    ['lm-P.1.1', 'step-1-2'],
+  ]);
+  expect(new Set(storedLinks).size).toBe(storedLinks.length);
+  model.validateContent(model.content); // Includes endpoint checks and hierarchy cycle detection.
+});
+
+test('orientation reuses changing Center statements, open points and source metadata without editing the import', () => {
+  const store = structuredClone(model.content);
+  const before = JSON.stringify(store.orientation);
+  const master = store.articles.find((a) => a.id === 'guide-project-master-data')!;
+  master.summary = 'Neue führende Zusammenfassung';
+  master.content[1].body = 'Geänderte führende Aussage zu Start Date/EDC';
+  store.openPoints.find((p) => p.id === 'issue-definition-configuration')!.text =
+    'Geänderte Konfigurationsgrenze';
+  store.sources.find((s) => s.id === 'B')!.title = 'Zentral geänderter Dokumenttitel';
+  const n = store.orientation.find((n) => n.sourceKey === 'P.1.2')!;
+  const view = model.orientationContent(n, store);
+  expect(flatten(view)).toContain(master.summary);
+  expect(flatten(view)).toContain(master.content[1].body);
+  expect(flatten(view)).toContain('Geänderte Konfigurationsgrenze');
+  expect(model.orientationSources(n, store)?.join(' ')).toContain(
+    'Zentral geänderter Dokumenttitel',
+  );
+  expect(model.searchContent('Geänderte führende Aussage', {}, store).map((e) => e.id)).toContain(
+    n.id,
+  );
+  expect(JSON.stringify(store.orientation)).toBe(before);
+  for (const node of store.orientation.filter((n) => n.content.some((s) => 'referenceId' in s))) {
+    for (const section of node.content) {
+      if ('referenceId' in section) expect(Object.keys(section)).toEqual(['referenceId']);
+    }
+  }
+});
+
+test('historical evidence and PBS roles retain exact import wording while current repeated facts use references', () => {
+  const payload = readOrientationImport();
+  let historical = 0,
+    roles = 0;
+  for (const node of model.content.orientation) {
+    const original = payload.nodes.find((n) => n.key === node.sourceKey)!;
+    for (const section of node.content) {
+      if ('referenceId' in section) continue;
+      if (section.purpose === 'context' || section.title === 'Rollen') {
+        expect(original.sections).toContainEqual({ title: section.title, text: section.body });
+        if (section.purpose === 'context') historical++;
+        else roles++;
+      }
+    }
+  }
+  expect(historical).toBe(34);
+  expect(roles).toBe(35);
+  const p12 = model.content.orientation.find((n) => n.sourceKey === 'P.1.2')!;
+  expect(p12.content).toContainEqual({ referenceId: 'guide-project-master-data' });
+  expect(p12.content).not.toContainEqual(
+    expect.objectContaining({ title: 'Geltungsgrenze und Quellen' }),
+  );
+  const f12 = model.content.orientation.find((n) => n.sourceKey === 'F.1.2')!;
+  expect(f12.content).toContainEqual({ referenceId: 'issue-definition-configuration' });
+  expect(f12.content).not.toContainEqual(expect.objectContaining({ title: 'Fachliche Regeln' }));
+  expect(f12.content).toContainEqual(
+    expect.objectContaining({ title: 'Beleggrenze', purpose: 'context' }),
+  );
+  const configuration = model.content.orientation.find((n) => n.sourceKey === 'F.8.1')!;
+  expect(configuration.content).toContainEqual({ referenceId: 'issue-definition-configuration' });
+  expect(configuration.content).toContainEqual({
+    title: 'Beleggrenze',
+    body: 'FuE/EDF-Templates sind Zielumfang.',
+  });
+});
+
+test('source identity uses import hashes and keeps unproven PLAN aliases separate', () => {
+  const payload = readOrientationImport();
+  for (const source of model.content.sources.filter((s) => s.path)) {
+    const imported = payload.modelSourceRefs.find((s) => s.id === source.id)!;
+    expect(
+      createHash('sha256').update(readFileSync(source.path!)).digest('hex').toUpperCase(),
+    ).toBe(imported.sha256);
+  }
+  expect(payload.modelSourceRefs.find((s) => s.id === 'O')!.sha256).toBe(
+    payload.modelSourceRefs.find((s) => s.id === 'H')!.sha256,
+  );
+  for (const source of payload.sources) {
+    const id = 'LM' + source.id.replace(/[^A-Z0-9]/g, '');
+    const registered = model.content.sources.find((s) => s.id === id)!;
+    expect(registered.title).toBe(source.title);
+    expect(registered.path).toBeUndefined();
+    expect(registered.sourceNote).toContain(
+      'Originalidentität und Originalinhalt nicht erneut geprüft',
+    );
+  }
+  for (const original of payload.nodes) {
+    const node = model.content.orientation.find((n) => n.sourceKey === original.key)!;
+    for (const source of original.source) {
+      const prefix = 'LM' + source.id.replace(/[^A-Z0-9]/g, '') + ': ';
+      const ref = node.sourceRefs?.find((r) => r.startsWith(prefix));
+      expect(ref, original.key).toBeDefined();
+      if (source.locator) expect(ref).toContain(source.locator);
+      if (source.page) expect(ref).toContain('S. ' + source.page);
+      if (source.endPage) expect(ref).toContain('–' + source.endPage);
+    }
+  }
+});
+
+test('release orientation preserves distinct objects and derives links without release inheritance', () => {
+  const store = structuredClone(model.content);
+  expect(store.orientation).toHaveLength(973);
+  expect(store.orientation.filter((n) => n.kind === 'iPPM-Prozess')).toHaveLength(35);
+  expect(store.orientation.filter((n) => n.kind === 'ATLAS-Prozess')).toHaveLength(242);
+  expect(store.orientation.filter((n) => n.journeyIds)).toHaveLength(14);
+  expect(
+    store.orientation.some((n) =>
+      n.content.some(
+        (s) =>
+          'title' in s &&
+          s.title === 'Geltungsgrenze der Releaseplanung' &&
+          s.body === 'R3; SAP-IST ausdrücklich zu bestätigen',
+      ),
+    ),
+  ).toBeTruthy();
+  expect(new Set(store.orientation.map((n) => n.sourceKey)).size).toBe(973);
+  const source = store.orientation.find((n) => n.sourceKey === 'P.1.1')!;
+  expect(source.links.filter((l) => l.targetId.startsWith('step-')).map((l) => l.targetId)).toEqual(
+    ['step-1-1', 'step-1-2'],
+  );
+  expect(model.getOrientationBacklinks('step-1-2', store).map((r) => r.node.id)).toContain(
+    source.id,
+  );
+  const scope = store.orientation.find((n) => n.sourceKey === 'R1-02')!;
+  expect(scope.referenceId).toBe('R1-02');
+  expect(scope.title).toBeUndefined();
+  store.topics.find((t) => t.id === 'R1-02')!.title = 'Geänderter kanonischer Titel';
+  expect(model.orientationTitle(scope, store)).toBe('Geänderter kanonischer Titel');
+  store.topics.find((t) => t.id === 'R1-02')!.summary = 'Einmal gepflegte Zusammenfassung';
+  expect(model.orientationSummary(scope, store)).toBe('Einmal gepflegte Zusammenfassung');
+  expect(model.getInventory(store).filter((e) => e.id === scope.id)).toHaveLength(0);
+  expect(
+    model.searchContent('Mengengerüst', {}, store).some((e) => e.kind === 'orientation'),
+  ).toBeTruthy();
+
+  // Synthetic topology proves one-hop context and no propagation through hierarchy or journey.
+  const nodes = store.orientation.slice(0, 5);
+  store.orientation = nodes;
+  nodes.forEach((n) => {
+    n.links = [];
+    n.planningReleaseIds = [];
+    delete n.parentId;
+    delete n.journeyIds;
+  });
+  nodes[0].planningReleaseIds = ['release-1'];
+  nodes[0].links = [{ targetId: nodes[1].id, label: 'Unterstützung', basis: 'Modell' }];
+  nodes[1].links = [{ targetId: nodes[2].id, label: 'Unterstützung', basis: 'Modell' }];
+  nodes[3].parentId = nodes[0].id;
+  nodes[4].journeyIds = [nodes[0].id];
+  expect([...model.getOrientationStates('release-1', store).values()]).toEqual([
+    'direct',
+    'context',
+    'unassigned',
+    'unassigned',
+    'unassigned',
+  ]);
+  expect(
+    [...model.getOrientationStates('R2', store).values()].every((v) => v === 'unassigned'),
+  ).toBeTruthy();
+  expect(
+    [...model.getOrientationStates('', store).values()].every((v) => v === 'all'),
+  ).toBeTruthy();
+});
+
+test('orientation validation rejects broken references, copied titles, cycles and duplicate relationships', () => {
+  for (const mutate of [
+    (s: ContentStore) => {
+      s.orientation[0].planningReleaseIds = ['missing'];
+    },
+    (s: ContentStore) => {
+      s.orientation[0].audienceRoleIds = ['ALL'];
+    },
+    (s: ContentStore) => {
+      s.orientation[0].parentId = s.orientation[1].id;
+    },
+    (s: ContentStore) => {
+      s.orientation[0].journeyIds = ['missing'];
+    },
+    (s: ContentStore) => {
+      s.orientation[0].links = [{ targetId: 'pm', label: 'x', basis: 'y' }];
+    },
+    (s: ContentStore) => {
+      const n = s.orientation.find((n) => n.links.length)!;
+      n.links.push({ ...n.links[0] });
+    },
+    (s: ContentStore) => {
+      s.orientation.find((n) => n.referenceId)!.title = 'Kopie';
+    },
+    (s: ContentStore) => {
+      s.orientation[0].content.push({ referenceId: 'missing' });
+    },
+    (s: ContentStore) => {
+      s.orientation[0].content.push({ referenceId: 'pm' });
+    },
+    (s: ContentStore) => {
+      s.orientation[0].content.push({
+        referenceId: 'guide-project-master-data',
+        body: 'Zweite Pflegequelle',
+      } as never);
+    },
+  ]) {
+    const store = structuredClone(model.content);
+    mutate(store);
+    expect(() => model.validateContent(store)).toThrow();
+  }
+});
 test('canonical data validate, stable IDs and all 52 steps survive migration', () => {
   model.validateContent(model.content);
   expect(model.content.articles.map((a) => a.id).sort()).toEqual([...baseline.articleIds].sort());
@@ -53,7 +342,13 @@ test('all article and procedure factual texts are preserved, including trainer e
 test('all original source bytes remain unchanged', () => {
   for (const [file, hash] of Object.entries(baseline.sourceDigests))
     expect(createHash('sha256').update(readFileSync(file)).digest('hex')).toBe(hash);
-  for (const source of model.content.sources) expect(() => readFileSync(source.path)).not.toThrow();
+  for (const source of model.content.sources) {
+    if (source.path) expect(() => readFileSync(source.path!)).not.toThrow();
+    else
+      expect(source.sourceNote).toContain(
+        'Originalidentität und Originalinhalt nicht erneut geprüft',
+      );
+  }
 });
 test('SB01 and SB02 use the same query and exactly the matrix memberships', () => {
   const first = model.getTrainingBlockCoverage('sb1'),

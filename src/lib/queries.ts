@@ -1,4 +1,5 @@
 import { content } from '../content';
+import { orientationHref, orientationTitle } from './orientation';
 import type {
   Article,
   ContentStore,
@@ -193,6 +194,7 @@ export interface InventoryEntry {
   id: string;
   title: string;
   kind:
+    | 'orientation'
     | 'article'
     | 'step'
     | 'task'
@@ -234,6 +236,18 @@ export function getInventory(store: ContentStore = content): InventoryEntry[] {
     ...extra,
   });
   return [
+    ...store.orientation
+      .filter((n) => !n.referenceId)
+      .map((n) =>
+        entry(
+          n.id,
+          orientationTitle(n, store),
+          'orientation',
+          n.summary ?? '',
+          orientationHref(n.id),
+          { roleIds: n.audienceRoleIds, aliases: [n.sourceKey, n.kind] },
+        ),
+      ),
     ...store.articles.map((a) =>
       entry(a.id, a.title, 'article', a.summary, `#/artikel/${a.id}`, {
         roleIds: a.roleIds,

@@ -871,3 +871,129 @@ footer {
     font-size: 16px;
   }
 }
+
+/* project: stable release lens; neutral de-emphasis keeps links readable and operable. */
+.orientation-release-picker {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding-block: 8px;
+  background: var(--white);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 24px;
+}
+.orientation-release-picker button {
+  padding: 12px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+}
+.orientation-release-picker button[aria-pressed='true'] {
+  background: var(--signal);
+  border-color: var(--ink);
+  font-weight: 700;
+}
+.orientation-release-picker button:hover {
+  background: var(--hover);
+}
+.orientation-notice,
+.orientation-legend {
+  max-width: 85ch;
+}
+.orientation-selection {
+  display: block;
+  min-height: 1.35em;
+}
+.orientation-notice {
+  padding: 16px;
+  background: var(--base);
+  border-left: 4px solid var(--border);
+}
+.orientation-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-block: 32px;
+  align-items: start;
+}
+.orientation-column {
+  min-width: 0;
+}
+.orientation-column > h2 {
+  font-size: 24px;
+}
+.orientation-column h3 {
+  font-size: 18px;
+  margin-block: 24px 12px;
+}
+.orientation-count,
+.orientation-code {
+  color: var(--muted-soft);
+  font-size: 14px;
+  font-weight: 400;
+}
+.orientation-items {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.orientation-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  background: var(--white);
+  overflow-wrap: anywhere;
+}
+.orientation-card a {
+  color: inherit;
+  font-weight: 700;
+  display: block;
+}
+.orientation-state,
+.orientation-code {
+  display: block;
+  margin-top: 8px;
+}
+.orientation-state {
+  font-size: 14px;
+  line-height: 1.35;
+  min-height: 2.7em;
+}
+.orientation-direct {
+  border-left-color: var(--signal);
+  background: var(--white);
+}
+.orientation-direct .orientation-state {
+  font-weight: 700;
+}
+.orientation-context {
+  border-style: dashed;
+  color: var(--ink);
+}
+.orientation-unassigned {
+  background: var(--base);
+  color: var(--muted-soft);
+  border-color: var(--steel-light);
+}
+.orientation-detail {
+  margin-top: 32px;
+  max-width: 90ch;
+}
+.orientation-detail p {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.orientation-detail li {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+  .orientation-columns {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,5 +1,47 @@
 # Aktuelle Architektur
 
+## Releaseüberblick und Orientierung
+
+`src/content/orientation.json` ist der einmalig importierte, danach kanonisch
+gepflegte Orientierungsbestand. Die HTML `iPPM-Landkarte-TKMS-ATLAS-2.html` bleibt
+Importquelle, ist aber keine Runtime und wird nicht beim Build eingelesen.
+973 Orientierungsobjekte bleiben von den 52 Center-Schritten getrennt. 31
+Scope-Objekte und sechs Releaseobjekte referenzieren vorhandene kanonische
+Themen/Releases; Titel und Zusammenfassungen werden dort gelesen, nicht kopiert.
+Einzelne `content`-Einträge referenzieren führende Artikel oder offene Punkte über
+`referenceId`. Die vorhandenen Content-Komponenten zeigen deren aktuellen Stand
+einschließlich Geltungsgrenzen; diese redaktionelle Wiederverwendung verändert weder
+den Beziehungsgraphen noch die Releaseplanung. Historische Importabschnitte mit
+`purpose: context` sind ausdrücklich keine aktuelle Pflegequelle.
+Der bestehende Quellenkatalog enthält auch indirekte Importquellen: diese haben
+einen Herkunftshinweis statt eines behaupteten lokalen Dateipfads. Metadaten werden
+bei der Anzeige aus dem Katalog gelesen, Fundstellen bleiben am jeweiligen Bezug.
+R2, R3, R4a und R4b sind zusätzliche Planungskontexte ohne neue Schulungszuordnung.
+
+`planningReleaseIds` bezeichnet ausschließlich explizite Planung, unabhängig von
+Materialgültigkeit, Artikelstatus und Verfügbarkeit. `parentId` führt die Hierarchie,
+`journeyIds` die didaktische Reihenfolge, `links` einmalig die weiteren gerichteten
+Beziehungen mit ihrer ursprünglichen Bedeutung und Herkunft. Rückverweise entstehen
+aus Queries. Keine dieser Beziehungen erweitert `Process.flows`.
+
+Die Route `/prozesse/releaseueberblick` und ihre Elementdetails verwenden die
+bestehende Shell. Der optionale URL-Parameter `release` steuert die Hervorhebung:
+direkte Zuordnung, verbundener Kontext über genau eine explizite Beziehung oder
+kein hinterlegter Bezug. Weder Hierarchie noch Orientierungsfolge oder frühere
+Releases vererben Gültigkeit. Alle Karten bleiben in derselben Reihenfolge und
+bedienbar. Die drei Hauptspalten zeigen PBS-Prozesse, Funktionen und Systembausteine;
+weitere Ebenen sind aufklappbar. `ProcessSwimlane` bleibt unverändert zuständig für
+den belegten Prozessfluss. Der zunächst geprüfte PBS-Anschluss `P.1.1` referenziert
+`step-1-1` und `step-1-2`; weitere Textzuordnungen bleiben explizite Importhinweise.
+
+Inventory und gemeinsame Suche lesen auch die neuen Objekte. Referenzobjekte
+erzeugen keine zweiten Suchtreffer für bestehende Scope-/Releaseobjekte. Der
+vorhandene JSON-Editor speichert dieselbe Collection mit Schema-, Referenz-,
+Zyklus-, ID- und Konfliktprüfung. Nur für diese größere Collection gilt ein
+Requestlimit von 4 MiB; andere Inhalte behalten 1 MiB. Lernfortschritt bleibt
+unverändert; das Besuchen eines Orientierungswegs erzeugt keine Lesemarkierung
+und keinen Schulungsnachweis. Importdetails: `docs/CONTENT_GUIDE.md`.
+
 Das Center ist eine lokale, statische Wissens- und Arbeitshilfe. JSON enthält die führenden Fachinformationen; TypeScript beschreibt Verträge, validiert Beziehungen und berechnet Sichten. React stellt diese Sichten dar. Git führt die technische Versionshistorie. SQLite und ein fachlicher Audit-Trail sind nicht Bestandteil der Anwendung.
 
 ## Datenfluss

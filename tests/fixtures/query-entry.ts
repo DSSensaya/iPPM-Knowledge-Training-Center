@@ -7,3 +7,4 @@ export * from '../../src/content/relationships';
 
 export * from '../../src/lib/process-layout';
 export * from '../../src/lib/process-navigation';
+export * from '../../src/lib/orientation';

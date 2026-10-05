@@ -50,6 +50,12 @@ Playwright verwendet einen lokal installierten Chrome oder unter Linux `/usr/bin
 
 ## Orientierung
 
+Unter **Prozesse → Releaseüberblick** bleiben Funktionen, Katalogprozesse und
+Systembausteine sichtbar. Ein Klick auf R1 bis R4b hebt explizite Planungsbezüge
+hervor; fehlende Bezüge werden grau dargestellt. Das ist kein Verfügbarkeits-
+oder Freigabenachweis. Details und gemeinsame Suche führen zu den kanonischen
+Center-Inhalten. Die importierte HTML wird nicht als zweite Anwendung betrieben.
+
 - [Architektur](docs/ARCHITECTURE.md): Datenmodell, Verantwortlichkeiten und Datenfluss.
 - [Inhaltspflege](docs/CONTENT_GUIDE.md): pragmatische Beispiele und Pflegewege.
 - [Aktuelle Prioritäten](docs/ROADMAP.md).

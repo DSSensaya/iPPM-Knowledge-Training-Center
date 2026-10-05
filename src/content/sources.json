@@ -58,5 +58,70 @@
     "id": "H",
     "title": "Ursprüngliche Gesamt-Releaseplanung",
     "path": "sources/iPPM_Releaseplanung_V2.docx"
+  },
+  {
+    "id": "LMPLANV2",
+    "title": "iPPM_Releaseplanung_V2.docx",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (PLAN-V2; Anhang). Gesamtplanung R1 bis R4b. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMPLANR2",
+    "title": "iPPM_Releaseplanung_Release-2.docx",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (PLAN-R2; Anhang). Spezielle Konkretisierung R1B/R2. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMATLAS03",
+    "title": "03_Projekt_akquirieren_20260911.pdf",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (ATLAS-03; Anhang; 82 Seiten laut Import). Prozesshierarchie, Beschreibungen, Inputs/Outputs und RASCI; Druckstand 11.09.2026. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMATLAS04",
+    "title": "04_Projekt_planen_20260911.pdf",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (ATLAS-04; Anhang; 80 Seiten laut Import). Prozesshierarchie, Beschreibungen, Inputs/Outputs und RASCI; Druckstand 11.09.2026. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMATLAS05",
+    "title": "05_Systeme_entwerfen_20260911.pdf",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (ATLAS-05; Anhang; 63 Seiten laut Import). Prozesshierarchie, Beschreibungen, Inputs/Outputs und RASCI; Druckstand 11.09.2026. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMATLAS06",
+    "title": "06_Systeme_herstellen_20260911.pdf",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (ATLAS-06; Anhang; 92 Seiten laut Import). Prozesshierarchie, Beschreibungen, Inputs/Outputs und RASCI; Druckstand 11.09.2026. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMATLAS07",
+    "title": "07_Systeme_liefern_20260911.pdf",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (ATLAS-07; Anhang; 40 Seiten laut Import). Prozesshierarchie, Beschreibungen, Inputs/Outputs und RASCI; Druckstand 11.09.2026. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMFBS",
+    "title": "iPPM_FBS_Datenmodell_2026-10-01.json",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (FBS; Architekturmodell). 41 Funktionen und 164 analytische Unterfunktionen. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMSBS",
+    "title": "iPPM_SBS_Datenmodell_2026-10-02.json",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (SBS; Architekturmodell). 48 Bausteine und 27 logische Verbindungen. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMPBS",
+    "title": "iPPM_PBS_Prozesskatalog_2026-10-01.docx",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (PBS; Architekturmodell). 35 Prozesse mit Rollen und fachlichen Tätigkeiten. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMIBS",
+    "title": "iPPM_IBS_Datenarchitektur_TKMS_CD_2026-10-02.docx / Transformationsmodell",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (IBS; Architekturmodell). 14 Vertragsentwürfe, 120 Feldzuordnungen, 32 SSOT-Einträge und 16 Entitäten. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMTRANS",
+    "title": "iPPM_Transformationsroadmap_Modell.json",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (TRANS; Architekturmodell). Vorschläge: sieben Zustände, 20 Arbeitspakete, 20 Lücken, sieben Gates und 14 Entscheidungen. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
+  },
+  {
+    "id": "LMDESIGN",
+    "title": "DESIGN_consolidated_with_iPPM_logo_2026-10-04.md",
+    "sourceNote": "Nur im HTML-Import benannte Quelle (DESIGN; Architekturmodell). Farben und originales iPPM-Logo; Schrift als Bildschirmfallback. Originalidentität und Originalinhalt nicht erneut geprüft; kein Nachweis einer lokal verfügbaren Originaldatei."
   }
 ]

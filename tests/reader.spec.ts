@@ -8,6 +8,140 @@ async function navigate(page: import('@playwright/test').Page, name: string) {
   await nav.getByRole('link', { name, exact: true }).click();
 }
 
+test('release lens keeps all cards, supports keyboard and preserves release context in details', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/#/prozesse/releaseueberblick');
+  const cards = page.locator('.orientation-columns .orientation-card');
+  await expect(cards).toHaveCount(132);
+  const ids = await cards.evaluateAll((els) =>
+    els.map((e) => e.getAttribute('data-orientation-id')),
+  );
+  const geometry = () =>
+    cards.evaluateAll((els) =>
+      els.map((e) => {
+        const r = e.getBoundingClientRect();
+        const parent = e.closest('.orientation-columns')!.getBoundingClientRect();
+        return [r.x - parent.x, r.y - parent.y, r.width, r.height];
+      }),
+    );
+  const beforeGeometry = await geometry();
+  await expect(page.locator('.orientation-columns [data-state="all"]')).toHaveCount(132);
+  const r2 = page.getByRole('button', { name: 'R2', exact: true });
+  await r2.focus();
+  await page.keyboard.press('Enter');
+  await expect(r2).toHaveAttribute('aria-pressed', 'true');
+  await expect(page).toHaveURL(/release=R2/);
+  await expect(page.locator('[data-orientation-id="lm-P.1.1"] .orientation-state')).toHaveText(
+    'Anderem Release zugeordnet',
+  );
+  await expect(page.locator('.orientation-legend')).toContainText(
+    'Beides belegt keinen Ausschluss aus dem ausgewählten Release',
+  );
+  await expect(page.locator('.orientation-notice')).toContainText(
+    'keine Verfügbarkeits- oder Projektfreigabe',
+  );
+  expect(
+    await cards.evaluateAll((els) => els.map((e) => e.getAttribute('data-orientation-id'))),
+  ).toEqual(ids);
+  expect(await geometry()).toEqual(beforeGeometry);
+  await expect(page.locator('.orientation-columns [data-state="direct"]').first()).toBeVisible();
+  await expect(
+    page.locator('.orientation-columns [data-state="unassigned"]').first(),
+  ).toBeVisible();
+  await page.reload();
+  await expect(r2).toHaveAttribute('aria-pressed', 'true');
+  await page.screenshot({ path: testInfo.outputPath('release-overview.png') });
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBeTruthy();
+  const axe = await new AxeBuilder({ page }).analyze();
+  expect(axe.violations).toEqual([]);
+  const muted = page.locator('.orientation-columns [data-state="unassigned"] a').first();
+  await muted.click();
+  await expect(page.locator('.orientation-detail')).toBeVisible();
+  await expect(page).toHaveURL(/release=R2/);
+  await page.getByRole('link', { name: '← Zur Gesamtübersicht', exact: true }).click();
+  await expect(r2).toHaveAttribute('aria-pressed', 'true');
+  await r2.click();
+  await expect(page.getByRole('button', { name: 'Alles anzeigen', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await page.goto('/#/prozesse/releaseueberblick/lm-MAP?release=R2');
+  await expect(page.locator('.orientation-detail')).toContainText('Kein Releasebezug hinterlegt');
+  await expect(page.locator('.orientation-detail')).not.toContainText('Anderem Release zugeordnet');
+  await page.goto('/#/prozesse/releaseueberblick/lm-P.1.1?release=R2');
+  await expect(page.locator('.orientation-detail')).toContainText('Anderem Release zugeordnet');
+  await expect(page.locator('.orientation-detail')).not.toContainText(
+    'Kein Releasebezug hinterlegt',
+  );
+  await page.goto('/#/prozesse/releaseueberblick');
+  await expect(page.locator('.orientation-columns [data-state="all"]')).toHaveCount(132);
+});
+
+test('orientation distinguishes current Center reuse from historical import evidence', async ({
+  page,
+}) => {
+  await page.goto('/#/prozesse/releaseueberblick/lm-P.1.4?release=R2');
+  const current = page.locator('.orientation-current-content');
+  await expect(
+    current.getByRole('link', { name: 'System- und ILS-Teilprojekte definieren' }),
+  ).toHaveAttribute('href', '#/artikel/guide-subproject-definition');
+  await expect(current).toContainText(
+    'Prüfunterlagen, Release, Umgebung und genauer PDP-Umfang fehlen',
+  );
+  await expect(current).toContainText('Artikelgeltung: R1');
+  await expect(current).toContainText('Diese Inhaltsreferenz erweitert keine Releaseplanung');
+  const historical = page.locator('.orientation-import-evidence');
+  await expect(historical).not.toHaveAttribute('open', '');
+  await historical.locator('summary').click();
+  await expect(historical).toContainText(
+    'Project Purpose soll aus Teilprojekt-PDPs entfernt werden',
+  );
+  await expect(historical).toContainText('keine aktuelle Pflegequelle');
+  await expect(historical).toContainText('Quellenunterschied');
+  const sources = page.locator('.source-notes');
+  await sources.locator('summary').click();
+  await expect(sources).toContainText('SB1-Handbuch');
+  await expect(sources).toContainText('Originalidentität und Originalinhalt nicht erneut geprüft');
+  await expect(sources).not.toContainText('Fundstellen beziehen sich auf lokale Originaldateien');
+  await expect(page.getByRole('button', { name: 'R2', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+});
+
+test('orientation bridges to canonical work and the common search, with no invented availability', async ({
+  page,
+}) => {
+  await page.goto('/#/releases/R2');
+  await page.getByRole('link', { name: 'R2 in der Landkarte hervorheben' }).click();
+  await expect(page.getByRole('button', { name: 'R2', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await page.goto('/#/prozesse/releaseueberblick/lm-P.1.1?release=release-1');
+  await expect(page.locator('.orientation-detail')).toContainText(
+    'Der vollständige Antrags- und PMO-Bereitstellungsweg ist nicht nachgewiesen',
+  );
+  await page.getByRole('link', { name: '1.2 Projekt anlegen', exact: true }).click();
+  await expect(page.locator('main h1')).toContainText('Projekt anlegen');
+  await expect(page.getByRole('heading', { name: 'Einordnung in der Landkarte' })).toBeVisible();
+  await page
+    .getByRole('link', { name: 'Projektumgebung vorbereiten und übernehmen', exact: true })
+    .click();
+  await expect(page.locator('main')).toContainText('Bereitgestellte Projektumgebung als PM prüfen');
+  await page.goto('/#/wissen?q=Mengengerüst');
+  await expect(page.locator('main a[href^="#/prozesse/releaseueberblick/"]').first()).toBeVisible();
+  await page.goto('/#/prozesse/releaseueberblick?release=missing');
+  await expect(page.getByRole('alert')).toContainText('Unbekanntes Release');
+  await expect(page.getByRole('button', { name: 'Alles anzeigen', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+});
+
 test('original transparent logo assets load and the sidebar uses the simple dark variant', async ({
   page,
   request,

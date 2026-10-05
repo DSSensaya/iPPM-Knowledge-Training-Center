@@ -28,6 +28,7 @@ export function validateContent(value: unknown): asserts value is ContentStore {
     return values;
   };
   const names = [
+    'orientation',
     'articles',
     'processes',
     'tasks',
@@ -182,7 +183,69 @@ export function validateContent(value: unknown): asserts value is ContentStore {
   for (const name of names)
     for (const [i, x] of groups[name].entries()) {
       const p = `${name}[${i}]`;
-      if (name === 'articles') {
+      if (name === 'orientation') {
+        const o = object(x, p, [
+          'id',
+          'sourceKey',
+          'kind',
+          'parentId',
+          'referenceId',
+          'title',
+          'summary',
+          'content',
+          'sourceStatus',
+          'planningReleaseIds',
+          'audienceRoleIds',
+          'audienceNotes',
+          'journeyIds',
+          'links',
+          'sourceRefs',
+          'sourceNote',
+        ]);
+        for (const key of ['sourceKey', 'kind', 'sourceStatus']) str(o[key], p + '.' + key);
+        if (o.referenceId !== undefined) {
+          const target = str(o.referenceId, p);
+          if (!['topics', 'releases', 'systems'].some((group) => ids.get(group)?.has(target)))
+            fail(p, 'Ungültige kanonische Orientierungsreferenz');
+          if (o.title !== undefined || o.summary !== undefined)
+            fail(p, 'Titel und Zusammenfassung an der kanonischen Referenz pflegen');
+        } else {
+          str(o.title, p + '.title');
+          str(o.summary, p + '.summary', true);
+        }
+        for (const [j, section] of arr(o.content, p + '.content').entries()) {
+          if (section && typeof section === 'object' && 'referenceId' in section) {
+            const ref = object(section, `${p}.content[${j}]`, ['referenceId']);
+            const target = str(ref.referenceId, p);
+            if (!['articles', 'openPoints'].some((group) => ids.get(group)?.has(target)))
+              fail(p, 'Ungültige führende Inhaltsreferenz');
+          } else sections([section], `${p}.content[${j}]`);
+        }
+        references(o.planningReleaseIds, 'releases', p);
+        references(o.audienceRoleIds, 'roles', p);
+        optional(o, 'audienceNotes', texts, p);
+        optional(o, 'parentId', (v, q) => reference(v, 'orientation', q), p);
+        optional(o, 'journeyIds', (v, q) => references(v, 'orientation', q), p);
+        sourced(o, p);
+        if (!o.sourceNote && !(o.sourceRefs as unknown[] | undefined)?.length)
+          fail(p, 'Orientierung ohne Herkunftshinweis');
+        const seen = new Set<string>();
+        for (const [j, v] of arr(o.links, p + '.links').entries()) {
+          const q = `${p}.links[${j}]`;
+          const link = object(v, q, ['targetId', 'label', 'basis']);
+          for (const key of ['targetId', 'label', 'basis']) str(link[key], q + '.' + key);
+          if (
+            !['orientation', 'steps', 'tasks', 'topics', 'procedures', 'articles'].some((group) =>
+              ids.get(group)?.has(link.targetId as string),
+            )
+          )
+            fail(q, 'Ungültiges Orientierungsziel');
+          if (link.targetId === o.id) fail(q, 'Orientierungsbeziehung auf sich selbst');
+          const key = JSON.stringify([link.targetId, link.label, link.basis]);
+          if (seen.has(key)) fail(q, 'Doppelte Orientierungsbeziehung');
+          seen.add(key);
+        }
+      } else if (name === 'articles') {
         const o = object(x, p, [
           'id',
           'title',
@@ -378,11 +441,14 @@ export function validateContent(value: unknown): asserts value is ContentStore {
         if (name === 'trainingBlocks') reference(o.releaseId, 'releases', p);
         else optional(o, 'description', str, p);
       } else if (name === 'sources') {
-        const o = object(x, p, ['id', 'title', 'path', 'date']);
+        const o = object(x, p, ['id', 'title', 'path', 'date', 'sourceNote']);
         str(o.title, p);
-        const path = str(o.path, p);
-        if (!path.startsWith('sources/') || path.includes('..') || path.includes('\\'))
-          fail(p, 'Ungültiger Quellpfad');
+        if (o.path !== undefined) {
+          const path = str(o.path, p);
+          if (!path.startsWith('sources/') || path.includes('..') || path.includes('\\'))
+            fail(p, 'Ungültiger Quellpfad');
+        } else if (!o.sourceNote) fail(p, 'Indirekte Quelle ohne Herkunftshinweis');
+        optional(o, 'sourceNote', str, p);
         optional(o, 'date', str, p);
       } else if (name === 'openPoints') {
         const o = object(x, p, ['id', 'text', 'sourceRefs', 'sourceNote']);
@@ -396,6 +462,21 @@ export function validateContent(value: unknown): asserts value is ContentStore {
     }
   // Resolve only after structural validation, so malformed drafts never reach typed selectors.
   const canonical = value as ContentStore;
+  const orientationById = new Map(canonical.orientation.map((n) => [n.id, n]));
+  const sourceKeys = new Set<string>();
+  for (const node of canonical.orientation) {
+    if (sourceKeys.has(node.sourceKey)) fail(node.id, 'Doppelter Import-Schlüssel');
+    sourceKeys.add(node.sourceKey);
+    const seen = new Set<string>([node.id]);
+    let parentId = node.parentId;
+    while (parentId) {
+      if (seen.has(parentId)) fail(node.id, 'Zyklus in der Orientierungshierarchie');
+      seen.add(parentId);
+      parentId = orientationById.get(parentId)?.parentId;
+    }
+    if (node.journeyIds?.includes(node.id))
+      fail(node.id, 'Orientierungsweg verweist auf sich selbst');
+  }
   for (const [context, objects] of [
     ['task', canonical.tasks],
     ['topic', canonical.topics],

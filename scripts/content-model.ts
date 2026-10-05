@@ -4,6 +4,7 @@ import { validateContent } from '../src/content/validation';
 import type { ContentStore } from '../src/content/types';
 
 export const collectionFiles: Record<string, keyof ContentStore> = {
+  orientation: 'orientation',
   roles: 'roles',
   systems: 'systems',
   releases: 'releases',

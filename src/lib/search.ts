@@ -1,6 +1,7 @@
 import { content } from '../content';
 import type { ContentStore } from '../content/types';
 import { getInventory, roleLabel } from './queries';
+import { orientationContent, orientationSources } from './orientation';
 const normalize = (text: string) =>
   text
     .toLocaleLowerCase('de')
@@ -32,6 +33,9 @@ export function searchContent(
       const procedure = store.procedures.find((p) => p.id === entry.id);
       const step = store.processes.flatMap((p) => p.steps).find((s) => s.id === entry.id);
       const task = store.tasks.find((t) => t.id === entry.id);
+      const orientation = store.orientation.find(
+        (n) => n.id === entry.id || n.referenceId === entry.id,
+      );
       const blocks = step?.trainingBlockIds ?? task?.trainingBlockIds ?? [];
       const context = blocks.flatMap((id) => {
         const b = store.trainingBlocks.find((b) => b.id === id)!;
@@ -43,6 +47,12 @@ export function searchContent(
           article,
           procedure,
           task,
+          orientation,
+          orientation && orientationContent(orientation, store),
+          orientation && orientationSources(orientation, store),
+          orientation?.planningReleaseIds.map(
+            (id) => store.releases.find((r) => r.id === id)?.code,
+          ),
           context,
           entry.roleIds.map((id) => roleLabel(id, store)),
         ]),

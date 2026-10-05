@@ -8,6 +8,9 @@ playwright-report/
 .playwright-browsers/
 *.tsbuildinfo
 
+# Local, unmodified import evidence; never publish implicitly with the application.
+/iPPM-Landkarte-TKMS-ATLAS-2.html
+
 # Temporary files of the explicitly local editorial writer
 src/content/.editor.lock
 src/content/**/*.json.*.tmp

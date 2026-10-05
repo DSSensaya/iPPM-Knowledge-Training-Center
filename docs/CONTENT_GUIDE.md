@@ -1,5 +1,108 @@
 # Inhalte pragmatisch pflegen
 
+## Releaseorientierung pflegen
+
+`orientation.json` enthält die neuen Orientierungsinformationen. Nach dem
+einmaligen Import ausschließlich diese kanonische Collection im JSON-Editor
+pflegen; Änderungen an der HTML werden nicht automatisch übernommen.
+
+- `id` ist stabil; `sourceKey` erhält den eindeutigen Import-Schlüssel. Die
+  nicht eindeutige HTML-Eigenschaft `id` ist keine Importidentität. Neue IDs
+  verwenden den Namespace `lm-`; Sonderzeichen des Quellschlüssels wurden als
+  `_hex_` codiert, beispielsweise `S:1.1` → `lm-S_3a_1.1`.
+- Vorhandene Themen, Releases und Systeme über `referenceId` referenzieren.
+  Titel/Zusammenfassung dann ausschließlich am bestehenden Fachobjekt pflegen.
+- Innerhalb von `content` ersetzt `{ "referenceId": "guide-project-master-data" }`
+  eine wiederholte operative Aussage. Artikel werden mit ihrer aktuellen Erläuterung,
+  Artikelgeltung und ihren offenen Punkten gelesen; alternativ kann die Referenz
+  direkt auf einen bestehenden offenen Punkt zeigen. Keine Titel-/Textkopie am Bezug.
+  Diese redaktionellen Inhaltsreferenzen sind keine Prozess- oder Releasezuordnung.
+- `purpose: "context"` kennzeichnet in der Orientierung einen historischen
+  Importbeleg. Dessen Wortlaut nicht fortschreiben; aktuelle Aussagen im führenden
+  Center-Objekt pflegen. Die unveränderte HTML und Regressionstests sichern den Beleg.
+- Neue, eigenständige Fachtexte sollen einmal am Orientierungsobjekt liegen. `sourceStatus` bewahrt den
+  Quellenstand und ist kein Artikelstatus. `planningReleaseIds` sind explizite
+  Planungsangaben; kein automatisches „ab Release“, keine Produktivfreigabe.
+- `audienceRoleIds` bezeichnet Orientierungszielgruppen, niemals RASCI oder
+  Schrittverantwortung. Noch nicht im Center katalogisierte Zielgruppen bleiben
+  als `audienceNotes` erhalten, ohne erfundene Verantwortungsbeschreibungen.
+- Hierarchie nur als `parentId`, Orientierungsfolge nur als `journeyIds` pflegen.
+  Weitere Beziehungen einmal unter `links` mit Ziel, Bedeutung und Herkunft
+  pflegen; Rückverweise werden berechnet. Redaktionelle ATLAS-Einordnungen bleiben
+  ausdrücklich zu prüfen. Ein Modellübergang ist kein belegter Prozessfluss.
+- Fehlendes Material und Verknüpfungen aus dem Bestand ermitteln, keine zweite
+  Coverage-/Readiness-Liste anlegen. Vorhandene Bedienwege nicht in Orientierungen
+  kopieren. Quellenhinweise auf mögliche Center-Zuordnungen werden erst nach
+  Prüfung in strukturierte Verbindungen überführt.
+
+### Importprovenienz vom 04.10.2026
+
+Grundlage: `iPPM-Landkarte-TKMS-ATLAS-2.html`, gzip/Base64-Element `lm-payload`,
+SHA-256 `0fbf5ac522bc531f850d72c769ecc62f5aff6e594490a1689b5b3f1369d84cfb`.
+973 Elemente, 2.860 Kanten und 14 Wege wurden gelesen. 972 Hierarchiekanten,
+62 redundante Wegkanten und 377 Releasekanten wurden durch Elternreferenzen,
+Weglisten und explizite Releaseattribute ersetzt. Die übrigen 1.449 Modellbeziehungen
+bleiben mit ihren ursprünglichen Bedeutungen erhalten; zwei geprüfte Center-Bezüge
+für PBS `P.1.1` ergänzen sie. Zahlen in diesem Absatz dokumentieren nur den Import,
+nicht einen zusätzlich zu pflegenden Runtime-Bestand.
+
+31 Scope-Knoten verwenden die bestehenden Themen-IDs. R1 verweist auf `release-1`,
+R1B bleibt `R1B`; weitere Releases wurden als Planung ergänzt. Referenzierte
+Scope-Texte werden aus dem Center gelesen, der HTML-Quellstand bleibt im Original.
+Die Feldlisten an Vertragsentwürfen werden über ihre untergeordneten Feldobjekte
+erschlossen; die 118 ausdrücklich benannten Pflichtangaben unter den 120 Feldern
+wurden an den Feldern bewahrt.
+Reine Releasecode-Wiederholungen werden durch `planningReleaseIds` ersetzt.
+Qualifizierte Aussagen wie „ursprünglich“, „Backlog“ oder „ausdrücklich zu
+bestätigen“ bleiben als früh sichtbare Geltungsgrenzen der Releaseplanung erhalten.
+Eigenständige Modelltexte und Geltungsgrenzen bleiben erhalten. Wiederholte operative
+Aussagen wurden gezielt durch aktuelle Inhaltsreferenzen ersetzt (siehe unten).
+Der Import bestätigt nicht
+deren fachliche Richtigkeit oder aktuelle Freigabe. Insbesondere ATLAS-Berichte
+und Architekturoriginale wurden nicht nachbeschafft oder unabhängig geprüft.
+
+### Bereinigte Pflegehoheit und verbleibende Grenzen
+
+21 Inhaltsreferenzen an zwölf Orientierungsobjekten ersetzen die wiederholten aktuellen
+Aussagen zu Start Date/EDC, Project Purpose und den betroffenen offenen Punkten sowie
+Lieferlisten, Rechte und Speicherwegen in den Leitplanken. Führend bleiben die
+bestehenden Center-Artikel und `open-points.json`. Feldnamen, Systemzusammenhänge,
+modellierte Verbindungen und die 35 PBS-Rollenabschnitte bleiben eigenständig.
+Rollen im PBS sind weder Orientierungszielgruppen noch Schrittverantwortungen.
+
+34 historische Abschnitte bleiben wortgleich mit dem Payload, insbesondere abweichende
+Project-Purpose-Aussagen, Release-Quellenauszüge und der datierte Quellen-/Schrittanhang
+in `P.8.4`. Sie erscheinen ausdrücklich als Importbelege, nicht als aktueller Stand.
+Der Unterschied zwischen „Entfernung vorgesehen“ im PBS und gemeldeter Entfernung
+im Center bleibt nachvollziehbar. Die tatsächliche Umsetzung und Reichweite werden
+dadurch nicht bestätigt; die aktuellen offenen Punkte werden referenziert.
+
+Dokumenttitel und gemeinsame Metadaten liegen in `sources.json`; Seitenstellen,
+Fundstellen und Importgrenzen stehen in `sourceRefs`/`sourceNote` am Bezug.
+Elf lokale Originale stimmen mit den SHA-256-Werten der `modelSourceRefs` überein.
+Die Importkennung O hat denselben Hash wie H und verwendet deshalb H; die Herkunft O
+bleibt am Bezug benannt. 34 PBS-Quellenabschnitte verwenden diese nachgewiesenen IDs.
+Das ist ein Identitätsabgleich, keine erneute fachliche Prüfung der Originalinhalte.
+
+Die 13 nur im HTML beschriebenen Dokumentidentitäten bleiben im Quellenkatalog
+gesondert als `LM…` erfasst, ohne behaupteten lokalen Dateipfad. Ihre `sourceNote`
+kennzeichnet Herkunft und fehlende Originalprüfung. Insbesondere fehlt für
+`PLAN-V2`/`PLAN-R2` der Nachweis, dass sie tatsächlich H/R2P entsprechen; ein gleicher
+Dateititel reicht nicht. Ebenso wird PBS nicht mit der abweichend benannten PBSREF
+gleichgesetzt. Normale Artikel erhalten keine zusätzlichen Pflichtnachweise.
+
+Der direkte Payload-Abgleich in `tests/content.spec.ts` bilanziert alle 2.860 Kanten:
+1.449 unveränderte Links sowie 972 Eltern-, 62 Weg- und 377 Releasebezüge in den
+jeweiligen kanonischen Feldern; keine fachlich zusammengeführten oder ersatzlos
+ausgeschlossenen Kanten. Die 169 redaktionellen Einordnungen bleiben fachlich offen.
+Der Importtest benötigt die unveränderte Originaldatei unter
+`<Repository>/iPPM-Landkarte-TKMS-ATLAS-2.html` (neben `package.json`), mit dem oben
+genannten SHA-256. Sie wird nicht kopiert, öffentlich eingebunden oder beim Build
+gelesen und ist gezielt in `.gitignore` ausgenommen. Ein frischer Checkout benötigt
+diesen lokal bereitzustellenden Importbeleg für `verify`; ein fehlender Beleg wird
+nicht stillschweigend übersprungen. Der Test vergleicht unveränderte Struktur und
+historische Wortlaute getrennt von den bewusst bereinigten aktuellen Referenzen.
+
 ## Ein einfacher Artikel
 
 Eine Datei `src/content/articles/meine-aufgabe.json` genügt:

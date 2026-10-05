@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from './editor-fixture';
-import { readFile, writeFile, cp, rm, symlink, readdir } from 'node:fs/promises';
+import { readFile, writeFile, cp, rm, symlink, readdir, rename } from 'node:fs/promises';
 import { join } from 'node:path';
 import { request as httpRequest } from 'node:http';
 const headers = (token: string) => ({
@@ -8,6 +8,29 @@ const headers = (token: string) => ({
   'Content-Type': 'application/json',
 });
 const file = '/__local-editor/files/article~guide-project-objectives';
+
+test('orientation collection saves atomically and invalid references leave its bytes intact', async ({
+  editor: { root, base, token },
+}) => {
+  const endpoint = base + '/__local-editor/files/orientation';
+  const state = await (await fetch(endpoint, { headers: headers(token) })).json();
+  state.value.find((n: { sourceKey: string }) => n.sourceKey === 'P.1.1').summary =
+    'Geänderte Orientierung';
+  expect(
+    (await fetch(endpoint, { method: 'PUT', headers: headers(token), body: JSON.stringify(state) }))
+      .status,
+  ).toBe(200);
+  const path = join(root, 'src/content/orientation.json');
+  const original = await readFile(path, 'utf8');
+  expect(original).toContain('Geänderte Orientierung');
+  const next = await (await fetch(endpoint, { headers: headers(token) })).json();
+  next.value[0].planningReleaseIds = ['missing'];
+  expect(
+    (await fetch(endpoint, { method: 'PUT', headers: headers(token), body: JSON.stringify(next) }))
+      .status,
+  ).toBe(400);
+  expect(await readFile(path, 'utf8')).toBe(original);
+});
 test('direct canonical JSON saving is atomic, reloadable and has no journal', async ({
   editor: { root, base, token },
 }) => {
@@ -135,11 +158,20 @@ test('loopback origin, token, fixed paths, symlinks and body limits are enforced
       })
     ).status,
   ).toBe(413);
-  const path = join(root, 'src/content/articles/guide-project-objectives.json'),
-    copy = join(root, 'outside.json');
-  await cp(path, copy);
-  await rm(path);
-  await symlink(copy, path);
+  if (process.platform === 'win32') {
+    // Directory junctions exercise the same path-redirection guard without
+    // requiring the Windows privilege for creating file symbolic links.
+    const articles = join(root, 'src/content/articles');
+    const redirected = join(root, 'redirected-articles');
+    await rename(articles, redirected);
+    await symlink(redirected, articles, 'junction');
+  } else {
+    const path = join(root, 'src/content/articles/guide-project-objectives.json'),
+      copy = join(root, 'outside.json');
+    await cp(path, copy);
+    await rm(path);
+    await symlink(copy, path);
+  }
   expect((await fetch(base + file, { headers: headers(token) })).status).toBe(400);
   expect((await fetch(base + '/server.js')).status).toBe(404);
   expect((await fetch(base + '/src/content/roles.json')).status).toBe(404);

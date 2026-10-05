@@ -10,5 +10,29 @@
     "title": "R1B – Planung",
     "code": "R1B",
     "description": "Planungsorientierung; konkrete Bedienwege, Umsetzung und Freigaben sind nicht belegt."
+  },
+  {
+    "id": "R2",
+    "title": "R2 – Planung",
+    "code": "R2",
+    "description": "Mengengerüst, SAP-AK-Kalkulation, generische Bedarfe, Kostenarten und Verläufe werden verbunden. Planungsstand der Landkarte; keine bestätigte Verfügbarkeit oder Projektfreigabe."
+  },
+  {
+    "id": "R3",
+    "title": "R3 – Planung",
+    "code": "R3",
+    "description": "Kostenplan und gebuchte SAP-IST-Werte werden getrennt mit einer fachlich geprüften Prognose verbunden. Planungsstand der Landkarte; keine bestätigte Verfügbarkeit oder Projektfreigabe."
+  },
+  {
+    "id": "R4a",
+    "title": "R4a – Planung",
+    "code": "R4a",
+    "description": "Arbeitsaufträge aus MSP werden mit Jira-Epics verbunden; Restaufwand und Endtermin fließen zurück. Planungsstand der Landkarte; keine bestätigte Verfügbarkeit oder Projektfreigabe."
+  },
+  {
+    "id": "R4b",
+    "title": "R4b – Planung",
+    "code": "R4b",
+    "description": "TeamLink, Team Manager und Portfolio Planner sollen bedarfs- und kapazitätsorientierte Entscheidungen unterstützen. Planungsstand der Landkarte; keine bestätigte Verfügbarkeit oder Projektfreigabe."
   }
 ]

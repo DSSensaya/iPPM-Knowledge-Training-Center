@@ -88,10 +88,11 @@ export function localEditorPlugin(root: string): Plugin {
             return reply(415, { error: 'JSON erwartet.' });
           const chunks: Buffer[] = [];
           let size = 0;
+          const maxMB = key === 'orientation' ? 4 : 1;
           for await (const chunk of req) {
             size += chunk.length;
-            if (size > 1024 * 1024)
-              return reply(413, { error: 'Inhalt ist zu groß (maximal 1 MB).' });
+            if (size > maxMB * 1024 * 1024)
+              return reply(413, { error: `Inhalt ist zu groß (maximal ${maxMB} MB).` });
             chunks.push(Buffer.from(chunk));
           }
           const body = JSON.parse(Buffer.concat(chunks).toString('utf8')) as {

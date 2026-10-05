@@ -2,6 +2,7 @@ import { content } from '../content';
 import { getTrainingBlockCoverage, materialLabels, statusLabels } from '../lib/queries';
 import { Materials } from '../components/Content';
 import { PageTitle } from '../components/ui';
+import { orientationHref } from '../lib/orientation';
 export default function Releases({ id }: { id?: string }) {
   return (
     <>
@@ -10,12 +11,20 @@ export default function Releases({ id }: { id?: string }) {
         title="Releases & Schulungen"
         description="Schulungsblöcke sind Zuordnungen zu Releases. Sie belegen weder Schulungsreife noch technische Freigabe."
       />
+      <p>
+        <a className="button secondary" href={orientationHref(undefined, id)}>
+          Gesamte Landkarte mit Releasehervorhebung öffnen
+        </a>
+      </p>
       {content.releases
         .filter((r) => !id || r.id === id)
         .map((r) => (
           <section key={r.id}>
             <h2>{r.title}</h2>
             <p>{r.description}</p>
+            <p>
+              <a href={orientationHref(undefined, r.id)}>{r.code} in der Landkarte hervorheben</a>
+            </p>
             <ul>
               {content.trainingBlocks
                 .filter((b) => b.releaseId === r.id)
