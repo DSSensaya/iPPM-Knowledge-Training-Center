@@ -35,3 +35,9 @@ Offen bleiben die in `DESIGN.md` genannten Figma-Detailwerte, Schriftdateien, vo
   Steel-/Weiß-Oberflächen, Signal für den gewählten Ansichtsbutton und blaue
   Fokuslinien verwenden vorhandene Tokens. Offene Punkte werden ausdrücklich
   benannt; ihre Warnungsbegrenzung ist nur eine zusätzliche Kennzeichnung.
+  Hover-/Fokusvorschauen zeigen höchstens 160 Zeichen der Beschreibung und einen
+  Hinweis zur Detailansicht. Sie verwenden maximal 280 px Breite, 12 px Padding
+  und 14 px Schrift bei 1,35 Zeilenhöhe. Eingang, Ergebnis und vollständige
+  offene Punkte stehen in der Schrittdetailansicht. Benachbarte Schritte werden
+  über gegenüberliegende Seiten direkt verbunden; längere Verbindungen wählen
+  kurze, kollisionsfreie orthogonale Wege durch die bestehenden Gassen.

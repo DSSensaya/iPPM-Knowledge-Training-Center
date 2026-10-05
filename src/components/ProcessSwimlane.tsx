@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { ContentStore, Process, ProcessStep } from '../content/types';
 import { getOpenPoints, roleLabel } from '../lib/queries';
-import { getProcessLayout } from '../lib/process-layout';
+import { getProcessFlowPath, getProcessLayout } from '../lib/process-layout';
 import { processHref, rememberProcessPosition, stepHref } from '../lib/process-navigation';
 
 function StepCard({
@@ -33,6 +33,14 @@ function StepCard({
   const guides = step.materials.filter((m) => m.kind === 'guide').length;
   const orientations = step.materials.filter((m) => m.kind === 'orientation').length;
   const references = step.materials.filter((m) => m.kind === 'reference').length;
+  const description = step.description || `${step.number} ${step.title}`;
+  const preview =
+    description.length > 160
+      ? `${description
+          .slice(0, 157)
+          .replace(/\s+\S*$/, '')
+          .trimEnd()}…`
+      : description;
   return (
     <li style={style} className={`swimlane-item ${dismissed ? 'tooltip-dismissed' : ''}`}>
       <div className="process-card-info">
@@ -73,11 +81,8 @@ function StepCard({
           </span>
         </a>
         <div className="process-tooltip" id={tooltipId} role="tooltip">
-          <p>{step.description || `${step.number} ${step.title}`}</p>
-          {step.input && <p>Eingang: {step.input}</p>}
-          {step.output && <p>Ergebnis: {step.output}</p>}
-          {issues.length > 0 && <p>Offene Punkte: {issues.join(' · ')}</p>}
-          <p>Schritt öffnen für Materialien, Geltung und Quellen.</p>
+          <p>{preview}</p>
+          <p className="process-tooltip-hint">Details im Schritt öffnen.</p>
         </div>
       </div>
       {flows.length > 0 && (
@@ -146,19 +151,7 @@ export function ProcessSwimlane({ process, store }: { process: Process; store: C
         const a = rects.get(flow.from),
           b = rects.get(flow.to);
         if (!a || !b) return [];
-        const offset = 12 + (i % 6) * 4;
-        const ax = a.right + offset,
-          bx = b.right + offset;
-        const ay = (a.top + a.bottom) / 2,
-          by = (b.top + b.bottom) / 2;
-        const rowBottom = Math.max(
-          ...[...rects.values()].filter((r) => Math.abs(r.top - a.top) < 1).map((r) => r.bottom),
-        );
-        const corridor = rowBottom + 16 + (i % 4) * 8;
-        const d =
-          Math.abs(a.right - b.right) < 1
-            ? `M ${a.right} ${ay} H ${ax} V ${by} H ${b.right}`
-            : `M ${a.right} ${ay} H ${ax} V ${corridor} H ${bx} V ${by} H ${b.right}`;
+        const d = getProcessFlowPath(a, b, [...rects.values()], i);
         return [{ d, from: flow.from, to: flow.to }];
       });
       setGeometry({ width: element.offsetWidth, height: element.offsetHeight, paths });

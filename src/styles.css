@@ -752,6 +752,7 @@ footer {
 }
 .swimlane-item {
   position: relative;
+  align-self: start;
   margin: 0;
   min-width: 0;
   background: var(--white);
@@ -800,13 +801,20 @@ footer {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
-  min-width: 240px;
+  width: min(280px, calc(100% + 48px));
   z-index: 4;
-  padding: 16px;
-  border: 2px solid var(--ink);
+  padding: 12px;
+  border: 1px solid var(--ink);
   background: var(--white);
   font-size: 14px;
+  line-height: 1.35;
+}
+.process-tooltip p {
+  margin: 0;
+}
+.process-tooltip .process-tooltip-hint {
+  margin-top: 8px;
+  color: var(--muted-soft);
 }
 .swimlane-item:has(.process-card:hover),
 .swimlane-item:has(.process-card:focus),
@@ -865,7 +873,8 @@ footer {
     padding-bottom: 32px;
   }
   .process-tooltip {
-    min-width: 0;
+    width: 100%;
+    max-width: 280px;
   }
   .process-role {
     font-size: 16px;

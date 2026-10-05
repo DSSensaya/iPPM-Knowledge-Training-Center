@@ -156,7 +156,9 @@ lokalen Editor-Speichern. Bestehende Relationship-Kontexte bleiben eigenständig
 `getProcessLayout()` berechnet deterministische Rollen-/Phasenplätze ohne
 Inhaltskopien und ohne Ableitung von Flow-Beziehungen. `ResizeObserver` beobachtet
 Board und Karten; SVG-Geometrie wird im nächsten Animation-Frame neu gemessen.
-Zeilenabstände und Spaltengassen führen orthogonale Linien an Karten vorbei.
+Benachbarte Schritte werden direkt über gegenüberliegende Seiten verbunden.
+Für längere Verbindungen wählt `getProcessFlowPath()` einen kurzen orthogonalen
+Weg ohne Kartenüberschneidung durch Zeilenabstände und Spaltengassen.
 SVG ist dekorativ, nicht fokussierbar und blockiert keine Pointer-Ereignisse.
 Aufklappbare Textverbindungen enthalten dieselben Ziele und Quellen, auch in der
 kompakten Mobilansicht. Karten bleiben semantische Links innerhalb von Listen.

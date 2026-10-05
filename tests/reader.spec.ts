@@ -585,8 +585,14 @@ test('process edges stay orthogonal, avoid cards and remeasure after resize and 
           cursor = 2;
         const source = cards.find((c) => c.id === path.dataset.from)!;
         const target = cards.find((c) => c.id === path.dataset.to)!;
-        if (Math.abs(x - source.right) > 1 || Math.abs(y - (source.top + source.bottom) / 2) > 1)
-          errors.push('source');
+        const onEdge = (r: typeof source, px: number, py: number) =>
+          ((Math.abs(px - r.left) < 1 || Math.abs(px - r.right) < 1) &&
+            py >= r.top &&
+            py <= r.bottom) ||
+          ((Math.abs(py - r.top) < 1 || Math.abs(py - r.bottom) < 1) &&
+            px >= r.left &&
+            px <= r.right);
+        if (!onEdge(source, x, y)) errors.push('source');
         for (const command of commands.slice(1)) {
           const nx = command === 'H' ? nums[cursor++] : x;
           const ny = command === 'V' ? nums[cursor++] : y;
@@ -606,14 +612,20 @@ test('process edges stay orthogonal, avoid cards and remeasure after resize and 
           x = nx;
           y = ny;
         }
-        if (Math.abs(x - target.right) > 1 || Math.abs(y - (target.top + target.bottom) / 2) > 1)
-          errors.push('target');
+        if (!onEdge(target, x, y)) errors.push('target');
       }
       return errors;
     });
     expect(errors).toEqual([]);
   };
   await assertGeometry();
+  // Adjacent steps use facing edges, without detours around the row.
+  expect(
+    await page.locator('path[data-from="step-1-1"][data-to="step-1-2"]').getAttribute('d'),
+  ).toMatch(/^M [\d.]+ [\d.]+ H [\d.]+$/);
+  expect(
+    await page.locator('path[data-from="step-2-1"][data-to="step-2-2"]').getAttribute('d'),
+  ).toMatch(/^M [\d.]+ [\d.]+ V [\d.]+$/);
   const original = await paths.first().getAttribute('d');
   await page.setViewportSize({ width: 1800, height: 1100 });
   await expect.poll(() => paths.first().getAttribute('d')).not.toBe(original);
@@ -682,7 +694,10 @@ test('hover tooltip remains reachable across the card edge with collapsed and ex
     await page.mouse.move(cardBounds.x + 20, cardBounds.y + cardBounds.height - 2);
     await page.mouse.move(tooltipBounds.x + 20, tooltipBounds.y + 20, { steps: 24 });
     await expect(tooltip).toBeVisible();
-    await expect(tooltip).toContainText('Offene Punkte:');
+    await expect(tooltip).toContainText('Details im Schritt öffnen.');
+    await expect(tooltip).not.toContainText(/Eingang:|Ergebnis:|Offene Punkte:/);
+    expect(tooltipBounds.width).toBeLessThanOrEqual(280);
+    expect(tooltipBounds.height).toBeLessThanOrEqual(180);
     await page.screenshot({
       path: testInfo.outputPath(`process-tooltip-${expanded ? 'expanded' : 'collapsed'}.png`),
     });
@@ -690,4 +705,12 @@ test('hover tooltip remains reachable across the card edge with collapsed and ex
     await expect(tooltip).toBeHidden();
     await page.mouse.move(0, 0);
   }
+  const longCard = page.locator('#process-card-step-1-1');
+  await longCard.hover();
+  const longTooltip = longCard.locator('..').getByRole('tooltip');
+  await expect(longTooltip).toBeVisible();
+  const preview = await longTooltip.locator('p').first().textContent();
+  expect(preview!.length).toBeLessThanOrEqual(160);
+  expect(preview).toMatch(/…$/);
+  expect((await longTooltip.boundingBox())!.height).toBeLessThanOrEqual(180);
 });
